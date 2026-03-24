@@ -75,7 +75,8 @@ function ballKicked(matchDetails, team, player) {
   const isVolley = ['stomach', 'back', 'chest', 'shoulder'].includes(bodyPart)
   if (isHeader) {
     matchDetails.iterationLog.push(`Header made by: ${player.name}`)
-    power *= 0.7
+    let headSkill = parseInt(player.skill.head_game || 50, 10)
+    power *= (0.5 + (headSkill / 200))
   } else if (isVolley) {
     matchDetails.iterationLog.push(`Volley kick made by: ${player.name}`)
     power *= 0.9
@@ -138,7 +139,8 @@ function shotMade(matchDetails, team, player) {
   const isVolley = ['stomach', 'back', 'chest', 'shoulder'].includes(bodyPart)
   if (isHeader) {
     matchDetails.iterationLog.push(`Header Shot by: ${player.name}`)
-    shotPower *= 0.7
+    let headSkill = parseInt(player.skill.head_game || 50, 10)
+    shotPower *= (0.5 + (headSkill / 200))
   } else if (isVolley) {
     matchDetails.iterationLog.push(`Volley Shot by: ${player.name}`)
     shotPower *= 0.9
@@ -152,7 +154,11 @@ function shotMade(matchDetails, team, player) {
   let shootingRoll = common.getRandomNumber(0, 40)
   if (isVolley) shootingRoll += 5
   if (isHeader) shootingRoll += 3
-  if (shotReachGoal && player.skill.shooting > shootingRoll) {
+  let effectiveShootingSkill = player.skill.shooting
+  if (isHeader) {
+    effectiveShootingSkill = parseInt(player.skill.head_game || player.skill.shooting, 10)
+  }
+  if (shotReachGoal && effectiveShootingSkill > shootingRoll) {
     thisTeamStats.shots.on++
     player.stats.shots.on++
     shotPosition[0] = common.getRandomNumber((pitchWidth / 2) - 50, (pitchWidth / 2) + 50)
@@ -279,7 +285,8 @@ function throughBall(matchDetails, team, player) {
   const power = common.calculatePower(player.skill.strength, pitchHeight)
   const maxDist = power
   const aTop = player.originPOS[1] > (pitchHeight / 2)
-  let teammates = getPlayersInDistance(team, player, pitchSize)
+  let opposition = (matchDetails.kickOffTeam.teamID === team.teamID) ? matchDetails.secondTeam : matchDetails.kickOffTeam
+  let teammates = getPlayersInDistance(team, player, pitchSize, opposition)
   if (!teammates || teammates.length === 0) return matchDetails
   let candidates = teammates.filter(p => {
     const forward = aTop ? ballPos[1] - p.position[1] : p.position[1] - ballPos[1]
@@ -320,7 +327,7 @@ function tballScoreOption(p, attackingTop, ballPos, maxDistance) {
 }
 
 
-function getPlayersInDistance(team, player, pitchSize) {
+function getPlayersInDistance(team, player, pitchSize, opposition) {
   const [pitchWidth, pitchHeight] = pitchSize
   let playersInDistance = []
   for (const teamPlayer of team.players) {
@@ -331,10 +338,27 @@ function getPlayersInDistance(team, player, pitchSize) {
         let playerToPlayerX = player.currentPOS[0] - teamPlayer.currentPOS[0]
         let playerToPlayerY = player.currentPOS[1] - teamPlayer.currentPOS[1]
         let proximityToBall = Math.abs(playerToPlayerX + playerToPlayerY)
+        let isMarked = false
+        if (opposition) {
+          for (const opp of opposition.players) {
+            if (opp.currentPOS[0] === 'NP') continue
+            let markingSkill = parseInt(opp.skill.marking || 30, 10)
+            let markRadius = 10 + (markingSkill / 5)
+            let dx = Math.abs(teamPlayer.currentPOS[0] - opp.currentPOS[0])
+            let dy = Math.abs(teamPlayer.currentPOS[1] - opp.currentPOS[1])
+            if (dx < markRadius && dy < markRadius) {
+              if (common.getRandomNumber(0, 100) < markingSkill) {
+                isMarked = true
+                break
+              }
+            }
+          }
+        }
         playersInDistance.push({
           'position': teamPlayer.currentPOS,
           'proximity': proximityToBall,
-          'name': teamPlayer.name
+          'name': teamPlayer.name,
+          'isMarked': isMarked
         })
       }
     }
@@ -431,6 +455,10 @@ function resolveDeflection(power, thisPOS, defPosition, defPlayer, defTeam, calc
   matchDetails.ball.lastTouch.bodyPart = bodyPart
   matchDetails.ball.lastTouch.deflection = true
   matchDetails.iterationLog.push(`ball deflected by ${defPlayer.name} ${bodyPart}`)
+  if (bodyPart === 'head') {
+    let headSkill = parseInt(defPlayer.skill.head_game || 50, 10)
+    newPower = newPower * (0.5 + headSkill / 200)
+  }
   defPlayer.hasBall = false
   matchDetails.ball.Player = ''
   matchDetails.ball.withPlayer = false
@@ -570,7 +598,8 @@ function ballPassed(matchDetails, team, player) {
   const power = common.calculatePower(player.skill.strength, pitchHeight)
   const maxDist = power
 
-  let teammates = getPlayersInDistance(team, player, pitchSize)
+  let opposition = (matchDetails.kickOffTeam.teamID === team.teamID) ? matchDetails.secondTeam : matchDetails.kickOffTeam
+  let teammates = getPlayersInDistance(team, player, pitchSize, opposition)
   if (!teammates || teammates.length === 0) return matchDetails
 
   let reachable = teammates.filter(p => {

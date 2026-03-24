@@ -344,9 +344,10 @@ function getInterceptTrajectory(opposition, ballPosition, pitchSize) {
 function getRunMovement(matchDetails, player, ballX, ballY) {
   let move = [0, 0]
   if (player.fitness > 20) player.fitness = common.round(player.fitness - 0.005, 6)
+  let speedFactor = Math.max(1, Math.ceil(parseInt(player.skill.speed || 50, 10) / 50))
   let side = (player.originPOS[1] > matchDetails.pitchSize[1] / 2) ? `bottom` : `top`
-  if (player.hasBall && side == `bottom`) return [common.getRandomNumber(0, 2), common.getRandomNumber(0, 2)]
-  if (player.hasBall && side == `top`) return [common.getRandomNumber(-2, 0), common.getRandomNumber(-2, 0)]
+  if (player.hasBall && side == `bottom`) return [common.getRandomNumber(0, 2) * speedFactor, common.getRandomNumber(0, 2) * speedFactor]
+  if (player.hasBall && side == `top`) return [common.getRandomNumber(-2, 0) * speedFactor, common.getRandomNumber(-2, 0) * speedFactor]
   let movementRun = [-1, 0, 1]
   if (common.isBetween(ballX, -60, 60) && common.isBetween(ballY, -60, 60)) {
     if (common.isBetween(ballX, -60, 0)) move[0] = movementRun[common.getRandomNumber(2, 2)]
@@ -364,15 +365,18 @@ function getRunMovement(matchDetails, player, ballX, ballY) {
   if (formationDirection[1] === 0) move[1] = movementRun[common.getRandomNumber(1, 1)]
   else if (formationDirection[1] < 0) move[1] = movementRun[common.getRandomNumber(0, 1)]
   else if (formationDirection[1] > 0) move[1] = movementRun[common.getRandomNumber(1, 2)]
+  move[0] *= speedFactor
+  move[1] *= speedFactor
   return move
 }
 
 function getSprintMovement(matchDetails, player, ballX, ballY) {
   let move = [0, 0]
   if (player.fitness > 30) player.fitness = common.round(player.fitness - 0.01, 6)
+  let speedFactor = Math.max(1, Math.ceil(parseInt(player.skill.speed || 50, 10) / 40))
   let side = (player.originPOS[1] > matchDetails.pitchSize[1] / 2) ? `bottom` : `top`
-  if (player.hasBall && side == `bottom`) return [common.getRandomNumber(-4, 4), common.getRandomNumber(-4, -2)]
-  if (player.hasBall && side == `top`) return [common.getRandomNumber(-4, 4), common.getRandomNumber(2, 4)]
+  if (player.hasBall && side == `bottom`) return [common.getRandomNumber(-4, 4) * speedFactor, common.getRandomNumber(-4, -2) * speedFactor]
+  if (player.hasBall && side == `top`) return [common.getRandomNumber(-4, 4) * speedFactor, common.getRandomNumber(2, 4) * speedFactor]
   let movementSprint = [-2, -1, 0, 1, 2]
   if (common.isBetween(ballX, -60, 60) && common.isBetween(ballY, -60, 60)) {
     if (common.isBetween(ballX, -60, 0)) move[0] = movementSprint[common.getRandomNumber(3, 4)]
@@ -390,6 +394,8 @@ function getSprintMovement(matchDetails, player, ballX, ballY) {
   if (formationDirection[1] === 0) move[1] = movementSprint[common.getRandomNumber(2, 2)]
   else if (formationDirection[1] < 0) move[1] = movementSprint[common.getRandomNumber(0, 2)]
   else if (formationDirection[1] > 0) move[1] = movementSprint[common.getRandomNumber(2, 4)]
+  move[0] *= speedFactor
+  move[1] *= speedFactor
   return move
 }
 
@@ -399,7 +405,9 @@ function closestPlayerToBall(closestPlayer, team, matchDetails) {
   for (let thisPlayer of team.players) {
     let ballToPlayerX = Math.abs(thisPlayer.currentPOS[0] - position[0])
     let ballToPlayerY = Math.abs(thisPlayer.currentPOS[1] - position[1])
-    let proximityToBall = ballToPlayerX + ballToPlayerY
+    let speedSkill = parseInt(thisPlayer.skill.speed || 50, 10)
+    let speedMultiplier = 1.5 - (speedSkill / 100)
+    let proximityToBall = (ballToPlayerX + ballToPlayerY) * speedMultiplier
     if (proximityToBall < closestPlayer.position) {
       closestPlayer.name = thisPlayer.name
       closestPlayer.position = proximityToBall

@@ -2,8 +2,14 @@
   "teams": [
     {
       "name": "Thunderbolts",
-      "colors": { "primary": "#FFD700", "secondary": "#1A1A2E" },
-      "jersey": { "home": "Gold body with navy sleeves", "away": "Navy body with gold trim" },
+      "colors": {
+        "primary": "#FFD700",
+        "secondary": "#1A1A2E"
+      },
+      "jersey": {
+        "home": "Gold body with navy sleeves",
+        "away": "Navy body with gold trim"
+      },
       "rating": "86",
       "players": [
         {
@@ -19,9 +25,16 @@
             "agility": "72",
             "strength": "70",
             "penalty_taking": "15",
-            "jumping": "84"
+            "jumping": "84",
+            "speed": "45",
+            "marking": "23",
+            "head_game": "60",
+            "set_piece_taking": "17"
           },
-          "currentPOS": [200, 0],
+          "currentPOS": [
+            200,
+            0
+          ],
           "fitness": 100,
           "height": 191,
           "injured": false
@@ -39,9 +52,16 @@
             "agility": "64",
             "strength": "80",
             "penalty_taking": "25",
-            "jumping": "78"
+            "jumping": "78",
+            "speed": "57",
+            "marking": "82",
+            "head_game": "81",
+            "set_piece_taking": "16"
           },
-          "currentPOS": [200, 100],
+          "currentPOS": [
+            200,
+            100
+          ],
           "fitness": 100,
           "height": 188,
           "injured": false
@@ -59,9 +79,16 @@
             "agility": "82",
             "strength": "68",
             "penalty_taking": "72",
-            "jumping": "55"
+            "jumping": "55",
+            "speed": "66",
+            "marking": "61",
+            "head_game": "60",
+            "set_piece_taking": "62"
           },
-          "currentPOS": [130, 200],
+          "currentPOS": [
+            130,
+            200
+          ],
           "fitness": 100,
           "height": 178,
           "injured": false
@@ -79,9 +106,16 @@
             "agility": "78",
             "strength": "72",
             "penalty_taking": "65",
-            "jumping": "60"
+            "jumping": "60",
+            "speed": "72",
+            "marking": "49",
+            "head_game": "58",
+            "set_piece_taking": "55"
           },
-          "currentPOS": [270, 200],
+          "currentPOS": [
+            270,
+            200
+          ],
           "fitness": 100,
           "height": 182,
           "injured": false
@@ -99,9 +133,16 @@
             "agility": "90",
             "strength": "72",
             "penalty_taking": "85",
-            "jumping": "70"
+            "jumping": "70",
+            "speed": "84",
+            "marking": "17",
+            "head_game": "84",
+            "set_piece_taking": "50"
           },
-          "currentPOS": [150, 280],
+          "currentPOS": [
+            150,
+            280
+          ],
           "fitness": 100,
           "height": 176,
           "injured": false
@@ -119,9 +160,16 @@
             "agility": "86",
             "strength": "76",
             "penalty_taking": "78",
-            "jumping": "75"
+            "jumping": "75",
+            "speed": "70",
+            "marking": "34",
+            "head_game": "68",
+            "set_piece_taking": "79"
           },
-          "currentPOS": [250, 280],
+          "currentPOS": [
+            250,
+            280
+          ],
           "fitness": 100,
           "height": 181,
           "injured": false
@@ -139,7 +187,11 @@
             "agility": "68",
             "strength": "65",
             "penalty_taking": "12",
-            "jumping": "76"
+            "jumping": "76",
+            "speed": "46",
+            "marking": "23",
+            "head_game": "60",
+            "set_piece_taking": "15"
           },
           "currentPOS": null,
           "fitness": 100,
@@ -159,7 +211,11 @@
             "agility": "62",
             "strength": "75",
             "penalty_taking": "20",
-            "jumping": "72"
+            "jumping": "72",
+            "speed": "62",
+            "marking": "75",
+            "head_game": "78",
+            "set_piece_taking": "26"
           },
           "currentPOS": null,
           "fitness": 100,
@@ -179,7 +235,11 @@
             "agility": "76",
             "strength": "64",
             "penalty_taking": "58",
-            "jumping": "50"
+            "jumping": "50",
+            "speed": "70",
+            "marking": "65",
+            "head_game": "51",
+            "set_piece_taking": "40"
           },
           "currentPOS": null,
           "fitness": 100,
@@ -199,7 +259,11 @@
             "agility": "82",
             "strength": "70",
             "penalty_taking": "72",
-            "jumping": "65"
+            "jumping": "65",
+            "speed": "84",
+            "marking": "19",
+            "head_game": "83",
+            "set_piece_taking": "72"
           },
           "currentPOS": null,
           "fitness": 100,
@@ -210,8 +274,14 @@
     },
     {
       "name": "Cyclones",
-      "colors": { "primary": "#00CED1", "secondary": "#2F4F4F" },
-      "jersey": { "home": "Teal body with dark slate accents", "away": "Slate grey body with teal stripes" },
+      "colors": {
+        "primary": "#00CED1",
+        "secondary": "#2F4F4F"
+      },
+      "jersey": {
+        "home": "Teal body with dark slate accents",
+        "away": "Slate grey body with teal stripes"
+      },
       "rating": "83",
       "players": [
         {
@@ -227,9 +297,16 @@
             "agility": "70",
             "strength": "68",
             "penalty_taking": "18",
-            "jumping": "80"
+            "jumping": "80",
+            "speed": "45",
+            "marking": "33",
+            "head_game": "72",
+            "set_piece_taking": "14"
           },
-          "currentPOS": [200, 0],
+          "currentPOS": [
+            200,
+            0
+          ],
           "fitness": 100,
           "height": 190,
           "injured": false
@@ -247,9 +324,16 @@
             "agility": "60",
             "strength": "78",
             "penalty_taking": "20",
-            "jumping": "76"
+            "jumping": "76",
+            "speed": "58",
+            "marking": "81",
+            "head_game": "72",
+            "set_piece_taking": "18"
           },
-          "currentPOS": [200, 100],
+          "currentPOS": [
+            200,
+            100
+          ],
           "fitness": 100,
           "height": 186,
           "injured": false
@@ -267,9 +351,16 @@
             "agility": "80",
             "strength": "66",
             "penalty_taking": "68",
-            "jumping": "52"
+            "jumping": "52",
+            "speed": "60",
+            "marking": "49",
+            "head_game": "64",
+            "set_piece_taking": "69"
           },
-          "currentPOS": [130, 200],
+          "currentPOS": [
+            130,
+            200
+          ],
           "fitness": 100,
           "height": 175,
           "injured": false
@@ -287,9 +378,16 @@
             "agility": "78",
             "strength": "65",
             "penalty_taking": "60",
-            "jumping": "54"
+            "jumping": "54",
+            "speed": "62",
+            "marking": "57",
+            "head_game": "45",
+            "set_piece_taking": "62"
           },
-          "currentPOS": [270, 200],
+          "currentPOS": [
+            270,
+            200
+          ],
           "fitness": 100,
           "height": 172,
           "injured": false
@@ -307,9 +405,16 @@
             "agility": "85",
             "strength": "70",
             "penalty_taking": "80",
-            "jumping": "68"
+            "jumping": "68",
+            "speed": "79",
+            "marking": "24",
+            "head_game": "83",
+            "set_piece_taking": "45"
           },
-          "currentPOS": [150, 280],
+          "currentPOS": [
+            150,
+            280
+          ],
           "fitness": 100,
           "height": 177,
           "injured": false
@@ -327,9 +432,16 @@
             "agility": "84",
             "strength": "74",
             "penalty_taking": "75",
-            "jumping": "72"
+            "jumping": "72",
+            "speed": "76",
+            "marking": "29",
+            "head_game": "77",
+            "set_piece_taking": "52"
           },
-          "currentPOS": [250, 280],
+          "currentPOS": [
+            250,
+            280
+          ],
           "fitness": 100,
           "height": 183,
           "injured": false
@@ -347,7 +459,11 @@
             "agility": "65",
             "strength": "62",
             "penalty_taking": "14",
-            "jumping": "74"
+            "jumping": "74",
+            "speed": "46",
+            "marking": "20",
+            "head_game": "74",
+            "set_piece_taking": "10"
           },
           "currentPOS": null,
           "fitness": 100,
@@ -367,7 +483,11 @@
             "agility": "58",
             "strength": "74",
             "penalty_taking": "18",
-            "jumping": "70"
+            "jumping": "70",
+            "speed": "59",
+            "marking": "80",
+            "head_game": "62",
+            "set_piece_taking": "24"
           },
           "currentPOS": null,
           "fitness": 100,
@@ -387,7 +507,11 @@
             "agility": "74",
             "strength": "62",
             "penalty_taking": "55",
-            "jumping": "48"
+            "jumping": "48",
+            "speed": "82",
+            "marking": "65",
+            "head_game": "61",
+            "set_piece_taking": "69"
           },
           "currentPOS": null,
           "fitness": 100,
@@ -407,7 +531,11 @@
             "agility": "78",
             "strength": "68",
             "penalty_taking": "70",
-            "jumping": "62"
+            "jumping": "62",
+            "speed": "76",
+            "marking": "24",
+            "head_game": "62",
+            "set_piece_taking": "78"
           },
           "currentPOS": null,
           "fitness": 100,
@@ -418,8 +546,14 @@
     },
     {
       "name": "Red Phoenix",
-      "colors": { "primary": "#DC143C", "secondary": "#FFFAF0" },
-      "jersey": { "home": "Crimson body with cream collar", "away": "Cream body with crimson sash" },
+      "colors": {
+        "primary": "#DC143C",
+        "secondary": "#FFFAF0"
+      },
+      "jersey": {
+        "home": "Crimson body with cream collar",
+        "away": "Cream body with crimson sash"
+      },
       "rating": "88",
       "players": [
         {
@@ -435,9 +569,16 @@
             "agility": "75",
             "strength": "74",
             "penalty_taking": "18",
-            "jumping": "88"
+            "jumping": "88",
+            "speed": "56",
+            "marking": "24",
+            "head_game": "56",
+            "set_piece_taking": "14"
           },
-          "currentPOS": [200, 0],
+          "currentPOS": [
+            200,
+            0
+          ],
           "fitness": 100,
           "height": 193,
           "injured": false
@@ -455,9 +596,16 @@
             "agility": "68",
             "strength": "82",
             "penalty_taking": "22",
-            "jumping": "82"
+            "jumping": "82",
+            "speed": "63",
+            "marking": "90",
+            "head_game": "80",
+            "set_piece_taking": "19"
           },
-          "currentPOS": [200, 100],
+          "currentPOS": [
+            200,
+            100
+          ],
           "fitness": 100,
           "height": 192,
           "injured": false
@@ -475,9 +623,16 @@
             "agility": "85",
             "strength": "70",
             "penalty_taking": "76",
-            "jumping": "58"
+            "jumping": "58",
+            "speed": "66",
+            "marking": "45",
+            "head_game": "52",
+            "set_piece_taking": "64"
           },
-          "currentPOS": [130, 200],
+          "currentPOS": [
+            130,
+            200
+          ],
           "fitness": 100,
           "height": 180,
           "injured": false
@@ -495,9 +650,16 @@
             "agility": "82",
             "strength": "72",
             "penalty_taking": "70",
-            "jumping": "56"
+            "jumping": "56",
+            "speed": "69",
+            "marking": "55",
+            "head_game": "44",
+            "set_piece_taking": "45"
           },
-          "currentPOS": [270, 200],
+          "currentPOS": [
+            270,
+            200
+          ],
           "fitness": 100,
           "height": 179,
           "injured": false
@@ -515,9 +677,16 @@
             "agility": "92",
             "strength": "75",
             "penalty_taking": "88",
-            "jumping": "74"
+            "jumping": "74",
+            "speed": "89",
+            "marking": "24",
+            "head_game": "77",
+            "set_piece_taking": "52"
           },
-          "currentPOS": [150, 280],
+          "currentPOS": [
+            150,
+            280
+          ],
           "fitness": 100,
           "height": 178,
           "injured": false
@@ -535,9 +704,16 @@
             "agility": "88",
             "strength": "72",
             "penalty_taking": "82",
-            "jumping": "70"
+            "jumping": "70",
+            "speed": "79",
+            "marking": "20",
+            "head_game": "77",
+            "set_piece_taking": "61"
           },
-          "currentPOS": [250, 280],
+          "currentPOS": [
+            250,
+            280
+          ],
           "fitness": 100,
           "height": 175,
           "injured": false
@@ -555,7 +731,11 @@
             "agility": "70",
             "strength": "66",
             "penalty_taking": "14",
-            "jumping": "78"
+            "jumping": "78",
+            "speed": "43",
+            "marking": "32",
+            "head_game": "58",
+            "set_piece_taking": "12"
           },
           "currentPOS": null,
           "fitness": 100,
@@ -575,7 +755,11 @@
             "agility": "62",
             "strength": "76",
             "penalty_taking": "18",
-            "jumping": "74"
+            "jumping": "74",
+            "speed": "54",
+            "marking": "84",
+            "head_game": "69",
+            "set_piece_taking": "18"
           },
           "currentPOS": null,
           "fitness": 100,
@@ -595,7 +779,11 @@
             "agility": "78",
             "strength": "66",
             "penalty_taking": "62",
-            "jumping": "52"
+            "jumping": "52",
+            "speed": "67",
+            "marking": "62",
+            "head_game": "43",
+            "set_piece_taking": "44"
           },
           "currentPOS": null,
           "fitness": 100,
@@ -615,7 +803,11 @@
             "agility": "84",
             "strength": "72",
             "penalty_taking": "76",
-            "jumping": "66"
+            "jumping": "66",
+            "speed": "74",
+            "marking": "23",
+            "head_game": "76",
+            "set_piece_taking": "70"
           },
           "currentPOS": null,
           "fitness": 100,
@@ -626,8 +818,14 @@
     },
     {
       "name": "Shadow Wolves",
-      "colors": { "primary": "#4B0082", "secondary": "#C0C0C0" },
-      "jersey": { "home": "Indigo body with silver shoulders", "away": "Silver body with indigo pinstripes" },
+      "colors": {
+        "primary": "#4B0082",
+        "secondary": "#C0C0C0"
+      },
+      "jersey": {
+        "home": "Indigo body with silver shoulders",
+        "away": "Silver body with indigo pinstripes"
+      },
       "rating": "81",
       "players": [
         {
@@ -643,9 +841,16 @@
             "agility": "68",
             "strength": "66",
             "penalty_taking": "16",
-            "jumping": "78"
+            "jumping": "78",
+            "speed": "50",
+            "marking": "26",
+            "head_game": "64",
+            "set_piece_taking": "25"
           },
-          "currentPOS": [200, 0],
+          "currentPOS": [
+            200,
+            0
+          ],
           "fitness": 100,
           "height": 189,
           "injured": false
@@ -663,9 +868,16 @@
             "agility": "60",
             "strength": "76",
             "penalty_taking": "18",
-            "jumping": "74"
+            "jumping": "74",
+            "speed": "68",
+            "marking": "86",
+            "head_game": "72",
+            "set_piece_taking": "20"
           },
-          "currentPOS": [200, 100],
+          "currentPOS": [
+            200,
+            100
+          ],
           "fitness": 100,
           "height": 185,
           "injured": false
@@ -683,9 +895,16 @@
             "agility": "76",
             "strength": "64",
             "penalty_taking": "62",
-            "jumping": "50"
+            "jumping": "50",
+            "speed": "64",
+            "marking": "46",
+            "head_game": "63",
+            "set_piece_taking": "60"
           },
-          "currentPOS": [130, 200],
+          "currentPOS": [
+            130,
+            200
+          ],
           "fitness": 100,
           "height": 174,
           "injured": false
@@ -703,9 +922,16 @@
             "agility": "74",
             "strength": "66",
             "penalty_taking": "58",
-            "jumping": "52"
+            "jumping": "52",
+            "speed": "76",
+            "marking": "46",
+            "head_game": "61",
+            "set_piece_taking": "50"
           },
-          "currentPOS": [270, 200],
+          "currentPOS": [
+            270,
+            200
+          ],
           "fitness": 100,
           "height": 180,
           "injured": false
@@ -723,9 +949,16 @@
             "agility": "82",
             "strength": "74",
             "penalty_taking": "74",
-            "jumping": "70"
+            "jumping": "70",
+            "speed": "75",
+            "marking": "15",
+            "head_game": "69",
+            "set_piece_taking": "52"
           },
-          "currentPOS": [150, 280],
+          "currentPOS": [
+            150,
+            280
+          ],
           "fitness": 100,
           "height": 182,
           "injured": false
@@ -743,9 +976,16 @@
             "agility": "80",
             "strength": "70",
             "penalty_taking": "72",
-            "jumping": "66"
+            "jumping": "66",
+            "speed": "70",
+            "marking": "35",
+            "head_game": "85",
+            "set_piece_taking": "53"
           },
-          "currentPOS": [250, 280],
+          "currentPOS": [
+            250,
+            280
+          ],
           "fitness": 100,
           "height": 178,
           "injured": false
@@ -763,7 +1003,11 @@
             "agility": "62",
             "strength": "60",
             "penalty_taking": "12",
-            "jumping": "72"
+            "jumping": "72",
+            "speed": "47",
+            "marking": "40",
+            "head_game": "58",
+            "set_piece_taking": "25"
           },
           "currentPOS": null,
           "fitness": 100,
@@ -783,7 +1027,11 @@
             "agility": "56",
             "strength": "72",
             "penalty_taking": "15",
-            "jumping": "68"
+            "jumping": "68",
+            "speed": "51",
+            "marking": "75",
+            "head_game": "77",
+            "set_piece_taking": "20"
           },
           "currentPOS": null,
           "fitness": 100,
@@ -803,7 +1051,11 @@
             "agility": "72",
             "strength": "60",
             "penalty_taking": "52",
-            "jumping": "46"
+            "jumping": "46",
+            "speed": "75",
+            "marking": "45",
+            "head_game": "42",
+            "set_piece_taking": "57"
           },
           "currentPOS": null,
           "fitness": 100,
@@ -823,7 +1075,11 @@
             "agility": "76",
             "strength": "66",
             "penalty_taking": "66",
-            "jumping": "60"
+            "jumping": "60",
+            "speed": "77",
+            "marking": "30",
+            "head_game": "61",
+            "set_piece_taking": "72"
           },
           "currentPOS": null,
           "fitness": 100,
@@ -834,8 +1090,14 @@
     },
     {
       "name": "Iron Eagles",
-      "colors": { "primary": "#708090", "secondary": "#B22222" },
-      "jersey": { "home": "Slate grey body with firebrick red trim", "away": "Firebrick red body with grey sleeves" },
+      "colors": {
+        "primary": "#708090",
+        "secondary": "#B22222"
+      },
+      "jersey": {
+        "home": "Slate grey body with firebrick red trim",
+        "away": "Firebrick red body with grey sleeves"
+      },
       "rating": "85",
       "players": [
         {
@@ -851,9 +1113,16 @@
             "agility": "72",
             "strength": "70",
             "penalty_taking": "16",
-            "jumping": "82"
+            "jumping": "82",
+            "speed": "46",
+            "marking": "25",
+            "head_game": "62",
+            "set_piece_taking": "21"
           },
-          "currentPOS": [200, 0],
+          "currentPOS": [
+            200,
+            0
+          ],
           "fitness": 100,
           "height": 192,
           "injured": false
@@ -871,9 +1140,16 @@
             "agility": "64",
             "strength": "80",
             "penalty_taking": "22",
-            "jumping": "78"
+            "jumping": "78",
+            "speed": "63",
+            "marking": "72",
+            "head_game": "66",
+            "set_piece_taking": "29"
           },
-          "currentPOS": [200, 100],
+          "currentPOS": [
+            200,
+            100
+          ],
           "fitness": 100,
           "height": 190,
           "injured": false
@@ -891,9 +1167,16 @@
             "agility": "80",
             "strength": "68",
             "penalty_taking": "70",
-            "jumping": "54"
+            "jumping": "54",
+            "speed": "82",
+            "marking": "47",
+            "head_game": "47",
+            "set_piece_taking": "69"
           },
-          "currentPOS": [130, 200],
+          "currentPOS": [
+            130,
+            200
+          ],
           "fitness": 100,
           "height": 176,
           "injured": false
@@ -911,9 +1194,16 @@
             "agility": "78",
             "strength": "66",
             "penalty_taking": "64",
-            "jumping": "52"
+            "jumping": "52",
+            "speed": "77",
+            "marking": "46",
+            "head_game": "42",
+            "set_piece_taking": "57"
           },
-          "currentPOS": [270, 200],
+          "currentPOS": [
+            270,
+            200
+          ],
           "fitness": 100,
           "height": 174,
           "injured": false
@@ -931,9 +1221,16 @@
             "agility": "88",
             "strength": "74",
             "penalty_taking": "82",
-            "jumping": "72"
+            "jumping": "72",
+            "speed": "87",
+            "marking": "23",
+            "head_game": "65",
+            "set_piece_taking": "63"
           },
-          "currentPOS": [150, 280],
+          "currentPOS": [
+            150,
+            280
+          ],
           "fitness": 100,
           "height": 180,
           "injured": false
@@ -951,9 +1248,16 @@
             "agility": "84",
             "strength": "76",
             "penalty_taking": "78",
-            "jumping": "74"
+            "jumping": "74",
+            "speed": "92",
+            "marking": "34",
+            "head_game": "57",
+            "set_piece_taking": "72"
           },
-          "currentPOS": [250, 280],
+          "currentPOS": [
+            250,
+            280
+          ],
           "fitness": 100,
           "height": 184,
           "injured": false
@@ -971,7 +1275,11 @@
             "agility": "66",
             "strength": "64",
             "penalty_taking": "14",
-            "jumping": "74"
+            "jumping": "74",
+            "speed": "47",
+            "marking": "31",
+            "head_game": "71",
+            "set_piece_taking": "16"
           },
           "currentPOS": null,
           "fitness": 100,
@@ -991,7 +1299,11 @@
             "agility": "60",
             "strength": "74",
             "penalty_taking": "18",
-            "jumping": "72"
+            "jumping": "72",
+            "speed": "64",
+            "marking": "87",
+            "head_game": "80",
+            "set_piece_taking": "26"
           },
           "currentPOS": null,
           "fitness": 100,
@@ -1011,7 +1323,11 @@
             "agility": "76",
             "strength": "62",
             "penalty_taking": "58",
-            "jumping": "48"
+            "jumping": "48",
+            "speed": "70",
+            "marking": "45",
+            "head_game": "61",
+            "set_piece_taking": "49"
           },
           "currentPOS": null,
           "fitness": 100,
@@ -1031,7 +1347,11 @@
             "agility": "82",
             "strength": "70",
             "penalty_taking": "74",
-            "jumping": "64"
+            "jumping": "64",
+            "speed": "90",
+            "marking": "20",
+            "head_game": "76",
+            "set_piece_taking": "68"
           },
           "currentPOS": null,
           "fitness": 100,
@@ -1042,8 +1362,14 @@
     },
     {
       "name": "Solar Flares",
-      "colors": { "primary": "#FF8C00", "secondary": "#000000" },
-      "jersey": { "home": "Orange body with black side panels", "away": "Black body with orange chevron" },
+      "colors": {
+        "primary": "#FF8C00",
+        "secondary": "#000000"
+      },
+      "jersey": {
+        "home": "Orange body with black side panels",
+        "away": "Black body with orange chevron"
+      },
       "rating": "79",
       "players": [
         {
@@ -1059,9 +1385,16 @@
             "agility": "66",
             "strength": "64",
             "penalty_taking": "14",
-            "jumping": "76"
+            "jumping": "76",
+            "speed": "44",
+            "marking": "28",
+            "head_game": "56",
+            "set_piece_taking": "23"
           },
-          "currentPOS": [200, 0],
+          "currentPOS": [
+            200,
+            0
+          ],
           "fitness": 100,
           "height": 188,
           "injured": false
@@ -1079,9 +1412,16 @@
             "agility": "58",
             "strength": "74",
             "penalty_taking": "16",
-            "jumping": "72"
+            "jumping": "72",
+            "speed": "68",
+            "marking": "83",
+            "head_game": "77",
+            "set_piece_taking": "30"
           },
-          "currentPOS": [200, 100],
+          "currentPOS": [
+            200,
+            100
+          ],
           "fitness": 100,
           "height": 184,
           "injured": false
@@ -1099,9 +1439,16 @@
             "agility": "74",
             "strength": "62",
             "penalty_taking": "58",
-            "jumping": "48"
+            "jumping": "48",
+            "speed": "60",
+            "marking": "56",
+            "head_game": "59",
+            "set_piece_taking": "69"
           },
-          "currentPOS": [130, 200],
+          "currentPOS": [
+            130,
+            200
+          ],
           "fitness": 100,
           "height": 176,
           "injured": false
@@ -1119,9 +1466,16 @@
             "agility": "72",
             "strength": "64",
             "penalty_taking": "55",
-            "jumping": "50"
+            "jumping": "50",
+            "speed": "78",
+            "marking": "62",
+            "head_game": "60",
+            "set_piece_taking": "41"
           },
-          "currentPOS": [270, 200],
+          "currentPOS": [
+            270,
+            200
+          ],
           "fitness": 100,
           "height": 178,
           "injured": false
@@ -1139,9 +1493,16 @@
             "agility": "80",
             "strength": "72",
             "penalty_taking": "72",
-            "jumping": "68"
+            "jumping": "68",
+            "speed": "84",
+            "marking": "30",
+            "head_game": "83",
+            "set_piece_taking": "47"
           },
-          "currentPOS": [150, 280],
+          "currentPOS": [
+            150,
+            280
+          ],
           "fitness": 100,
           "height": 181,
           "injured": false
@@ -1159,9 +1520,16 @@
             "agility": "78",
             "strength": "68",
             "penalty_taking": "68",
-            "jumping": "64"
+            "jumping": "64",
+            "speed": "85",
+            "marking": "27",
+            "head_game": "77",
+            "set_piece_taking": "55"
           },
-          "currentPOS": [250, 280],
+          "currentPOS": [
+            250,
+            280
+          ],
           "fitness": 100,
           "height": 177,
           "injured": false
@@ -1179,7 +1547,11 @@
             "agility": "60",
             "strength": "58",
             "penalty_taking": "10",
-            "jumping": "70"
+            "jumping": "70",
+            "speed": "47",
+            "marking": "36",
+            "head_game": "74",
+            "set_piece_taking": "19"
           },
           "currentPOS": null,
           "fitness": 100,
@@ -1199,7 +1571,11 @@
             "agility": "56",
             "strength": "70",
             "penalty_taking": "14",
-            "jumping": "66"
+            "jumping": "66",
+            "speed": "57",
+            "marking": "70",
+            "head_game": "68",
+            "set_piece_taking": "21"
           },
           "currentPOS": null,
           "fitness": 100,
@@ -1219,7 +1595,11 @@
             "agility": "70",
             "strength": "58",
             "penalty_taking": "50",
-            "jumping": "44"
+            "jumping": "44",
+            "speed": "82",
+            "marking": "49",
+            "head_game": "50",
+            "set_piece_taking": "57"
           },
           "currentPOS": null,
           "fitness": 100,
@@ -1239,7 +1619,11 @@
             "agility": "76",
             "strength": "66",
             "penalty_taking": "64",
-            "jumping": "60"
+            "jumping": "60",
+            "speed": "70",
+            "marking": "17",
+            "head_game": "65",
+            "set_piece_taking": "53"
           },
           "currentPOS": null,
           "fitness": 100,
@@ -1250,8 +1634,14 @@
     },
     {
       "name": "Arctic Foxes",
-      "colors": { "primary": "#E0F7FA", "secondary": "#006064" },
-      "jersey": { "home": "Ice blue body with teal accents", "away": "Deep teal body with ice blue trim" },
+      "colors": {
+        "primary": "#E0F7FA",
+        "secondary": "#006064"
+      },
+      "jersey": {
+        "home": "Ice blue body with teal accents",
+        "away": "Deep teal body with ice blue trim"
+      },
       "rating": "84",
       "players": [
         {
@@ -1267,9 +1657,16 @@
             "agility": "72",
             "strength": "68",
             "penalty_taking": "16",
-            "jumping": "82"
+            "jumping": "82",
+            "speed": "42",
+            "marking": "28",
+            "head_game": "64",
+            "set_piece_taking": "21"
           },
-          "currentPOS": [200, 0],
+          "currentPOS": [
+            200,
+            0
+          ],
           "fitness": 100,
           "height": 191,
           "injured": false
@@ -1287,9 +1684,16 @@
             "agility": "62",
             "strength": "78",
             "penalty_taking": "20",
-            "jumping": "76"
+            "jumping": "76",
+            "speed": "72",
+            "marking": "77",
+            "head_game": "70",
+            "set_piece_taking": "16"
           },
-          "currentPOS": [200, 100],
+          "currentPOS": [
+            200,
+            100
+          ],
           "fitness": 100,
           "height": 188,
           "injured": false
@@ -1307,9 +1711,16 @@
             "agility": "80",
             "strength": "68",
             "penalty_taking": "68",
-            "jumping": "54"
+            "jumping": "54",
+            "speed": "68",
+            "marking": "65",
+            "head_game": "41",
+            "set_piece_taking": "68"
           },
-          "currentPOS": [130, 200],
+          "currentPOS": [
+            130,
+            200
+          ],
           "fitness": 100,
           "height": 180,
           "injured": false
@@ -1327,9 +1738,16 @@
             "agility": "78",
             "strength": "66",
             "penalty_taking": "62",
-            "jumping": "52"
+            "jumping": "52",
+            "speed": "69",
+            "marking": "52",
+            "head_game": "56",
+            "set_piece_taking": "50"
           },
-          "currentPOS": [270, 200],
+          "currentPOS": [
+            270,
+            200
+          ],
           "fitness": 100,
           "height": 176,
           "injured": false
@@ -1347,9 +1765,16 @@
             "agility": "88",
             "strength": "72",
             "penalty_taking": "80",
-            "jumping": "70"
+            "jumping": "70",
+            "speed": "78",
+            "marking": "35",
+            "head_game": "79",
+            "set_piece_taking": "68"
           },
-          "currentPOS": [150, 280],
+          "currentPOS": [
+            150,
+            280
+          ],
           "fitness": 100,
           "height": 177,
           "injured": false
@@ -1367,9 +1792,16 @@
             "agility": "84",
             "strength": "74",
             "penalty_taking": "76",
-            "jumping": "72"
+            "jumping": "72",
+            "speed": "86",
+            "marking": "34",
+            "head_game": "85",
+            "set_piece_taking": "62"
           },
-          "currentPOS": [250, 280],
+          "currentPOS": [
+            250,
+            280
+          ],
           "fitness": 100,
           "height": 183,
           "injured": false
@@ -1387,7 +1819,11 @@
             "agility": "64",
             "strength": "62",
             "penalty_taking": "12",
-            "jumping": "74"
+            "jumping": "74",
+            "speed": "55",
+            "marking": "26",
+            "head_game": "73",
+            "set_piece_taking": "23"
           },
           "currentPOS": null,
           "fitness": 100,
@@ -1407,7 +1843,11 @@
             "agility": "58",
             "strength": "74",
             "penalty_taking": "16",
-            "jumping": "70"
+            "jumping": "70",
+            "speed": "62",
+            "marking": "73",
+            "head_game": "73",
+            "set_piece_taking": "33"
           },
           "currentPOS": null,
           "fitness": 100,
@@ -1427,7 +1867,11 @@
             "agility": "74",
             "strength": "62",
             "penalty_taking": "56",
-            "jumping": "48"
+            "jumping": "48",
+            "speed": "71",
+            "marking": "61",
+            "head_game": "41",
+            "set_piece_taking": "62"
           },
           "currentPOS": null,
           "fitness": 100,
@@ -1447,7 +1891,11 @@
             "agility": "80",
             "strength": "68",
             "penalty_taking": "70",
-            "jumping": "64"
+            "jumping": "64",
+            "speed": "76",
+            "marking": "35",
+            "head_game": "74",
+            "set_piece_taking": "45"
           },
           "currentPOS": null,
           "fitness": 100,
@@ -1458,8 +1906,14 @@
     },
     {
       "name": "Golden Lions",
-      "colors": { "primary": "#DAA520", "secondary": "#228B22" },
-      "jersey": { "home": "Goldenrod body with forest green collar", "away": "Forest green body with gold lion crest" },
+      "colors": {
+        "primary": "#DAA520",
+        "secondary": "#228B22"
+      },
+      "jersey": {
+        "home": "Goldenrod body with forest green collar",
+        "away": "Forest green body with gold lion crest"
+      },
       "rating": "87",
       "players": [
         {
@@ -1475,9 +1929,16 @@
             "agility": "74",
             "strength": "72",
             "penalty_taking": "16",
-            "jumping": "86"
+            "jumping": "86",
+            "speed": "40",
+            "marking": "40",
+            "head_game": "66",
+            "set_piece_taking": "13"
           },
-          "currentPOS": [200, 0],
+          "currentPOS": [
+            200,
+            0
+          ],
           "fitness": 100,
           "height": 193,
           "injured": false
@@ -1495,9 +1956,16 @@
             "agility": "66",
             "strength": "82",
             "penalty_taking": "24",
-            "jumping": "80"
+            "jumping": "80",
+            "speed": "58",
+            "marking": "77",
+            "head_game": "72",
+            "set_piece_taking": "30"
           },
-          "currentPOS": [200, 100],
+          "currentPOS": [
+            200,
+            100
+          ],
           "fitness": 100,
           "height": 190,
           "injured": false
@@ -1515,9 +1983,16 @@
             "agility": "84",
             "strength": "70",
             "penalty_taking": "74",
-            "jumping": "56"
+            "jumping": "56",
+            "speed": "71",
+            "marking": "46",
+            "head_game": "53",
+            "set_piece_taking": "47"
           },
-          "currentPOS": [130, 200],
+          "currentPOS": [
+            130,
+            200
+          ],
           "fitness": 100,
           "height": 178,
           "injured": false
@@ -1535,9 +2010,16 @@
             "agility": "82",
             "strength": "70",
             "penalty_taking": "68",
-            "jumping": "54"
+            "jumping": "54",
+            "speed": "69",
+            "marking": "62",
+            "head_game": "56",
+            "set_piece_taking": "48"
           },
-          "currentPOS": [270, 200],
+          "currentPOS": [
+            270,
+            200
+          ],
           "fitness": 100,
           "height": 180,
           "injured": false
@@ -1555,9 +2037,16 @@
             "agility": "90",
             "strength": "76",
             "penalty_taking": "86",
-            "jumping": "74"
+            "jumping": "74",
+            "speed": "84",
+            "marking": "24",
+            "head_game": "60",
+            "set_piece_taking": "52"
           },
-          "currentPOS": [150, 280],
+          "currentPOS": [
+            150,
+            280
+          ],
           "fitness": 100,
           "height": 180,
           "injured": false
@@ -1575,9 +2064,16 @@
             "agility": "86",
             "strength": "74",
             "penalty_taking": "80",
-            "jumping": "72"
+            "jumping": "72",
+            "speed": "82",
+            "marking": "31",
+            "head_game": "60",
+            "set_piece_taking": "48"
           },
-          "currentPOS": [250, 280],
+          "currentPOS": [
+            250,
+            280
+          ],
           "fitness": 100,
           "height": 179,
           "injured": false
@@ -1595,7 +2091,11 @@
             "agility": "68",
             "strength": "64",
             "penalty_taking": "14",
-            "jumping": "76"
+            "jumping": "76",
+            "speed": "52",
+            "marking": "23",
+            "head_game": "71",
+            "set_piece_taking": "12"
           },
           "currentPOS": null,
           "fitness": 100,
@@ -1615,7 +2115,11 @@
             "agility": "62",
             "strength": "76",
             "penalty_taking": "20",
-            "jumping": "74"
+            "jumping": "74",
+            "speed": "65",
+            "marking": "87",
+            "head_game": "73",
+            "set_piece_taking": "15"
           },
           "currentPOS": null,
           "fitness": 100,
@@ -1635,7 +2139,11 @@
             "agility": "76",
             "strength": "64",
             "penalty_taking": "60",
-            "jumping": "50"
+            "jumping": "50",
+            "speed": "75",
+            "marking": "63",
+            "head_game": "63",
+            "set_piece_taking": "43"
           },
           "currentPOS": null,
           "fitness": 100,
@@ -1655,7 +2163,11 @@
             "agility": "84",
             "strength": "72",
             "penalty_taking": "76",
-            "jumping": "66"
+            "jumping": "66",
+            "speed": "73",
+            "marking": "35",
+            "head_game": "82",
+            "set_piece_taking": "70"
           },
           "currentPOS": null,
           "fitness": 100,
@@ -1666,8 +2178,14 @@
     },
     {
       "name": "Blue Tide",
-      "colors": { "primary": "#1E90FF", "secondary": "#FFFFFF" },
-      "jersey": { "home": "Dodger blue body with white trim", "away": "White body with blue wave pattern" },
+      "colors": {
+        "primary": "#1E90FF",
+        "secondary": "#FFFFFF"
+      },
+      "jersey": {
+        "home": "Dodger blue body with white trim",
+        "away": "White body with blue wave pattern"
+      },
       "rating": "82",
       "players": [
         {
@@ -1683,9 +2201,16 @@
             "agility": "68",
             "strength": "66",
             "penalty_taking": "16",
-            "jumping": "78"
+            "jumping": "78",
+            "speed": "44",
+            "marking": "35",
+            "head_game": "75",
+            "set_piece_taking": "10"
           },
-          "currentPOS": [200, 0],
+          "currentPOS": [
+            200,
+            0
+          ],
           "fitness": 100,
           "height": 190,
           "injured": false
@@ -1703,9 +2228,16 @@
             "agility": "60",
             "strength": "76",
             "penalty_taking": "18",
-            "jumping": "74"
+            "jumping": "74",
+            "speed": "55",
+            "marking": "86",
+            "head_game": "81",
+            "set_piece_taking": "20"
           },
-          "currentPOS": [200, 100],
+          "currentPOS": [
+            200,
+            100
+          ],
           "fitness": 100,
           "height": 187,
           "injured": false
@@ -1723,9 +2255,16 @@
             "agility": "78",
             "strength": "66",
             "penalty_taking": "66",
-            "jumping": "52"
+            "jumping": "52",
+            "speed": "74",
+            "marking": "59",
+            "head_game": "61",
+            "set_piece_taking": "57"
           },
-          "currentPOS": [130, 200],
+          "currentPOS": [
+            130,
+            200
+          ],
           "fitness": 100,
           "height": 177,
           "injured": false
@@ -1743,9 +2282,16 @@
             "agility": "76",
             "strength": "64",
             "penalty_taking": "60",
-            "jumping": "50"
+            "jumping": "50",
+            "speed": "63",
+            "marking": "45",
+            "head_game": "59",
+            "set_piece_taking": "67"
           },
-          "currentPOS": [270, 200],
+          "currentPOS": [
+            270,
+            200
+          ],
           "fitness": 100,
           "height": 173,
           "injured": false
@@ -1763,9 +2309,16 @@
             "agility": "84",
             "strength": "72",
             "penalty_taking": "76",
-            "jumping": "68"
+            "jumping": "68",
+            "speed": "81",
+            "marking": "17",
+            "head_game": "84",
+            "set_piece_taking": "60"
           },
-          "currentPOS": [150, 280],
+          "currentPOS": [
+            150,
+            280
+          ],
           "fitness": 100,
           "height": 179,
           "injured": false
@@ -1783,9 +2336,16 @@
             "agility": "82",
             "strength": "70",
             "penalty_taking": "72",
-            "jumping": "66"
+            "jumping": "66",
+            "speed": "77",
+            "marking": "30",
+            "head_game": "73",
+            "set_piece_taking": "47"
           },
-          "currentPOS": [250, 280],
+          "currentPOS": [
+            250,
+            280
+          ],
           "fitness": 100,
           "height": 182,
           "injured": false
@@ -1803,7 +2363,11 @@
             "agility": "62",
             "strength": "60",
             "penalty_taking": "12",
-            "jumping": "72"
+            "jumping": "72",
+            "speed": "46",
+            "marking": "32",
+            "head_game": "62",
+            "set_piece_taking": "24"
           },
           "currentPOS": null,
           "fitness": 100,
@@ -1823,7 +2387,11 @@
             "agility": "56",
             "strength": "72",
             "penalty_taking": "14",
-            "jumping": "68"
+            "jumping": "68",
+            "speed": "55",
+            "marking": "84",
+            "head_game": "67",
+            "set_piece_taking": "29"
           },
           "currentPOS": null,
           "fitness": 100,
@@ -1843,7 +2411,11 @@
             "agility": "72",
             "strength": "60",
             "penalty_taking": "52",
-            "jumping": "46"
+            "jumping": "46",
+            "speed": "73",
+            "marking": "54",
+            "head_game": "60",
+            "set_piece_taking": "50"
           },
           "currentPOS": null,
           "fitness": 100,
@@ -1863,7 +2435,11 @@
             "agility": "78",
             "strength": "68",
             "penalty_taking": "68",
-            "jumping": "62"
+            "jumping": "62",
+            "speed": "70",
+            "marking": "31",
+            "head_game": "62",
+            "set_piece_taking": "48"
           },
           "currentPOS": null,
           "fitness": 100,
@@ -1874,8 +2450,14 @@
     },
     {
       "name": "Emerald Strikers",
-      "colors": { "primary": "#2ECC71", "secondary": "#1C1C1C" },
-      "jersey": { "home": "Emerald green body with black cuffs", "away": "Black body with emerald diagonal stripe" },
+      "colors": {
+        "primary": "#2ECC71",
+        "secondary": "#1C1C1C"
+      },
+      "jersey": {
+        "home": "Emerald green body with black cuffs",
+        "away": "Black body with emerald diagonal stripe"
+      },
       "rating": "80",
       "players": [
         {
@@ -1891,9 +2473,16 @@
             "agility": "66",
             "strength": "65",
             "penalty_taking": "15",
-            "jumping": "76"
+            "jumping": "76",
+            "speed": "49",
+            "marking": "28",
+            "head_game": "65",
+            "set_piece_taking": "17"
           },
-          "currentPOS": [200, 0],
+          "currentPOS": [
+            200,
+            0
+          ],
           "fitness": 100,
           "height": 189,
           "injured": false
@@ -1911,9 +2500,16 @@
             "agility": "58",
             "strength": "74",
             "penalty_taking": "18",
-            "jumping": "72"
+            "jumping": "72",
+            "speed": "50",
+            "marking": "81",
+            "head_game": "72",
+            "set_piece_taking": "33"
           },
-          "currentPOS": [200, 100],
+          "currentPOS": [
+            200,
+            100
+          ],
           "fitness": 100,
           "height": 185,
           "injured": false
@@ -1931,9 +2527,16 @@
             "agility": "76",
             "strength": "64",
             "penalty_taking": "60",
-            "jumping": "50"
+            "jumping": "50",
+            "speed": "73",
+            "marking": "54",
+            "head_game": "61",
+            "set_piece_taking": "48"
           },
-          "currentPOS": [130, 200],
+          "currentPOS": [
+            130,
+            200
+          ],
           "fitness": 100,
           "height": 178,
           "injured": false
@@ -1951,9 +2554,16 @@
             "agility": "74",
             "strength": "62",
             "penalty_taking": "56",
-            "jumping": "48"
+            "jumping": "48",
+            "speed": "79",
+            "marking": "57",
+            "head_game": "40",
+            "set_piece_taking": "54"
           },
-          "currentPOS": [270, 200],
+          "currentPOS": [
+            270,
+            200
+          ],
           "fitness": 100,
           "height": 174,
           "injured": false
@@ -1971,9 +2581,16 @@
             "agility": "82",
             "strength": "72",
             "penalty_taking": "74",
-            "jumping": "68"
+            "jumping": "68",
+            "speed": "74",
+            "marking": "15",
+            "head_game": "80",
+            "set_piece_taking": "48"
           },
-          "currentPOS": [150, 280],
+          "currentPOS": [
+            150,
+            280
+          ],
           "fitness": 100,
           "height": 180,
           "injured": false
@@ -1991,9 +2608,16 @@
             "agility": "80",
             "strength": "70",
             "penalty_taking": "70",
-            "jumping": "66"
+            "jumping": "66",
+            "speed": "87",
+            "marking": "17",
+            "head_game": "69",
+            "set_piece_taking": "67"
           },
-          "currentPOS": [250, 280],
+          "currentPOS": [
+            250,
+            280
+          ],
           "fitness": 100,
           "height": 176,
           "injured": false
@@ -2011,7 +2635,11 @@
             "agility": "60",
             "strength": "58",
             "penalty_taking": "10",
-            "jumping": "70"
+            "jumping": "70",
+            "speed": "57",
+            "marking": "28",
+            "head_game": "70",
+            "set_piece_taking": "25"
           },
           "currentPOS": null,
           "fitness": 100,
@@ -2031,7 +2659,11 @@
             "agility": "56",
             "strength": "72",
             "penalty_taking": "14",
-            "jumping": "68"
+            "jumping": "68",
+            "speed": "50",
+            "marking": "71",
+            "head_game": "67",
+            "set_piece_taking": "22"
           },
           "currentPOS": null,
           "fitness": 100,
@@ -2051,7 +2683,11 @@
             "agility": "70",
             "strength": "60",
             "penalty_taking": "50",
-            "jumping": "44"
+            "jumping": "44",
+            "speed": "68",
+            "marking": "52",
+            "head_game": "42",
+            "set_piece_taking": "61"
           },
           "currentPOS": null,
           "fitness": 100,
@@ -2071,7 +2707,11 @@
             "agility": "76",
             "strength": "66",
             "penalty_taking": "64",
-            "jumping": "60"
+            "jumping": "60",
+            "speed": "85",
+            "marking": "27",
+            "head_game": "77",
+            "set_piece_taking": "46"
           },
           "currentPOS": null,
           "fitness": 100,
@@ -2082,8 +2722,14 @@
     },
     {
       "name": "Crimson Vanguard",
-      "colors": { "primary": "#8B0000", "secondary": "#F5F5DC" },
-      "jersey": { "home": "Dark red body with beige shoulders", "away": "Beige body with dark red vertical stripe" },
+      "colors": {
+        "primary": "#8B0000",
+        "secondary": "#F5F5DC"
+      },
+      "jersey": {
+        "home": "Dark red body with beige shoulders",
+        "away": "Beige body with dark red vertical stripe"
+      },
       "rating": "85",
       "players": [
         {
@@ -2099,9 +2745,16 @@
             "agility": "72",
             "strength": "70",
             "penalty_taking": "16",
-            "jumping": "84"
+            "jumping": "84",
+            "speed": "60",
+            "marking": "31",
+            "head_game": "69",
+            "set_piece_taking": "20"
           },
-          "currentPOS": [200, 0],
+          "currentPOS": [
+            200,
+            0
+          ],
           "fitness": 100,
           "height": 192,
           "injured": false
@@ -2119,9 +2772,16 @@
             "agility": "64",
             "strength": "80",
             "penalty_taking": "22",
-            "jumping": "78"
+            "jumping": "78",
+            "speed": "62",
+            "marking": "79",
+            "head_game": "63",
+            "set_piece_taking": "28"
           },
-          "currentPOS": [200, 100],
+          "currentPOS": [
+            200,
+            100
+          ],
           "fitness": 100,
           "height": 190,
           "injured": false
@@ -2139,9 +2799,16 @@
             "agility": "82",
             "strength": "68",
             "penalty_taking": "72",
-            "jumping": "55"
+            "jumping": "55",
+            "speed": "68",
+            "marking": "61",
+            "head_game": "47",
+            "set_piece_taking": "66"
           },
-          "currentPOS": [130, 200],
+          "currentPOS": [
+            130,
+            200
+          ],
           "fitness": 100,
           "height": 179,
           "injured": false
@@ -2159,9 +2826,16 @@
             "agility": "78",
             "strength": "66",
             "penalty_taking": "66",
-            "jumping": "52"
+            "jumping": "52",
+            "speed": "71",
+            "marking": "65",
+            "head_game": "51",
+            "set_piece_taking": "68"
           },
-          "currentPOS": [270, 200],
+          "currentPOS": [
+            270,
+            200
+          ],
           "fitness": 100,
           "height": 176,
           "injured": false
@@ -2179,9 +2853,16 @@
             "agility": "88",
             "strength": "76",
             "penalty_taking": "84",
-            "jumping": "72"
+            "jumping": "72",
+            "speed": "86",
+            "marking": "32",
+            "head_game": "76",
+            "set_piece_taking": "77"
           },
-          "currentPOS": [150, 280],
+          "currentPOS": [
+            150,
+            280
+          ],
           "fitness": 100,
           "height": 181,
           "injured": false
@@ -2199,9 +2880,16 @@
             "agility": "84",
             "strength": "74",
             "penalty_taking": "78",
-            "jumping": "70"
+            "jumping": "70",
+            "speed": "71",
+            "marking": "32",
+            "head_game": "84",
+            "set_piece_taking": "63"
           },
-          "currentPOS": [250, 280],
+          "currentPOS": [
+            250,
+            280
+          ],
           "fitness": 100,
           "height": 183,
           "injured": false
@@ -2219,7 +2907,11 @@
             "agility": "66",
             "strength": "64",
             "penalty_taking": "12",
-            "jumping": "74"
+            "jumping": "74",
+            "speed": "50",
+            "marking": "34",
+            "head_game": "56",
+            "set_piece_taking": "19"
           },
           "currentPOS": null,
           "fitness": 100,
@@ -2239,7 +2931,11 @@
             "agility": "60",
             "strength": "74",
             "penalty_taking": "18",
-            "jumping": "72"
+            "jumping": "72",
+            "speed": "59",
+            "marking": "88",
+            "head_game": "81",
+            "set_piece_taking": "22"
           },
           "currentPOS": null,
           "fitness": 100,
@@ -2259,7 +2955,11 @@
             "agility": "74",
             "strength": "62",
             "penalty_taking": "56",
-            "jumping": "48"
+            "jumping": "48",
+            "speed": "80",
+            "marking": "58",
+            "head_game": "57",
+            "set_piece_taking": "46"
           },
           "currentPOS": null,
           "fitness": 100,
@@ -2279,7 +2979,11 @@
             "agility": "80",
             "strength": "68",
             "penalty_taking": "70",
-            "jumping": "64"
+            "jumping": "64",
+            "speed": "76",
+            "marking": "32",
+            "head_game": "66",
+            "set_piece_taking": "47"
           },
           "currentPOS": null,
           "fitness": 100,
@@ -2290,8 +2994,14 @@
     },
     {
       "name": "Storm Chasers",
-      "colors": { "primary": "#9B59B6", "secondary": "#ECF0F1" },
-      "jersey": { "home": "Purple body with light grey accents", "away": "Light grey body with purple chest band" },
+      "colors": {
+        "primary": "#9B59B6",
+        "secondary": "#ECF0F1"
+      },
+      "jersey": {
+        "home": "Purple body with light grey accents",
+        "away": "Light grey body with purple chest band"
+      },
       "rating": "83",
       "players": [
         {
@@ -2307,9 +3017,16 @@
             "agility": "70",
             "strength": "68",
             "penalty_taking": "16",
-            "jumping": "80"
+            "jumping": "80",
+            "speed": "42",
+            "marking": "26",
+            "head_game": "57",
+            "set_piece_taking": "24"
           },
-          "currentPOS": [200, 0],
+          "currentPOS": [
+            200,
+            0
+          ],
           "fitness": 100,
           "height": 191,
           "injured": false
@@ -2327,9 +3044,16 @@
             "agility": "62",
             "strength": "78",
             "penalty_taking": "20",
-            "jumping": "76"
+            "jumping": "76",
+            "speed": "69",
+            "marking": "87",
+            "head_game": "79",
+            "set_piece_taking": "27"
           },
-          "currentPOS": [200, 100],
+          "currentPOS": [
+            200,
+            100
+          ],
           "fitness": 100,
           "height": 188,
           "injured": false
@@ -2347,9 +3071,16 @@
             "agility": "80",
             "strength": "66",
             "penalty_taking": "66",
-            "jumping": "52"
+            "jumping": "52",
+            "speed": "81",
+            "marking": "60",
+            "head_game": "55",
+            "set_piece_taking": "62"
           },
-          "currentPOS": [130, 200],
+          "currentPOS": [
+            130,
+            200
+          ],
           "fitness": 100,
           "height": 177,
           "injured": false
@@ -2367,9 +3098,16 @@
             "agility": "78",
             "strength": "64",
             "penalty_taking": "62",
-            "jumping": "50"
+            "jumping": "50",
+            "speed": "76",
+            "marking": "54",
+            "head_game": "65",
+            "set_piece_taking": "67"
           },
-          "currentPOS": [270, 200],
+          "currentPOS": [
+            270,
+            200
+          ],
           "fitness": 100,
           "height": 174,
           "injured": false
@@ -2387,9 +3125,16 @@
             "agility": "86",
             "strength": "72",
             "penalty_taking": "80",
-            "jumping": "70"
+            "jumping": "70",
+            "speed": "89",
+            "marking": "15",
+            "head_game": "81",
+            "set_piece_taking": "53"
           },
-          "currentPOS": [150, 280],
+          "currentPOS": [
+            150,
+            280
+          ],
           "fitness": 100,
           "height": 178,
           "injured": false
@@ -2407,9 +3152,16 @@
             "agility": "82",
             "strength": "70",
             "penalty_taking": "74",
-            "jumping": "68"
+            "jumping": "68",
+            "speed": "85",
+            "marking": "28",
+            "head_game": "68",
+            "set_piece_taking": "79"
           },
-          "currentPOS": [250, 280],
+          "currentPOS": [
+            250,
+            280
+          ],
           "fitness": 100,
           "height": 180,
           "injured": false
@@ -2427,7 +3179,11 @@
             "agility": "64",
             "strength": "62",
             "penalty_taking": "12",
-            "jumping": "74"
+            "jumping": "74",
+            "speed": "44",
+            "marking": "38",
+            "head_game": "58",
+            "set_piece_taking": "19"
           },
           "currentPOS": null,
           "fitness": 100,
@@ -2447,7 +3203,11 @@
             "agility": "58",
             "strength": "74",
             "penalty_taking": "16",
-            "jumping": "70"
+            "jumping": "70",
+            "speed": "68",
+            "marking": "70",
+            "head_game": "77",
+            "set_piece_taking": "18"
           },
           "currentPOS": null,
           "fitness": 100,
@@ -2467,7 +3227,11 @@
             "agility": "74",
             "strength": "62",
             "penalty_taking": "54",
-            "jumping": "48"
+            "jumping": "48",
+            "speed": "75",
+            "marking": "46",
+            "head_game": "59",
+            "set_piece_taking": "69"
           },
           "currentPOS": null,
           "fitness": 100,
@@ -2487,7 +3251,11 @@
             "agility": "78",
             "strength": "68",
             "penalty_taking": "68",
-            "jumping": "62"
+            "jumping": "62",
+            "speed": "88",
+            "marking": "23",
+            "head_game": "76",
+            "set_piece_taking": "70"
           },
           "currentPOS": null,
           "fitness": 100,
