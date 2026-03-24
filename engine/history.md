@@ -1,0 +1,81 @@
+# History of footballSimulationEngine
+
+## Version 5.0.0
+- new: added player height to the game and made jumping additional height reached
+- new: added player skill perception
+- new: added handball
+- new: improved z-axis for gravity over time and friction
+- new: state which part of the body was hit during deflection and normal play
+- updated: scaled ball power, gravity and roll on grass. All ball movement now linked to kick power
+- new: linked kick power to player strength and scaled to pitchHeight
+- updated: separated player movement decisions from ball actions to prevent multiple players interacting with the ball in the same iteration
+- new: added logic to ensure only one player can execute a ball action per iteration
+- updated: ball actions are now blocked while the ball is already travelling (ballOverIterations)
+- updated: improved possession handling so ball ownership is cleared correctly after kicks
+- updated: refactored iteration flow to process:
+   - ball movement
+   - player movement
+   - single ball interaction
+- updated: improved penalty setup to guarantee the taker is on the pitch and correctly assigned the ball
+- fixed: players could attempt ball actions while the ball was already in flight
+- fixed: multiple ball kicks could be triggered in the same iteration
+
+## Version 4.0.0
+- fixed: red cards didn't send players off the pitch correctly
+- fixed: player skills incorrectly assigned for tackles and slide tackles
+- fixed: corners and goal kicks not correctly assigned / calculated
+- fixed: intentPOS sometimes returned as null
+- fixed: second half returned kickoffTeam with the ball, now secondTeam
+- new: added ability to set the width of the goal to make the game more customisable
+
+## Version 3.0.1
+- added new test scripts
+- code fixes for assigning actions
+- code fixes for determining offside
+- code fixes for setting positions 
+- code fixes for when ball moving
+
+## Version 3.0.0
+- altered 'startPOS' to 'currentPOS' to better reflect what the variable is used for
+- altered 'relativePOS' to 'intentPOS' to better reflect what what the variable is used for
+- added 100+ test cases
+- cleaned 'setPositions.js' and created/cleaned 'setFreekicks.js' to improve readability and reduce duplication
+- improvement to corners by putting players in the box
+- players with red cards are removed from the pitch
+- penalty taking improvements
+- skills used more intensively i.e. shooting can be both on/off target determined by skill
+- add player specific stats including tackles, passes, shots, saves and goals
+---
+## Version 2.2.0
+- fix closestPlayer Report
+- enhance test cases
+- keep ball with player when they run or sprint
+- improve run/sprint direction
+- improve passing
+- improve Error reporting
+- track shot over time
+- add saving
+- add simple player marking
+- add test simulation data
+---
+## Version 2.1.2
+- security fix for https://nvd.nist.gov/vuln/detail/CVE-2018-16487
+- limit ability for players to become 'stuck'
+- checks to reduce occurances of players.hasBall = true when the ball is not with the player
+---
+## Version 2.1.0
+- Added to allow more tackles and fouls
+- Added fitness measure (currently has no affect on the game - see later versions)
+- Remove promises from the internal functions (still required for three main functions as above)
+- Includes a test suite (still in development)
+- Improvements to ball movement to give movement over time instead of a 'jump'
+- refactoring to improve source code readability
+- Removed dependency on async function
+- Resolved error where players leave pitch
+- Provided setup data - e.g. a pitch JSON and two team JSONs for easier setup
+- Allow interception of the ball whilst in transit
+- Included ability to set a players action for each iteration to enforce a specific move
+- Added Offside logic
+---
+## Version 1.x
+- initial creation of the FSE node module

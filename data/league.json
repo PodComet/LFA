@@ -1,0 +1,2500 @@
+{
+  "teams": [
+    {
+      "name": "Thunderbolts",
+      "colors": { "primary": "#FFD700", "secondary": "#1A1A2E" },
+      "jersey": { "home": "Gold body with navy sleeves", "away": "Navy body with gold trim" },
+      "rating": "86",
+      "players": [
+        {
+          "name": "Kenji Morimoto",
+          "position": "GK",
+          "rating": "85",
+          "starter": true,
+          "skill": {
+            "passing": "52",
+            "shooting": "12",
+            "tackling": "30",
+            "saving": "88",
+            "agility": "72",
+            "strength": "70",
+            "penalty_taking": "15",
+            "jumping": "84"
+          },
+          "currentPOS": [200, 0],
+          "fitness": 100,
+          "height": 191,
+          "injured": false
+        },
+        {
+          "name": "Ousmane Diallo",
+          "position": "CB",
+          "rating": "84",
+          "starter": true,
+          "skill": {
+            "passing": "62",
+            "shooting": "28",
+            "tackling": "85",
+            "saving": "12",
+            "agility": "64",
+            "strength": "80",
+            "penalty_taking": "25",
+            "jumping": "78"
+          },
+          "currentPOS": [200, 100],
+          "fitness": 100,
+          "height": 188,
+          "injured": false
+        },
+        {
+          "name": "Lucas Hernández",
+          "position": "CM",
+          "rating": "87",
+          "starter": true,
+          "skill": {
+            "passing": "88",
+            "shooting": "68",
+            "tackling": "58",
+            "saving": "10",
+            "agility": "82",
+            "strength": "68",
+            "penalty_taking": "72",
+            "jumping": "55"
+          },
+          "currentPOS": [130, 200],
+          "fitness": 100,
+          "height": 178,
+          "injured": false
+        },
+        {
+          "name": "Erik Lindqvist",
+          "position": "CM",
+          "rating": "85",
+          "starter": true,
+          "skill": {
+            "passing": "84",
+            "shooting": "64",
+            "tackling": "62",
+            "saving": "10",
+            "agility": "78",
+            "strength": "72",
+            "penalty_taking": "65",
+            "jumping": "60"
+          },
+          "currentPOS": [270, 200],
+          "fitness": 100,
+          "height": 182,
+          "injured": false
+        },
+        {
+          "name": "Rafael Silva",
+          "position": "ST",
+          "rating": "89",
+          "starter": true,
+          "skill": {
+            "passing": "65",
+            "shooting": "92",
+            "tackling": "20",
+            "saving": "8",
+            "agility": "90",
+            "strength": "72",
+            "penalty_taking": "85",
+            "jumping": "70"
+          },
+          "currentPOS": [150, 280],
+          "fitness": 100,
+          "height": 176,
+          "injured": false
+        },
+        {
+          "name": "Ibrahim Mensah",
+          "position": "ST",
+          "rating": "86",
+          "starter": true,
+          "skill": {
+            "passing": "58",
+            "shooting": "88",
+            "tackling": "22",
+            "saving": "7",
+            "agility": "86",
+            "strength": "76",
+            "penalty_taking": "78",
+            "jumping": "75"
+          },
+          "currentPOS": [250, 280],
+          "fitness": 100,
+          "height": 181,
+          "injured": false
+        },
+        {
+          "name": "Tomasz Kowalski",
+          "position": "GK",
+          "rating": "78",
+          "starter": false,
+          "skill": {
+            "passing": "45",
+            "shooting": "10",
+            "tackling": "25",
+            "saving": "80",
+            "agility": "68",
+            "strength": "65",
+            "penalty_taking": "12",
+            "jumping": "76"
+          },
+          "currentPOS": null,
+          "fitness": 100,
+          "height": 189,
+          "injured": false
+        },
+        {
+          "name": "André Fonseca",
+          "position": "CB",
+          "rating": "80",
+          "starter": false,
+          "skill": {
+            "passing": "55",
+            "shooting": "25",
+            "tackling": "78",
+            "saving": "10",
+            "agility": "62",
+            "strength": "75",
+            "penalty_taking": "20",
+            "jumping": "72"
+          },
+          "currentPOS": null,
+          "fitness": 100,
+          "height": 185,
+          "injured": false
+        },
+        {
+          "name": "Min-jun Park",
+          "position": "CM",
+          "rating": "81",
+          "starter": false,
+          "skill": {
+            "passing": "80",
+            "shooting": "60",
+            "tackling": "52",
+            "saving": "10",
+            "agility": "76",
+            "strength": "64",
+            "penalty_taking": "58",
+            "jumping": "50"
+          },
+          "currentPOS": null,
+          "fitness": 100,
+          "height": 174,
+          "injured": false
+        },
+        {
+          "name": "Youssef El-Masri",
+          "position": "ST",
+          "rating": "82",
+          "starter": false,
+          "skill": {
+            "passing": "55",
+            "shooting": "84",
+            "tackling": "18",
+            "saving": "6",
+            "agility": "82",
+            "strength": "70",
+            "penalty_taking": "72",
+            "jumping": "65"
+          },
+          "currentPOS": null,
+          "fitness": 100,
+          "height": 179,
+          "injured": false
+        }
+      ]
+    },
+    {
+      "name": "Cyclones",
+      "colors": { "primary": "#00CED1", "secondary": "#2F4F4F" },
+      "jersey": { "home": "Teal body with dark slate accents", "away": "Slate grey body with teal stripes" },
+      "rating": "83",
+      "players": [
+        {
+          "name": "Hugo Pereira",
+          "position": "GK",
+          "rating": "82",
+          "starter": true,
+          "skill": {
+            "passing": "50",
+            "shooting": "14",
+            "tackling": "28",
+            "saving": "84",
+            "agility": "70",
+            "strength": "68",
+            "penalty_taking": "18",
+            "jumping": "80"
+          },
+          "currentPOS": [200, 0],
+          "fitness": 100,
+          "height": 190,
+          "injured": false
+        },
+        {
+          "name": "Kwame Asante",
+          "position": "CB",
+          "rating": "82",
+          "starter": true,
+          "skill": {
+            "passing": "58",
+            "shooting": "22",
+            "tackling": "82",
+            "saving": "10",
+            "agility": "60",
+            "strength": "78",
+            "penalty_taking": "20",
+            "jumping": "76"
+          },
+          "currentPOS": [200, 100],
+          "fitness": 100,
+          "height": 186,
+          "injured": false
+        },
+        {
+          "name": "Léo Dumont",
+          "position": "CM",
+          "rating": "84",
+          "starter": true,
+          "skill": {
+            "passing": "85",
+            "shooting": "62",
+            "tackling": "55",
+            "saving": "10",
+            "agility": "80",
+            "strength": "66",
+            "penalty_taking": "68",
+            "jumping": "52"
+          },
+          "currentPOS": [130, 200],
+          "fitness": 100,
+          "height": 175,
+          "injured": false
+        },
+        {
+          "name": "Takeshi Nakamura",
+          "position": "CM",
+          "rating": "83",
+          "starter": true,
+          "skill": {
+            "passing": "82",
+            "shooting": "58",
+            "tackling": "56",
+            "saving": "10",
+            "agility": "78",
+            "strength": "65",
+            "penalty_taking": "60",
+            "jumping": "54"
+          },
+          "currentPOS": [270, 200],
+          "fitness": 100,
+          "height": 172,
+          "injured": false
+        },
+        {
+          "name": "Mateo Gutiérrez",
+          "position": "ST",
+          "rating": "85",
+          "starter": true,
+          "skill": {
+            "passing": "60",
+            "shooting": "88",
+            "tackling": "18",
+            "saving": "7",
+            "agility": "85",
+            "strength": "70",
+            "penalty_taking": "80",
+            "jumping": "68"
+          },
+          "currentPOS": [150, 280],
+          "fitness": 100,
+          "height": 177,
+          "injured": false
+        },
+        {
+          "name": "Ade Okonkwo",
+          "position": "ST",
+          "rating": "83",
+          "starter": true,
+          "skill": {
+            "passing": "55",
+            "shooting": "85",
+            "tackling": "20",
+            "saving": "6",
+            "agility": "84",
+            "strength": "74",
+            "penalty_taking": "75",
+            "jumping": "72"
+          },
+          "currentPOS": [250, 280],
+          "fitness": 100,
+          "height": 183,
+          "injured": false
+        },
+        {
+          "name": "Reza Mohammadi",
+          "position": "GK",
+          "rating": "76",
+          "starter": false,
+          "skill": {
+            "passing": "42",
+            "shooting": "10",
+            "tackling": "22",
+            "saving": "78",
+            "agility": "65",
+            "strength": "62",
+            "penalty_taking": "14",
+            "jumping": "74"
+          },
+          "currentPOS": null,
+          "fitness": 100,
+          "height": 188,
+          "injured": false
+        },
+        {
+          "name": "Sven Eriksson",
+          "position": "CB",
+          "rating": "78",
+          "starter": false,
+          "skill": {
+            "passing": "52",
+            "shooting": "20",
+            "tackling": "76",
+            "saving": "10",
+            "agility": "58",
+            "strength": "74",
+            "penalty_taking": "18",
+            "jumping": "70"
+          },
+          "currentPOS": null,
+          "fitness": 100,
+          "height": 184,
+          "injured": false
+        },
+        {
+          "name": "Diego Morales",
+          "position": "CM",
+          "rating": "79",
+          "starter": false,
+          "skill": {
+            "passing": "78",
+            "shooting": "56",
+            "tackling": "50",
+            "saving": "10",
+            "agility": "74",
+            "strength": "62",
+            "penalty_taking": "55",
+            "jumping": "48"
+          },
+          "currentPOS": null,
+          "fitness": 100,
+          "height": 176,
+          "injured": false
+        },
+        {
+          "name": "Connor Mitchell",
+          "position": "ST",
+          "rating": "78",
+          "starter": false,
+          "skill": {
+            "passing": "50",
+            "shooting": "80",
+            "tackling": "16",
+            "saving": "5",
+            "agility": "78",
+            "strength": "68",
+            "penalty_taking": "70",
+            "jumping": "62"
+          },
+          "currentPOS": null,
+          "fitness": 100,
+          "height": 180,
+          "injured": false
+        }
+      ]
+    },
+    {
+      "name": "Red Phoenix",
+      "colors": { "primary": "#DC143C", "secondary": "#FFFAF0" },
+      "jersey": { "home": "Crimson body with cream collar", "away": "Cream body with crimson sash" },
+      "rating": "88",
+      "players": [
+        {
+          "name": "Manuel Neumann",
+          "position": "GK",
+          "rating": "88",
+          "starter": true,
+          "skill": {
+            "passing": "58",
+            "shooting": "15",
+            "tackling": "32",
+            "saving": "92",
+            "agility": "75",
+            "strength": "74",
+            "penalty_taking": "18",
+            "jumping": "88"
+          },
+          "currentPOS": [200, 0],
+          "fitness": 100,
+          "height": 193,
+          "injured": false
+        },
+        {
+          "name": "Cheikh Ndiaye",
+          "position": "CB",
+          "rating": "87",
+          "starter": true,
+          "skill": {
+            "passing": "65",
+            "shooting": "30",
+            "tackling": "88",
+            "saving": "12",
+            "agility": "68",
+            "strength": "82",
+            "penalty_taking": "22",
+            "jumping": "82"
+          },
+          "currentPOS": [200, 100],
+          "fitness": 100,
+          "height": 192,
+          "injured": false
+        },
+        {
+          "name": "Alejandro Vega",
+          "position": "CM",
+          "rating": "89",
+          "starter": true,
+          "skill": {
+            "passing": "90",
+            "shooting": "70",
+            "tackling": "60",
+            "saving": "10",
+            "agility": "85",
+            "strength": "70",
+            "penalty_taking": "76",
+            "jumping": "58"
+          },
+          "currentPOS": [130, 200],
+          "fitness": 100,
+          "height": 180,
+          "injured": false
+        },
+        {
+          "name": "Pierre Lefèvre",
+          "position": "CM",
+          "rating": "88",
+          "starter": true,
+          "skill": {
+            "passing": "88",
+            "shooting": "66",
+            "tackling": "62",
+            "saving": "10",
+            "agility": "82",
+            "strength": "72",
+            "penalty_taking": "70",
+            "jumping": "56"
+          },
+          "currentPOS": [270, 200],
+          "fitness": 100,
+          "height": 179,
+          "injured": false
+        },
+        {
+          "name": "Thiago Almeida",
+          "position": "ST",
+          "rating": "92",
+          "starter": true,
+          "skill": {
+            "passing": "68",
+            "shooting": "95",
+            "tackling": "22",
+            "saving": "8",
+            "agility": "92",
+            "strength": "75",
+            "penalty_taking": "88",
+            "jumping": "74"
+          },
+          "currentPOS": [150, 280],
+          "fitness": 100,
+          "height": 178,
+          "injured": false
+        },
+        {
+          "name": "Hyun-woo Kim",
+          "position": "ST",
+          "rating": "88",
+          "starter": true,
+          "skill": {
+            "passing": "62",
+            "shooting": "90",
+            "tackling": "18",
+            "saving": "7",
+            "agility": "88",
+            "strength": "72",
+            "penalty_taking": "82",
+            "jumping": "70"
+          },
+          "currentPOS": [250, 280],
+          "fitness": 100,
+          "height": 175,
+          "injured": false
+        },
+        {
+          "name": "Fabio Marchetti",
+          "position": "GK",
+          "rating": "80",
+          "starter": false,
+          "skill": {
+            "passing": "48",
+            "shooting": "12",
+            "tackling": "26",
+            "saving": "82",
+            "agility": "70",
+            "strength": "66",
+            "penalty_taking": "14",
+            "jumping": "78"
+          },
+          "currentPOS": null,
+          "fitness": 100,
+          "height": 190,
+          "injured": false
+        },
+        {
+          "name": "Moussa Camara",
+          "position": "CB",
+          "rating": "82",
+          "starter": false,
+          "skill": {
+            "passing": "58",
+            "shooting": "24",
+            "tackling": "80",
+            "saving": "10",
+            "agility": "62",
+            "strength": "76",
+            "penalty_taking": "18",
+            "jumping": "74"
+          },
+          "currentPOS": null,
+          "fitness": 100,
+          "height": 187,
+          "injured": false
+        },
+        {
+          "name": "Oscar Johansson",
+          "position": "CM",
+          "rating": "84",
+          "starter": false,
+          "skill": {
+            "passing": "84",
+            "shooting": "62",
+            "tackling": "54",
+            "saving": "10",
+            "agility": "78",
+            "strength": "66",
+            "penalty_taking": "62",
+            "jumping": "52"
+          },
+          "currentPOS": null,
+          "fitness": 100,
+          "height": 177,
+          "injured": false
+        },
+        {
+          "name": "Carlos Mendoza",
+          "position": "ST",
+          "rating": "84",
+          "starter": false,
+          "skill": {
+            "passing": "58",
+            "shooting": "86",
+            "tackling": "20",
+            "saving": "6",
+            "agility": "84",
+            "strength": "72",
+            "penalty_taking": "76",
+            "jumping": "66"
+          },
+          "currentPOS": null,
+          "fitness": 100,
+          "height": 180,
+          "injured": false
+        }
+      ]
+    },
+    {
+      "name": "Shadow Wolves",
+      "colors": { "primary": "#4B0082", "secondary": "#C0C0C0" },
+      "jersey": { "home": "Indigo body with silver shoulders", "away": "Silver body with indigo pinstripes" },
+      "rating": "81",
+      "players": [
+        {
+          "name": "Andrei Volkov",
+          "position": "GK",
+          "rating": "80",
+          "starter": true,
+          "skill": {
+            "passing": "48",
+            "shooting": "12",
+            "tackling": "26",
+            "saving": "82",
+            "agility": "68",
+            "strength": "66",
+            "penalty_taking": "16",
+            "jumping": "78"
+          },
+          "currentPOS": [200, 0],
+          "fitness": 100,
+          "height": 189,
+          "injured": false
+        },
+        {
+          "name": "Emeka Obi",
+          "position": "CB",
+          "rating": "80",
+          "starter": true,
+          "skill": {
+            "passing": "55",
+            "shooting": "22",
+            "tackling": "80",
+            "saving": "10",
+            "agility": "60",
+            "strength": "76",
+            "penalty_taking": "18",
+            "jumping": "74"
+          },
+          "currentPOS": [200, 100],
+          "fitness": 100,
+          "height": 185,
+          "injured": false
+        },
+        {
+          "name": "Hamza Benali",
+          "position": "CM",
+          "rating": "82",
+          "starter": true,
+          "skill": {
+            "passing": "82",
+            "shooting": "58",
+            "tackling": "52",
+            "saving": "10",
+            "agility": "76",
+            "strength": "64",
+            "penalty_taking": "62",
+            "jumping": "50"
+          },
+          "currentPOS": [130, 200],
+          "fitness": 100,
+          "height": 174,
+          "injured": false
+        },
+        {
+          "name": "Liam O'Sullivan",
+          "position": "CM",
+          "rating": "81",
+          "starter": true,
+          "skill": {
+            "passing": "80",
+            "shooting": "56",
+            "tackling": "54",
+            "saving": "10",
+            "agility": "74",
+            "strength": "66",
+            "penalty_taking": "58",
+            "jumping": "52"
+          },
+          "currentPOS": [270, 200],
+          "fitness": 100,
+          "height": 180,
+          "injured": false
+        },
+        {
+          "name": "Kofi Asamoah",
+          "position": "ST",
+          "rating": "83",
+          "starter": true,
+          "skill": {
+            "passing": "54",
+            "shooting": "85",
+            "tackling": "18",
+            "saving": "6",
+            "agility": "82",
+            "strength": "74",
+            "penalty_taking": "74",
+            "jumping": "70"
+          },
+          "currentPOS": [150, 280],
+          "fitness": 100,
+          "height": 182,
+          "injured": false
+        },
+        {
+          "name": "Javier Ruiz",
+          "position": "ST",
+          "rating": "81",
+          "starter": true,
+          "skill": {
+            "passing": "52",
+            "shooting": "82",
+            "tackling": "20",
+            "saving": "7",
+            "agility": "80",
+            "strength": "70",
+            "penalty_taking": "72",
+            "jumping": "66"
+          },
+          "currentPOS": [250, 280],
+          "fitness": 100,
+          "height": 178,
+          "injured": false
+        },
+        {
+          "name": "Filip Novak",
+          "position": "GK",
+          "rating": "74",
+          "starter": false,
+          "skill": {
+            "passing": "40",
+            "shooting": "10",
+            "tackling": "20",
+            "saving": "76",
+            "agility": "62",
+            "strength": "60",
+            "penalty_taking": "12",
+            "jumping": "72"
+          },
+          "currentPOS": null,
+          "fitness": 100,
+          "height": 187,
+          "injured": false
+        },
+        {
+          "name": "Tariq Hassan",
+          "position": "CB",
+          "rating": "76",
+          "starter": false,
+          "skill": {
+            "passing": "50",
+            "shooting": "18",
+            "tackling": "74",
+            "saving": "10",
+            "agility": "56",
+            "strength": "72",
+            "penalty_taking": "15",
+            "jumping": "68"
+          },
+          "currentPOS": null,
+          "fitness": 100,
+          "height": 183,
+          "injured": false
+        },
+        {
+          "name": "Yuki Tanaka",
+          "position": "CM",
+          "rating": "78",
+          "starter": false,
+          "skill": {
+            "passing": "76",
+            "shooting": "54",
+            "tackling": "48",
+            "saving": "10",
+            "agility": "72",
+            "strength": "60",
+            "penalty_taking": "52",
+            "jumping": "46"
+          },
+          "currentPOS": null,
+          "fitness": 100,
+          "height": 170,
+          "injured": false
+        },
+        {
+          "name": "Nathan Clarke",
+          "position": "ST",
+          "rating": "77",
+          "starter": false,
+          "skill": {
+            "passing": "48",
+            "shooting": "78",
+            "tackling": "16",
+            "saving": "5",
+            "agility": "76",
+            "strength": "66",
+            "penalty_taking": "66",
+            "jumping": "60"
+          },
+          "currentPOS": null,
+          "fitness": 100,
+          "height": 179,
+          "injured": false
+        }
+      ]
+    },
+    {
+      "name": "Iron Eagles",
+      "colors": { "primary": "#708090", "secondary": "#B22222" },
+      "jersey": { "home": "Slate grey body with firebrick red trim", "away": "Firebrick red body with grey sleeves" },
+      "rating": "85",
+      "players": [
+        {
+          "name": "Mehmet Yilmaz",
+          "position": "GK",
+          "rating": "84",
+          "starter": true,
+          "skill": {
+            "passing": "54",
+            "shooting": "14",
+            "tackling": "30",
+            "saving": "86",
+            "agility": "72",
+            "strength": "70",
+            "penalty_taking": "16",
+            "jumping": "82"
+          },
+          "currentPOS": [200, 0],
+          "fitness": 100,
+          "height": 192,
+          "injured": false
+        },
+        {
+          "name": "James Whitfield",
+          "position": "CB",
+          "rating": "84",
+          "starter": true,
+          "skill": {
+            "passing": "60",
+            "shooting": "26",
+            "tackling": "84",
+            "saving": "12",
+            "agility": "64",
+            "strength": "80",
+            "penalty_taking": "22",
+            "jumping": "78"
+          },
+          "currentPOS": [200, 100],
+          "fitness": 100,
+          "height": 190,
+          "injured": false
+        },
+        {
+          "name": "Paolo Bianchi",
+          "position": "CM",
+          "rating": "86",
+          "starter": true,
+          "skill": {
+            "passing": "86",
+            "shooting": "65",
+            "tackling": "58",
+            "saving": "10",
+            "agility": "80",
+            "strength": "68",
+            "penalty_taking": "70",
+            "jumping": "54"
+          },
+          "currentPOS": [130, 200],
+          "fitness": 100,
+          "height": 176,
+          "injured": false
+        },
+        {
+          "name": "Seung-ho Choi",
+          "position": "CM",
+          "rating": "84",
+          "starter": true,
+          "skill": {
+            "passing": "84",
+            "shooting": "62",
+            "tackling": "56",
+            "saving": "10",
+            "agility": "78",
+            "strength": "66",
+            "penalty_taking": "64",
+            "jumping": "52"
+          },
+          "currentPOS": [270, 200],
+          "fitness": 100,
+          "height": 174,
+          "injured": false
+        },
+        {
+          "name": "Samuel Eto'o Jr",
+          "position": "ST",
+          "rating": "88",
+          "starter": true,
+          "skill": {
+            "passing": "62",
+            "shooting": "90",
+            "tackling": "20",
+            "saving": "8",
+            "agility": "88",
+            "strength": "74",
+            "penalty_taking": "82",
+            "jumping": "72"
+          },
+          "currentPOS": [150, 280],
+          "fitness": 100,
+          "height": 180,
+          "injured": false
+        },
+        {
+          "name": "Niklas Brandt",
+          "position": "ST",
+          "rating": "85",
+          "starter": true,
+          "skill": {
+            "passing": "58",
+            "shooting": "86",
+            "tackling": "18",
+            "saving": "7",
+            "agility": "84",
+            "strength": "76",
+            "penalty_taking": "78",
+            "jumping": "74"
+          },
+          "currentPOS": [250, 280],
+          "fitness": 100,
+          "height": 184,
+          "injured": false
+        },
+        {
+          "name": "Dmitri Petrov",
+          "position": "GK",
+          "rating": "77",
+          "starter": false,
+          "skill": {
+            "passing": "44",
+            "shooting": "10",
+            "tackling": "24",
+            "saving": "78",
+            "agility": "66",
+            "strength": "64",
+            "penalty_taking": "14",
+            "jumping": "74"
+          },
+          "currentPOS": null,
+          "fitness": 100,
+          "height": 188,
+          "injured": false
+        },
+        {
+          "name": "Abdoulaye Touré",
+          "position": "CB",
+          "rating": "80",
+          "starter": false,
+          "skill": {
+            "passing": "56",
+            "shooting": "22",
+            "tackling": "78",
+            "saving": "10",
+            "agility": "60",
+            "strength": "74",
+            "penalty_taking": "18",
+            "jumping": "72"
+          },
+          "currentPOS": null,
+          "fitness": 100,
+          "height": 186,
+          "injured": false
+        },
+        {
+          "name": "Hiroshi Watanabe",
+          "position": "CM",
+          "rating": "82",
+          "starter": false,
+          "skill": {
+            "passing": "82",
+            "shooting": "58",
+            "tackling": "52",
+            "saving": "10",
+            "agility": "76",
+            "strength": "62",
+            "penalty_taking": "58",
+            "jumping": "48"
+          },
+          "currentPOS": null,
+          "fitness": 100,
+          "height": 172,
+          "injured": false
+        },
+        {
+          "name": "Rodrigo Castillo",
+          "position": "ST",
+          "rating": "82",
+          "starter": false,
+          "skill": {
+            "passing": "55",
+            "shooting": "84",
+            "tackling": "18",
+            "saving": "6",
+            "agility": "82",
+            "strength": "70",
+            "penalty_taking": "74",
+            "jumping": "64"
+          },
+          "currentPOS": null,
+          "fitness": 100,
+          "height": 178,
+          "injured": false
+        }
+      ]
+    },
+    {
+      "name": "Solar Flares",
+      "colors": { "primary": "#FF8C00", "secondary": "#000000" },
+      "jersey": { "home": "Orange body with black side panels", "away": "Black body with orange chevron" },
+      "rating": "79",
+      "players": [
+        {
+          "name": "Ali Karimi",
+          "position": "GK",
+          "rating": "78",
+          "starter": true,
+          "skill": {
+            "passing": "46",
+            "shooting": "12",
+            "tackling": "24",
+            "saving": "80",
+            "agility": "66",
+            "strength": "64",
+            "penalty_taking": "14",
+            "jumping": "76"
+          },
+          "currentPOS": [200, 0],
+          "fitness": 100,
+          "height": 188,
+          "injured": false
+        },
+        {
+          "name": "Ethan Campbell",
+          "position": "CB",
+          "rating": "78",
+          "starter": true,
+          "skill": {
+            "passing": "54",
+            "shooting": "20",
+            "tackling": "76",
+            "saving": "10",
+            "agility": "58",
+            "strength": "74",
+            "penalty_taking": "16",
+            "jumping": "72"
+          },
+          "currentPOS": [200, 100],
+          "fitness": 100,
+          "height": 184,
+          "injured": false
+        },
+        {
+          "name": "Ismael Cissé",
+          "position": "CM",
+          "rating": "80",
+          "starter": true,
+          "skill": {
+            "passing": "78",
+            "shooting": "56",
+            "tackling": "50",
+            "saving": "10",
+            "agility": "74",
+            "strength": "62",
+            "penalty_taking": "58",
+            "jumping": "48"
+          },
+          "currentPOS": [130, 200],
+          "fitness": 100,
+          "height": 176,
+          "injured": false
+        },
+        {
+          "name": "Marco Rossi",
+          "position": "CM",
+          "rating": "79",
+          "starter": true,
+          "skill": {
+            "passing": "76",
+            "shooting": "54",
+            "tackling": "48",
+            "saving": "10",
+            "agility": "72",
+            "strength": "64",
+            "penalty_taking": "55",
+            "jumping": "50"
+          },
+          "currentPOS": [270, 200],
+          "fitness": 100,
+          "height": 178,
+          "injured": false
+        },
+        {
+          "name": "Amadou Diop",
+          "position": "ST",
+          "rating": "81",
+          "starter": true,
+          "skill": {
+            "passing": "52",
+            "shooting": "82",
+            "tackling": "18",
+            "saving": "6",
+            "agility": "80",
+            "strength": "72",
+            "penalty_taking": "72",
+            "jumping": "68"
+          },
+          "currentPOS": [150, 280],
+          "fitness": 100,
+          "height": 181,
+          "injured": false
+        },
+        {
+          "name": "Jorge Peña",
+          "position": "ST",
+          "rating": "79",
+          "starter": true,
+          "skill": {
+            "passing": "50",
+            "shooting": "80",
+            "tackling": "16",
+            "saving": "5",
+            "agility": "78",
+            "strength": "68",
+            "penalty_taking": "68",
+            "jumping": "64"
+          },
+          "currentPOS": [250, 280],
+          "fitness": 100,
+          "height": 177,
+          "injured": false
+        },
+        {
+          "name": "Nabil Amrani",
+          "position": "GK",
+          "rating": "72",
+          "starter": false,
+          "skill": {
+            "passing": "38",
+            "shooting": "8",
+            "tackling": "18",
+            "saving": "75",
+            "agility": "60",
+            "strength": "58",
+            "penalty_taking": "10",
+            "jumping": "70"
+          },
+          "currentPOS": null,
+          "fitness": 100,
+          "height": 186,
+          "injured": false
+        },
+        {
+          "name": "Ryan Thompson",
+          "position": "CB",
+          "rating": "74",
+          "starter": false,
+          "skill": {
+            "passing": "50",
+            "shooting": "18",
+            "tackling": "72",
+            "saving": "10",
+            "agility": "56",
+            "strength": "70",
+            "penalty_taking": "14",
+            "jumping": "66"
+          },
+          "currentPOS": null,
+          "fitness": 100,
+          "height": 182,
+          "injured": false
+        },
+        {
+          "name": "Daichi Suzuki",
+          "position": "CM",
+          "rating": "76",
+          "starter": false,
+          "skill": {
+            "passing": "74",
+            "shooting": "52",
+            "tackling": "46",
+            "saving": "10",
+            "agility": "70",
+            "strength": "58",
+            "penalty_taking": "50",
+            "jumping": "44"
+          },
+          "currentPOS": null,
+          "fitness": 100,
+          "height": 170,
+          "injured": false
+        },
+        {
+          "name": "Luca Greco",
+          "position": "ST",
+          "rating": "76",
+          "starter": false,
+          "skill": {
+            "passing": "48",
+            "shooting": "78",
+            "tackling": "15",
+            "saving": "5",
+            "agility": "76",
+            "strength": "66",
+            "penalty_taking": "64",
+            "jumping": "60"
+          },
+          "currentPOS": null,
+          "fitness": 100,
+          "height": 175,
+          "injured": false
+        }
+      ]
+    },
+    {
+      "name": "Arctic Foxes",
+      "colors": { "primary": "#E0F7FA", "secondary": "#006064" },
+      "jersey": { "home": "Ice blue body with teal accents", "away": "Deep teal body with ice blue trim" },
+      "rating": "84",
+      "players": [
+        {
+          "name": "Viktor Holm",
+          "position": "GK",
+          "rating": "84",
+          "starter": true,
+          "skill": {
+            "passing": "52",
+            "shooting": "14",
+            "tackling": "28",
+            "saving": "86",
+            "agility": "72",
+            "strength": "68",
+            "penalty_taking": "16",
+            "jumping": "82"
+          },
+          "currentPOS": [200, 0],
+          "fitness": 100,
+          "height": 191,
+          "injured": false
+        },
+        {
+          "name": "Boubacar Sow",
+          "position": "CB",
+          "rating": "83",
+          "starter": true,
+          "skill": {
+            "passing": "60",
+            "shooting": "24",
+            "tackling": "84",
+            "saving": "12",
+            "agility": "62",
+            "strength": "78",
+            "penalty_taking": "20",
+            "jumping": "76"
+          },
+          "currentPOS": [200, 100],
+          "fitness": 100,
+          "height": 188,
+          "injured": false
+        },
+        {
+          "name": "Axel Bergström",
+          "position": "CM",
+          "rating": "85",
+          "starter": true,
+          "skill": {
+            "passing": "86",
+            "shooting": "64",
+            "tackling": "56",
+            "saving": "10",
+            "agility": "80",
+            "strength": "68",
+            "penalty_taking": "68",
+            "jumping": "54"
+          },
+          "currentPOS": [130, 200],
+          "fitness": 100,
+          "height": 180,
+          "injured": false
+        },
+        {
+          "name": "Ahmed Farouk",
+          "position": "CM",
+          "rating": "83",
+          "starter": true,
+          "skill": {
+            "passing": "82",
+            "shooting": "60",
+            "tackling": "54",
+            "saving": "10",
+            "agility": "78",
+            "strength": "66",
+            "penalty_taking": "62",
+            "jumping": "52"
+          },
+          "currentPOS": [270, 200],
+          "fitness": 100,
+          "height": 176,
+          "injured": false
+        },
+        {
+          "name": "Gabriel Santos",
+          "position": "ST",
+          "rating": "87",
+          "starter": true,
+          "skill": {
+            "passing": "62",
+            "shooting": "89",
+            "tackling": "20",
+            "saving": "7",
+            "agility": "88",
+            "strength": "72",
+            "penalty_taking": "80",
+            "jumping": "70"
+          },
+          "currentPOS": [150, 280],
+          "fitness": 100,
+          "height": 177,
+          "injured": false
+        },
+        {
+          "name": "Daniel Olsson",
+          "position": "ST",
+          "rating": "84",
+          "starter": true,
+          "skill": {
+            "passing": "56",
+            "shooting": "86",
+            "tackling": "18",
+            "saving": "6",
+            "agility": "84",
+            "strength": "74",
+            "penalty_taking": "76",
+            "jumping": "72"
+          },
+          "currentPOS": [250, 280],
+          "fitness": 100,
+          "height": 183,
+          "injured": false
+        },
+        {
+          "name": "Jakub Krawczyk",
+          "position": "GK",
+          "rating": "76",
+          "starter": false,
+          "skill": {
+            "passing": "42",
+            "shooting": "10",
+            "tackling": "22",
+            "saving": "78",
+            "agility": "64",
+            "strength": "62",
+            "penalty_taking": "12",
+            "jumping": "74"
+          },
+          "currentPOS": null,
+          "fitness": 100,
+          "height": 187,
+          "injured": false
+        },
+        {
+          "name": "Mamadou Bâ",
+          "position": "CB",
+          "rating": "79",
+          "starter": false,
+          "skill": {
+            "passing": "54",
+            "shooting": "20",
+            "tackling": "76",
+            "saving": "10",
+            "agility": "58",
+            "strength": "74",
+            "penalty_taking": "16",
+            "jumping": "70"
+          },
+          "currentPOS": null,
+          "fitness": 100,
+          "height": 185,
+          "injured": false
+        },
+        {
+          "name": "Matías Rojas",
+          "position": "CM",
+          "rating": "80",
+          "starter": false,
+          "skill": {
+            "passing": "80",
+            "shooting": "58",
+            "tackling": "50",
+            "saving": "10",
+            "agility": "74",
+            "strength": "62",
+            "penalty_taking": "56",
+            "jumping": "48"
+          },
+          "currentPOS": null,
+          "fitness": 100,
+          "height": 174,
+          "injured": false
+        },
+        {
+          "name": "Tobias Müller",
+          "position": "ST",
+          "rating": "80",
+          "starter": false,
+          "skill": {
+            "passing": "52",
+            "shooting": "82",
+            "tackling": "16",
+            "saving": "5",
+            "agility": "80",
+            "strength": "68",
+            "penalty_taking": "70",
+            "jumping": "64"
+          },
+          "currentPOS": null,
+          "fitness": 100,
+          "height": 181,
+          "injured": false
+        }
+      ]
+    },
+    {
+      "name": "Golden Lions",
+      "colors": { "primary": "#DAA520", "secondary": "#228B22" },
+      "jersey": { "home": "Goldenrod body with forest green collar", "away": "Forest green body with gold lion crest" },
+      "rating": "87",
+      "players": [
+        {
+          "name": "João Ferreira",
+          "position": "GK",
+          "rating": "86",
+          "starter": true,
+          "skill": {
+            "passing": "55",
+            "shooting": "14",
+            "tackling": "30",
+            "saving": "90",
+            "agility": "74",
+            "strength": "72",
+            "penalty_taking": "16",
+            "jumping": "86"
+          },
+          "currentPOS": [200, 0],
+          "fitness": 100,
+          "height": 193,
+          "injured": false
+        },
+        {
+          "name": "Marcel Desailly Jr",
+          "position": "CB",
+          "rating": "86",
+          "starter": true,
+          "skill": {
+            "passing": "64",
+            "shooting": "28",
+            "tackling": "86",
+            "saving": "12",
+            "agility": "66",
+            "strength": "82",
+            "penalty_taking": "24",
+            "jumping": "80"
+          },
+          "currentPOS": [200, 100],
+          "fitness": 100,
+          "height": 190,
+          "injured": false
+        },
+        {
+          "name": "Felipe Cardoso",
+          "position": "CM",
+          "rating": "88",
+          "starter": true,
+          "skill": {
+            "passing": "88",
+            "shooting": "68",
+            "tackling": "58",
+            "saving": "10",
+            "agility": "84",
+            "strength": "70",
+            "penalty_taking": "74",
+            "jumping": "56"
+          },
+          "currentPOS": [130, 200],
+          "fitness": 100,
+          "height": 178,
+          "injured": false
+        },
+        {
+          "name": "Antoine Dubois",
+          "position": "CM",
+          "rating": "86",
+          "starter": true,
+          "skill": {
+            "passing": "86",
+            "shooting": "64",
+            "tackling": "60",
+            "saving": "10",
+            "agility": "82",
+            "strength": "70",
+            "penalty_taking": "68",
+            "jumping": "54"
+          },
+          "currentPOS": [270, 200],
+          "fitness": 100,
+          "height": 180,
+          "injured": false
+        },
+        {
+          "name": "Emmanuel Adjei",
+          "position": "ST",
+          "rating": "90",
+          "starter": true,
+          "skill": {
+            "passing": "65",
+            "shooting": "93",
+            "tackling": "22",
+            "saving": "8",
+            "agility": "90",
+            "strength": "76",
+            "penalty_taking": "86",
+            "jumping": "74"
+          },
+          "currentPOS": [150, 280],
+          "fitness": 100,
+          "height": 180,
+          "injured": false
+        },
+        {
+          "name": "Santiago Reyes",
+          "position": "ST",
+          "rating": "87",
+          "starter": true,
+          "skill": {
+            "passing": "60",
+            "shooting": "88",
+            "tackling": "18",
+            "saving": "7",
+            "agility": "86",
+            "strength": "74",
+            "penalty_taking": "80",
+            "jumping": "72"
+          },
+          "currentPOS": [250, 280],
+          "fitness": 100,
+          "height": 179,
+          "injured": false
+        },
+        {
+          "name": "Hassan Amiri",
+          "position": "GK",
+          "rating": "79",
+          "starter": false,
+          "skill": {
+            "passing": "46",
+            "shooting": "12",
+            "tackling": "24",
+            "saving": "80",
+            "agility": "68",
+            "strength": "64",
+            "penalty_taking": "14",
+            "jumping": "76"
+          },
+          "currentPOS": null,
+          "fitness": 100,
+          "height": 189,
+          "injured": false
+        },
+        {
+          "name": "Thomas Weber",
+          "position": "CB",
+          "rating": "82",
+          "starter": false,
+          "skill": {
+            "passing": "58",
+            "shooting": "24",
+            "tackling": "80",
+            "saving": "10",
+            "agility": "62",
+            "strength": "76",
+            "penalty_taking": "20",
+            "jumping": "74"
+          },
+          "currentPOS": null,
+          "fitness": 100,
+          "height": 186,
+          "injured": false
+        },
+        {
+          "name": "Renato Oliveira",
+          "position": "CM",
+          "rating": "83",
+          "starter": false,
+          "skill": {
+            "passing": "82",
+            "shooting": "60",
+            "tackling": "54",
+            "saving": "10",
+            "agility": "76",
+            "strength": "64",
+            "penalty_taking": "60",
+            "jumping": "50"
+          },
+          "currentPOS": null,
+          "fitness": 100,
+          "height": 175,
+          "injured": false
+        },
+        {
+          "name": "Andrés Figueroa",
+          "position": "ST",
+          "rating": "84",
+          "starter": false,
+          "skill": {
+            "passing": "56",
+            "shooting": "86",
+            "tackling": "20",
+            "saving": "6",
+            "agility": "84",
+            "strength": "72",
+            "penalty_taking": "76",
+            "jumping": "66"
+          },
+          "currentPOS": null,
+          "fitness": 100,
+          "height": 178,
+          "injured": false
+        }
+      ]
+    },
+    {
+      "name": "Blue Tide",
+      "colors": { "primary": "#1E90FF", "secondary": "#FFFFFF" },
+      "jersey": { "home": "Dodger blue body with white trim", "away": "White body with blue wave pattern" },
+      "rating": "82",
+      "players": [
+        {
+          "name": "Guillermo Vargas",
+          "position": "GK",
+          "rating": "81",
+          "starter": true,
+          "skill": {
+            "passing": "50",
+            "shooting": "12",
+            "tackling": "26",
+            "saving": "82",
+            "agility": "68",
+            "strength": "66",
+            "penalty_taking": "16",
+            "jumping": "78"
+          },
+          "currentPOS": [200, 0],
+          "fitness": 100,
+          "height": 190,
+          "injured": false
+        },
+        {
+          "name": "Idrissa Keita",
+          "position": "CB",
+          "rating": "81",
+          "starter": true,
+          "skill": {
+            "passing": "56",
+            "shooting": "22",
+            "tackling": "80",
+            "saving": "10",
+            "agility": "60",
+            "strength": "76",
+            "penalty_taking": "18",
+            "jumping": "74"
+          },
+          "currentPOS": [200, 100],
+          "fitness": 100,
+          "height": 187,
+          "injured": false
+        },
+        {
+          "name": "Thibaut Girard",
+          "position": "CM",
+          "rating": "83",
+          "starter": true,
+          "skill": {
+            "passing": "84",
+            "shooting": "62",
+            "tackling": "54",
+            "saving": "10",
+            "agility": "78",
+            "strength": "66",
+            "penalty_taking": "66",
+            "jumping": "52"
+          },
+          "currentPOS": [130, 200],
+          "fitness": 100,
+          "height": 177,
+          "injured": false
+        },
+        {
+          "name": "Kazuki Ishida",
+          "position": "CM",
+          "rating": "82",
+          "starter": true,
+          "skill": {
+            "passing": "80",
+            "shooting": "58",
+            "tackling": "52",
+            "saving": "10",
+            "agility": "76",
+            "strength": "64",
+            "penalty_taking": "60",
+            "jumping": "50"
+          },
+          "currentPOS": [270, 200],
+          "fitness": 100,
+          "height": 173,
+          "injured": false
+        },
+        {
+          "name": "Nuno Pinto",
+          "position": "ST",
+          "rating": "84",
+          "starter": true,
+          "skill": {
+            "passing": "58",
+            "shooting": "86",
+            "tackling": "18",
+            "saving": "7",
+            "agility": "84",
+            "strength": "72",
+            "penalty_taking": "76",
+            "jumping": "68"
+          },
+          "currentPOS": [150, 280],
+          "fitness": 100,
+          "height": 179,
+          "injured": false
+        },
+        {
+          "name": "Oscar Lundberg",
+          "position": "ST",
+          "rating": "82",
+          "starter": true,
+          "skill": {
+            "passing": "54",
+            "shooting": "84",
+            "tackling": "16",
+            "saving": "6",
+            "agility": "82",
+            "strength": "70",
+            "penalty_taking": "72",
+            "jumping": "66"
+          },
+          "currentPOS": [250, 280],
+          "fitness": 100,
+          "height": 182,
+          "injured": false
+        },
+        {
+          "name": "Amir Rezaei",
+          "position": "GK",
+          "rating": "75",
+          "starter": false,
+          "skill": {
+            "passing": "40",
+            "shooting": "10",
+            "tackling": "20",
+            "saving": "76",
+            "agility": "62",
+            "strength": "60",
+            "penalty_taking": "12",
+            "jumping": "72"
+          },
+          "currentPOS": null,
+          "fitness": 100,
+          "height": 186,
+          "injured": false
+        },
+        {
+          "name": "William Hartley",
+          "position": "CB",
+          "rating": "77",
+          "starter": false,
+          "skill": {
+            "passing": "52",
+            "shooting": "18",
+            "tackling": "74",
+            "saving": "10",
+            "agility": "56",
+            "strength": "72",
+            "penalty_taking": "14",
+            "jumping": "68"
+          },
+          "currentPOS": null,
+          "fitness": 100,
+          "height": 184,
+          "injured": false
+        },
+        {
+          "name": "Esteban Flores",
+          "position": "CM",
+          "rating": "78",
+          "starter": false,
+          "skill": {
+            "passing": "76",
+            "shooting": "54",
+            "tackling": "48",
+            "saving": "10",
+            "agility": "72",
+            "strength": "60",
+            "penalty_taking": "52",
+            "jumping": "46"
+          },
+          "currentPOS": null,
+          "fitness": 100,
+          "height": 175,
+          "injured": false
+        },
+        {
+          "name": "Malik Traoré",
+          "position": "ST",
+          "rating": "78",
+          "starter": false,
+          "skill": {
+            "passing": "50",
+            "shooting": "80",
+            "tackling": "16",
+            "saving": "5",
+            "agility": "78",
+            "strength": "68",
+            "penalty_taking": "68",
+            "jumping": "62"
+          },
+          "currentPOS": null,
+          "fitness": 100,
+          "height": 180,
+          "injured": false
+        }
+      ]
+    },
+    {
+      "name": "Emerald Strikers",
+      "colors": { "primary": "#2ECC71", "secondary": "#1C1C1C" },
+      "jersey": { "home": "Emerald green body with black cuffs", "away": "Black body with emerald diagonal stripe" },
+      "rating": "80",
+      "players": [
+        {
+          "name": "Osman Demirci",
+          "position": "GK",
+          "rating": "79",
+          "starter": true,
+          "skill": {
+            "passing": "48",
+            "shooting": "12",
+            "tackling": "25",
+            "saving": "80",
+            "agility": "66",
+            "strength": "65",
+            "penalty_taking": "15",
+            "jumping": "76"
+          },
+          "currentPOS": [200, 0],
+          "fitness": 100,
+          "height": 189,
+          "injured": false
+        },
+        {
+          "name": "Sean Gallagher",
+          "position": "CB",
+          "rating": "79",
+          "starter": true,
+          "skill": {
+            "passing": "54",
+            "shooting": "22",
+            "tackling": "78",
+            "saving": "10",
+            "agility": "58",
+            "strength": "74",
+            "penalty_taking": "18",
+            "jumping": "72"
+          },
+          "currentPOS": [200, 100],
+          "fitness": 100,
+          "height": 185,
+          "injured": false
+        },
+        {
+          "name": "Karim Zidane",
+          "position": "CM",
+          "rating": "81",
+          "starter": true,
+          "skill": {
+            "passing": "80",
+            "shooting": "58",
+            "tackling": "52",
+            "saving": "10",
+            "agility": "76",
+            "strength": "64",
+            "penalty_taking": "60",
+            "jumping": "50"
+          },
+          "currentPOS": [130, 200],
+          "fitness": 100,
+          "height": 178,
+          "injured": false
+        },
+        {
+          "name": "Tae-young Lee",
+          "position": "CM",
+          "rating": "80",
+          "starter": true,
+          "skill": {
+            "passing": "78",
+            "shooting": "56",
+            "tackling": "50",
+            "saving": "10",
+            "agility": "74",
+            "strength": "62",
+            "penalty_taking": "56",
+            "jumping": "48"
+          },
+          "currentPOS": [270, 200],
+          "fitness": 100,
+          "height": 174,
+          "injured": false
+        },
+        {
+          "name": "Fabián Torres",
+          "position": "ST",
+          "rating": "82",
+          "starter": true,
+          "skill": {
+            "passing": "54",
+            "shooting": "84",
+            "tackling": "18",
+            "saving": "6",
+            "agility": "82",
+            "strength": "72",
+            "penalty_taking": "74",
+            "jumping": "68"
+          },
+          "currentPOS": [150, 280],
+          "fitness": 100,
+          "height": 180,
+          "injured": false
+        },
+        {
+          "name": "Brahim Lahlou",
+          "position": "ST",
+          "rating": "80",
+          "starter": true,
+          "skill": {
+            "passing": "50",
+            "shooting": "82",
+            "tackling": "16",
+            "saving": "5",
+            "agility": "80",
+            "strength": "70",
+            "penalty_taking": "70",
+            "jumping": "66"
+          },
+          "currentPOS": [250, 280],
+          "fitness": 100,
+          "height": 176,
+          "injured": false
+        },
+        {
+          "name": "Jack Robinson",
+          "position": "GK",
+          "rating": "73",
+          "starter": false,
+          "skill": {
+            "passing": "38",
+            "shooting": "8",
+            "tackling": "18",
+            "saving": "76",
+            "agility": "60",
+            "strength": "58",
+            "penalty_taking": "10",
+            "jumping": "70"
+          },
+          "currentPOS": null,
+          "fitness": 100,
+          "height": 186,
+          "injured": false
+        },
+        {
+          "name": "Daouda Konaté",
+          "position": "CB",
+          "rating": "76",
+          "starter": false,
+          "skill": {
+            "passing": "50",
+            "shooting": "18",
+            "tackling": "74",
+            "saving": "10",
+            "agility": "56",
+            "strength": "72",
+            "penalty_taking": "14",
+            "jumping": "68"
+          },
+          "currentPOS": null,
+          "fitness": 100,
+          "height": 184,
+          "injured": false
+        },
+        {
+          "name": "Bruno Correia",
+          "position": "CM",
+          "rating": "77",
+          "starter": false,
+          "skill": {
+            "passing": "76",
+            "shooting": "52",
+            "tackling": "46",
+            "saving": "10",
+            "agility": "70",
+            "strength": "60",
+            "penalty_taking": "50",
+            "jumping": "44"
+          },
+          "currentPOS": null,
+          "fitness": 100,
+          "height": 173,
+          "injured": false
+        },
+        {
+          "name": "Oliver Nguyen",
+          "position": "ST",
+          "rating": "76",
+          "starter": false,
+          "skill": {
+            "passing": "48",
+            "shooting": "78",
+            "tackling": "15",
+            "saving": "5",
+            "agility": "76",
+            "strength": "66",
+            "penalty_taking": "64",
+            "jumping": "60"
+          },
+          "currentPOS": null,
+          "fitness": 100,
+          "height": 175,
+          "injured": false
+        }
+      ]
+    },
+    {
+      "name": "Crimson Vanguard",
+      "colors": { "primary": "#8B0000", "secondary": "#F5F5DC" },
+      "jersey": { "home": "Dark red body with beige shoulders", "away": "Beige body with dark red vertical stripe" },
+      "rating": "85",
+      "players": [
+        {
+          "name": "Stefan Janssen",
+          "position": "GK",
+          "rating": "84",
+          "starter": true,
+          "skill": {
+            "passing": "52",
+            "shooting": "14",
+            "tackling": "28",
+            "saving": "86",
+            "agility": "72",
+            "strength": "70",
+            "penalty_taking": "16",
+            "jumping": "84"
+          },
+          "currentPOS": [200, 0],
+          "fitness": 100,
+          "height": 192,
+          "injured": false
+        },
+        {
+          "name": "Salif Coulibaly",
+          "position": "CB",
+          "rating": "84",
+          "starter": true,
+          "skill": {
+            "passing": "62",
+            "shooting": "26",
+            "tackling": "84",
+            "saving": "12",
+            "agility": "64",
+            "strength": "80",
+            "penalty_taking": "22",
+            "jumping": "78"
+          },
+          "currentPOS": [200, 100],
+          "fitness": 100,
+          "height": 190,
+          "injured": false
+        },
+        {
+          "name": "Julien Marchand",
+          "position": "CM",
+          "rating": "86",
+          "starter": true,
+          "skill": {
+            "passing": "86",
+            "shooting": "66",
+            "tackling": "58",
+            "saving": "10",
+            "agility": "82",
+            "strength": "68",
+            "penalty_taking": "72",
+            "jumping": "55"
+          },
+          "currentPOS": [130, 200],
+          "fitness": 100,
+          "height": 179,
+          "injured": false
+        },
+        {
+          "name": "Nicolás Paredes",
+          "position": "CM",
+          "rating": "84",
+          "starter": true,
+          "skill": {
+            "passing": "84",
+            "shooting": "62",
+            "tackling": "56",
+            "saving": "10",
+            "agility": "78",
+            "strength": "66",
+            "penalty_taking": "66",
+            "jumping": "52"
+          },
+          "currentPOS": [270, 200],
+          "fitness": 100,
+          "height": 176,
+          "injured": false
+        },
+        {
+          "name": "Kojo Appiah",
+          "position": "ST",
+          "rating": "88",
+          "starter": true,
+          "skill": {
+            "passing": "62",
+            "shooting": "90",
+            "tackling": "20",
+            "saving": "8",
+            "agility": "88",
+            "strength": "76",
+            "penalty_taking": "84",
+            "jumping": "72"
+          },
+          "currentPOS": [150, 280],
+          "fitness": 100,
+          "height": 181,
+          "injured": false
+        },
+        {
+          "name": "Lorenzo De Luca",
+          "position": "ST",
+          "rating": "85",
+          "starter": true,
+          "skill": {
+            "passing": "58",
+            "shooting": "86",
+            "tackling": "18",
+            "saving": "7",
+            "agility": "84",
+            "strength": "74",
+            "penalty_taking": "78",
+            "jumping": "70"
+          },
+          "currentPOS": [250, 280],
+          "fitness": 100,
+          "height": 183,
+          "injured": false
+        },
+        {
+          "name": "Krzysztof Maj",
+          "position": "GK",
+          "rating": "77",
+          "starter": false,
+          "skill": {
+            "passing": "44",
+            "shooting": "10",
+            "tackling": "24",
+            "saving": "78",
+            "agility": "66",
+            "strength": "64",
+            "penalty_taking": "12",
+            "jumping": "74"
+          },
+          "currentPOS": null,
+          "fitness": 100,
+          "height": 188,
+          "injured": false
+        },
+        {
+          "name": "Faisal Al-Rashid",
+          "position": "CB",
+          "rating": "80",
+          "starter": false,
+          "skill": {
+            "passing": "56",
+            "shooting": "22",
+            "tackling": "78",
+            "saving": "10",
+            "agility": "60",
+            "strength": "74",
+            "penalty_taking": "18",
+            "jumping": "72"
+          },
+          "currentPOS": null,
+          "fitness": 100,
+          "height": 185,
+          "injured": false
+        },
+        {
+          "name": "Miguel Ángel Cruz",
+          "position": "CM",
+          "rating": "81",
+          "starter": false,
+          "skill": {
+            "passing": "80",
+            "shooting": "58",
+            "tackling": "52",
+            "saving": "10",
+            "agility": "74",
+            "strength": "62",
+            "penalty_taking": "56",
+            "jumping": "48"
+          },
+          "currentPOS": null,
+          "fitness": 100,
+          "height": 174,
+          "injured": false
+        },
+        {
+          "name": "Theo Harrington",
+          "position": "ST",
+          "rating": "81",
+          "starter": false,
+          "skill": {
+            "passing": "52",
+            "shooting": "82",
+            "tackling": "16",
+            "saving": "5",
+            "agility": "80",
+            "strength": "68",
+            "penalty_taking": "70",
+            "jumping": "64"
+          },
+          "currentPOS": null,
+          "fitness": 100,
+          "height": 179,
+          "injured": false
+        }
+      ]
+    },
+    {
+      "name": "Storm Chasers",
+      "colors": { "primary": "#9B59B6", "secondary": "#ECF0F1" },
+      "jersey": { "home": "Purple body with light grey accents", "away": "Light grey body with purple chest band" },
+      "rating": "83",
+      "players": [
+        {
+          "name": "Lukas Schreiber",
+          "position": "GK",
+          "rating": "82",
+          "starter": true,
+          "skill": {
+            "passing": "50",
+            "shooting": "14",
+            "tackling": "28",
+            "saving": "84",
+            "agility": "70",
+            "strength": "68",
+            "penalty_taking": "16",
+            "jumping": "80"
+          },
+          "currentPOS": [200, 0],
+          "fitness": 100,
+          "height": 191,
+          "injured": false
+        },
+        {
+          "name": "Patrick Mensah",
+          "position": "CB",
+          "rating": "82",
+          "starter": true,
+          "skill": {
+            "passing": "58",
+            "shooting": "24",
+            "tackling": "82",
+            "saving": "12",
+            "agility": "62",
+            "strength": "78",
+            "penalty_taking": "20",
+            "jumping": "76"
+          },
+          "currentPOS": [200, 100],
+          "fitness": 100,
+          "height": 188,
+          "injured": false
+        },
+        {
+          "name": "Romain Deschamps",
+          "position": "CM",
+          "rating": "84",
+          "starter": true,
+          "skill": {
+            "passing": "84",
+            "shooting": "62",
+            "tackling": "56",
+            "saving": "10",
+            "agility": "80",
+            "strength": "66",
+            "penalty_taking": "66",
+            "jumping": "52"
+          },
+          "currentPOS": [130, 200],
+          "fitness": 100,
+          "height": 177,
+          "injured": false
+        },
+        {
+          "name": "Sung-jin Hwang",
+          "position": "CM",
+          "rating": "83",
+          "starter": true,
+          "skill": {
+            "passing": "82",
+            "shooting": "60",
+            "tackling": "54",
+            "saving": "10",
+            "agility": "78",
+            "strength": "64",
+            "penalty_taking": "62",
+            "jumping": "50"
+          },
+          "currentPOS": [270, 200],
+          "fitness": 100,
+          "height": 174,
+          "injured": false
+        },
+        {
+          "name": "Vinícius Araújo",
+          "position": "ST",
+          "rating": "86",
+          "starter": true,
+          "skill": {
+            "passing": "60",
+            "shooting": "88",
+            "tackling": "20",
+            "saving": "7",
+            "agility": "86",
+            "strength": "72",
+            "penalty_taking": "80",
+            "jumping": "70"
+          },
+          "currentPOS": [150, 280],
+          "fitness": 100,
+          "height": 178,
+          "injured": false
+        },
+        {
+          "name": "Omar El-Sayed",
+          "position": "ST",
+          "rating": "83",
+          "starter": true,
+          "skill": {
+            "passing": "56",
+            "shooting": "84",
+            "tackling": "18",
+            "saving": "6",
+            "agility": "82",
+            "strength": "70",
+            "penalty_taking": "74",
+            "jumping": "68"
+          },
+          "currentPOS": [250, 280],
+          "fitness": 100,
+          "height": 180,
+          "injured": false
+        },
+        {
+          "name": "Marcus Taylor",
+          "position": "GK",
+          "rating": "76",
+          "starter": false,
+          "skill": {
+            "passing": "42",
+            "shooting": "10",
+            "tackling": "22",
+            "saving": "78",
+            "agility": "64",
+            "strength": "62",
+            "penalty_taking": "12",
+            "jumping": "74"
+          },
+          "currentPOS": null,
+          "fitness": 100,
+          "height": 187,
+          "injured": false
+        },
+        {
+          "name": "Ibrahim Sanogo",
+          "position": "CB",
+          "rating": "78",
+          "starter": false,
+          "skill": {
+            "passing": "52",
+            "shooting": "20",
+            "tackling": "76",
+            "saving": "10",
+            "agility": "58",
+            "strength": "74",
+            "penalty_taking": "16",
+            "jumping": "70"
+          },
+          "currentPOS": null,
+          "fitness": 100,
+          "height": 186,
+          "injured": false
+        },
+        {
+          "name": "Daniel Fernández",
+          "position": "CM",
+          "rating": "80",
+          "starter": false,
+          "skill": {
+            "passing": "78",
+            "shooting": "56",
+            "tackling": "50",
+            "saving": "10",
+            "agility": "74",
+            "strength": "62",
+            "penalty_taking": "54",
+            "jumping": "48"
+          },
+          "currentPOS": null,
+          "fitness": 100,
+          "height": 176,
+          "injured": false
+        },
+        {
+          "name": "Jake Morrison",
+          "position": "ST",
+          "rating": "79",
+          "starter": false,
+          "skill": {
+            "passing": "50",
+            "shooting": "80",
+            "tackling": "16",
+            "saving": "5",
+            "agility": "78",
+            "strength": "68",
+            "penalty_taking": "68",
+            "jumping": "62"
+          },
+          "currentPOS": null,
+          "fitness": 100,
+          "height": 181,
+          "injured": false
+        }
+      ]
+    }
+  ]
+}
