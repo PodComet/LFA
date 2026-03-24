@@ -25,6 +25,7 @@ function setGameVariables(team) {
     player.hasBall = false
     player.stats = {
       'goals': 0,
+      'assists': 0,
       'shots': {
         'total': 0,
         'on': 0,

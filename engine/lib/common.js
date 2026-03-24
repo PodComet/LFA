@@ -83,31 +83,32 @@ function readFile(filePath) {
 
 function inTopPenalty(matchDetails, item) {
   const [matchWidth, matchHeight] = matchDetails.pitchSize
-  let ballInPenalyBoxX = isBetween(item[0], (matchWidth / 3) + 5, matchWidth - (matchWidth / 3) - 5)
-  let ballInTopPenalyBoxY = isBetween(item[1], -1, (matchHeight / 12) + 7)
+  // Small 6v6 penalty box: ~80 wide, ~30 deep
+  let ballInPenalyBoxX = isBetween(item[0], (matchWidth / 2.5) + 5, matchWidth - (matchWidth / 2.5) - 5)
+  let ballInTopPenalyBoxY = isBetween(item[1], -1, (matchHeight / 20) + 5)
   if (ballInPenalyBoxX && ballInTopPenalyBoxY) return true
   return false
 }
 
 function inBottomPenalty(matchDetails, item) {
   const [matchWidth, matchHeight] = matchDetails.pitchSize
-  let ballInPenalyBoxX = isBetween(item[0], (matchWidth / 3) + 5, matchWidth - (matchWidth / 3) - 5)
-  let ballInBottomPenalyBoxY = isBetween(item[1], matchHeight - (matchHeight / 12) - 7, matchHeight + 1)
+  let ballInPenalyBoxX = isBetween(item[0], (matchWidth / 2.5) + 5, matchWidth - (matchWidth / 2.5) - 5)
+  let ballInBottomPenalyBoxY = isBetween(item[1], matchHeight - (matchHeight / 20) - 5, matchHeight + 1)
   if (ballInPenalyBoxX && ballInBottomPenalyBoxY) return true
   return false
 }
 
 function getRandomTopPenaltyPosition(matchDetails) {
   const [pitchWidth, pitchHeight] = matchDetails.pitchSize
-  let boundaryX = [(pitchWidth / 3) + 6, (pitchWidth - (pitchWidth / 3) - 6)]
-  let boundaryY = [0, (pitchHeight / 12) + 6]
+  let boundaryX = [(pitchWidth / 2.5) + 6, (pitchWidth - (pitchWidth / 2.5) - 6)]
+  let boundaryY = [0, (pitchHeight / 20) + 4]
   return [getRandomNumber(boundaryX[0], boundaryX[1]), getRandomNumber(boundaryY[0], boundaryY[1])]
 }
 
 function getRandomBottomPenaltyPosition(matchDetails) {
   const [pitchWidth, pitchHeight] = matchDetails.pitchSize
-  let boundaryX = [(pitchWidth / 3) + 6, (pitchWidth - (pitchWidth / 3) - 6)]
-  let boundaryY = [pitchHeight - (pitchHeight / 12) + 6, pitchHeight]
+  let boundaryX = [(pitchWidth / 2.5) + 6, (pitchWidth - (pitchWidth / 2.5) - 6)]
+  let boundaryY = [pitchHeight - (pitchHeight / 20) + 4, pitchHeight]
   return [getRandomNumber(boundaryX[0], boundaryX[1]), getRandomNumber(boundaryY[0], boundaryY[1])]
 }
 
@@ -131,13 +132,8 @@ function isInjured(x) {
   return getRandomNumber(0, x) == 23
 }
 
-function matchInjury(matchDetails, team) {
-  const player = team.players[getRandomNumber(0, team.players.length - 1)]
-
-  if (isInjured(40000)) {
-    player.injured = true
-    matchDetails.iterationLog.push(`Player Injured - ${player.name}`)
-  }
+function matchInjury() {
+  // Injuries disabled for LFA 6v6 first-to-5 format
 }
 
 function isEven(n) {

@@ -13,7 +13,7 @@
       "rating": "86",
       "players": [
         {
-          "name": "Kenji Morimoto",
+          "name": "Pelé",
           "position": "GK",
           "rating": "85",
           "starter": true,
@@ -40,7 +40,7 @@
           "injured": false
         },
         {
-          "name": "Ousmane Diallo",
+          "name": "Ronaldo",
           "position": "CB",
           "rating": "84",
           "starter": true,
@@ -67,7 +67,7 @@
           "injured": false
         },
         {
-          "name": "Lucas Hernández",
+          "name": "Kaká",
           "position": "CM",
           "rating": "87",
           "starter": true,
@@ -94,7 +94,7 @@
           "injured": false
         },
         {
-          "name": "Erik Lindqvist",
+          "name": "Neymar",
           "position": "CM",
           "rating": "85",
           "starter": true,
@@ -121,7 +121,7 @@
           "injured": false
         },
         {
-          "name": "Rafael Silva",
+          "name": "Rivaldo",
           "position": "ST",
           "rating": "89",
           "starter": true,
@@ -148,7 +148,7 @@
           "injured": false
         },
         {
-          "name": "Ibrahim Mensah",
+          "name": "Dida",
           "position": "ST",
           "rating": "86",
           "starter": true,
@@ -175,7 +175,7 @@
           "injured": false
         },
         {
-          "name": "Tomasz Kowalski",
+          "name": "Cafu",
           "position": "GK",
           "rating": "78",
           "starter": false,
@@ -199,7 +199,7 @@
           "injured": false
         },
         {
-          "name": "André Fonseca",
+          "name": "Zico",
           "position": "CB",
           "rating": "80",
           "starter": false,
@@ -223,7 +223,7 @@
           "injured": false
         },
         {
-          "name": "Min-jun Park",
+          "name": "Garrincha",
           "position": "CM",
           "rating": "81",
           "starter": false,
@@ -247,7 +247,7 @@
           "injured": false
         },
         {
-          "name": "Youssef El-Masri",
+          "name": "Romário",
           "position": "ST",
           "rating": "82",
           "starter": false,
@@ -270,7 +270,16 @@
           "height": 179,
           "injured": false
         }
-      ]
+      ],
+      "coach": {
+        "name": "Danilo",
+        "rating": "88",
+        "style": "attacking",
+        "career": {
+          "matches": 14,
+          "points": 26
+        }
+      }
     },
     {
       "name": "Cyclones",
@@ -285,7 +294,7 @@
       "rating": "83",
       "players": [
         {
-          "name": "Hugo Pereira",
+          "name": "Bebeto",
           "position": "GK",
           "rating": "82",
           "starter": true,
@@ -312,7 +321,7 @@
           "injured": false
         },
         {
-          "name": "Kwame Asante",
+          "name": "Denílson",
           "position": "CB",
           "rating": "82",
           "starter": true,
@@ -339,7 +348,7 @@
           "injured": false
         },
         {
-          "name": "Léo Dumont",
+          "name": "Juninho",
           "position": "CM",
           "rating": "84",
           "starter": true,
@@ -366,7 +375,7 @@
           "injured": false
         },
         {
-          "name": "Takeshi Nakamura",
+          "name": "Raí",
           "position": "CM",
           "rating": "83",
           "starter": true,
@@ -393,7 +402,7 @@
           "injured": false
         },
         {
-          "name": "Mateo Gutiérrez",
+          "name": "Sócrates",
           "position": "ST",
           "rating": "85",
           "starter": true,
@@ -420,7 +429,7 @@
           "injured": false
         },
         {
-          "name": "Ade Okonkwo",
+          "name": "Falcão",
           "position": "ST",
           "rating": "83",
           "starter": true,
@@ -447,7 +456,7 @@
           "injured": false
         },
         {
-          "name": "Reza Mohammadi",
+          "name": "Toninho",
           "position": "GK",
           "rating": "76",
           "starter": false,
@@ -471,7 +480,7 @@
           "injured": false
         },
         {
-          "name": "Sven Eriksson",
+          "name": "Mazinho",
           "position": "CB",
           "rating": "78",
           "starter": false,
@@ -495,7 +504,7 @@
           "injured": false
         },
         {
-          "name": "Diego Morales",
+          "name": "Branco",
           "position": "CM",
           "rating": "79",
           "starter": false,
@@ -519,7 +528,7 @@
           "injured": false
         },
         {
-          "name": "Connor Mitchell",
+          "name": "Aldair",
           "position": "ST",
           "rating": "78",
           "starter": false,
@@ -542,7 +551,16 @@
           "height": 180,
           "injured": false
         }
-      ]
+      ],
+      "coach": {
+        "name": "Bruno",
+        "rating": "72",
+        "style": "defensive",
+        "career": {
+          "matches": 25,
+          "points": 32
+        }
+      }
     },
     {
       "name": "Red Phoenix",
@@ -557,7 +575,7 @@
       "rating": "88",
       "players": [
         {
-          "name": "Manuel Neumann",
+          "name": "Mauro",
           "position": "GK",
           "rating": "88",
           "starter": true,
@@ -584,7 +602,7 @@
           "injured": false
         },
         {
-          "name": "Cheikh Ndiaye",
+          "name": "Djalminha",
           "position": "CB",
           "rating": "87",
           "starter": true,
@@ -611,7 +629,7 @@
           "injured": false
         },
         {
-          "name": "Alejandro Vega",
+          "name": "Edílson",
           "position": "CM",
           "rating": "89",
           "starter": true,
@@ -638,7 +656,7 @@
           "injured": false
         },
         {
-          "name": "Pierre Lefèvre",
+          "name": "Vampeta",
           "position": "CM",
           "rating": "88",
           "starter": true,
@@ -665,7 +683,7 @@
           "injured": false
         },
         {
-          "name": "Thiago Almeida",
+          "name": "Amaral",
           "position": "ST",
           "rating": "92",
           "starter": true,
@@ -692,7 +710,7 @@
           "injured": false
         },
         {
-          "name": "Hyun-woo Kim",
+          "name": "Léo",
           "position": "ST",
           "rating": "88",
           "starter": true,
@@ -719,7 +737,7 @@
           "injured": false
         },
         {
-          "name": "Fabio Marchetti",
+          "name": "Dodô",
           "position": "GK",
           "rating": "80",
           "starter": false,
@@ -743,7 +761,7 @@
           "injured": false
         },
         {
-          "name": "Moussa Camara",
+          "name": "Cléber",
           "position": "CB",
           "rating": "82",
           "starter": false,
@@ -767,7 +785,7 @@
           "injured": false
         },
         {
-          "name": "Oscar Johansson",
+          "name": "Fábio",
           "position": "CM",
           "rating": "84",
           "starter": false,
@@ -791,7 +809,7 @@
           "injured": false
         },
         {
-          "name": "Carlos Mendoza",
+          "name": "Lúcio",
           "position": "ST",
           "rating": "84",
           "starter": false,
@@ -814,7 +832,16 @@
           "height": 180,
           "injured": false
         }
-      ]
+      ],
+      "coach": {
+        "name": "Índio",
+        "rating": "91",
+        "style": "balanced",
+        "career": {
+          "matches": 9,
+          "points": 10
+        }
+      }
     },
     {
       "name": "Shadow Wolves",
@@ -829,7 +856,7 @@
       "rating": "81",
       "players": [
         {
-          "name": "Andrei Volkov",
+          "name": "Taffarel",
           "position": "GK",
           "rating": "80",
           "starter": true,
@@ -856,7 +883,7 @@
           "injured": false
         },
         {
-          "name": "Emeka Obi",
+          "name": "Edmundo",
           "position": "CB",
           "rating": "80",
           "starter": true,
@@ -883,7 +910,7 @@
           "injured": false
         },
         {
-          "name": "Hamza Benali",
+          "name": "Elano",
           "position": "CM",
           "rating": "82",
           "starter": true,
@@ -910,7 +937,7 @@
           "injured": false
         },
         {
-          "name": "Liam O'Sullivan",
+          "name": "Grafite",
           "position": "CM",
           "rating": "81",
           "starter": true,
@@ -937,7 +964,7 @@
           "injured": false
         },
         {
-          "name": "Kofi Asamoah",
+          "name": "Hulk",
           "position": "ST",
           "rating": "83",
           "starter": true,
@@ -964,7 +991,7 @@
           "injured": false
         },
         {
-          "name": "Javier Ruiz",
+          "name": "Jô",
           "position": "ST",
           "rating": "81",
           "starter": true,
@@ -991,7 +1018,7 @@
           "injured": false
         },
         {
-          "name": "Filip Novak",
+          "name": "Luisão",
           "position": "GK",
           "rating": "74",
           "starter": false,
@@ -1015,7 +1042,7 @@
           "injured": false
         },
         {
-          "name": "Tariq Hassan",
+          "name": "Maicon",
           "position": "CB",
           "rating": "76",
           "starter": false,
@@ -1039,7 +1066,7 @@
           "injured": false
         },
         {
-          "name": "Yuki Tanaka",
+          "name": "Marquinhos",
           "position": "CM",
           "rating": "78",
           "starter": false,
@@ -1063,7 +1090,7 @@
           "injured": false
         },
         {
-          "name": "Nathan Clarke",
+          "name": "Thiago",
           "position": "ST",
           "rating": "77",
           "starter": false,
@@ -1086,7 +1113,16 @@
           "height": 179,
           "injured": false
         }
-      ]
+      ],
+      "coach": {
+        "name": "Ronaldinho",
+        "rating": "65",
+        "style": "possession",
+        "career": {
+          "matches": 9,
+          "points": 14
+        }
+      }
     },
     {
       "name": "Iron Eagles",
@@ -1101,7 +1137,7 @@
       "rating": "85",
       "players": [
         {
-          "name": "Mehmet Yilmaz",
+          "name": "Willian",
           "position": "GK",
           "rating": "84",
           "starter": true,
@@ -1128,7 +1164,7 @@
           "injured": false
         },
         {
-          "name": "James Whitfield",
+          "name": "Fernandinho",
           "position": "CB",
           "rating": "84",
           "starter": true,
@@ -1155,7 +1191,7 @@
           "injured": false
         },
         {
-          "name": "Paolo Bianchi",
+          "name": "Casemiro",
           "position": "CM",
           "rating": "86",
           "starter": true,
@@ -1182,7 +1218,7 @@
           "injured": false
         },
         {
-          "name": "Seung-ho Choi",
+          "name": "Firmino",
           "position": "CM",
           "rating": "84",
           "starter": true,
@@ -1209,7 +1245,7 @@
           "injured": false
         },
         {
-          "name": "Samuel Eto'o Jr",
+          "name": "Coutinho",
           "position": "ST",
           "rating": "88",
           "starter": true,
@@ -1236,7 +1272,7 @@
           "injured": false
         },
         {
-          "name": "Niklas Brandt",
+          "name": "Paulinho",
           "position": "ST",
           "rating": "85",
           "starter": true,
@@ -1263,7 +1299,7 @@
           "injured": false
         },
         {
-          "name": "Dmitri Petrov",
+          "name": "Ramires",
           "position": "GK",
           "rating": "77",
           "starter": false,
@@ -1287,7 +1323,7 @@
           "injured": false
         },
         {
-          "name": "Abdoulaye Touré",
+          "name": "Renato",
           "position": "CB",
           "rating": "80",
           "starter": false,
@@ -1311,7 +1347,7 @@
           "injured": false
         },
         {
-          "name": "Hiroshi Watanabe",
+          "name": "Robinho",
           "position": "CM",
           "rating": "82",
           "starter": false,
@@ -1335,7 +1371,7 @@
           "injured": false
         },
         {
-          "name": "Rodrigo Castillo",
+          "name": "Adriano",
           "position": "ST",
           "rating": "82",
           "starter": false,
@@ -1358,7 +1394,16 @@
           "height": 178,
           "injured": false
         }
-      ]
+      ],
+      "coach": {
+        "name": "Cafú",
+        "rating": "79",
+        "style": "counter-attack",
+        "career": {
+          "matches": 14,
+          "points": 16
+        }
+      }
     },
     {
       "name": "Solar Flares",
@@ -1373,7 +1418,7 @@
       "rating": "79",
       "players": [
         {
-          "name": "Ali Karimi",
+          "name": "Baptista",
           "position": "GK",
           "rating": "78",
           "starter": true,
@@ -1400,7 +1445,7 @@
           "injured": false
         },
         {
-          "name": "Ethan Campbell",
+          "name": "Cicinho",
           "position": "CB",
           "rating": "78",
           "starter": true,
@@ -1427,7 +1472,7 @@
           "injured": false
         },
         {
-          "name": "Ismael Cissé",
+          "name": "Gilberto",
           "position": "CM",
           "rating": "80",
           "starter": true,
@@ -1454,7 +1499,7 @@
           "injured": false
         },
         {
-          "name": "Marco Rossi",
+          "name": "Mineiro",
           "position": "CM",
           "rating": "79",
           "starter": true,
@@ -1481,7 +1526,7 @@
           "injured": false
         },
         {
-          "name": "Amadou Diop",
+          "name": "Ricardinho",
           "position": "ST",
           "rating": "81",
           "starter": true,
@@ -1508,7 +1553,7 @@
           "injured": false
         },
         {
-          "name": "Jorge Peña",
+          "name": "Roque",
           "position": "ST",
           "rating": "79",
           "starter": true,
@@ -1535,7 +1580,7 @@
           "injured": false
         },
         {
-          "name": "Nabil Amrani",
+          "name": "Serginho",
           "position": "GK",
           "rating": "72",
           "starter": false,
@@ -1559,7 +1604,7 @@
           "injured": false
         },
         {
-          "name": "Ryan Thompson",
+          "name": "Vampiro",
           "position": "CB",
           "rating": "74",
           "starter": false,
@@ -1583,7 +1628,7 @@
           "injured": false
         },
         {
-          "name": "Daichi Suzuki",
+          "name": "Zinho",
           "position": "CM",
           "rating": "76",
           "starter": false,
@@ -1607,7 +1652,7 @@
           "injured": false
         },
         {
-          "name": "Luca Greco",
+          "name": "Marcelinho",
           "position": "ST",
           "rating": "76",
           "starter": false,
@@ -1630,7 +1675,16 @@
           "height": 175,
           "injured": false
         }
-      ]
+      ],
+      "coach": {
+        "name": "Émerson",
+        "rating": "54",
+        "style": "attacking",
+        "career": {
+          "matches": 12,
+          "points": 19
+        }
+      }
     },
     {
       "name": "Arctic Foxes",
@@ -1645,7 +1699,7 @@
       "rating": "84",
       "players": [
         {
-          "name": "Viktor Holm",
+          "name": "Dunga",
           "position": "GK",
           "rating": "84",
           "starter": true,
@@ -1672,7 +1726,7 @@
           "injured": false
         },
         {
-          "name": "Boubacar Sow",
+          "name": "Cerezo",
           "position": "CB",
           "rating": "83",
           "starter": true,
@@ -1699,7 +1753,7 @@
           "injured": false
         },
         {
-          "name": "Axel Bergström",
+          "name": "Josimar",
           "position": "CM",
           "rating": "85",
           "starter": true,
@@ -1726,7 +1780,7 @@
           "injured": false
         },
         {
-          "name": "Ahmed Farouk",
+          "name": "Müller",
           "position": "CM",
           "rating": "83",
           "starter": true,
@@ -1753,7 +1807,7 @@
           "injured": false
         },
         {
-          "name": "Gabriel Santos",
+          "name": "Careca",
           "position": "ST",
           "rating": "87",
           "starter": true,
@@ -1780,7 +1834,7 @@
           "injured": false
         },
         {
-          "name": "Daniel Olsson",
+          "name": "Silas",
           "position": "ST",
           "rating": "84",
           "starter": true,
@@ -1807,7 +1861,7 @@
           "injured": false
         },
         {
-          "name": "Jakub Krawczyk",
+          "name": "Tita",
           "position": "GK",
           "rating": "76",
           "starter": false,
@@ -1831,7 +1885,7 @@
           "injured": false
         },
         {
-          "name": "Mamadou Bâ",
+          "name": "Éder",
           "position": "CB",
           "rating": "79",
           "starter": false,
@@ -1855,7 +1909,7 @@
           "injured": false
         },
         {
-          "name": "Matías Rojas",
+          "name": "Pato",
           "position": "CM",
           "rating": "80",
           "starter": false,
@@ -1879,7 +1933,7 @@
           "injured": false
         },
         {
-          "name": "Tobias Müller",
+          "name": "Ganso",
           "position": "ST",
           "rating": "80",
           "starter": false,
@@ -1902,7 +1956,16 @@
           "height": 181,
           "injured": false
         }
-      ]
+      ],
+      "coach": {
+        "name": "Belletti",
+        "rating": "83",
+        "style": "defensive",
+        "career": {
+          "matches": 16,
+          "points": 23
+        }
+      }
     },
     {
       "name": "Golden Lions",
@@ -1917,7 +1980,7 @@
       "rating": "87",
       "players": [
         {
-          "name": "João Ferreira",
+          "name": "Réver",
           "position": "GK",
           "rating": "86",
           "starter": true,
@@ -1944,7 +2007,7 @@
           "injured": false
         },
         {
-          "name": "Marcel Desailly Jr",
+          "name": "Dedé",
           "position": "CB",
           "rating": "86",
           "starter": true,
@@ -1971,7 +2034,7 @@
           "injured": false
         },
         {
-          "name": "Felipe Cardoso",
+          "name": "Gílson",
           "position": "CM",
           "rating": "88",
           "starter": true,
@@ -1998,7 +2061,7 @@
           "injured": false
         },
         {
-          "name": "Antoine Dubois",
+          "name": "Jairzinho",
           "position": "CM",
           "rating": "86",
           "starter": true,
@@ -2025,7 +2088,7 @@
           "injured": false
         },
         {
-          "name": "Emmanuel Adjei",
+          "name": "Betinho",
           "position": "ST",
           "rating": "90",
           "starter": true,
@@ -2052,7 +2115,7 @@
           "injured": false
         },
         {
-          "name": "Santiago Reyes",
+          "name": "Trovão",
           "position": "ST",
           "rating": "87",
           "starter": true,
@@ -2079,7 +2142,7 @@
           "injured": false
         },
         {
-          "name": "Hassan Amiri",
+          "name": "Dinho",
           "position": "GK",
           "rating": "79",
           "starter": false,
@@ -2103,7 +2166,7 @@
           "injured": false
         },
         {
-          "name": "Thomas Weber",
+          "name": "Leandro",
           "position": "CB",
           "rating": "82",
           "starter": false,
@@ -2127,7 +2190,7 @@
           "injured": false
         },
         {
-          "name": "Renato Oliveira",
+          "name": "Wendel",
           "position": "CM",
           "rating": "83",
           "starter": false,
@@ -2151,7 +2214,7 @@
           "injured": false
         },
         {
-          "name": "Andrés Figueroa",
+          "name": "Tácio",
           "position": "ST",
           "rating": "84",
           "starter": false,
@@ -2174,7 +2237,16 @@
           "height": 178,
           "injured": false
         }
-      ]
+      ],
+      "coach": {
+        "name": "Maicosuel",
+        "rating": "69",
+        "style": "balanced",
+        "career": {
+          "matches": 16,
+          "points": 23
+        }
+      }
     },
     {
       "name": "Blue Tide",
@@ -2189,7 +2261,7 @@
       "rating": "82",
       "players": [
         {
-          "name": "Guillermo Vargas",
+          "name": "Ícaro",
           "position": "GK",
           "rating": "81",
           "starter": true,
@@ -2216,7 +2288,7 @@
           "injured": false
         },
         {
-          "name": "Idrissa Keita",
+          "name": "Nivaldo",
           "position": "CB",
           "rating": "81",
           "starter": true,
@@ -2243,7 +2315,7 @@
           "injured": false
         },
         {
-          "name": "Thibaut Girard",
+          "name": "Osvaldo",
           "position": "CM",
           "rating": "83",
           "starter": true,
@@ -2270,7 +2342,7 @@
           "injured": false
         },
         {
-          "name": "Kazuki Ishida",
+          "name": "Brandão",
           "position": "CM",
           "rating": "82",
           "starter": true,
@@ -2297,7 +2369,7 @@
           "injured": false
         },
         {
-          "name": "Nuno Pinto",
+          "name": "Nenê",
           "position": "ST",
           "rating": "84",
           "starter": true,
@@ -2324,7 +2396,7 @@
           "injured": false
         },
         {
-          "name": "Oscar Lundberg",
+          "name": "Jadson",
           "position": "ST",
           "rating": "82",
           "starter": true,
@@ -2351,7 +2423,7 @@
           "injured": false
         },
         {
-          "name": "Amir Rezaei",
+          "name": "Cícero",
           "position": "GK",
           "rating": "75",
           "starter": false,
@@ -2375,7 +2447,7 @@
           "injured": false
         },
         {
-          "name": "William Hartley",
+          "name": "Elias",
           "position": "CB",
           "rating": "77",
           "starter": false,
@@ -2399,7 +2471,7 @@
           "injured": false
         },
         {
-          "name": "Esteban Flores",
+          "name": "Tardelli",
           "position": "CM",
           "rating": "78",
           "starter": false,
@@ -2423,7 +2495,7 @@
           "injured": false
         },
         {
-          "name": "Malik Traoré",
+          "name": "Luan",
           "position": "ST",
           "rating": "78",
           "starter": false,
@@ -2446,7 +2518,16 @@
           "height": 180,
           "injured": false
         }
-      ]
+      ],
+      "coach": {
+        "name": "Everton",
+        "rating": "77",
+        "style": "possession",
+        "career": {
+          "matches": 10,
+          "points": 13
+        }
+      }
     },
     {
       "name": "Emerald Strikers",
@@ -2461,7 +2542,7 @@
       "rating": "80",
       "players": [
         {
-          "name": "Osman Demirci",
+          "name": "Dudu",
           "position": "GK",
           "rating": "79",
           "starter": true,
@@ -2488,7 +2569,7 @@
           "injured": false
         },
         {
-          "name": "Sean Gallagher",
+          "name": "Borges",
           "position": "CB",
           "rating": "79",
           "starter": true,
@@ -2515,7 +2596,7 @@
           "injured": false
         },
         {
-          "name": "Karim Zidane",
+          "name": "Kléber",
           "position": "CM",
           "rating": "81",
           "starter": true,
@@ -2542,7 +2623,7 @@
           "injured": false
         },
         {
-          "name": "Tae-young Lee",
+          "name": "Dagoberto",
           "position": "CM",
           "rating": "80",
           "starter": true,
@@ -2569,7 +2650,7 @@
           "injured": false
         },
         {
-          "name": "Fabián Torres",
+          "name": "Obina",
           "position": "ST",
           "rating": "82",
           "starter": true,
@@ -2596,7 +2677,7 @@
           "injured": false
         },
         {
-          "name": "Brahim Lahlou",
+          "name": "Souza",
           "position": "ST",
           "rating": "80",
           "starter": true,
@@ -2623,7 +2704,7 @@
           "injured": false
         },
         {
-          "name": "Jack Robinson",
+          "name": "Grafitti",
           "position": "GK",
           "rating": "73",
           "starter": false,
@@ -2647,7 +2728,7 @@
           "injured": false
         },
         {
-          "name": "Daouda Konaté",
+          "name": "Tinga",
           "position": "CB",
           "rating": "76",
           "starter": false,
@@ -2671,7 +2752,7 @@
           "injured": false
         },
         {
-          "name": "Bruno Correia",
+          "name": "Kerlon",
           "position": "CM",
           "rating": "77",
           "starter": false,
@@ -2695,7 +2776,7 @@
           "injured": false
         },
         {
-          "name": "Oliver Nguyen",
+          "name": "Rômulo",
           "position": "ST",
           "rating": "76",
           "starter": false,
@@ -2718,7 +2799,16 @@
           "height": 175,
           "injured": false
         }
-      ]
+      ],
+      "coach": {
+        "name": "Rafinha",
+        "rating": "60",
+        "style": "counter-attack",
+        "career": {
+          "matches": 11,
+          "points": 19
+        }
+      }
     },
     {
       "name": "Crimson Vanguard",
@@ -2733,7 +2823,7 @@
       "rating": "85",
       "players": [
         {
-          "name": "Stefan Janssen",
+          "name": "Vinícius",
           "position": "GK",
           "rating": "84",
           "starter": true,
@@ -2760,7 +2850,7 @@
           "injured": false
         },
         {
-          "name": "Salif Coulibaly",
+          "name": "Pedrinho",
           "position": "CB",
           "rating": "84",
           "starter": true,
@@ -2787,7 +2877,7 @@
           "injured": false
         },
         {
-          "name": "Julien Marchand",
+          "name": "Renatinho",
           "position": "CM",
           "rating": "86",
           "starter": true,
@@ -2814,7 +2904,7 @@
           "injured": false
         },
         {
-          "name": "Nicolás Paredes",
+          "name": "Waguinho",
           "position": "CM",
           "rating": "84",
           "starter": true,
@@ -2841,7 +2931,7 @@
           "injured": false
         },
         {
-          "name": "Kojo Appiah",
+          "name": "Beto",
           "position": "ST",
           "rating": "88",
           "starter": true,
@@ -2868,7 +2958,7 @@
           "injured": false
         },
         {
-          "name": "Lorenzo De Luca",
+          "name": "Cássio",
           "position": "ST",
           "rating": "85",
           "starter": true,
@@ -2895,7 +2985,7 @@
           "injured": false
         },
         {
-          "name": "Krzysztof Maj",
+          "name": "Wéverton",
           "position": "GK",
           "rating": "77",
           "starter": false,
@@ -2919,7 +3009,7 @@
           "injured": false
         },
         {
-          "name": "Faisal Al-Rashid",
+          "name": "Marcos",
           "position": "CB",
           "rating": "80",
           "starter": false,
@@ -2943,7 +3033,7 @@
           "injured": false
         },
         {
-          "name": "Miguel Ángel Cruz",
+          "name": "Rogério",
           "position": "CM",
           "rating": "81",
           "starter": false,
@@ -2967,7 +3057,7 @@
           "injured": false
         },
         {
-          "name": "Theo Harrington",
+          "name": "Doni",
           "position": "ST",
           "rating": "81",
           "starter": false,
@@ -2990,7 +3080,16 @@
           "height": 179,
           "injured": false
         }
-      ]
+      ],
+      "coach": {
+        "name": "Talisca",
+        "rating": "94",
+        "style": "attacking",
+        "career": {
+          "matches": 15,
+          "points": 26
+        }
+      }
     },
     {
       "name": "Storm Chasers",
@@ -3005,7 +3104,7 @@
       "rating": "83",
       "players": [
         {
-          "name": "Lukas Schreiber",
+          "name": "Fábinho",
           "position": "GK",
           "rating": "82",
           "starter": true,
@@ -3032,7 +3131,7 @@
           "injured": false
         },
         {
-          "name": "Patrick Mensah",
+          "name": "Helton",
           "position": "CB",
           "rating": "82",
           "starter": true,
@@ -3059,7 +3158,7 @@
           "injured": false
         },
         {
-          "name": "Romain Deschamps",
+          "name": "Lauro",
           "position": "CM",
           "rating": "84",
           "starter": true,
@@ -3086,7 +3185,7 @@
           "injured": false
         },
         {
-          "name": "Sung-jin Hwang",
+          "name": "Jefferson",
           "position": "CM",
           "rating": "83",
           "starter": true,
@@ -3113,7 +3212,7 @@
           "injured": false
         },
         {
-          "name": "Vinícius Araújo",
+          "name": "Muriel",
           "position": "ST",
           "rating": "86",
           "starter": true,
@@ -3140,7 +3239,7 @@
           "injured": false
         },
         {
-          "name": "Omar El-Sayed",
+          "name": "Prass",
           "position": "ST",
           "rating": "83",
           "starter": true,
@@ -3167,7 +3266,7 @@
           "injured": false
         },
         {
-          "name": "Marcus Taylor",
+          "name": "Volpi",
           "position": "GK",
           "rating": "76",
           "starter": false,
@@ -3191,7 +3290,7 @@
           "injured": false
         },
         {
-          "name": "Ibrahim Sanogo",
+          "name": "Cavalieri",
           "position": "CB",
           "rating": "78",
           "starter": false,
@@ -3215,7 +3314,7 @@
           "injured": false
         },
         {
-          "name": "Daniel Fernández",
+          "name": "Sidão",
           "position": "CM",
           "rating": "80",
           "starter": false,
@@ -3239,7 +3338,7 @@
           "injured": false
         },
         {
-          "name": "Jake Morrison",
+          "name": "Aranha",
           "position": "ST",
           "rating": "79",
           "starter": false,
@@ -3262,7 +3361,16 @@
           "height": 181,
           "injured": false
         }
-      ]
+      ],
+      "coach": {
+        "name": "Gabigol",
+        "rating": "57",
+        "style": "defensive",
+        "career": {
+          "matches": 13,
+          "points": 12
+        }
+      }
     }
   ]
 }

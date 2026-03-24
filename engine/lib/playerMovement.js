@@ -39,9 +39,11 @@ function decideMovement(closestPlayer, team, opp, matchDetails) {
 function movePlayers(moves, team, opp, matchDetails) {
   let { position, withPlayer, withTeam } = matchDetails.ball
   for (const thisPlayerMove of moves) {
+    if (!matchDetails || matchDetails.endIteration === true) break
     let thisPlayer = thisPlayerMove.player
     let { move } = thisPlayerMove
     let { action } = thisPlayerMove
+    if (!thisPlayer.currentPOS || thisPlayer.currentPOS[0] === 'NP') continue
     thisPlayer.currentPOS = completeMovement(matchDetails, thisPlayer.currentPOS, move)
     let xPosition = common.isBetween(thisPlayer.currentPOS[0], position[0] - 3, position[0] + 3)
     let yPosition = common.isBetween(thisPlayer.currentPOS[1], position[1] - 3, position[1] + 3)
@@ -50,11 +52,11 @@ function movePlayers(moves, team, opp, matchDetails) {
     if (xPosition && yPosition && withTeam !== team.teamID) {
       if (samePositionAsBall) {
         if (withPlayer === true && thisPlayer.hasBall === false && withTeam !== team.teamID) {
-          if (action === `tackle`) matchDetails = completeTackleWhenCloseNoBall(matchDetails, thisPlayer, team, opp)
-          if (action === `slide`) matchDetails = completeSlide(matchDetails, thisPlayer, team, opp)
+          if (action === `tackle`) matchDetails = completeTackleWhenCloseNoBall(matchDetails, thisPlayer, team, opp) || matchDetails
+          if (action === `slide`) matchDetails = completeSlide(matchDetails, thisPlayer, team, opp) || matchDetails
         } else setClosePlayerTakesBall(matchDetails, thisPlayer, team, opp)
       } else if (withPlayer === true && thisPlayer.hasBall === false && withTeam !== team.teamID) {
-        if (action === `slide`) matchDetails = completeSlide(matchDetails, thisPlayer, team, opp)
+        if (action === `slide`) matchDetails = completeSlide(matchDetails, thisPlayer, team, opp) || matchDetails
       } else {
         setClosePlayerTakesBall(matchDetails, thisPlayer, team, opp)
       }
@@ -102,67 +104,25 @@ function completeSlide(matchDetails, thisPlayer, team, opp) {
     if (opp.name == matchDetails.kickOffTeam.name) return setPositions.setSetpieceKickOffTeam(matchDetails)
     return setPositions.setSetpieceSecondTeam(matchDetails)
   }
-  let intensity = actions.foulIntensity()
-  if (common.isBetween(intensity, 65, 90)) {
-    thisPlayer.stats.cards.yellow++
-    if (thisPlayer.stats.cards.yellow == 2) {
-      thisPlayer.stats.cards.red++
-      Object.defineProperty(thisPlayer, 'currentPOS', {
-        value: ['NP', 'NP'],
-        writable: false,
-        enumerable: true,
-        configurable: false
-      })
-    }
-  } else if (common.isBetween(intensity, 85, 100)) {
-    thisPlayer.stats.cards.red++
-    Object.defineProperty(thisPlayer, 'currentPOS', {
-      value: ['NP', 'NP'],
-      writable: false,
-      enumerable: true,
-      configurable: false
-    })
-  }
+  // No cards in LFA 6v6 — foul is just a free kick
   if (opp.name == matchDetails.kickOffTeam.name) return setPositions.setSetpieceKickOffTeam(matchDetails)
   return setPositions.setSetpieceSecondTeam(matchDetails)
 }
 
 function completeTackleWhenCloseNoBall(matchDetails, thisPlayer, team, opp) {
-  let foul = actions.resolveTackle(thisPlayer, team, opp, matchDetails)
-  if (foul) {
-    let intensity = actions.foulIntensity()
-    if (common.isBetween(intensity, 75, 90)) {
-      thisPlayer.stats.cards.yellow++
-      if (thisPlayer.stats.cards.yellow == 2) {
-        thisPlayer.stats.cards.red++
-        Object.defineProperty(thisPlayer, 'currentPOS', {
-          value: ['NP', 'NP'],
-          writable: false,
-          enumerable: true,
-          configurable: false
-        })
-      }
-    } else if (common.isBetween(intensity, 90, 100)) {
-      thisPlayer.stats.cards.red++
-      Object.defineProperty(thisPlayer, 'currentPOS', {
-        value: ['NP', 'NP'],
-        writable: false,
-        enumerable: true,
-        configurable: false
-      })
-    }
-  }
+  actions.resolveTackle(thisPlayer, team, opp, matchDetails)
+  // No cards in LFA 6v6 — foul is just a free kick
   if (opp.name == matchDetails.kickOffTeam.name) return setPositions.setSetpieceKickOffTeam(matchDetails)
   return setPositions.setSetpieceSecondTeam(matchDetails)
 }
 
 function completeMovement(matchDetails, currentPOS, move) {
-  if (currentPOS[0] != 'NP') {
-    let intendedMovementX = currentPOS[0] + move[0]
-    let intendedMovementY = currentPOS[1] + move[1]
-    if (intendedMovementX < matchDetails.pitchSize[0] + 1 && intendedMovementX > -1) currentPOS[0] += move[0]
-    if (intendedMovementY < matchDetails.pitchSize[1] + 1 && intendedMovementY > -1) currentPOS[1] += move[1]
-  }
+  if (!matchDetails || !matchDetails.pitchSize) return currentPOS
+  if (!currentPOS || currentPOS[0] === 'NP') return currentPOS
+  let intendedMovementX = currentPOS[0] + move[0]
+  let intendedMovementY = currentPOS[1] + move[1]
+  if (intendedMovementX < matchDetails.pitchSize[0] + 1 && intendedMovementX > -1) currentPOS[0] += move[0]
+  if (intendedMovementY < matchDetails.pitchSize[1] + 1 && intendedMovementY > -1) currentPOS[1] += move[1]
   return currentPOS
 }
 
@@ -241,6 +201,7 @@ function ballMoved(matchDetails, thisPlayer, team, opp) {
 
 function updateInformation(matchDetails, newPosition) {
   if (matchDetails.endIteration == true) return
+  if (!Array.isArray(newPosition)) return
   let tempPosition = newPosition.map(x => x)
   matchDetails.ball.position = tempPosition
   matchDetails.ball.position[2] = 0
@@ -432,12 +393,11 @@ function checkOffside(team1, team2, matchDetails) {
 }
 
 function getTopMostPlayer(team, pitchHeight) {
-  let player
+  let player = team.players[0]
+  let topMostPosition = pitchHeight
   for (let thisPlayer of team.players) {
-    let topMostPosition = pitchHeight
-    let [, plyrX] = thisPlayer.currentPOS
     if (thisPlayer.currentPOS[1] < topMostPosition) {
-      topMostPosition = plyrX
+      topMostPosition = thisPlayer.currentPOS[1]
       player = thisPlayer
     }
   }
@@ -445,12 +405,11 @@ function getTopMostPlayer(team, pitchHeight) {
 }
 
 function getBottomMostPlayer(team) {
-  let player
+  let player = team.players[0]
+  let bottomMostPosition = 0
   for (let thisPlayer of team.players) {
-    let topMostPosition = 0
-    let [, plyrX] = thisPlayer.currentPOS
-    if (thisPlayer.currentPOS[1] > topMostPosition) {
-      topMostPosition = plyrX
+    if (thisPlayer.currentPOS[1] > bottomMostPosition) {
+      bottomMostPosition = thisPlayer.currentPOS[1]
       player = thisPlayer
     }
   }

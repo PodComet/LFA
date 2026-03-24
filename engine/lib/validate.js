@@ -129,22 +129,19 @@ function validateBall(ball) {
 function validatePlayerPositions(matchDetails) {
   let { kickOffTeam, secondTeam } = matchDetails
   const [pitchWidth, pitchHeight] = matchDetails.pitchSize
-  for (const player of kickOffTeam.players) {
-    if (player.currentPOS[0] != 'NP') {
-      let onPitchX = (common.isBetween(player.currentPOS[0], -1, pitchWidth + 1))
-      let onPitchY = (common.isBetween(player.currentPOS[1], -1, pitchHeight + 1))
-      if (onPitchX == false) throw new Error(`Player ${player.name} not on the pitch X: ${player.currentPOS[0]}`)
-      if (onPitchY == false) throw new Error(`Player ${player.name} not on the pitch Y: ${player.currentPOS[1]}`)
+  function clampPlayer(player) {
+    if (!player.currentPOS || player.currentPOS[0] === 'NP') return
+    if (player.currentPOS[0] === undefined || player.currentPOS[0] === null) {
+      player.currentPOS = player.originPOS ? player.originPOS.map(x => x) : [pitchWidth / 2, pitchHeight / 2]
+      return
     }
+    if (player.currentPOS[0] < -1) player.currentPOS[0] = 0
+    if (player.currentPOS[0] > pitchWidth + 1) player.currentPOS[0] = pitchWidth
+    if (player.currentPOS[1] < -1) player.currentPOS[1] = 0
+    if (player.currentPOS[1] > pitchHeight + 1) player.currentPOS[1] = pitchHeight
   }
-  for (const player of secondTeam.players) {
-    if (player.currentPOS[0] != 'NP') {
-      let onPitchX = (common.isBetween(player.currentPOS[0], -1, pitchWidth + 1))
-      let onPitchY = (common.isBetween(player.currentPOS[1], -1, pitchHeight + 1))
-      if (onPitchX == false) throw new Error(`Player ${player.name} not on the pitch X: ${player.currentPOS[0]}`)
-      if (onPitchY == false) throw new Error(`Player ${player.name} not on the pitch Y: ${player.currentPOS[1]}`)
-    }
-  }
+  for (const player of kickOffTeam.players) clampPlayer(player)
+  for (const player of secondTeam.players) clampPlayer(player)
 }
 
 module.exports = {

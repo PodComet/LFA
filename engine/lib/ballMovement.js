@@ -235,7 +235,7 @@ function checkGoalScored(matchDetails) {
   const goalX = common.isBetween(ball.position[0], centreGoal - goalEdge, centreGoal + goalEdge)
   let KOGoalie = kickOffTeam.players[0]
   let STGoalie = secondTeam.players[0]
-  let ballProx = 8
+  let ballProx = 3
   let [ballX, ballY] = ball.position
   let nearKOGoalieX = common.isBetween(ballX, KOGoalie.currentPOS[0] - ballProx, KOGoalie.currentPOS[0] + ballProx)
   let nearKOGoalieY = common.isBetween(ballY, KOGoalie.currentPOS[1] - ballProx, KOGoalie.currentPOS[1] + ballProx)
@@ -243,8 +243,9 @@ function checkGoalScored(matchDetails) {
   let nearSTGoalieY = common.isBetween(ballY, STGoalie.currentPOS[1] - ballProx, STGoalie.currentPOS[1] + ballProx)
   let KOrHeight = KOGoalie.height + KOGoalie.skill.jumping
   let STrHeight = STGoalie.height + STGoalie.skill.jumping
-  let KTGSaving = KOGoalie.skill.saving
-  let STGSaving = STGoalie.skill.saving
+  // Scale save difficulty for small-pitch first-to-5: effective save ~15-18% for top GKs
+  let KTGSaving = Math.round(KOGoalie.skill.saving * 0.20)
+  let STGSaving = Math.round(STGoalie.skill.saving * 0.20)
   if (nearKOGoalieX && nearKOGoalieY && ballZ < KOrHeight && KTGSaving > common.getRandomNumber(0, 100)) {
     matchDetails = setPositions.setGoalieHasBall(matchDetails, KOGoalie)
     if (common.inTopPenalty(matchDetails, ball.position) || common.inBottomPenalty(matchDetails, ball.position)) {
