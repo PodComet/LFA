@@ -208,6 +208,18 @@ table.stats .totals td{font-weight:700;color:var(--white);border-top:2px solid r
 .score-submit:hover{background:#059669}
 .score-cancel{padding:8px 16px;border-radius:8px;background:rgba(255,255,255,.08);color:var(--text);border:1px solid var(--border);cursor:pointer;font-size:13px}
 .loading{text-align:center;padding:20px;color:var(--text2);font-size:14px}
+.leader-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:16px;margin-top:20px}
+.leader-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:20px}
+.leader-title{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--text2);margin-bottom:14px;display:flex;align-items:center;gap:8px}
+.leader-title .icon{font-size:16px}
+.leader-row{display:flex;align-items:center;gap:10px;padding:7px 0;border-bottom:1px solid rgba(255,255,255,.03)}
+.leader-rank{width:22px;text-align:center;font-weight:700;font-size:13px;color:var(--text2)}
+.leader-rank.top{color:var(--gold)}
+.leader-name{flex:1;font-size:13px;color:var(--white)}
+.leader-team{font-size:11px;color:var(--text2)}
+.leader-value{font-weight:700;font-size:15px;color:var(--white);min-width:45px;text-align:right}
+.stats-btn{background:rgba(251,191,36,.1) !important;border-color:rgba(251,191,36,.3) !important;color:var(--gold) !important}
+.stats-btn.active{background:var(--gold) !important;color:#000 !important;border-color:var(--gold) !important}
 
 /* Responsive */
 @media(max-width:600px){
@@ -323,7 +335,11 @@ function renderNav(active) {
 // Router
 // -------------------------------------------------------------------------
 function go(route) {
-  window.location.hash = route
+  if (window.location.hash === '#' + route || (route === '' && window.location.hash === '')) {
+    render()
+  } else {
+    window.location.hash = route
+  }
 }
 function getRoute() {
   return window.location.hash.replace('#','')
@@ -819,6 +835,354 @@ function renderPlayoffResults(el, s) {
   html += '<div class="section"><div class="section-title">Final (Neutral Site)</div><div class="bracket-series" style="border-left-color:var(--gold);border-left-width:4px"><div class="bracket-teams" style="font-size:18px">'+f.team1+' vs '+f.team2+'</div><div style="font-size:24px;font-weight:800;color:var(--white);margin:8px 0">'+f.score[0]+' - '+f.score[1]+'</div><div class="bracket-winner" style="font-size:16px">\\u{1F3C6} '+f.winner+'</div>'+(f.captain?'<div style="font-size:13px;color:var(--text2);margin-top:4px">Captain '+f.captain+' lifts the Guy Kilne Trophy</div>':'')+'</div></div>'
 
   el.innerHTML = html
+}
+
+// -------------------------------------------------------------------------
+// CURRENT SEASON
+// -------------------------------------------------------------------------
+let scheduleCache = null
+
+async function fetchSchedule(force) {
+  if (scheduleCache && !force) return scheduleCache
+  const res = await fetch('/api/schedule')
+  scheduleCache = await res.json()
+  return scheduleCache
+}
+
+function starsHTML(grade) {
+  let s = ''
+  for (let i = 1; i <= 5; i++) {
+    if (grade >= i) s += '<span class="star">\\u2605</span>'
+    else if (grade >= i - 0.5) s += '<span class="star">\\u00BD</span>'
+    else s += '<span class="star empty">\\u2605</span>'
+  }
+  return s
+}
+
+async function renderCurrentSeason(main, parts) {
+  main.innerHTML = '<div class="loading">Loading schedule...</div>'
+  const schedule = await fetchSchedule()
+  if (!schedule || !schedule.matchdays) { main.innerHTML = '<div class="empty-state">No schedule found. Run node schedule.js first.</div>'; return }
+
+  const part0 = parts.length > 0 ? parts[0] : ''
+  const isStats = part0 === 'stats'
+  const mdNum = isStats ? 0 : (part0 !== '' ? parseInt(part0, 10) : 0)
+
+  main.innerHTML = ''
+  main.appendChild(h('div','page-title','Season ' + schedule.season + ' \\u2014 Current Season'))
+
+  // Matchday nav buttons
+  const nav = h('div','matchday-nav')
+  for (const md of schedule.matchdays) {
+    const completed = md.matches.every(m => m.status === 'completed')
+    const partial = !completed && md.matches.some(m => m.status === 'completed')
+    const cls = 'md-btn' + (md.number === mdNum && !isStats ? ' active' : '') + (completed ? ' completed' : '') + (partial ? ' partial' : '')
+    const btn = h('div', cls, '' + md.number)
+    btn.title = 'Matchday ' + md.number + (completed ? ' (completed)' : partial ? ' (in progress)' : '')
+    btn.onclick = () => go('season/' + md.number)
+    nav.appendChild(btn)
+  }
+  // Stats button
+  const statsBtn = h('div', 'md-btn stats-btn' + (isStats ? ' active' : ''), '\\u{1F4CA}')
+  statsBtn.title = 'Season Statistics'
+  statsBtn.style.width = 'auto'
+  statsBtn.style.padding = '0 12px'
+  statsBtn.style.fontSize = '16px'
+  statsBtn.onclick = () => go('season/stats')
+  nav.appendChild(statsBtn)
+  main.appendChild(nav)
+
+  if (isStats) {
+    renderSeasonStats(main, schedule)
+    return
+  }
+
+  if (mdNum === 0) {
+    // Overview: show standings summary
+    renderSeasonOverview(main, schedule)
+    return
+  }
+
+  const md = schedule.matchdays.find(m => m.number === mdNum)
+  if (!md) { main.innerHTML += '<div class="empty-state">Matchday not found</div>'; return }
+
+  const sub = h('div','page-sub')
+  const done = md.matches.filter(m => m.status === 'completed').length
+  sub.textContent = 'Matchday ' + mdNum + ' \\u2014 ' + done + '/' + md.matches.length + ' matches played'
+  main.appendChild(sub)
+
+  // Simulate All button
+  if (done < md.matches.length) {
+    const simAll = h('button','mc-btn simulate','Simulate All Remaining')
+    simAll.style.marginBottom = '16px'
+    simAll.onclick = async () => {
+      simAll.disabled = true
+      simAll.textContent = 'Simulating...'
+      for (let i = 0; i < md.matches.length; i++) {
+        if (md.matches[i].status !== 'completed') {
+          await fetch('/api/simulate/' + mdNum + '/' + i, { method: 'POST' })
+        }
+      }
+      scheduleCache = null
+      go('season/' + mdNum)
+    }
+    main.appendChild(simAll)
+  }
+
+  // Match cards
+  for (let i = 0; i < md.matches.length; i++) {
+    const match = md.matches[i]
+    main.appendChild(buildMatchCard(match, mdNum, i))
+  }
+}
+
+function renderSeasonOverview(main, schedule) {
+  const sub = h('div','page-sub')
+  const totalMatches = schedule.matchdays.reduce((s, md) => s + md.matches.length, 0)
+  const played = schedule.matchdays.reduce((s, md) => s + md.matches.filter(m => m.status === 'completed').length, 0)
+  sub.textContent = played + '/' + totalMatches + ' matches played \\u2022 Click a matchday to view'
+  main.appendChild(sub)
+
+  // Build quick standings from completed matches
+  const table = {}
+  for (const t of LEAGUE.teams) {
+    table[t.name] = { team: t.name, p: 0, w: 0, d: 0, l: 0, gf: 0, ga: 0, pts: 0 }
+  }
+  for (const md of schedule.matchdays) {
+    for (const m of md.matches) {
+      if (m.status !== 'completed') continue
+      const h = table[m.home], a = table[m.away]
+      if (!h || !a) continue
+      h.p++; a.p++
+      h.gf += m.score[0]; h.ga += m.score[1]
+      a.gf += m.score[1]; a.ga += m.score[0]
+      if (m.score[0] > m.score[1]) { h.w++; h.pts += 3; a.l++ }
+      else if (m.score[1] > m.score[0]) { a.w++; a.pts += 3; h.l++ }
+      else { h.d++; a.d++; h.pts++; a.pts++ }
+    }
+  }
+  const rows = Object.values(table).sort((a, b) => b.pts - a.pts || (b.gf - b.ga) - (a.gf - a.ga) || b.gf - a.gf)
+
+  let html = '<div class="section"><div class="section-title">Standings</div><table class="stats"><thead><tr><th>#</th><th>Team</th><th>P</th><th>W</th><th>D</th><th>L</th><th>GF</th><th>GA</th><th>GD</th><th>Pts</th></tr></thead><tbody>'
+  rows.forEach((r, i) => {
+    const team = teamByName(r.team)
+    const c = teamColor(team)
+    html += '<tr><td>' + (i + 1) + '</td><td style="cursor:pointer;color:var(--white)" onclick="go(\\u0027statistics/teams/' + encodeURIComponent(r.team) + '\\u0027)"><span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:' + c + ';margin-right:8px"></span>' + r.team + '</td><td>' + r.p + '</td><td>' + r.w + '</td><td>' + r.d + '</td><td>' + r.l + '</td><td>' + r.gf + '</td><td>' + r.ga + '</td><td>' + (r.gf - r.ga) + '</td><td style="font-weight:700">' + r.pts + '</td></tr>'
+  })
+  html += '</tbody></table></div>'
+  main.appendChild(h('div', '', html))
+}
+
+function aggregatePlayerStats(schedule) {
+  const players = {}
+  for (const md of schedule.matchdays) {
+    for (const m of md.matches) {
+      if (m.status !== 'completed' || !m.playerStats) continue
+      const sides = [
+        { stats: m.playerStats.home, team: m.home },
+        { stats: m.playerStats.away, team: m.away }
+      ]
+      for (const side of sides) {
+        for (const p of side.stats) {
+          const key = p.name + ':' + side.team
+          if (!players[key]) {
+            players[key] = { name: p.name, team: side.team, position: p.position, matches: 0, goals: 0, assists: 0, saves: 0, passOn: 0, passTotal: 0, tackleOn: 0, tackleTotal: 0, gradeSum: 0 }
+          }
+          const r = players[key]
+          r.matches++
+          r.goals += p.goals || 0
+          r.assists += p.assists || 0
+          if (p.saves !== undefined) r.saves += p.saves
+          if (p.passes) { r.passOn += p.passes.on; r.passTotal += p.passes.total }
+          if (p.tackles) { r.tackleOn += p.tackles.on; r.tackleTotal += p.tackles.total }
+          r.gradeSum += p.grade || 0
+        }
+      }
+    }
+  }
+  return Object.values(players)
+}
+
+function renderSeasonStats(main, schedule) {
+  const played = schedule.matchdays.reduce((s, md) => s + md.matches.filter(m => m.status === 'completed').length, 0)
+  const sub = h('div','page-sub','Season statistics from ' + played + ' completed matches (simulated only)')
+  main.appendChild(sub)
+
+  const all = aggregatePlayerStats(schedule)
+  if (all.length === 0) {
+    main.appendChild(h('div','empty-state','No simulated matches yet. Simulate some matches to see statistics.'))
+    return
+  }
+
+  // League table
+  const table = {}
+  for (const t of LEAGUE.teams) {
+    table[t.name] = { team: t.name, p: 0, w: 0, d: 0, l: 0, gf: 0, ga: 0, pts: 0 }
+  }
+  for (const md of schedule.matchdays) {
+    for (const m of md.matches) {
+      if (m.status !== 'completed') continue
+      const hh = table[m.home], aa = table[m.away]
+      if (!hh || !aa) continue
+      hh.p++; aa.p++
+      hh.gf += m.score[0]; hh.ga += m.score[1]
+      aa.gf += m.score[1]; aa.ga += m.score[0]
+      if (m.score[0] > m.score[1]) { hh.w++; hh.pts += 3; aa.l++ }
+      else if (m.score[1] > m.score[0]) { aa.w++; aa.pts += 3; hh.l++ }
+      else { hh.d++; aa.d++; hh.pts++; aa.pts++ }
+    }
+  }
+  const rows = Object.values(table).sort((a, b) => b.pts - a.pts || (b.gf - b.ga) - (a.gf - a.ga) || b.gf - a.gf)
+
+  let thtml = '<div class="section"><div class="section-title">League Table</div><table class="stats"><thead><tr><th>#</th><th>Team</th><th>P</th><th>W</th><th>D</th><th>L</th><th>GF</th><th>GA</th><th>GD</th><th>Pts</th></tr></thead><tbody>'
+  rows.forEach((r, i) => {
+    const team = teamByName(r.team)
+    const c = teamColor(team)
+    thtml += '<tr><td>' + (i + 1) + '</td><td style="cursor:pointer;color:var(--white)" onclick="go(\\u0027statistics/teams/' + encodeURIComponent(r.team) + '\\u0027)"><span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:' + c + ';margin-right:8px"></span>' + r.team + '</td><td>' + r.p + '</td><td>' + r.w + '</td><td>' + r.d + '</td><td>' + r.l + '</td><td>' + r.gf + '</td><td>' + r.ga + '</td><td>' + (r.gf - r.ga) + '</td><td style="font-weight:700">' + r.pts + '</td></tr>'
+  })
+  thtml += '</tbody></table></div>'
+  main.appendChild(h('div', '', thtml))
+
+  // Leader boards
+  const grid = h('div','leader-grid')
+
+  function leaderBoard(title, icon, list, valueFn, formatFn, limit) {
+    limit = limit || 10
+    const sorted = list.filter(p => p.matches > 0).sort((a, b) => valueFn(b) - valueFn(a)).slice(0, limit)
+    const card = h('div','leader-card')
+    let html = '<div class="leader-title"><span class="icon">' + icon + '</span>' + title + '</div>'
+    sorted.forEach((p, i) => {
+      const team = teamByName(p.team)
+      const c = teamColor(team)
+      const val = formatFn ? formatFn(p) : valueFn(p)
+      html += '<div class="leader-row"><div class="leader-rank' + (i < 3 ? ' top' : '') + '">' + (i + 1) + '</div><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:' + c + '"></span><div class="leader-name">' + p.name + ' <span class="leader-team">' + p.position + ' \\u2022 ' + p.team + '</span></div><div class="leader-value">' + val + '</div></div>'
+    })
+    card.innerHTML = html
+    return card
+  }
+
+  // Goals
+  grid.appendChild(leaderBoard('Top Scorers', '\\u26BD', all, p => p.goals, p => p.goals + (p.matches > 0 ? ' <span style="font-size:11px;color:var(--text2);font-weight:400">(' + p.matches + ' mp)</span>' : '')))
+
+  // Assists
+  grid.appendChild(leaderBoard('Assist Leaders', '\\u{1F91D}', all, p => p.assists, p => p.assists + (p.matches > 0 ? ' <span style="font-size:11px;color:var(--text2);font-weight:400">(' + p.matches + ' mp)</span>' : '')))
+
+  // Saves (GKs)
+  const gks = all.filter(p => p.position === 'GK')
+  grid.appendChild(leaderBoard('Save Leaders', '\\u{1F9E4}', gks, p => p.saves, p => p.saves + (p.matches > 0 ? ' <span style="font-size:11px;color:var(--text2);font-weight:400">(' + p.matches + ' mp)</span>' : ''), 10))
+
+  // Pass accuracy (min 1 match)
+  grid.appendChild(leaderBoard('Pass Accuracy', '\\u{1F3AF}', all.filter(p => p.passTotal >= 15), p => p.passTotal > 0 ? p.passOn / p.passTotal : 0, p => {
+    const pct = p.passTotal > 0 ? Math.round(p.passOn / p.passTotal * 100) : 0
+    return pct + '% <span style="font-size:11px;color:var(--text2);font-weight:400">(' + p.passOn + '/' + p.passTotal + ')</span>'
+  }))
+
+  // Tackle accuracy (min 1 match, non-GK)
+  grid.appendChild(leaderBoard('Tackle Accuracy', '\\u{1F6E1}', all.filter(p => p.tackleTotal >= 5 && p.position !== 'GK'), p => p.tackleTotal > 0 ? p.tackleOn / p.tackleTotal : 0, p => {
+    const pct = p.tackleTotal > 0 ? Math.round(p.tackleOn / p.tackleTotal * 100) : 0
+    return pct + '% <span style="font-size:11px;color:var(--text2);font-weight:400">(' + p.tackleOn + '/' + p.tackleTotal + ')</span>'
+  }))
+
+  // Star rating (avg)
+  grid.appendChild(leaderBoard('Star Rating', '\\u2B50', all.filter(p => p.matches > 0), p => p.gradeSum / p.matches, p => {
+    const avg = (p.gradeSum / p.matches)
+    return starsHTML(Math.round(avg * 2) / 2) + ' <span style="font-size:11px;color:var(--text2);font-weight:400">' + avg.toFixed(2) + '</span>'
+  }))
+
+  main.appendChild(grid)
+}
+
+function buildMatchCard(match, mdNum, idx) {
+  const card = h('div', 'match-card' + (match.status === 'completed' ? ' completed' : ''))
+  const homeTeam = teamByName(match.home)
+  const awayTeam = teamByName(match.away)
+  const hc = teamColor(homeTeam), ac = teamColor(awayTeam)
+
+  let headerHTML = '<div class="mc-team">' + miniAv(match.home, hc) + '<div class="mc-team-name">' + match.home + '</div></div>'
+
+  if (match.status === 'completed') {
+    const hWin = match.score[0] > match.score[1], aWin = match.score[1] > match.score[0]
+    headerHTML += '<div class="mc-score"><div class="mc-score-value">' + match.score[0] + ' - ' + match.score[1] + '</div><div class="mc-score-label">' + (match.method === 'simulated' ? 'Simulated' : 'Manual') + '</div></div>'
+    headerHTML += '<div class="mc-team away"><div class="mc-team-name">' + match.away + '</div>' + miniAv(match.away, ac) + '</div>'
+  } else {
+    headerHTML += '<div class="mc-score"><div class="mc-pending" id="pending-' + mdNum + '-' + idx + '">'
+    headerHTML += '<button class="mc-btn simulate" onclick="simulateMatch(' + mdNum + ',' + idx + ')">Simulate</button>'
+    headerHTML += '<button class="mc-btn enter" onclick="showScoreInput(' + mdNum + ',' + idx + ')">Enter Score</button>'
+    headerHTML += '</div></div>'
+    headerHTML += '<div class="mc-team away"><div class="mc-team-name">' + match.away + '</div>' + miniAv(match.away, ac) + '</div>'
+  }
+
+  const header = h('div', 'mc-header')
+  header.innerHTML = headerHTML
+  card.appendChild(header)
+
+  // Player stats details for completed matches
+  if (match.status === 'completed' && match.playerStats) {
+    const details = h('div', 'mc-details')
+    let detailsHTML = '<div class="mc-roster">'
+
+    // Home roster
+    detailsHTML += '<div class="mc-roster-team"><div class="mc-roster-title">' + match.home + '</div>'
+    for (const p of match.playerStats.home) {
+      detailsHTML += playerStatRow(p)
+    }
+    detailsHTML += '</div>'
+
+    // Away roster
+    detailsHTML += '<div class="mc-roster-team"><div class="mc-roster-title">' + match.away + '</div>'
+    for (const p of match.playerStats.away) {
+      detailsHTML += playerStatRow(p)
+    }
+    detailsHTML += '</div></div>'
+
+    details.innerHTML = detailsHTML
+    card.appendChild(details)
+  }
+
+  return card
+}
+
+function playerStatRow(p) {
+  const statsText = []
+  if (p.goals > 0) statsText.push(p.goals + 'G')
+  if (p.assists > 0) statsText.push(p.assists + 'A')
+  if (p.saves !== undefined) statsText.push(p.saves + 'S')
+  const statStr = statsText.length > 0 ? statsText.join(' ') : '-'
+  return '<div class="mc-player"><span class="mc-player-name">' + p.name + ' <span style="color:var(--text2);font-size:11px">' + p.position + '</span></span><span class="mc-player-stats">' + statStr + '</span><span class="mc-player-grade">' + starsHTML(p.grade) + '</span></div>'
+}
+
+async function simulateMatch(mdNum, idx) {
+  const pending = document.getElementById('pending-' + mdNum + '-' + idx)
+  if (pending) pending.innerHTML = '<div class="loading">Simulating...</div>'
+  try {
+    await fetch('/api/simulate/' + mdNum + '/' + idx, { method: 'POST' })
+    scheduleCache = null
+    go('season/' + mdNum)
+  } catch (e) {
+    if (pending) pending.innerHTML = '<div style="color:var(--red)">Error: ' + e.message + '</div>'
+  }
+}
+
+function showScoreInput(mdNum, idx) {
+  const pending = document.getElementById('pending-' + mdNum + '-' + idx)
+  if (!pending) return
+  pending.innerHTML = '<div class="score-input"><input type="number" id="sh-' + mdNum + '-' + idx + '" min="0" max="10" value="0"><span class="vs">-</span><input type="number" id="sa-' + mdNum + '-' + idx + '" min="0" max="10" value="0"></div><div style="display:flex;gap:8px;justify-content:center;margin-top:4px"><button class="score-submit" onclick="submitScore(' + mdNum + ',' + idx + ')">Save</button><button class="score-cancel" onclick="go(\\u0027season/' + mdNum + '\\u0027)">Cancel</button></div>'
+}
+
+async function submitScore(mdNum, idx) {
+  const hVal = parseInt(document.getElementById('sh-' + mdNum + '-' + idx).value, 10) || 0
+  const aVal = parseInt(document.getElementById('sa-' + mdNum + '-' + idx).value, 10) || 0
+  try {
+    await fetch('/api/enter-score/' + mdNum + '/' + idx, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ score: [hVal, aVal] })
+    })
+    scheduleCache = null
+    go('season/' + mdNum)
+  } catch (e) {
+    alert('Error: ' + e.message)
+  }
 }
 
 // -------------------------------------------------------------------------

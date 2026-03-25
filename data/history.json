@@ -61360,126 +61360,183 @@
       "standings": [
         {
           "team": "Thunderbolts",
-          "played": 0,
-          "won": 0,
+          "played": 2,
+          "won": 1,
           "drawn": 0,
-          "lost": 0,
-          "gf": 0,
-          "ga": 0,
-          "points": 0
-        },
-        {
-          "team": "Cyclones",
-          "played": 0,
-          "won": 0,
-          "drawn": 0,
-          "lost": 0,
-          "gf": 0,
-          "ga": 0,
-          "points": 0
+          "lost": 1,
+          "gf": 5,
+          "ga": 3,
+          "points": 3
         },
         {
           "team": "Red Phoenix",
-          "played": 0,
-          "won": 0,
+          "played": 1,
+          "won": 1,
           "drawn": 0,
           "lost": 0,
-          "gf": 0,
-          "ga": 0,
+          "gf": 3,
+          "ga": 1,
+          "points": 3
+        },
+        {
+          "team": "Crimson Vanguard",
+          "played": 1,
+          "won": 1,
+          "drawn": 0,
+          "lost": 0,
+          "gf": 3,
+          "ga": 2,
+          "points": 3
+        },
+        {
+          "team": "Blue Tide",
+          "played": 1,
+          "won": 1,
+          "drawn": 0,
+          "lost": 0,
+          "gf": 3,
+          "ga": 2,
+          "points": 3
+        },
+        {
+          "team": "Golden Lions",
+          "played": 1,
+          "won": 1,
+          "drawn": 0,
+          "lost": 0,
+          "gf": 2,
+          "ga": 1,
+          "points": 3
+        },
+        {
+          "team": "Cyclones",
+          "played": 2,
+          "won": 1,
+          "drawn": 0,
+          "lost": 1,
+          "gf": 3,
+          "ga": 5,
+          "points": 3
+        },
+        {
+          "team": "Iron Eagles",
+          "played": 1,
+          "won": 0,
+          "drawn": 1,
+          "lost": 0,
+          "gf": 2,
+          "ga": 2,
+          "points": 1
+        },
+        {
+          "team": "Emerald Strikers",
+          "played": 1,
+          "won": 0,
+          "drawn": 1,
+          "lost": 0,
+          "gf": 2,
+          "ga": 2,
+          "points": 1
+        },
+        {
+          "team": "Solar Flares",
+          "played": 1,
+          "won": 0,
+          "drawn": 0,
+          "lost": 1,
+          "gf": 2,
+          "ga": 3,
           "points": 0
         },
         {
           "team": "Shadow Wolves",
-          "played": 0,
+          "played": 1,
           "won": 0,
           "drawn": 0,
-          "lost": 0,
-          "gf": 0,
-          "ga": 0,
-          "points": 0
-        },
-        {
-          "team": "Iron Eagles",
-          "played": 0,
-          "won": 0,
-          "drawn": 0,
-          "lost": 0,
-          "gf": 0,
-          "ga": 0,
-          "points": 0
-        },
-        {
-          "team": "Solar Flares",
-          "played": 0,
-          "won": 0,
-          "drawn": 0,
-          "lost": 0,
-          "gf": 0,
-          "ga": 0,
+          "lost": 1,
+          "gf": 2,
+          "ga": 3,
           "points": 0
         },
         {
           "team": "Arctic Foxes",
-          "played": 0,
+          "played": 1,
           "won": 0,
           "drawn": 0,
-          "lost": 0,
-          "gf": 0,
-          "ga": 0,
-          "points": 0
-        },
-        {
-          "team": "Golden Lions",
-          "played": 0,
-          "won": 0,
-          "drawn": 0,
-          "lost": 0,
-          "gf": 0,
-          "ga": 0,
-          "points": 0
-        },
-        {
-          "team": "Blue Tide",
-          "played": 0,
-          "won": 0,
-          "drawn": 0,
-          "lost": 0,
-          "gf": 0,
-          "ga": 0,
-          "points": 0
-        },
-        {
-          "team": "Emerald Strikers",
-          "played": 0,
-          "won": 0,
-          "drawn": 0,
-          "lost": 0,
-          "gf": 0,
-          "ga": 0,
-          "points": 0
-        },
-        {
-          "team": "Crimson Vanguard",
-          "played": 0,
-          "won": 0,
-          "drawn": 0,
-          "lost": 0,
-          "gf": 0,
-          "ga": 0,
+          "lost": 1,
+          "gf": 1,
+          "ga": 2,
           "points": 0
         },
         {
           "team": "Storm Chasers",
-          "played": 0,
+          "played": 1,
           "won": 0,
           "drawn": 0,
-          "lost": 0,
-          "gf": 0,
-          "ga": 0,
+          "lost": 1,
+          "gf": 1,
+          "ga": 3,
           "points": 0
         }
       ],
-      "matchResults": [],
+      "matchResults": [
+        {
+          "home": "Thunderbolts",
+          "away": "Cyclones",
+          "score": [
+            3,
+            0
+          ]
+        },
+        {
+          "home": "Thunderbolts",
+          "away": "Cyclones",
+          "score": [
+            2,
+            3
+          ]
+        },
+        {
+          "home": "Red Phoenix",
+          "away": "Storm Chasers",
+          "score": [
+            3,
+            1
+          ]
+        },
+        {
+          "home": "Shadow Wolves",
+          "away": "Crimson Vanguard",
+          "score": [
+            2,
+            3
+          ]
+        },
+        {
+          "home": "Iron Eagles",
+          "away": "Emerald Strikers",
+          "score": [
+            2,
+            2
+          ]
+        },
+        {
+          "home": "Blue Tide",
+          "away": "Solar Flares",
+          "score": [
+            3,
+            2
+          ]
+        },
+        {
+          "home": "Golden Lions",
+          "away": "Arctic Foxes",
+          "score": [
+            2,
+            1
+          ]
+        }
+      ],
       "playoffs": null,
       "playerSeasonStats": [
         {
@@ -61487,50 +61544,50 @@
           "name": "Pelé",
           "position": "GK",
           "rating": "85",
-          "appearances": 0,
+          "appearances": 2,
           "goals": 0,
           "assists": 0,
           "shots": {
-            "total": 0,
+            "total": 1,
             "on": 0,
-            "off": 0
+            "off": 1
           },
           "passes": {
-            "total": 0,
-            "on": 0,
-            "off": 0
+            "total": 37,
+            "on": 29,
+            "off": 8
           },
           "tackles": {
-            "total": 0,
-            "on": 0,
-            "off": 0,
-            "fouls": 0
+            "total": 3,
+            "on": 2,
+            "off": 1,
+            "fouls": 3
           },
-          "saves": 0
+          "saves": 7
         },
         {
           "team": "Thunderbolts",
           "name": "Ronaldo",
           "position": "CB",
           "rating": "84",
-          "appearances": 0,
+          "appearances": 2,
           "goals": 0,
-          "assists": 0,
+          "assists": 1,
           "shots": {
-            "total": 0,
-            "on": 0,
-            "off": 0
+            "total": 9,
+            "on": 6,
+            "off": 3
           },
           "passes": {
-            "total": 0,
-            "on": 0,
-            "off": 0
+            "total": 56,
+            "on": 33,
+            "off": 23
           },
           "tackles": {
-            "total": 0,
-            "on": 0,
-            "off": 0,
-            "fouls": 0
+            "total": 11,
+            "on": 7,
+            "off": 4,
+            "fouls": 2
           }
         },
         {
@@ -61538,24 +61595,24 @@
           "name": "Kaká",
           "position": "CM",
           "rating": "87",
-          "appearances": 0,
-          "goals": 0,
-          "assists": 0,
+          "appearances": 2,
+          "goals": 2,
+          "assists": 3,
           "shots": {
-            "total": 0,
-            "on": 0,
-            "off": 0
+            "total": 12,
+            "on": 8,
+            "off": 4
           },
           "passes": {
-            "total": 0,
-            "on": 0,
-            "off": 0
+            "total": 52,
+            "on": 42,
+            "off": 10
           },
           "tackles": {
-            "total": 0,
-            "on": 0,
-            "off": 0,
-            "fouls": 0
+            "total": 22,
+            "on": 12,
+            "off": 10,
+            "fouls": 1
           }
         },
         {
@@ -61563,24 +61620,24 @@
           "name": "Neymar",
           "position": "CM",
           "rating": "85",
-          "appearances": 0,
+          "appearances": 2,
           "goals": 0,
-          "assists": 0,
+          "assists": 3,
           "shots": {
-            "total": 0,
-            "on": 0,
-            "off": 0
+            "total": 10,
+            "on": 5,
+            "off": 5
           },
           "passes": {
-            "total": 0,
-            "on": 0,
-            "off": 0
+            "total": 57,
+            "on": 42,
+            "off": 15
           },
           "tackles": {
-            "total": 0,
-            "on": 0,
-            "off": 0,
-            "fouls": 0
+            "total": 12,
+            "on": 6,
+            "off": 6,
+            "fouls": 3
           }
         },
         {
@@ -61588,24 +61645,24 @@
           "name": "Rivaldo",
           "position": "ST",
           "rating": "89",
-          "appearances": 0,
-          "goals": 0,
-          "assists": 0,
+          "appearances": 2,
+          "goals": 2,
+          "assists": 3,
           "shots": {
-            "total": 0,
-            "on": 0,
-            "off": 0
+            "total": 13,
+            "on": 8,
+            "off": 5
           },
           "passes": {
-            "total": 0,
-            "on": 0,
-            "off": 0
+            "total": 79,
+            "on": 61,
+            "off": 18
           },
           "tackles": {
-            "total": 0,
-            "on": 0,
-            "off": 0,
-            "fouls": 0
+            "total": 20,
+            "on": 15,
+            "off": 5,
+            "fouls": 3
           }
         },
         {
@@ -61613,24 +61670,24 @@
           "name": "Dida",
           "position": "ST",
           "rating": "86",
-          "appearances": 0,
-          "goals": 0,
-          "assists": 0,
+          "appearances": 2,
+          "goals": 1,
+          "assists": 4,
           "shots": {
-            "total": 0,
-            "on": 0,
-            "off": 0
+            "total": 13,
+            "on": 6,
+            "off": 7
           },
           "passes": {
-            "total": 0,
-            "on": 0,
-            "off": 0
+            "total": 55,
+            "on": 38,
+            "off": 17
           },
           "tackles": {
-            "total": 0,
-            "on": 0,
-            "off": 0,
-            "fouls": 0
+            "total": 11,
+            "on": 8,
+            "off": 3,
+            "fouls": 1
           }
         },
         {
@@ -61739,50 +61796,50 @@
           "name": "Bebeto",
           "position": "GK",
           "rating": "82",
-          "appearances": 0,
+          "appearances": 2,
           "goals": 0,
           "assists": 0,
           "shots": {
-            "total": 0,
+            "total": 1,
             "on": 0,
-            "off": 0
+            "off": 1
           },
           "passes": {
-            "total": 0,
-            "on": 0,
-            "off": 0
+            "total": 65,
+            "on": 36,
+            "off": 29
           },
           "tackles": {
             "total": 0,
             "on": 0,
             "off": 0,
-            "fouls": 0
+            "fouls": 2
           },
-          "saves": 0
+          "saves": 9
         },
         {
           "team": "Cyclones",
           "name": "Denílson",
           "position": "CB",
           "rating": "82",
-          "appearances": 0,
+          "appearances": 2,
           "goals": 0,
-          "assists": 0,
+          "assists": 2,
           "shots": {
-            "total": 0,
-            "on": 0,
-            "off": 0
+            "total": 7,
+            "on": 3,
+            "off": 4
           },
           "passes": {
-            "total": 0,
-            "on": 0,
-            "off": 0
+            "total": 69,
+            "on": 46,
+            "off": 23
           },
           "tackles": {
-            "total": 0,
-            "on": 0,
-            "off": 0,
-            "fouls": 0
+            "total": 7,
+            "on": 4,
+            "off": 3,
+            "fouls": 3
           }
         },
         {
@@ -61790,24 +61847,24 @@
           "name": "Juninho",
           "position": "CM",
           "rating": "84",
-          "appearances": 0,
-          "goals": 0,
-          "assists": 0,
+          "appearances": 2,
+          "goals": 1,
+          "assists": 3,
           "shots": {
-            "total": 0,
-            "on": 0,
-            "off": 0
+            "total": 10,
+            "on": 6,
+            "off": 4
           },
           "passes": {
-            "total": 0,
-            "on": 0,
-            "off": 0
+            "total": 63,
+            "on": 47,
+            "off": 16
           },
           "tackles": {
-            "total": 0,
-            "on": 0,
-            "off": 0,
-            "fouls": 0
+            "total": 15,
+            "on": 10,
+            "off": 5,
+            "fouls": 1
           }
         },
         {
@@ -61815,24 +61872,24 @@
           "name": "Raí",
           "position": "CM",
           "rating": "83",
-          "appearances": 0,
-          "goals": 0,
-          "assists": 0,
+          "appearances": 2,
+          "goals": 2,
+          "assists": 4,
           "shots": {
-            "total": 0,
-            "on": 0,
-            "off": 0
+            "total": 12,
+            "on": 8,
+            "off": 4
           },
           "passes": {
-            "total": 0,
-            "on": 0,
-            "off": 0
+            "total": 65,
+            "on": 53,
+            "off": 12
           },
           "tackles": {
-            "total": 0,
-            "on": 0,
-            "off": 0,
-            "fouls": 0
+            "total": 17,
+            "on": 10,
+            "off": 7,
+            "fouls": 1
           }
         },
         {
@@ -61840,24 +61897,24 @@
           "name": "Sócrates",
           "position": "ST",
           "rating": "85",
-          "appearances": 0,
+          "appearances": 2,
           "goals": 0,
-          "assists": 0,
+          "assists": 3,
           "shots": {
-            "total": 0,
-            "on": 0,
-            "off": 0
+            "total": 12,
+            "on": 7,
+            "off": 5
           },
           "passes": {
-            "total": 0,
-            "on": 0,
-            "off": 0
+            "total": 66,
+            "on": 42,
+            "off": 24
           },
           "tackles": {
-            "total": 0,
-            "on": 0,
-            "off": 0,
-            "fouls": 0
+            "total": 15,
+            "on": 10,
+            "off": 5,
+            "fouls": 2
           }
         },
         {
@@ -61865,24 +61922,24 @@
           "name": "Falcão",
           "position": "ST",
           "rating": "83",
-          "appearances": 0,
+          "appearances": 2,
           "goals": 0,
-          "assists": 0,
+          "assists": 2,
           "shots": {
-            "total": 0,
-            "on": 0,
-            "off": 0
+            "total": 16,
+            "on": 7,
+            "off": 9
           },
           "passes": {
-            "total": 0,
-            "on": 0,
-            "off": 0
+            "total": 71,
+            "on": 53,
+            "off": 18
           },
           "tackles": {
-            "total": 0,
-            "on": 0,
-            "off": 0,
-            "fouls": 0
+            "total": 17,
+            "on": 9,
+            "off": 8,
+            "fouls": 3
           }
         },
         {
@@ -62243,49 +62300,49 @@
           "name": "Taffarel",
           "position": "GK",
           "rating": "80",
-          "appearances": 0,
+          "appearances": 1,
           "goals": 0,
-          "assists": 0,
+          "assists": 1,
           "shots": {
-            "total": 0,
+            "total": 1,
             "on": 0,
-            "off": 0
+            "off": 1
           },
           "passes": {
-            "total": 0,
-            "on": 0,
-            "off": 0
+            "total": 21,
+            "on": 16,
+            "off": 5
           },
           "tackles": {
-            "total": 0,
-            "on": 0,
+            "total": 1,
+            "on": 1,
             "off": 0,
-            "fouls": 0
+            "fouls": 1
           },
-          "saves": 0
+          "saves": 8
         },
         {
           "team": "Shadow Wolves",
           "name": "Edmundo",
           "position": "CB",
           "rating": "80",
-          "appearances": 0,
-          "goals": 0,
-          "assists": 0,
+          "appearances": 1,
+          "goals": 1,
+          "assists": 2,
           "shots": {
-            "total": 0,
-            "on": 0,
-            "off": 0
+            "total": 4,
+            "on": 3,
+            "off": 1
           },
           "passes": {
-            "total": 0,
-            "on": 0,
-            "off": 0
+            "total": 25,
+            "on": 19,
+            "off": 6
           },
           "tackles": {
-            "total": 0,
-            "on": 0,
-            "off": 0,
+            "total": 11,
+            "on": 7,
+            "off": 4,
             "fouls": 0
           }
         },
@@ -62294,23 +62351,23 @@
           "name": "Elano",
           "position": "CM",
           "rating": "82",
-          "appearances": 0,
-          "goals": 0,
-          "assists": 0,
+          "appearances": 1,
+          "goals": 1,
+          "assists": 2,
           "shots": {
-            "total": 0,
-            "on": 0,
-            "off": 0
+            "total": 4,
+            "on": 3,
+            "off": 1
           },
           "passes": {
-            "total": 0,
-            "on": 0,
-            "off": 0
+            "total": 41,
+            "on": 32,
+            "off": 9
           },
           "tackles": {
-            "total": 0,
-            "on": 0,
-            "off": 0,
+            "total": 10,
+            "on": 6,
+            "off": 4,
             "fouls": 0
           }
         },
@@ -62319,23 +62376,23 @@
           "name": "Grafite",
           "position": "CM",
           "rating": "81",
-          "appearances": 0,
+          "appearances": 1,
           "goals": 0,
-          "assists": 0,
+          "assists": 2,
           "shots": {
-            "total": 0,
-            "on": 0,
-            "off": 0
+            "total": 3,
+            "on": 2,
+            "off": 1
           },
           "passes": {
-            "total": 0,
-            "on": 0,
-            "off": 0
+            "total": 15,
+            "on": 9,
+            "off": 6
           },
           "tackles": {
-            "total": 0,
-            "on": 0,
-            "off": 0,
+            "total": 4,
+            "on": 2,
+            "off": 2,
             "fouls": 0
           }
         },
@@ -62344,24 +62401,24 @@
           "name": "Hulk",
           "position": "ST",
           "rating": "83",
-          "appearances": 0,
+          "appearances": 1,
           "goals": 0,
-          "assists": 0,
+          "assists": 2,
           "shots": {
-            "total": 0,
-            "on": 0,
-            "off": 0
+            "total": 5,
+            "on": 2,
+            "off": 3
           },
           "passes": {
-            "total": 0,
-            "on": 0,
-            "off": 0
+            "total": 25,
+            "on": 14,
+            "off": 11
           },
           "tackles": {
-            "total": 0,
-            "on": 0,
-            "off": 0,
-            "fouls": 0
+            "total": 7,
+            "on": 5,
+            "off": 2,
+            "fouls": 2
           }
         },
         {
@@ -62369,24 +62426,24 @@
           "name": "Jô",
           "position": "ST",
           "rating": "81",
-          "appearances": 0,
+          "appearances": 1,
           "goals": 0,
           "assists": 0,
           "shots": {
-            "total": 0,
-            "on": 0,
-            "off": 0
+            "total": 7,
+            "on": 3,
+            "off": 4
           },
           "passes": {
-            "total": 0,
-            "on": 0,
-            "off": 0
+            "total": 20,
+            "on": 10,
+            "off": 10
           },
           "tackles": {
-            "total": 0,
-            "on": 0,
-            "off": 0,
-            "fouls": 0
+            "total": 6,
+            "on": 4,
+            "off": 2,
+            "fouls": 2
           }
         },
         {
@@ -62495,7 +62552,7 @@
           "name": "Willian",
           "position": "GK",
           "rating": "84",
-          "appearances": 0,
+          "appearances": 1,
           "goals": 0,
           "assists": 0,
           "shots": {
@@ -62504,41 +62561,41 @@
             "off": 0
           },
           "passes": {
-            "total": 0,
-            "on": 0,
-            "off": 0
+            "total": 32,
+            "on": 18,
+            "off": 14
           },
           "tackles": {
-            "total": 0,
-            "on": 0,
-            "off": 0,
-            "fouls": 0
+            "total": 2,
+            "on": 1,
+            "off": 1,
+            "fouls": 2
           },
-          "saves": 0
+          "saves": 4
         },
         {
           "team": "Iron Eagles",
           "name": "Fernandinho",
           "position": "CB",
           "rating": "84",
-          "appearances": 0,
+          "appearances": 1,
           "goals": 0,
-          "assists": 0,
+          "assists": 1,
           "shots": {
-            "total": 0,
+            "total": 1,
             "on": 0,
-            "off": 0
+            "off": 1
           },
           "passes": {
-            "total": 0,
-            "on": 0,
-            "off": 0
+            "total": 32,
+            "on": 17,
+            "off": 15
           },
           "tackles": {
-            "total": 0,
-            "on": 0,
-            "off": 0,
-            "fouls": 0
+            "total": 4,
+            "on": 3,
+            "off": 1,
+            "fouls": 1
           }
         },
         {
@@ -62546,24 +62603,24 @@
           "name": "Casemiro",
           "position": "CM",
           "rating": "86",
-          "appearances": 0,
-          "goals": 0,
-          "assists": 0,
+          "appearances": 1,
+          "goals": 1,
+          "assists": 3,
           "shots": {
-            "total": 0,
+            "total": 1,
             "on": 0,
-            "off": 0
+            "off": 1
           },
           "passes": {
-            "total": 0,
-            "on": 0,
-            "off": 0
+            "total": 36,
+            "on": 23,
+            "off": 13
           },
           "tackles": {
-            "total": 0,
-            "on": 0,
-            "off": 0,
-            "fouls": 0
+            "total": 12,
+            "on": 6,
+            "off": 6,
+            "fouls": 1
           }
         },
         {
@@ -62571,23 +62628,23 @@
           "name": "Firmino",
           "position": "CM",
           "rating": "84",
-          "appearances": 0,
-          "goals": 0,
-          "assists": 0,
+          "appearances": 1,
+          "goals": 1,
+          "assists": 1,
           "shots": {
-            "total": 0,
-            "on": 0,
-            "off": 0
+            "total": 6,
+            "on": 3,
+            "off": 3
           },
           "passes": {
-            "total": 0,
-            "on": 0,
-            "off": 0
+            "total": 15,
+            "on": 10,
+            "off": 5
           },
           "tackles": {
-            "total": 0,
-            "on": 0,
-            "off": 0,
+            "total": 11,
+            "on": 5,
+            "off": 6,
             "fouls": 0
           }
         },
@@ -62596,23 +62653,23 @@
           "name": "Coutinho",
           "position": "ST",
           "rating": "88",
-          "appearances": 0,
+          "appearances": 1,
           "goals": 0,
-          "assists": 0,
+          "assists": 2,
           "shots": {
-            "total": 0,
-            "on": 0,
-            "off": 0
+            "total": 7,
+            "on": 5,
+            "off": 2
           },
           "passes": {
-            "total": 0,
-            "on": 0,
-            "off": 0
+            "total": 38,
+            "on": 26,
+            "off": 12
           },
           "tackles": {
-            "total": 0,
-            "on": 0,
-            "off": 0,
+            "total": 6,
+            "on": 5,
+            "off": 1,
             "fouls": 0
           }
         },
@@ -62621,23 +62678,23 @@
           "name": "Paulinho",
           "position": "ST",
           "rating": "85",
-          "appearances": 0,
+          "appearances": 1,
           "goals": 0,
-          "assists": 0,
+          "assists": 2,
           "shots": {
-            "total": 0,
-            "on": 0,
-            "off": 0
+            "total": 8,
+            "on": 4,
+            "off": 4
           },
           "passes": {
-            "total": 0,
-            "on": 0,
-            "off": 0
+            "total": 44,
+            "on": 31,
+            "off": 13
           },
           "tackles": {
-            "total": 0,
-            "on": 0,
-            "off": 0,
+            "total": 8,
+            "on": 5,
+            "off": 3,
             "fouls": 0
           }
         },
@@ -62747,7 +62804,7 @@
           "name": "Baptista",
           "position": "GK",
           "rating": "78",
-          "appearances": 0,
+          "appearances": 1,
           "goals": 0,
           "assists": 0,
           "shots": {
@@ -62756,41 +62813,41 @@
             "off": 0
           },
           "passes": {
-            "total": 0,
-            "on": 0,
-            "off": 0
+            "total": 19,
+            "on": 10,
+            "off": 9
           },
           "tackles": {
-            "total": 0,
-            "on": 0,
+            "total": 1,
+            "on": 1,
             "off": 0,
-            "fouls": 0
+            "fouls": 2
           },
-          "saves": 0
+          "saves": 2
         },
         {
           "team": "Solar Flares",
           "name": "Cicinho",
           "position": "CB",
           "rating": "78",
-          "appearances": 0,
+          "appearances": 1,
           "goals": 0,
           "assists": 0,
           "shots": {
-            "total": 0,
-            "on": 0,
-            "off": 0
+            "total": 3,
+            "on": 2,
+            "off": 1
           },
           "passes": {
-            "total": 0,
-            "on": 0,
-            "off": 0
+            "total": 38,
+            "on": 22,
+            "off": 16
           },
           "tackles": {
-            "total": 0,
-            "on": 0,
-            "off": 0,
-            "fouls": 0
+            "total": 7,
+            "on": 4,
+            "off": 3,
+            "fouls": 2
           }
         },
         {
@@ -62798,23 +62855,23 @@
           "name": "Gilberto",
           "position": "CM",
           "rating": "80",
-          "appearances": 0,
+          "appearances": 1,
           "goals": 0,
           "assists": 0,
           "shots": {
-            "total": 0,
-            "on": 0,
-            "off": 0
+            "total": 4,
+            "on": 2,
+            "off": 2
           },
           "passes": {
-            "total": 0,
-            "on": 0,
-            "off": 0
+            "total": 33,
+            "on": 24,
+            "off": 9
           },
           "tackles": {
-            "total": 0,
-            "on": 0,
-            "off": 0,
+            "total": 3,
+            "on": 2,
+            "off": 1,
             "fouls": 0
           }
         },
@@ -62823,23 +62880,23 @@
           "name": "Mineiro",
           "position": "CM",
           "rating": "79",
-          "appearances": 0,
-          "goals": 0,
-          "assists": 0,
+          "appearances": 1,
+          "goals": 1,
+          "assists": 3,
           "shots": {
-            "total": 0,
-            "on": 0,
-            "off": 0
+            "total": 5,
+            "on": 4,
+            "off": 1
           },
           "passes": {
-            "total": 0,
-            "on": 0,
-            "off": 0
+            "total": 15,
+            "on": 9,
+            "off": 6
           },
           "tackles": {
-            "total": 0,
-            "on": 0,
-            "off": 0,
+            "total": 6,
+            "on": 3,
+            "off": 3,
             "fouls": 0
           }
         },
@@ -62848,24 +62905,24 @@
           "name": "Ricardinho",
           "position": "ST",
           "rating": "81",
-          "appearances": 0,
-          "goals": 0,
-          "assists": 0,
+          "appearances": 1,
+          "goals": 1,
+          "assists": 1,
           "shots": {
-            "total": 0,
-            "on": 0,
-            "off": 0
+            "total": 10,
+            "on": 7,
+            "off": 3
           },
           "passes": {
-            "total": 0,
-            "on": 0,
-            "off": 0
+            "total": 34,
+            "on": 26,
+            "off": 8
           },
           "tackles": {
-            "total": 0,
-            "on": 0,
-            "off": 0,
-            "fouls": 0
+            "total": 7,
+            "on": 3,
+            "off": 4,
+            "fouls": 2
           }
         },
         {
@@ -62873,23 +62930,23 @@
           "name": "Roque",
           "position": "ST",
           "rating": "79",
-          "appearances": 0,
+          "appearances": 1,
           "goals": 0,
-          "assists": 0,
+          "assists": 1,
           "shots": {
-            "total": 0,
-            "on": 0,
-            "off": 0
+            "total": 9,
+            "on": 5,
+            "off": 4
           },
           "passes": {
-            "total": 0,
-            "on": 0,
-            "off": 0
+            "total": 36,
+            "on": 19,
+            "off": 17
           },
           "tackles": {
-            "total": 0,
-            "on": 0,
-            "off": 0,
+            "total": 12,
+            "on": 6,
+            "off": 6,
             "fouls": 0
           }
         },
@@ -62999,50 +63056,50 @@
           "name": "Dunga",
           "position": "GK",
           "rating": "84",
-          "appearances": 0,
+          "appearances": 1,
           "goals": 0,
           "assists": 0,
           "shots": {
-            "total": 0,
-            "on": 0,
+            "total": 1,
+            "on": 1,
             "off": 0
           },
           "passes": {
-            "total": 0,
-            "on": 0,
-            "off": 0
+            "total": 34,
+            "on": 21,
+            "off": 13
           },
           "tackles": {
-            "total": 0,
+            "total": 1,
             "on": 0,
-            "off": 0,
-            "fouls": 0
+            "off": 1,
+            "fouls": 2
           },
-          "saves": 0
+          "saves": 7
         },
         {
           "team": "Arctic Foxes",
           "name": "Cerezo",
           "position": "CB",
           "rating": "83",
-          "appearances": 0,
+          "appearances": 1,
           "goals": 0,
-          "assists": 0,
+          "assists": 2,
           "shots": {
-            "total": 0,
-            "on": 0,
+            "total": 1,
+            "on": 1,
             "off": 0
           },
           "passes": {
-            "total": 0,
-            "on": 0,
-            "off": 0
+            "total": 38,
+            "on": 24,
+            "off": 14
           },
           "tackles": {
-            "total": 0,
-            "on": 0,
-            "off": 0,
-            "fouls": 0
+            "total": 9,
+            "on": 5,
+            "off": 4,
+            "fouls": 1
           }
         },
         {
@@ -63050,24 +63107,24 @@
           "name": "Josimar",
           "position": "CM",
           "rating": "85",
-          "appearances": 0,
+          "appearances": 1,
           "goals": 0,
-          "assists": 0,
+          "assists": 3,
           "shots": {
-            "total": 0,
-            "on": 0,
-            "off": 0
+            "total": 6,
+            "on": 3,
+            "off": 3
           },
           "passes": {
-            "total": 0,
-            "on": 0,
-            "off": 0
+            "total": 41,
+            "on": 22,
+            "off": 19
           },
           "tackles": {
-            "total": 0,
-            "on": 0,
-            "off": 0,
-            "fouls": 0
+            "total": 7,
+            "on": 3,
+            "off": 4,
+            "fouls": 1
           }
         },
         {
@@ -63075,24 +63132,24 @@
           "name": "Müller",
           "position": "CM",
           "rating": "83",
-          "appearances": 0,
+          "appearances": 1,
           "goals": 0,
-          "assists": 0,
+          "assists": 2,
           "shots": {
-            "total": 0,
-            "on": 0,
+            "total": 1,
+            "on": 1,
             "off": 0
           },
           "passes": {
-            "total": 0,
-            "on": 0,
-            "off": 0
+            "total": 25,
+            "on": 20,
+            "off": 5
           },
           "tackles": {
-            "total": 0,
-            "on": 0,
-            "off": 0,
-            "fouls": 0
+            "total": 4,
+            "on": 3,
+            "off": 1,
+            "fouls": 1
           }
         },
         {
@@ -63100,24 +63157,24 @@
           "name": "Careca",
           "position": "ST",
           "rating": "87",
-          "appearances": 0,
-          "goals": 0,
-          "assists": 0,
+          "appearances": 1,
+          "goals": 1,
+          "assists": 1,
           "shots": {
-            "total": 0,
-            "on": 0,
-            "off": 0
+            "total": 10,
+            "on": 5,
+            "off": 5
           },
           "passes": {
-            "total": 0,
-            "on": 0,
-            "off": 0
+            "total": 26,
+            "on": 18,
+            "off": 8
           },
           "tackles": {
-            "total": 0,
-            "on": 0,
-            "off": 0,
-            "fouls": 0
+            "total": 5,
+            "on": 3,
+            "off": 2,
+            "fouls": 1
           }
         },
         {
@@ -63125,24 +63182,24 @@
           "name": "Silas",
           "position": "ST",
           "rating": "84",
-          "appearances": 0,
+          "appearances": 1,
           "goals": 0,
-          "assists": 0,
+          "assists": 2,
           "shots": {
-            "total": 0,
-            "on": 0,
-            "off": 0
+            "total": 7,
+            "on": 5,
+            "off": 2
           },
           "passes": {
-            "total": 0,
-            "on": 0,
-            "off": 0
+            "total": 37,
+            "on": 26,
+            "off": 11
           },
           "tackles": {
-            "total": 0,
-            "on": 0,
-            "off": 0,
-            "fouls": 0
+            "total": 3,
+            "on": 2,
+            "off": 1,
+            "fouls": 2
           }
         },
         {
@@ -63251,49 +63308,49 @@
           "name": "Réver",
           "position": "GK",
           "rating": "86",
-          "appearances": 0,
+          "appearances": 1,
           "goals": 0,
-          "assists": 0,
+          "assists": 1,
           "shots": {
-            "total": 0,
+            "total": 1,
             "on": 0,
-            "off": 0
+            "off": 1
           },
           "passes": {
-            "total": 0,
-            "on": 0,
-            "off": 0
+            "total": 23,
+            "on": 16,
+            "off": 7
           },
           "tackles": {
             "total": 0,
             "on": 0,
             "off": 0,
-            "fouls": 0
+            "fouls": 1
           },
-          "saves": 0
+          "saves": 6
         },
         {
           "team": "Golden Lions",
           "name": "Dedé",
           "position": "CB",
           "rating": "86",
-          "appearances": 0,
+          "appearances": 1,
           "goals": 0,
-          "assists": 0,
+          "assists": 1,
           "shots": {
-            "total": 0,
-            "on": 0,
-            "off": 0
+            "total": 2,
+            "on": 1,
+            "off": 1
           },
           "passes": {
-            "total": 0,
-            "on": 0,
-            "off": 0
+            "total": 24,
+            "on": 19,
+            "off": 5
           },
           "tackles": {
-            "total": 0,
-            "on": 0,
-            "off": 0,
+            "total": 6,
+            "on": 3,
+            "off": 3,
             "fouls": 0
           }
         },
@@ -63302,23 +63359,23 @@
           "name": "Gílson",
           "position": "CM",
           "rating": "88",
-          "appearances": 0,
-          "goals": 0,
-          "assists": 0,
+          "appearances": 1,
+          "goals": 1,
+          "assists": 2,
           "shots": {
-            "total": 0,
-            "on": 0,
-            "off": 0
+            "total": 5,
+            "on": 3,
+            "off": 2
           },
           "passes": {
-            "total": 0,
-            "on": 0,
-            "off": 0
+            "total": 16,
+            "on": 14,
+            "off": 2
           },
           "tackles": {
-            "total": 0,
-            "on": 0,
-            "off": 0,
+            "total": 4,
+            "on": 2,
+            "off": 2,
             "fouls": 0
           }
         },
@@ -63327,23 +63384,23 @@
           "name": "Jairzinho",
           "position": "CM",
           "rating": "86",
-          "appearances": 0,
+          "appearances": 1,
           "goals": 0,
-          "assists": 0,
+          "assists": 2,
           "shots": {
-            "total": 0,
-            "on": 0,
+            "total": 1,
+            "on": 1,
             "off": 0
           },
           "passes": {
-            "total": 0,
-            "on": 0,
-            "off": 0
+            "total": 33,
+            "on": 28,
+            "off": 5
           },
           "tackles": {
-            "total": 0,
-            "on": 0,
-            "off": 0,
+            "total": 12,
+            "on": 7,
+            "off": 5,
             "fouls": 0
           }
         },
@@ -63352,24 +63409,24 @@
           "name": "Betinho",
           "position": "ST",
           "rating": "90",
-          "appearances": 0,
-          "goals": 0,
-          "assists": 0,
+          "appearances": 1,
+          "goals": 1,
+          "assists": 2,
           "shots": {
-            "total": 0,
-            "on": 0,
-            "off": 0
+            "total": 5,
+            "on": 2,
+            "off": 3
           },
           "passes": {
-            "total": 0,
-            "on": 0,
-            "off": 0
+            "total": 17,
+            "on": 10,
+            "off": 7
           },
           "tackles": {
-            "total": 0,
-            "on": 0,
-            "off": 0,
-            "fouls": 0
+            "total": 10,
+            "on": 4,
+            "off": 6,
+            "fouls": 1
           }
         },
         {
@@ -63377,23 +63434,23 @@
           "name": "Trovão",
           "position": "ST",
           "rating": "87",
-          "appearances": 0,
+          "appearances": 1,
           "goals": 0,
-          "assists": 0,
+          "assists": 2,
           "shots": {
-            "total": 0,
-            "on": 0,
-            "off": 0
+            "total": 6,
+            "on": 3,
+            "off": 3
           },
           "passes": {
-            "total": 0,
-            "on": 0,
-            "off": 0
+            "total": 30,
+            "on": 17,
+            "off": 13
           },
           "tackles": {
-            "total": 0,
-            "on": 0,
-            "off": 0,
+            "total": 12,
+            "on": 6,
+            "off": 6,
             "fouls": 0
           }
         },
@@ -63503,50 +63560,50 @@
           "name": "Ícaro",
           "position": "GK",
           "rating": "81",
-          "appearances": 0,
+          "appearances": 1,
           "goals": 0,
           "assists": 0,
           "shots": {
-            "total": 0,
+            "total": 1,
             "on": 0,
-            "off": 0
+            "off": 1
           },
           "passes": {
-            "total": 0,
-            "on": 0,
-            "off": 0
+            "total": 43,
+            "on": 34,
+            "off": 9
           },
           "tackles": {
-            "total": 0,
-            "on": 0,
-            "off": 0,
-            "fouls": 0
+            "total": 2,
+            "on": 1,
+            "off": 1,
+            "fouls": 2
           },
-          "saves": 0
+          "saves": 7
         },
         {
           "team": "Blue Tide",
           "name": "Nivaldo",
           "position": "CB",
           "rating": "81",
-          "appearances": 0,
+          "appearances": 1,
           "goals": 0,
           "assists": 0,
           "shots": {
-            "total": 0,
-            "on": 0,
+            "total": 1,
+            "on": 1,
             "off": 0
           },
           "passes": {
-            "total": 0,
-            "on": 0,
-            "off": 0
+            "total": 21,
+            "on": 16,
+            "off": 5
           },
           "tackles": {
-            "total": 0,
-            "on": 0,
-            "off": 0,
-            "fouls": 0
+            "total": 8,
+            "on": 6,
+            "off": 2,
+            "fouls": 1
           }
         },
         {
@@ -63554,24 +63611,24 @@
           "name": "Osvaldo",
           "position": "CM",
           "rating": "83",
-          "appearances": 0,
+          "appearances": 1,
           "goals": 0,
           "assists": 0,
           "shots": {
-            "total": 0,
+            "total": 1,
             "on": 0,
-            "off": 0
+            "off": 1
           },
           "passes": {
-            "total": 0,
-            "on": 0,
-            "off": 0
+            "total": 28,
+            "on": 19,
+            "off": 9
           },
           "tackles": {
-            "total": 0,
-            "on": 0,
-            "off": 0,
-            "fouls": 0
+            "total": 9,
+            "on": 6,
+            "off": 3,
+            "fouls": 1
           }
         },
         {
@@ -63579,23 +63636,23 @@
           "name": "Brandão",
           "position": "CM",
           "rating": "82",
-          "appearances": 0,
+          "appearances": 1,
           "goals": 0,
           "assists": 0,
           "shots": {
-            "total": 0,
-            "on": 0,
+            "total": 1,
+            "on": 1,
             "off": 0
           },
           "passes": {
-            "total": 0,
-            "on": 0,
-            "off": 0
+            "total": 27,
+            "on": 18,
+            "off": 9
           },
           "tackles": {
-            "total": 0,
-            "on": 0,
-            "off": 0,
+            "total": 10,
+            "on": 6,
+            "off": 4,
             "fouls": 0
           }
         },
@@ -63604,23 +63661,23 @@
           "name": "Nenê",
           "position": "ST",
           "rating": "84",
-          "appearances": 0,
-          "goals": 0,
-          "assists": 0,
+          "appearances": 1,
+          "goals": 2,
+          "assists": 1,
           "shots": {
-            "total": 0,
-            "on": 0,
-            "off": 0
+            "total": 7,
+            "on": 3,
+            "off": 4
           },
           "passes": {
-            "total": 0,
-            "on": 0,
-            "off": 0
+            "total": 23,
+            "on": 18,
+            "off": 5
           },
           "tackles": {
-            "total": 0,
-            "on": 0,
-            "off": 0,
+            "total": 8,
+            "on": 6,
+            "off": 2,
             "fouls": 0
           }
         },
@@ -63629,23 +63686,23 @@
           "name": "Jadson",
           "position": "ST",
           "rating": "82",
-          "appearances": 0,
-          "goals": 0,
+          "appearances": 1,
+          "goals": 1,
           "assists": 0,
           "shots": {
-            "total": 0,
-            "on": 0,
-            "off": 0
+            "total": 6,
+            "on": 2,
+            "off": 4
           },
           "passes": {
-            "total": 0,
-            "on": 0,
-            "off": 0
+            "total": 38,
+            "on": 25,
+            "off": 13
           },
           "tackles": {
-            "total": 0,
-            "on": 0,
-            "off": 0,
+            "total": 12,
+            "on": 8,
+            "off": 4,
             "fouls": 0
           }
         },
@@ -63755,7 +63812,7 @@
           "name": "Dudu",
           "position": "GK",
           "rating": "79",
-          "appearances": 0,
+          "appearances": 1,
           "goals": 0,
           "assists": 0,
           "shots": {
@@ -63764,40 +63821,40 @@
             "off": 0
           },
           "passes": {
-            "total": 0,
-            "on": 0,
-            "off": 0
+            "total": 29,
+            "on": 15,
+            "off": 14
           },
           "tackles": {
             "total": 0,
             "on": 0,
             "off": 0,
-            "fouls": 0
+            "fouls": 2
           },
-          "saves": 0
+          "saves": 2
         },
         {
           "team": "Emerald Strikers",
           "name": "Borges",
           "position": "CB",
           "rating": "79",
-          "appearances": 0,
+          "appearances": 1,
           "goals": 0,
-          "assists": 0,
+          "assists": 2,
           "shots": {
-            "total": 0,
-            "on": 0,
-            "off": 0
+            "total": 6,
+            "on": 4,
+            "off": 2
           },
           "passes": {
-            "total": 0,
-            "on": 0,
-            "off": 0
+            "total": 30,
+            "on": 22,
+            "off": 8
           },
           "tackles": {
-            "total": 0,
-            "on": 0,
-            "off": 0,
+            "total": 12,
+            "on": 6,
+            "off": 6,
             "fouls": 0
           }
         },
@@ -63806,23 +63863,23 @@
           "name": "Kléber",
           "position": "CM",
           "rating": "81",
-          "appearances": 0,
-          "goals": 0,
-          "assists": 0,
+          "appearances": 1,
+          "goals": 1,
+          "assists": 3,
           "shots": {
-            "total": 0,
-            "on": 0,
-            "off": 0
+            "total": 6,
+            "on": 4,
+            "off": 2
           },
           "passes": {
-            "total": 0,
-            "on": 0,
-            "off": 0
+            "total": 18,
+            "on": 13,
+            "off": 5
           },
           "tackles": {
-            "total": 0,
-            "on": 0,
-            "off": 0,
+            "total": 3,
+            "on": 2,
+            "off": 1,
             "fouls": 0
           }
         },
@@ -63831,24 +63888,24 @@
           "name": "Dagoberto",
           "position": "CM",
           "rating": "80",
-          "appearances": 0,
-          "goals": 0,
+          "appearances": 1,
+          "goals": 1,
           "assists": 0,
           "shots": {
-            "total": 0,
-            "on": 0,
-            "off": 0
+            "total": 2,
+            "on": 1,
+            "off": 1
           },
           "passes": {
-            "total": 0,
-            "on": 0,
-            "off": 0
+            "total": 37,
+            "on": 19,
+            "off": 18
           },
           "tackles": {
-            "total": 0,
-            "on": 0,
-            "off": 0,
-            "fouls": 0
+            "total": 12,
+            "on": 8,
+            "off": 4,
+            "fouls": 2
           }
         },
         {
@@ -63856,24 +63913,24 @@
           "name": "Obina",
           "position": "ST",
           "rating": "82",
-          "appearances": 0,
+          "appearances": 1,
           "goals": 0,
           "assists": 0,
           "shots": {
-            "total": 0,
-            "on": 0,
-            "off": 0
+            "total": 6,
+            "on": 3,
+            "off": 3
           },
           "passes": {
-            "total": 0,
-            "on": 0,
-            "off": 0
+            "total": 21,
+            "on": 13,
+            "off": 8
           },
           "tackles": {
-            "total": 0,
-            "on": 0,
-            "off": 0,
-            "fouls": 0
+            "total": 5,
+            "on": 3,
+            "off": 2,
+            "fouls": 2
           }
         },
         {
@@ -63881,23 +63938,23 @@
           "name": "Souza",
           "position": "ST",
           "rating": "80",
-          "appearances": 0,
+          "appearances": 1,
           "goals": 0,
-          "assists": 0,
+          "assists": 1,
           "shots": {
-            "total": 0,
-            "on": 0,
-            "off": 0
+            "total": 8,
+            "on": 4,
+            "off": 4
           },
           "passes": {
-            "total": 0,
-            "on": 0,
-            "off": 0
+            "total": 45,
+            "on": 37,
+            "off": 8
           },
           "tackles": {
-            "total": 0,
-            "on": 0,
-            "off": 0,
+            "total": 5,
+            "on": 4,
+            "off": 1,
             "fouls": 0
           }
         },
@@ -64007,50 +64064,50 @@
           "name": "Vinícius",
           "position": "GK",
           "rating": "84",
-          "appearances": 0,
+          "appearances": 1,
           "goals": 0,
-          "assists": 0,
+          "assists": 1,
           "shots": {
-            "total": 0,
-            "on": 0,
+            "total": 1,
+            "on": 1,
             "off": 0
           },
           "passes": {
-            "total": 0,
-            "on": 0,
-            "off": 0
+            "total": 36,
+            "on": 24,
+            "off": 12
           },
           "tackles": {
-            "total": 0,
-            "on": 0,
-            "off": 0,
-            "fouls": 0
+            "total": 2,
+            "on": 1,
+            "off": 1,
+            "fouls": 1
           },
-          "saves": 0
+          "saves": 3
         },
         {
           "team": "Crimson Vanguard",
           "name": "Pedrinho",
           "position": "CB",
           "rating": "84",
-          "appearances": 0,
-          "goals": 0,
-          "assists": 0,
+          "appearances": 1,
+          "goals": 1,
+          "assists": 2,
           "shots": {
-            "total": 0,
-            "on": 0,
-            "off": 0
+            "total": 2,
+            "on": 1,
+            "off": 1
           },
           "passes": {
-            "total": 0,
-            "on": 0,
-            "off": 0
+            "total": 16,
+            "on": 9,
+            "off": 7
           },
           "tackles": {
-            "total": 0,
-            "on": 0,
-            "off": 0,
-            "fouls": 0
+            "total": 5,
+            "on": 4,
+            "off": 1,
+            "fouls": 2
           }
         },
         {
@@ -64058,24 +64115,24 @@
           "name": "Renatinho",
           "position": "CM",
           "rating": "86",
-          "appearances": 0,
+          "appearances": 1,
           "goals": 0,
-          "assists": 0,
+          "assists": 2,
           "shots": {
-            "total": 0,
-            "on": 0,
-            "off": 0
+            "total": 3,
+            "on": 2,
+            "off": 1
           },
           "passes": {
-            "total": 0,
-            "on": 0,
-            "off": 0
+            "total": 22,
+            "on": 16,
+            "off": 6
           },
           "tackles": {
-            "total": 0,
-            "on": 0,
-            "off": 0,
-            "fouls": 0
+            "total": 7,
+            "on": 4,
+            "off": 3,
+            "fouls": 1
           }
         },
         {
@@ -64083,24 +64140,24 @@
           "name": "Waguinho",
           "position": "CM",
           "rating": "84",
-          "appearances": 0,
+          "appearances": 1,
           "goals": 0,
-          "assists": 0,
+          "assists": 1,
           "shots": {
-            "total": 0,
-            "on": 0,
-            "off": 0
+            "total": 4,
+            "on": 3,
+            "off": 1
           },
           "passes": {
-            "total": 0,
-            "on": 0,
-            "off": 0
+            "total": 40,
+            "on": 28,
+            "off": 12
           },
           "tackles": {
-            "total": 0,
-            "on": 0,
-            "off": 0,
-            "fouls": 0
+            "total": 4,
+            "on": 2,
+            "off": 2,
+            "fouls": 1
           }
         },
         {
@@ -64108,24 +64165,24 @@
           "name": "Beto",
           "position": "ST",
           "rating": "88",
-          "appearances": 0,
-          "goals": 0,
-          "assists": 0,
+          "appearances": 1,
+          "goals": 2,
+          "assists": 2,
           "shots": {
-            "total": 0,
-            "on": 0,
-            "off": 0
+            "total": 7,
+            "on": 3,
+            "off": 4
           },
           "passes": {
-            "total": 0,
-            "on": 0,
-            "off": 0
+            "total": 16,
+            "on": 13,
+            "off": 3
           },
           "tackles": {
-            "total": 0,
-            "on": 0,
-            "off": 0,
-            "fouls": 0
+            "total": 10,
+            "on": 6,
+            "off": 4,
+            "fouls": 2
           }
         },
         {
@@ -64133,24 +64190,24 @@
           "name": "Cássio",
           "position": "ST",
           "rating": "85",
-          "appearances": 0,
+          "appearances": 1,
           "goals": 0,
-          "assists": 0,
+          "assists": 1,
           "shots": {
-            "total": 0,
-            "on": 0,
-            "off": 0
+            "total": 6,
+            "on": 5,
+            "off": 1
           },
           "passes": {
-            "total": 0,
-            "on": 0,
-            "off": 0
+            "total": 22,
+            "on": 14,
+            "off": 8
           },
           "tackles": {
-            "total": 0,
-            "on": 0,
-            "off": 0,
-            "fouls": 0
+            "total": 9,
+            "on": 7,
+            "off": 2,
+            "fouls": 1
           }
         },
         {
@@ -64513,43 +64570,43 @@
           "coach": "Danilo",
           "style": "attacking",
           "rating": "88",
-          "played": 0,
-          "won": 0,
+          "played": 2,
+          "won": 1,
           "drawn": 0,
-          "lost": 0,
-          "points": 0
+          "lost": 1,
+          "points": 3
         },
         {
           "team": "Cyclones",
           "coach": "Bruno",
           "style": "defensive",
           "rating": "72",
-          "played": 0,
-          "won": 0,
+          "played": 2,
+          "won": 1,
           "drawn": 0,
-          "lost": 0,
-          "points": 0
+          "lost": 1,
+          "points": 3
         },
         {
           "team": "Red Phoenix",
           "coach": "Índio",
           "style": "balanced",
           "rating": "91",
-          "played": 0,
-          "won": 0,
+          "played": 1,
+          "won": 1,
           "drawn": 0,
           "lost": 0,
-          "points": 0
+          "points": 3
         },
         {
           "team": "Shadow Wolves",
           "coach": "Ronaldinho",
           "style": "possession",
           "rating": "65",
-          "played": 0,
+          "played": 1,
           "won": 0,
           "drawn": 0,
-          "lost": 0,
+          "lost": 1,
           "points": 0
         },
         {
@@ -64557,21 +64614,21 @@
           "coach": "Cafú",
           "style": "counter-attack",
           "rating": "79",
-          "played": 0,
+          "played": 1,
           "won": 0,
-          "drawn": 0,
+          "drawn": 1,
           "lost": 0,
-          "points": 0
+          "points": 1
         },
         {
           "team": "Solar Flares",
           "coach": "Émerson",
           "style": "attacking",
           "rating": "54",
-          "played": 0,
+          "played": 1,
           "won": 0,
           "drawn": 0,
-          "lost": 0,
+          "lost": 1,
           "points": 0
         },
         {
@@ -64579,10 +64636,10 @@
           "coach": "Belletti",
           "style": "defensive",
           "rating": "83",
-          "played": 0,
+          "played": 1,
           "won": 0,
           "drawn": 0,
-          "lost": 0,
+          "lost": 1,
           "points": 0
         },
         {
@@ -64590,54 +64647,54 @@
           "coach": "Maicosuel",
           "style": "balanced",
           "rating": "69",
-          "played": 0,
-          "won": 0,
+          "played": 1,
+          "won": 1,
           "drawn": 0,
           "lost": 0,
-          "points": 0
+          "points": 3
         },
         {
           "team": "Blue Tide",
           "coach": "Everton",
           "style": "possession",
           "rating": "77",
-          "played": 0,
-          "won": 0,
+          "played": 1,
+          "won": 1,
           "drawn": 0,
           "lost": 0,
-          "points": 0
+          "points": 3
         },
         {
           "team": "Emerald Strikers",
           "coach": "Rafinha",
           "style": "counter-attack",
           "rating": "60",
-          "played": 0,
+          "played": 1,
           "won": 0,
-          "drawn": 0,
+          "drawn": 1,
           "lost": 0,
-          "points": 0
+          "points": 1
         },
         {
           "team": "Crimson Vanguard",
           "coach": "Talisca",
           "style": "attacking",
           "rating": "94",
-          "played": 0,
-          "won": 0,
+          "played": 1,
+          "won": 1,
           "drawn": 0,
           "lost": 0,
-          "points": 0
+          "points": 3
         },
         {
           "team": "Storm Chasers",
           "coach": "Gabigol",
           "style": "defensive",
           "rating": "57",
-          "played": 0,
+          "played": 1,
           "won": 0,
           "drawn": 0,
-          "lost": 0,
+          "lost": 1,
           "points": 0
         }
       ],

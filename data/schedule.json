@@ -7,56 +7,1814 @@
         {
           "home": "Thunderbolts",
           "away": "Cyclones",
-          "status": "pending",
-          "score": null,
-          "method": null,
-          "playerStats": null,
-          "playerGrades": null
+          "status": "completed",
+          "score": [
+            2,
+            3
+          ],
+          "method": "simulated",
+          "playerStats": {
+            "home": [
+              {
+                "name": "Pelé",
+                "position": "GK",
+                "rating": "85",
+                "goals": 0,
+                "assists": 0,
+                "shots": {
+                  "total": 0,
+                  "on": 0,
+                  "off": 0
+                },
+                "passes": {
+                  "total": 22,
+                  "on": 17,
+                  "off": 5
+                },
+                "tackles": {
+                  "total": 2,
+                  "on": 1,
+                  "off": 1,
+                  "fouls": 2
+                },
+                "grade": 3.5,
+                "saves": 5
+              },
+              {
+                "name": "Ronaldo",
+                "position": "CB",
+                "rating": "84",
+                "goals": 0,
+                "assists": 1,
+                "shots": {
+                  "total": 6,
+                  "on": 4,
+                  "off": 2
+                },
+                "passes": {
+                  "total": 20,
+                  "on": 11,
+                  "off": 9
+                },
+                "tackles": {
+                  "total": 6,
+                  "on": 5,
+                  "off": 1,
+                  "fouls": 2
+                },
+                "grade": 3
+              },
+              {
+                "name": "Kaká",
+                "position": "CM",
+                "rating": "87",
+                "goals": 1,
+                "assists": 2,
+                "shots": {
+                  "total": 6,
+                  "on": 4,
+                  "off": 2
+                },
+                "passes": {
+                  "total": 19,
+                  "on": 16,
+                  "off": 3
+                },
+                "tackles": {
+                  "total": 12,
+                  "on": 6,
+                  "off": 6,
+                  "fouls": 0
+                },
+                "grade": 5
+              },
+              {
+                "name": "Neymar",
+                "position": "CM",
+                "rating": "85",
+                "goals": 0,
+                "assists": 2,
+                "shots": {
+                  "total": 6,
+                  "on": 2,
+                  "off": 4
+                },
+                "passes": {
+                  "total": 31,
+                  "on": 20,
+                  "off": 11
+                },
+                "tackles": {
+                  "total": 4,
+                  "on": 2,
+                  "off": 2,
+                  "fouls": 2
+                },
+                "grade": 3.5
+              },
+              {
+                "name": "Rivaldo",
+                "position": "ST",
+                "rating": "89",
+                "goals": 1,
+                "assists": 1,
+                "shots": {
+                  "total": 7,
+                  "on": 4,
+                  "off": 3
+                },
+                "passes": {
+                  "total": 44,
+                  "on": 35,
+                  "off": 9
+                },
+                "tackles": {
+                  "total": 10,
+                  "on": 7,
+                  "off": 3,
+                  "fouls": 2
+                },
+                "grade": 4.5
+              },
+              {
+                "name": "Dida",
+                "position": "ST",
+                "rating": "86",
+                "goals": 0,
+                "assists": 2,
+                "shots": {
+                  "total": 6,
+                  "on": 2,
+                  "off": 4
+                },
+                "passes": {
+                  "total": 34,
+                  "on": 27,
+                  "off": 7
+                },
+                "tackles": {
+                  "total": 7,
+                  "on": 5,
+                  "off": 2,
+                  "fouls": 0
+                },
+                "grade": 4
+              }
+            ],
+            "away": [
+              {
+                "name": "Bebeto",
+                "position": "GK",
+                "rating": "82",
+                "goals": 0,
+                "assists": 0,
+                "shots": {
+                  "total": 1,
+                  "on": 0,
+                  "off": 1
+                },
+                "passes": {
+                  "total": 39,
+                  "on": 21,
+                  "off": 18
+                },
+                "tackles": {
+                  "total": 0,
+                  "on": 0,
+                  "off": 0,
+                  "fouls": 0
+                },
+                "grade": 3.5,
+                "saves": 7
+              },
+              {
+                "name": "Denílson",
+                "position": "CB",
+                "rating": "82",
+                "goals": 0,
+                "assists": 2,
+                "shots": {
+                  "total": 3,
+                  "on": 1,
+                  "off": 2
+                },
+                "passes": {
+                  "total": 28,
+                  "on": 22,
+                  "off": 6
+                },
+                "tackles": {
+                  "total": 4,
+                  "on": 2,
+                  "off": 2,
+                  "fouls": 2
+                },
+                "grade": 4
+              },
+              {
+                "name": "Juninho",
+                "position": "CM",
+                "rating": "84",
+                "goals": 1,
+                "assists": 1,
+                "shots": {
+                  "total": 4,
+                  "on": 2,
+                  "off": 2
+                },
+                "passes": {
+                  "total": 44,
+                  "on": 33,
+                  "off": 11
+                },
+                "tackles": {
+                  "total": 3,
+                  "on": 2,
+                  "off": 1,
+                  "fouls": 1
+                },
+                "grade": 4
+              },
+              {
+                "name": "Raí",
+                "position": "CM",
+                "rating": "83",
+                "goals": 2,
+                "assists": 3,
+                "shots": {
+                  "total": 6,
+                  "on": 4,
+                  "off": 2
+                },
+                "passes": {
+                  "total": 42,
+                  "on": 34,
+                  "off": 8
+                },
+                "tackles": {
+                  "total": 11,
+                  "on": 6,
+                  "off": 5,
+                  "fouls": 0
+                },
+                "grade": 5
+              },
+              {
+                "name": "Sócrates",
+                "position": "ST",
+                "rating": "85",
+                "goals": 0,
+                "assists": 2,
+                "shots": {
+                  "total": 9,
+                  "on": 6,
+                  "off": 3
+                },
+                "passes": {
+                  "total": 44,
+                  "on": 24,
+                  "off": 20
+                },
+                "tackles": {
+                  "total": 12,
+                  "on": 9,
+                  "off": 3,
+                  "fouls": 2
+                },
+                "grade": 3.5
+              },
+              {
+                "name": "Falcão",
+                "position": "ST",
+                "rating": "83",
+                "goals": 0,
+                "assists": 0,
+                "shots": {
+                  "total": 8,
+                  "on": 4,
+                  "off": 4
+                },
+                "passes": {
+                  "total": 41,
+                  "on": 33,
+                  "off": 8
+                },
+                "tackles": {
+                  "total": 11,
+                  "on": 6,
+                  "off": 5,
+                  "fouls": 2
+                },
+                "grade": 3.5
+              }
+            ]
+          },
+          "playerGrades": {
+            "home": [
+              {
+                "name": "Pelé",
+                "grade": 3.5
+              },
+              {
+                "name": "Ronaldo",
+                "grade": 3
+              },
+              {
+                "name": "Kaká",
+                "grade": 5
+              },
+              {
+                "name": "Neymar",
+                "grade": 3.5
+              },
+              {
+                "name": "Rivaldo",
+                "grade": 4.5
+              },
+              {
+                "name": "Dida",
+                "grade": 4
+              }
+            ],
+            "away": [
+              {
+                "name": "Bebeto",
+                "grade": 3.5
+              },
+              {
+                "name": "Denílson",
+                "grade": 4
+              },
+              {
+                "name": "Juninho",
+                "grade": 4
+              },
+              {
+                "name": "Raí",
+                "grade": 5
+              },
+              {
+                "name": "Sócrates",
+                "grade": 3.5
+              },
+              {
+                "name": "Falcão",
+                "grade": 3.5
+              }
+            ]
+          }
         },
         {
           "home": "Red Phoenix",
           "away": "Storm Chasers",
-          "status": "pending",
-          "score": null,
-          "method": null,
+          "status": "completed",
+          "score": [
+            3,
+            1
+          ],
+          "method": "manual",
           "playerStats": null,
           "playerGrades": null
         },
         {
           "home": "Shadow Wolves",
           "away": "Crimson Vanguard",
-          "status": "pending",
-          "score": null,
-          "method": null,
-          "playerStats": null,
-          "playerGrades": null
+          "status": "completed",
+          "score": [
+            2,
+            3
+          ],
+          "method": "simulated",
+          "playerStats": {
+            "home": [
+              {
+                "name": "Taffarel",
+                "position": "GK",
+                "rating": "80",
+                "goals": 0,
+                "assists": 1,
+                "shots": {
+                  "total": 1,
+                  "on": 0,
+                  "off": 1
+                },
+                "passes": {
+                  "total": 21,
+                  "on": 16,
+                  "off": 5
+                },
+                "tackles": {
+                  "total": 1,
+                  "on": 1,
+                  "off": 0,
+                  "fouls": 1
+                },
+                "grade": 4,
+                "saves": 8
+              },
+              {
+                "name": "Edmundo",
+                "position": "CB",
+                "rating": "80",
+                "goals": 1,
+                "assists": 2,
+                "shots": {
+                  "total": 4,
+                  "on": 3,
+                  "off": 1
+                },
+                "passes": {
+                  "total": 25,
+                  "on": 19,
+                  "off": 6
+                },
+                "tackles": {
+                  "total": 11,
+                  "on": 7,
+                  "off": 4,
+                  "fouls": 0
+                },
+                "grade": 4.5
+              },
+              {
+                "name": "Elano",
+                "position": "CM",
+                "rating": "82",
+                "goals": 1,
+                "assists": 2,
+                "shots": {
+                  "total": 4,
+                  "on": 3,
+                  "off": 1
+                },
+                "passes": {
+                  "total": 41,
+                  "on": 32,
+                  "off": 9
+                },
+                "tackles": {
+                  "total": 10,
+                  "on": 6,
+                  "off": 4,
+                  "fouls": 0
+                },
+                "grade": 4.5
+              },
+              {
+                "name": "Grafite",
+                "position": "CM",
+                "rating": "81",
+                "goals": 0,
+                "assists": 2,
+                "shots": {
+                  "total": 3,
+                  "on": 2,
+                  "off": 1
+                },
+                "passes": {
+                  "total": 15,
+                  "on": 9,
+                  "off": 6
+                },
+                "tackles": {
+                  "total": 4,
+                  "on": 2,
+                  "off": 2,
+                  "fouls": 0
+                },
+                "grade": 3.5
+              },
+              {
+                "name": "Hulk",
+                "position": "ST",
+                "rating": "83",
+                "goals": 0,
+                "assists": 2,
+                "shots": {
+                  "total": 5,
+                  "on": 2,
+                  "off": 3
+                },
+                "passes": {
+                  "total": 25,
+                  "on": 14,
+                  "off": 11
+                },
+                "tackles": {
+                  "total": 7,
+                  "on": 5,
+                  "off": 2,
+                  "fouls": 2
+                },
+                "grade": 3.5
+              },
+              {
+                "name": "Jô",
+                "position": "ST",
+                "rating": "81",
+                "goals": 0,
+                "assists": 0,
+                "shots": {
+                  "total": 7,
+                  "on": 3,
+                  "off": 4
+                },
+                "passes": {
+                  "total": 20,
+                  "on": 10,
+                  "off": 10
+                },
+                "tackles": {
+                  "total": 6,
+                  "on": 4,
+                  "off": 2,
+                  "fouls": 2
+                },
+                "grade": 2.5
+              }
+            ],
+            "away": [
+              {
+                "name": "Vinícius",
+                "position": "GK",
+                "rating": "84",
+                "goals": 0,
+                "assists": 1,
+                "shots": {
+                  "total": 1,
+                  "on": 1,
+                  "off": 0
+                },
+                "passes": {
+                  "total": 36,
+                  "on": 24,
+                  "off": 12
+                },
+                "tackles": {
+                  "total": 2,
+                  "on": 1,
+                  "off": 1,
+                  "fouls": 1
+                },
+                "grade": 4,
+                "saves": 3
+              },
+              {
+                "name": "Pedrinho",
+                "position": "CB",
+                "rating": "84",
+                "goals": 1,
+                "assists": 2,
+                "shots": {
+                  "total": 2,
+                  "on": 1,
+                  "off": 1
+                },
+                "passes": {
+                  "total": 16,
+                  "on": 9,
+                  "off": 7
+                },
+                "tackles": {
+                  "total": 5,
+                  "on": 4,
+                  "off": 1,
+                  "fouls": 2
+                },
+                "grade": 4
+              },
+              {
+                "name": "Renatinho",
+                "position": "CM",
+                "rating": "86",
+                "goals": 0,
+                "assists": 2,
+                "shots": {
+                  "total": 3,
+                  "on": 2,
+                  "off": 1
+                },
+                "passes": {
+                  "total": 22,
+                  "on": 16,
+                  "off": 6
+                },
+                "tackles": {
+                  "total": 7,
+                  "on": 4,
+                  "off": 3,
+                  "fouls": 1
+                },
+                "grade": 4
+              },
+              {
+                "name": "Waguinho",
+                "position": "CM",
+                "rating": "84",
+                "goals": 0,
+                "assists": 1,
+                "shots": {
+                  "total": 4,
+                  "on": 3,
+                  "off": 1
+                },
+                "passes": {
+                  "total": 40,
+                  "on": 28,
+                  "off": 12
+                },
+                "tackles": {
+                  "total": 4,
+                  "on": 2,
+                  "off": 2,
+                  "fouls": 1
+                },
+                "grade": 3.5
+              },
+              {
+                "name": "Beto",
+                "position": "ST",
+                "rating": "88",
+                "goals": 2,
+                "assists": 2,
+                "shots": {
+                  "total": 7,
+                  "on": 3,
+                  "off": 4
+                },
+                "passes": {
+                  "total": 16,
+                  "on": 13,
+                  "off": 3
+                },
+                "tackles": {
+                  "total": 10,
+                  "on": 6,
+                  "off": 4,
+                  "fouls": 2
+                },
+                "grade": 5
+              },
+              {
+                "name": "Cássio",
+                "position": "ST",
+                "rating": "85",
+                "goals": 0,
+                "assists": 1,
+                "shots": {
+                  "total": 6,
+                  "on": 5,
+                  "off": 1
+                },
+                "passes": {
+                  "total": 22,
+                  "on": 14,
+                  "off": 8
+                },
+                "tackles": {
+                  "total": 9,
+                  "on": 7,
+                  "off": 2,
+                  "fouls": 1
+                },
+                "grade": 3.5
+              }
+            ]
+          },
+          "playerGrades": {
+            "home": [
+              {
+                "name": "Taffarel",
+                "grade": 4
+              },
+              {
+                "name": "Edmundo",
+                "grade": 4.5
+              },
+              {
+                "name": "Elano",
+                "grade": 4.5
+              },
+              {
+                "name": "Grafite",
+                "grade": 3.5
+              },
+              {
+                "name": "Hulk",
+                "grade": 3.5
+              },
+              {
+                "name": "Jô",
+                "grade": 2.5
+              }
+            ],
+            "away": [
+              {
+                "name": "Vinícius",
+                "grade": 4
+              },
+              {
+                "name": "Pedrinho",
+                "grade": 4
+              },
+              {
+                "name": "Renatinho",
+                "grade": 4
+              },
+              {
+                "name": "Waguinho",
+                "grade": 3.5
+              },
+              {
+                "name": "Beto",
+                "grade": 5
+              },
+              {
+                "name": "Cássio",
+                "grade": 3.5
+              }
+            ]
+          }
         },
         {
           "home": "Iron Eagles",
           "away": "Emerald Strikers",
-          "status": "pending",
-          "score": null,
-          "method": null,
-          "playerStats": null,
-          "playerGrades": null
+          "status": "completed",
+          "score": [
+            2,
+            2
+          ],
+          "method": "simulated",
+          "playerStats": {
+            "home": [
+              {
+                "name": "Willian",
+                "position": "GK",
+                "rating": "84",
+                "goals": 0,
+                "assists": 0,
+                "shots": {
+                  "total": 0,
+                  "on": 0,
+                  "off": 0
+                },
+                "passes": {
+                  "total": 32,
+                  "on": 18,
+                  "off": 14
+                },
+                "tackles": {
+                  "total": 2,
+                  "on": 1,
+                  "off": 1,
+                  "fouls": 2
+                },
+                "grade": 3,
+                "saves": 4
+              },
+              {
+                "name": "Fernandinho",
+                "position": "CB",
+                "rating": "84",
+                "goals": 0,
+                "assists": 1,
+                "shots": {
+                  "total": 1,
+                  "on": 0,
+                  "off": 1
+                },
+                "passes": {
+                  "total": 32,
+                  "on": 17,
+                  "off": 15
+                },
+                "tackles": {
+                  "total": 4,
+                  "on": 3,
+                  "off": 1,
+                  "fouls": 1
+                },
+                "grade": 3
+              },
+              {
+                "name": "Casemiro",
+                "position": "CM",
+                "rating": "86",
+                "goals": 1,
+                "assists": 3,
+                "shots": {
+                  "total": 1,
+                  "on": 0,
+                  "off": 1
+                },
+                "passes": {
+                  "total": 36,
+                  "on": 23,
+                  "off": 13
+                },
+                "tackles": {
+                  "total": 12,
+                  "on": 6,
+                  "off": 6,
+                  "fouls": 1
+                },
+                "grade": 5
+              },
+              {
+                "name": "Firmino",
+                "position": "CM",
+                "rating": "84",
+                "goals": 1,
+                "assists": 1,
+                "shots": {
+                  "total": 6,
+                  "on": 3,
+                  "off": 3
+                },
+                "passes": {
+                  "total": 15,
+                  "on": 10,
+                  "off": 5
+                },
+                "tackles": {
+                  "total": 11,
+                  "on": 5,
+                  "off": 6,
+                  "fouls": 0
+                },
+                "grade": 4
+              },
+              {
+                "name": "Coutinho",
+                "position": "ST",
+                "rating": "88",
+                "goals": 0,
+                "assists": 2,
+                "shots": {
+                  "total": 7,
+                  "on": 5,
+                  "off": 2
+                },
+                "passes": {
+                  "total": 38,
+                  "on": 26,
+                  "off": 12
+                },
+                "tackles": {
+                  "total": 6,
+                  "on": 5,
+                  "off": 1,
+                  "fouls": 0
+                },
+                "grade": 3.5
+              },
+              {
+                "name": "Paulinho",
+                "position": "ST",
+                "rating": "85",
+                "goals": 0,
+                "assists": 2,
+                "shots": {
+                  "total": 8,
+                  "on": 4,
+                  "off": 4
+                },
+                "passes": {
+                  "total": 44,
+                  "on": 31,
+                  "off": 13
+                },
+                "tackles": {
+                  "total": 8,
+                  "on": 5,
+                  "off": 3,
+                  "fouls": 0
+                },
+                "grade": 3.5
+              }
+            ],
+            "away": [
+              {
+                "name": "Dudu",
+                "position": "GK",
+                "rating": "79",
+                "goals": 0,
+                "assists": 0,
+                "shots": {
+                  "total": 0,
+                  "on": 0,
+                  "off": 0
+                },
+                "passes": {
+                  "total": 29,
+                  "on": 15,
+                  "off": 14
+                },
+                "tackles": {
+                  "total": 0,
+                  "on": 0,
+                  "off": 0,
+                  "fouls": 2
+                },
+                "grade": 2.5,
+                "saves": 2
+              },
+              {
+                "name": "Borges",
+                "position": "CB",
+                "rating": "79",
+                "goals": 0,
+                "assists": 2,
+                "shots": {
+                  "total": 6,
+                  "on": 4,
+                  "off": 2
+                },
+                "passes": {
+                  "total": 30,
+                  "on": 22,
+                  "off": 8
+                },
+                "tackles": {
+                  "total": 12,
+                  "on": 6,
+                  "off": 6,
+                  "fouls": 0
+                },
+                "grade": 3.5
+              },
+              {
+                "name": "Kléber",
+                "position": "CM",
+                "rating": "81",
+                "goals": 1,
+                "assists": 3,
+                "shots": {
+                  "total": 6,
+                  "on": 4,
+                  "off": 2
+                },
+                "passes": {
+                  "total": 18,
+                  "on": 13,
+                  "off": 5
+                },
+                "tackles": {
+                  "total": 3,
+                  "on": 2,
+                  "off": 1,
+                  "fouls": 0
+                },
+                "grade": 5
+              },
+              {
+                "name": "Dagoberto",
+                "position": "CM",
+                "rating": "80",
+                "goals": 1,
+                "assists": 0,
+                "shots": {
+                  "total": 2,
+                  "on": 1,
+                  "off": 1
+                },
+                "passes": {
+                  "total": 37,
+                  "on": 19,
+                  "off": 18
+                },
+                "tackles": {
+                  "total": 12,
+                  "on": 8,
+                  "off": 4,
+                  "fouls": 2
+                },
+                "grade": 3
+              },
+              {
+                "name": "Obina",
+                "position": "ST",
+                "rating": "82",
+                "goals": 0,
+                "assists": 0,
+                "shots": {
+                  "total": 6,
+                  "on": 3,
+                  "off": 3
+                },
+                "passes": {
+                  "total": 21,
+                  "on": 13,
+                  "off": 8
+                },
+                "tackles": {
+                  "total": 5,
+                  "on": 3,
+                  "off": 2,
+                  "fouls": 2
+                },
+                "grade": 2.5
+              },
+              {
+                "name": "Souza",
+                "position": "ST",
+                "rating": "80",
+                "goals": 0,
+                "assists": 1,
+                "shots": {
+                  "total": 8,
+                  "on": 4,
+                  "off": 4
+                },
+                "passes": {
+                  "total": 45,
+                  "on": 37,
+                  "off": 8
+                },
+                "tackles": {
+                  "total": 5,
+                  "on": 4,
+                  "off": 1,
+                  "fouls": 0
+                },
+                "grade": 3.5
+              }
+            ]
+          },
+          "playerGrades": {
+            "home": [
+              {
+                "name": "Willian",
+                "grade": 3
+              },
+              {
+                "name": "Fernandinho",
+                "grade": 3
+              },
+              {
+                "name": "Casemiro",
+                "grade": 5
+              },
+              {
+                "name": "Firmino",
+                "grade": 4
+              },
+              {
+                "name": "Coutinho",
+                "grade": 3.5
+              },
+              {
+                "name": "Paulinho",
+                "grade": 3.5
+              }
+            ],
+            "away": [
+              {
+                "name": "Dudu",
+                "grade": 2.5
+              },
+              {
+                "name": "Borges",
+                "grade": 3.5
+              },
+              {
+                "name": "Kléber",
+                "grade": 5
+              },
+              {
+                "name": "Dagoberto",
+                "grade": 3
+              },
+              {
+                "name": "Obina",
+                "grade": 2.5
+              },
+              {
+                "name": "Souza",
+                "grade": 3.5
+              }
+            ]
+          }
         },
         {
           "home": "Blue Tide",
           "away": "Solar Flares",
-          "status": "pending",
-          "score": null,
-          "method": null,
-          "playerStats": null,
-          "playerGrades": null
+          "status": "completed",
+          "score": [
+            3,
+            2
+          ],
+          "method": "simulated",
+          "playerStats": {
+            "home": [
+              {
+                "name": "Ícaro",
+                "position": "GK",
+                "rating": "81",
+                "goals": 0,
+                "assists": 0,
+                "shots": {
+                  "total": 1,
+                  "on": 0,
+                  "off": 1
+                },
+                "passes": {
+                  "total": 43,
+                  "on": 34,
+                  "off": 9
+                },
+                "tackles": {
+                  "total": 2,
+                  "on": 1,
+                  "off": 1,
+                  "fouls": 2
+                },
+                "grade": 4,
+                "saves": 7
+              },
+              {
+                "name": "Nivaldo",
+                "position": "CB",
+                "rating": "81",
+                "goals": 0,
+                "assists": 0,
+                "shots": {
+                  "total": 1,
+                  "on": 1,
+                  "off": 0
+                },
+                "passes": {
+                  "total": 21,
+                  "on": 16,
+                  "off": 5
+                },
+                "tackles": {
+                  "total": 8,
+                  "on": 6,
+                  "off": 2,
+                  "fouls": 1
+                },
+                "grade": 3
+              },
+              {
+                "name": "Osvaldo",
+                "position": "CM",
+                "rating": "83",
+                "goals": 0,
+                "assists": 0,
+                "shots": {
+                  "total": 1,
+                  "on": 0,
+                  "off": 1
+                },
+                "passes": {
+                  "total": 28,
+                  "on": 19,
+                  "off": 9
+                },
+                "tackles": {
+                  "total": 9,
+                  "on": 6,
+                  "off": 3,
+                  "fouls": 1
+                },
+                "grade": 3
+              },
+              {
+                "name": "Brandão",
+                "position": "CM",
+                "rating": "82",
+                "goals": 0,
+                "assists": 0,
+                "shots": {
+                  "total": 1,
+                  "on": 1,
+                  "off": 0
+                },
+                "passes": {
+                  "total": 27,
+                  "on": 18,
+                  "off": 9
+                },
+                "tackles": {
+                  "total": 10,
+                  "on": 6,
+                  "off": 4,
+                  "fouls": 0
+                },
+                "grade": 3
+              },
+              {
+                "name": "Nenê",
+                "position": "ST",
+                "rating": "84",
+                "goals": 2,
+                "assists": 1,
+                "shots": {
+                  "total": 7,
+                  "on": 3,
+                  "off": 4
+                },
+                "passes": {
+                  "total": 23,
+                  "on": 18,
+                  "off": 5
+                },
+                "tackles": {
+                  "total": 8,
+                  "on": 6,
+                  "off": 2,
+                  "fouls": 0
+                },
+                "grade": 5
+              },
+              {
+                "name": "Jadson",
+                "position": "ST",
+                "rating": "82",
+                "goals": 1,
+                "assists": 0,
+                "shots": {
+                  "total": 6,
+                  "on": 2,
+                  "off": 4
+                },
+                "passes": {
+                  "total": 38,
+                  "on": 25,
+                  "off": 13
+                },
+                "tackles": {
+                  "total": 12,
+                  "on": 8,
+                  "off": 4,
+                  "fouls": 0
+                },
+                "grade": 4
+              }
+            ],
+            "away": [
+              {
+                "name": "Baptista",
+                "position": "GK",
+                "rating": "78",
+                "goals": 0,
+                "assists": 0,
+                "shots": {
+                  "total": 0,
+                  "on": 0,
+                  "off": 0
+                },
+                "passes": {
+                  "total": 19,
+                  "on": 10,
+                  "off": 9
+                },
+                "tackles": {
+                  "total": 1,
+                  "on": 1,
+                  "off": 0,
+                  "fouls": 2
+                },
+                "grade": 2.5,
+                "saves": 2
+              },
+              {
+                "name": "Cicinho",
+                "position": "CB",
+                "rating": "78",
+                "goals": 0,
+                "assists": 0,
+                "shots": {
+                  "total": 3,
+                  "on": 2,
+                  "off": 1
+                },
+                "passes": {
+                  "total": 38,
+                  "on": 22,
+                  "off": 16
+                },
+                "tackles": {
+                  "total": 7,
+                  "on": 4,
+                  "off": 3,
+                  "fouls": 2
+                },
+                "grade": 2.5
+              },
+              {
+                "name": "Gilberto",
+                "position": "CM",
+                "rating": "80",
+                "goals": 0,
+                "assists": 0,
+                "shots": {
+                  "total": 4,
+                  "on": 2,
+                  "off": 2
+                },
+                "passes": {
+                  "total": 33,
+                  "on": 24,
+                  "off": 9
+                },
+                "tackles": {
+                  "total": 3,
+                  "on": 2,
+                  "off": 1,
+                  "fouls": 0
+                },
+                "grade": 3
+              },
+              {
+                "name": "Mineiro",
+                "position": "CM",
+                "rating": "79",
+                "goals": 1,
+                "assists": 3,
+                "shots": {
+                  "total": 5,
+                  "on": 4,
+                  "off": 1
+                },
+                "passes": {
+                  "total": 15,
+                  "on": 9,
+                  "off": 6
+                },
+                "tackles": {
+                  "total": 6,
+                  "on": 3,
+                  "off": 3,
+                  "fouls": 0
+                },
+                "grade": 4
+              },
+              {
+                "name": "Ricardinho",
+                "position": "ST",
+                "rating": "81",
+                "goals": 1,
+                "assists": 1,
+                "shots": {
+                  "total": 10,
+                  "on": 7,
+                  "off": 3
+                },
+                "passes": {
+                  "total": 34,
+                  "on": 26,
+                  "off": 8
+                },
+                "tackles": {
+                  "total": 7,
+                  "on": 3,
+                  "off": 4,
+                  "fouls": 2
+                },
+                "grade": 4
+              },
+              {
+                "name": "Roque",
+                "position": "ST",
+                "rating": "79",
+                "goals": 0,
+                "assists": 1,
+                "shots": {
+                  "total": 9,
+                  "on": 5,
+                  "off": 4
+                },
+                "passes": {
+                  "total": 36,
+                  "on": 19,
+                  "off": 17
+                },
+                "tackles": {
+                  "total": 12,
+                  "on": 6,
+                  "off": 6,
+                  "fouls": 0
+                },
+                "grade": 2.5
+              }
+            ]
+          },
+          "playerGrades": {
+            "home": [
+              {
+                "name": "Ícaro",
+                "grade": 4
+              },
+              {
+                "name": "Nivaldo",
+                "grade": 3
+              },
+              {
+                "name": "Osvaldo",
+                "grade": 3
+              },
+              {
+                "name": "Brandão",
+                "grade": 3
+              },
+              {
+                "name": "Nenê",
+                "grade": 5
+              },
+              {
+                "name": "Jadson",
+                "grade": 4
+              }
+            ],
+            "away": [
+              {
+                "name": "Baptista",
+                "grade": 2.5
+              },
+              {
+                "name": "Cicinho",
+                "grade": 2.5
+              },
+              {
+                "name": "Gilberto",
+                "grade": 3
+              },
+              {
+                "name": "Mineiro",
+                "grade": 4
+              },
+              {
+                "name": "Ricardinho",
+                "grade": 4
+              },
+              {
+                "name": "Roque",
+                "grade": 2.5
+              }
+            ]
+          }
         },
         {
           "home": "Golden Lions",
           "away": "Arctic Foxes",
-          "status": "pending",
-          "score": null,
-          "method": null,
-          "playerStats": null,
-          "playerGrades": null
+          "status": "completed",
+          "score": [
+            2,
+            1
+          ],
+          "method": "simulated",
+          "playerStats": {
+            "home": [
+              {
+                "name": "Réver",
+                "position": "GK",
+                "rating": "86",
+                "goals": 0,
+                "assists": 1,
+                "shots": {
+                  "total": 1,
+                  "on": 0,
+                  "off": 1
+                },
+                "passes": {
+                  "total": 23,
+                  "on": 16,
+                  "off": 7
+                },
+                "tackles": {
+                  "total": 0,
+                  "on": 0,
+                  "off": 0,
+                  "fouls": 1
+                },
+                "grade": 4.5,
+                "saves": 6
+              },
+              {
+                "name": "Dedé",
+                "position": "CB",
+                "rating": "86",
+                "goals": 0,
+                "assists": 1,
+                "shots": {
+                  "total": 2,
+                  "on": 1,
+                  "off": 1
+                },
+                "passes": {
+                  "total": 24,
+                  "on": 19,
+                  "off": 5
+                },
+                "tackles": {
+                  "total": 6,
+                  "on": 3,
+                  "off": 3,
+                  "fouls": 0
+                },
+                "grade": 4
+              },
+              {
+                "name": "Gílson",
+                "position": "CM",
+                "rating": "88",
+                "goals": 1,
+                "assists": 2,
+                "shots": {
+                  "total": 5,
+                  "on": 3,
+                  "off": 2
+                },
+                "passes": {
+                  "total": 16,
+                  "on": 14,
+                  "off": 2
+                },
+                "tackles": {
+                  "total": 4,
+                  "on": 2,
+                  "off": 2,
+                  "fouls": 0
+                },
+                "grade": 5
+              },
+              {
+                "name": "Jairzinho",
+                "position": "CM",
+                "rating": "86",
+                "goals": 0,
+                "assists": 2,
+                "shots": {
+                  "total": 1,
+                  "on": 1,
+                  "off": 0
+                },
+                "passes": {
+                  "total": 33,
+                  "on": 28,
+                  "off": 5
+                },
+                "tackles": {
+                  "total": 12,
+                  "on": 7,
+                  "off": 5,
+                  "fouls": 0
+                },
+                "grade": 4.5
+              },
+              {
+                "name": "Betinho",
+                "position": "ST",
+                "rating": "90",
+                "goals": 1,
+                "assists": 2,
+                "shots": {
+                  "total": 5,
+                  "on": 2,
+                  "off": 3
+                },
+                "passes": {
+                  "total": 17,
+                  "on": 10,
+                  "off": 7
+                },
+                "tackles": {
+                  "total": 10,
+                  "on": 4,
+                  "off": 6,
+                  "fouls": 1
+                },
+                "grade": 4.5
+              },
+              {
+                "name": "Trovão",
+                "position": "ST",
+                "rating": "87",
+                "goals": 0,
+                "assists": 2,
+                "shots": {
+                  "total": 6,
+                  "on": 3,
+                  "off": 3
+                },
+                "passes": {
+                  "total": 30,
+                  "on": 17,
+                  "off": 13
+                },
+                "tackles": {
+                  "total": 12,
+                  "on": 6,
+                  "off": 6,
+                  "fouls": 0
+                },
+                "grade": 3.5
+              }
+            ],
+            "away": [
+              {
+                "name": "Dunga",
+                "position": "GK",
+                "rating": "84",
+                "goals": 0,
+                "assists": 0,
+                "shots": {
+                  "total": 1,
+                  "on": 1,
+                  "off": 0
+                },
+                "passes": {
+                  "total": 34,
+                  "on": 21,
+                  "off": 13
+                },
+                "tackles": {
+                  "total": 1,
+                  "on": 0,
+                  "off": 1,
+                  "fouls": 2
+                },
+                "grade": 3.5,
+                "saves": 7
+              },
+              {
+                "name": "Cerezo",
+                "position": "CB",
+                "rating": "83",
+                "goals": 0,
+                "assists": 2,
+                "shots": {
+                  "total": 1,
+                  "on": 1,
+                  "off": 0
+                },
+                "passes": {
+                  "total": 38,
+                  "on": 24,
+                  "off": 14
+                },
+                "tackles": {
+                  "total": 9,
+                  "on": 5,
+                  "off": 4,
+                  "fouls": 1
+                },
+                "grade": 3.5
+              },
+              {
+                "name": "Josimar",
+                "position": "CM",
+                "rating": "85",
+                "goals": 0,
+                "assists": 3,
+                "shots": {
+                  "total": 6,
+                  "on": 3,
+                  "off": 3
+                },
+                "passes": {
+                  "total": 41,
+                  "on": 22,
+                  "off": 19
+                },
+                "tackles": {
+                  "total": 7,
+                  "on": 3,
+                  "off": 4,
+                  "fouls": 1
+                },
+                "grade": 3.5
+              },
+              {
+                "name": "Müller",
+                "position": "CM",
+                "rating": "83",
+                "goals": 0,
+                "assists": 2,
+                "shots": {
+                  "total": 1,
+                  "on": 1,
+                  "off": 0
+                },
+                "passes": {
+                  "total": 25,
+                  "on": 20,
+                  "off": 5
+                },
+                "tackles": {
+                  "total": 4,
+                  "on": 3,
+                  "off": 1,
+                  "fouls": 1
+                },
+                "grade": 4
+              },
+              {
+                "name": "Careca",
+                "position": "ST",
+                "rating": "87",
+                "goals": 1,
+                "assists": 1,
+                "shots": {
+                  "total": 10,
+                  "on": 5,
+                  "off": 5
+                },
+                "passes": {
+                  "total": 26,
+                  "on": 18,
+                  "off": 8
+                },
+                "tackles": {
+                  "total": 5,
+                  "on": 3,
+                  "off": 2,
+                  "fouls": 1
+                },
+                "grade": 4
+              },
+              {
+                "name": "Silas",
+                "position": "ST",
+                "rating": "84",
+                "goals": 0,
+                "assists": 2,
+                "shots": {
+                  "total": 7,
+                  "on": 5,
+                  "off": 2
+                },
+                "passes": {
+                  "total": 37,
+                  "on": 26,
+                  "off": 11
+                },
+                "tackles": {
+                  "total": 3,
+                  "on": 2,
+                  "off": 1,
+                  "fouls": 2
+                },
+                "grade": 3.5
+              }
+            ]
+          },
+          "playerGrades": {
+            "home": [
+              {
+                "name": "Réver",
+                "grade": 4.5
+              },
+              {
+                "name": "Dedé",
+                "grade": 4
+              },
+              {
+                "name": "Gílson",
+                "grade": 5
+              },
+              {
+                "name": "Jairzinho",
+                "grade": 4.5
+              },
+              {
+                "name": "Betinho",
+                "grade": 4.5
+              },
+              {
+                "name": "Trovão",
+                "grade": 3.5
+              }
+            ],
+            "away": [
+              {
+                "name": "Dunga",
+                "grade": 3.5
+              },
+              {
+                "name": "Cerezo",
+                "grade": 3.5
+              },
+              {
+                "name": "Josimar",
+                "grade": 3.5
+              },
+              {
+                "name": "Müller",
+                "grade": 4
+              },
+              {
+                "name": "Careca",
+                "grade": 4
+              },
+              {
+                "name": "Silas",
+                "grade": 3.5
+              }
+            ]
+          }
         }
       ]
     },
