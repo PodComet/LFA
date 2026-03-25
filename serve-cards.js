@@ -3,6 +3,7 @@ const fs = require('fs')
 const path = require('path')
 const { execSync } = require('child_process')
 const { developPlayer, playerPotential } = require('./player-development')
+const CONFIG = JSON.parse(fs.readFileSync(path.join(__dirname, 'data', 'config.json'), 'utf8'))
 
 const PORT = 3456
 const siteDir = path.join(__dirname, 'site')
@@ -38,59 +39,142 @@ function simulateMatchWithEngine(homeTeam, awayTeam) {
   if (!home || !away) return null
 
   function rand(min, max) { return Math.floor(Math.random() * (max - min + 1)) + min }
-  function pickGoals(teamRating, oppRating, homeBonus, offBoost, defPenalty) {
-    offBoost = offBoost || 0; defPenalty = defPenalty || 0
-    const diff = (teamRating - oppRating) / 10
-    const base = 2.0 + diff * 0.3 + homeBonus + offBoost - defPenalty
-    return Math.max(0, Math.round(base + (Math.random() - 0.5) * 3))
-  }
 
+  // Race-to-5 simulation: alternate scoring chances until a team reaches 5
+  // At 4-4 extended play: first to 6 wins, or 5-5 draw
   const r1 = parseInt(home.rating, 10), r2 = parseInt(away.rating, 10)
   const cb1 = coachBoosts(home.coach), cb2 = coachBoosts(away.coach)
-  let g1 = pickGoals(r1, r2, 0.3, cb1.off, cb2.def)
-  let g2 = pickGoals(r2, r1, -0.15, cb2.off, cb1.def)
 
-  // First-to-5 rules
-  if (g1 >= 5 && g2 < 4) g1 = 5
-  else if (g2 >= 5 && g1 < 4) g2 = 5
-  else if (g1 >= 4 && g2 >= 4) {
-    if (g1 === g2 && g1 >= 5) { g1 = 5; g2 = 5 }
-    else if (g1 > g2) { g1 = 6; g2 = rand(4, 5) }
-    else if (g2 > g1) { g2 = 6; g1 = rand(4, 5) }
-    else { const c = rand(0, 2); if (c === 0) { g1 = 5; g2 = 5 } else if (c === 1) { g1 = 6; g2 = 4 } else { g1 = 4; g2 = 6 } }
+  // Scoring probability per "round" based on rating advantage + coach boosts
+  function scoreProb(teamRating, oppRating, homeBonus, offBoost, defPenalty) {
+    const base = 0.42 + (teamRating - oppRating) / 250 + homeBonus / 10 + (offBoost || 0) / 5 - (defPenalty || 0) / 5
+    return Math.max(0.15, Math.min(0.70, base))
   }
-  else if (g1 >= 5) g1 = 5
-  else if (g2 >= 5) g2 = 5
 
-  // Generate player stats for each player
-  function genPlayerStats(team, goalsFor, goalsAgainst, isHome) {
+  const p1 = scoreProb(r1, r2, 0.3, cb1.off, cb2.def)
+  const p2 = scoreProb(r2, r1, -0.15, cb2.off, cb1.def)
+
+  // Valid scores: 5-0..5-3 (first-to-5), 6-4, 6-5 (extended after 4-4), 5-5 (draw)
+  let g1 = 0, g2 = 0
+  const MAX_ROUNDS = 50
+
+  for (let round = 0; round < MAX_ROUNDS; round++) {
+    if (Math.random() < p1) g1++
+    if (Math.random() < p2) g2++
+
+    const extended = (g1 >= 4 && g2 >= 4) // 4-4 triggers extended play
+
+    if (!extended) {
+      // Normal: first to 5 wins (opponent must be <=3)
+      if (g1 >= 5 && g2 <= 3) break
+      if (g2 >= 5 && g1 <= 3) break
+    } else {
+      // Extended: first to 6 wins, or 5-5 draw
+      if (g1 === 5 && g2 === 5) break         // 5-5 draw
+      if (g1 >= 6 && g1 > g2) break           // 6-4 or 6-5
+      if (g2 >= 6 && g2 > g1) break           // 4-6 or 5-6
+    }
+  }
+
+  // Safety: enforce valid final score
+  if (g1 < 5 && g2 < 5) { if (g1 >= g2) g1 = 5; else g2 = 5 }
+  if (g1 >= 4 && g2 >= 4) {
+    // In extended play, cap at 6
+    if (g1 > 6) g1 = 6; if (g2 > 6) g2 = 6
+    // Can't have 5-4 or 4-5 — must be 5-5, 6-4, 6-5
+    if ((g1 === 5 && g2 === 4) || (g1 === 4 && g2 === 5)) {
+      if (g1 > g2) g1 = 6; else g2 = 6
+    }
+  }
+  if (g1 > 6) g1 = 6; if (g2 > 6) g2 = 6
+
+  // Generate goal events for a team
+  function generateGoalEvents(team, goalsFor, oppTeam) {
+    const players = team.players.slice(0, 6)
+    const outfield = players.filter(p => p.position !== 'GK')
+    const events = []
+
+    // Penalty chance per goal: ~15%
+    // Missed penalty chance: ~25% of penalty attempts
+    const penaltyTakers = players.filter(p => parseInt(p.skill.penalty_taking || '50', 10) >= 40)
+    const bestPenTaker = penaltyTakers.length > 0
+      ? penaltyTakers.sort((a, b) => parseInt(b.skill.penalty_taking || '50', 10) - parseInt(a.skill.penalty_taking || '50', 10))[0]
+      : outfield[0]
+
+    // Generate missed penalties (0-1 per match, ~12% chance)
+    const missedPenalties = Math.random() < 0.12 ? 1 : 0
+    for (let i = 0; i < missedPenalties; i++) {
+      events.push({ scorer: bestPenTaker.name, assister: null, penalty: true, missed: true })
+    }
+
+    for (let i = 0; i < goalsFor; i++) {
+      const isPenalty = Math.random() < 0.15
+
+      if (isPenalty) {
+        events.push({ scorer: bestPenTaker.name, assister: null, penalty: true, missed: false })
+      } else {
+        // Pick scorer weighted by position
+        const weights = outfield.map(p => {
+          const r = parseInt(p.rating, 10)
+          if (p.position === 'ST') return r * 3
+          if (p.position === 'CM') return r * 1.5
+          return r * 0.4
+        })
+        const totalW = weights.reduce((a, b) => a + b, 0)
+        let roll = Math.random() * totalW
+        let scorer = outfield[0]
+        for (let j = 0; j < outfield.length; j++) {
+          roll -= weights[j]
+          if (roll <= 0) { scorer = outfield[j]; break }
+        }
+
+        // Pick assister (~70% of goals have an assist)
+        let assister = null
+        if (Math.random() < 0.70) {
+          const eligible = players.filter(p => p.name !== scorer.name)
+          const aWeights = eligible.map(p => {
+            const r = parseInt(p.rating, 10)
+            if (p.position === 'CM') return r * 2.5
+            if (p.position === 'ST') return r * 1.5
+            if (p.position === 'GK') return r * 0.1
+            return r * 0.8
+          })
+          const aTotal = aWeights.reduce((a, b) => a + b, 0)
+          let aRoll = Math.random() * aTotal
+          for (let j = 0; j < eligible.length; j++) {
+            aRoll -= aWeights[j]
+            if (aRoll <= 0) { assister = eligible[j]; break }
+          }
+        }
+
+        events.push({ scorer: scorer.name, assister: assister ? assister.name : null, penalty: false, missed: false })
+      }
+    }
+    return events
+  }
+
+  // Generate player stats for each team
+  function genPlayerStats(team, goalEvents, goalsFor, goalsAgainst) {
     const stats = []
-    const goalPool = goalsFor
-    let goalsLeft = goalPool
-    const players = team.players.slice(0, 6) // starters only
+    const players = team.players.slice(0, 6)
+
+    // Tally goals/assists from events
+    const goalCounts = {}, assistCounts = {}
+    for (const ev of goalEvents) {
+      if (!ev.missed) {
+        goalCounts[ev.scorer] = (goalCounts[ev.scorer] || 0) + 1
+        if (ev.assister) assistCounts[ev.assister] = (assistCounts[ev.assister] || 0) + 1
+      }
+    }
 
     for (const p of players) {
-      const rating = parseInt(p.rating, 10)
-      const factor = rating / 85
-      let goals = 0, assists = 0, saves = undefined
       const pos = p.position
+      const goals = goalCounts[p.name] || 0
+      const assists = assistCounts[p.name] || 0
+      let saves = undefined
 
       if (pos === 'GK') {
         saves = Math.round(rand(2, 8) * (goalsAgainst > 3 ? 1.3 : 1))
-        goals = 0
-        assists = Math.random() < 0.1 ? 1 : 0
-      } else if (pos === 'ST') {
-        goals = goalsLeft > 0 ? Math.min(rand(0, Math.ceil(goalPool * 0.5)), goalsLeft) : 0
-        goalsLeft -= goals
-        assists = rand(0, 2)
-      } else if (pos === 'CM') {
-        goals = goalsLeft > 0 ? Math.min(rand(0, Math.ceil(goalPool * 0.3)), goalsLeft) : 0
-        goalsLeft -= goals
-        assists = rand(0, 3)
-      } else {
-        goals = goalsLeft > 0 && Math.random() < 0.15 ? 1 : 0
-        goalsLeft -= goals
-        assists = rand(0, 2)
       }
 
       const passTotal = rand(15, 45)
@@ -105,11 +189,11 @@ function simulateMatchWithEngine(homeTeam, awayTeam) {
       grade += (goals * 0.8)
       grade += (assists * 0.4)
       if (saves !== undefined) grade += saves * 0.12
-      grade += (rating - 80) * 0.03
+      grade += (parseInt(p.rating, 10) - 80) * 0.03
       const passAcc = passTotal > 0 ? passOn / passTotal : 0.5
       grade += (passAcc - 0.6) * 2
-      if (goalsFor > goalsAgainst) grade += 0.3  // winning bonus
-      grade = Math.max(1, Math.min(5, Math.round(grade * 2) / 2)) // round to .5
+      if (goalsFor > goalsAgainst) grade += 0.3
+      grade = Math.max(1, Math.min(5, Math.round(grade * 2) / 2))
 
       const stat = {
         name: p.name, position: pos, rating: p.rating,
@@ -123,26 +207,19 @@ function simulateMatchWithEngine(homeTeam, awayTeam) {
       stats.push(stat)
     }
 
-    // Redistribute remaining goals to ensure total matches
-    if (goalsLeft > 0) {
-      const scorers = stats.filter(s => s.position !== 'GK')
-      for (let i = 0; i < goalsLeft; i++) {
-        const s = scorers[rand(0, scorers.length - 1)]
-        s.goals++
-        s.grade = Math.min(5, s.grade + 0.5)
-      }
-    }
-
     return stats
   }
 
-  const homeStats = genPlayerStats(home, g1, g2, true)
-  const awayStats = genPlayerStats(away, g2, g1, false)
+  const homeGoalEvents = generateGoalEvents(home, g1, away)
+  const awayGoalEvents = generateGoalEvents(away, g2, home)
+  const homeStats = genPlayerStats(home, homeGoalEvents, g1, g2)
+  const awayStats = genPlayerStats(away, awayGoalEvents, g2, g1)
 
   return {
     score: [g1, g2],
     homePlayerStats: homeStats,
-    awayPlayerStats: awayStats
+    awayPlayerStats: awayStats,
+    goalEvents: { home: homeGoalEvents, away: awayGoalEvents }
   }
 }
 
@@ -269,6 +346,7 @@ http.createServer(async (req, res) => {
       home: result.homePlayerStats.map(p => ({ name: p.name, grade: p.grade })),
       away: result.awayPlayerStats.map(p => ({ name: p.name, grade: p.grade }))
     }
+    match.goalEvents = result.goalEvents
     writeJSON('schedule.json', schedule)
     updateHistory(match.home, match.away, result.score[0], result.score[1], result.homePlayerStats, result.awayPlayerStats)
 
@@ -344,6 +422,173 @@ http.createServer(async (req, res) => {
     return jsonRes(res, { success: true, results, improvers, decliners })
   }
 
+  // --- Season Editor: get season data ---
+  if (pathname.startsWith('/api/season-editor/') && req.method === 'GET') {
+    const seasonNum = parseInt(pathname.split('/')[3], 10)
+    const league = readJSON('league.json')
+    const history = readJSON('history.json')
+    const season = history.seasons.find(s => s.number === seasonNum)
+    if (!season) return jsonRes(res, { error: 'Season not found' }, 404)
+    // Return league teams data for the requested season
+    return jsonRes(res, { season: seasonNum, teams: league.teams, currentSeason: history.currentSeason })
+  }
+
+  // --- Season Editor: save changes ---
+  if (pathname === '/api/season-editor/save' && req.method === 'POST') {
+    const body = await parseBody(req)
+    if (!body.teams || !Array.isArray(body.teams)) return jsonRes(res, { error: 'Missing teams array' }, 400)
+
+    const league = readJSON('league.json')
+    // Update each team from submitted data
+    for (const submitted of body.teams) {
+      const existing = league.teams.find(t => t.name === submitted.originalName || t.name === submitted.name)
+      if (!existing) continue
+
+      existing.name = submitted.name
+      existing.abbreviation = submitted.abbreviation || undefined
+      existing.colors.primary = submitted.colors.primary
+      existing.colors.secondary = submitted.colors.secondary
+      existing.rating = submitted.rating
+
+      if (submitted.coach) {
+        existing.coach.name = submitted.coach.name
+        existing.coach.rating = submitted.coach.rating
+        existing.coach.style = submitted.coach.style
+      }
+
+      if (submitted.players && Array.isArray(submitted.players)) {
+        for (let i = 0; i < submitted.players.length && i < existing.players.length; i++) {
+          const sp = submitted.players[i]
+          const ep = existing.players[i]
+          if (sp.name) ep.name = sp.name
+          if (sp.position) ep.position = sp.position
+          if (sp.rating) ep.rating = sp.rating
+          if (sp.age !== undefined) ep.age = parseInt(sp.age, 10)
+        }
+        // If new players were added beyond current roster
+        for (let i = existing.players.length; i < submitted.players.length; i++) {
+          existing.players.push(submitted.players[i])
+        }
+        // If players were removed (shorter array)
+        if (submitted.players.length < existing.players.length) {
+          existing.players.length = submitted.players.length
+        }
+      }
+
+      // Recalculate team rating from starters
+      const starterRatings = existing.players.slice(0, 6).map(p => parseInt(p.rating, 10))
+      if (starterRatings.length > 0) {
+        existing.rating = String(Math.round(starterRatings.reduce((a, b) => a + b, 0) / starterRatings.length))
+      }
+    }
+
+    writeJSON('league.json', league)
+
+    // Rebuild the site
+    try { execSync('node build-site.js', { cwd: __dirname, timeout: 10000 }) } catch (e) { /* ignore */ }
+
+    return jsonRes(res, { success: true, teams: league.teams })
+  }
+
+  // --- Start New Season ---
+  if (pathname === '/api/start-new-season' && req.method === 'POST') {
+    const history = readJSON('history.json')
+    const league = readJSON('league.json')
+    const newSeasonNum = history.currentSeason + 1
+
+    // Check if current season already exists as incomplete
+    const currentSeason = history.seasons.find(s => s.number === history.currentSeason)
+
+    // Create new season entry in history
+    const newSeason = {
+      number: newSeasonNum,
+      champion: null,
+      guyKilneTrophy: null,
+      standings: league.teams.map(t => ({
+        team: t.name, played: 0, won: 0, drawn: 0, lost: 0, gf: 0, ga: 0, points: 0
+      })),
+      matchResults: [],
+      playerSeasonStats: [],
+      coachSeasonStats: league.teams.map(t => ({
+        team: t.name, coach: t.coach.name, style: t.coach.style, rating: t.coach.rating,
+        played: 0, won: 0, drawn: 0, lost: 0, points: 0
+      })),
+      awards: null
+    }
+    history.seasons.push(newSeason)
+    history.currentSeason = newSeasonNum
+    writeJSON('history.json', history)
+
+    // Generate schedule for new season
+    const teams = league.teams.map(t => t.name)
+    const matchdays = []
+    const n = teams.length
+    const rounds = n - 1
+    const half = n / 2
+    const roster = [...teams]
+    const fixed = roster.shift()
+
+    for (let r = 0; r < rounds; r++) {
+      const md = { number: r + 1, matches: [] }
+      for (let i = 0; i < half; i++) {
+        const home = i === 0 ? fixed : roster[i - 1]
+        const away = roster[roster.length - i - 1]
+        // Alternate home/away each round
+        if (r % 2 === 0) md.matches.push({ home, away, status: 'pending', score: null, method: null, playerStats: null, playerGrades: null, goalEvents: null })
+        else md.matches.push({ home: away, away: home, status: 'pending', score: null, method: null, playerStats: null, playerGrades: null, goalEvents: null })
+      }
+      matchdays.push(md)
+      // Rotate roster
+      roster.push(roster.shift())
+    }
+
+    // Second half: reverse fixtures
+    const firstHalf = matchdays.length
+    for (let r = 0; r < firstHalf; r++) {
+      const md = { number: firstHalf + r + 1, matches: [] }
+      for (const m of matchdays[r].matches) {
+        md.matches.push({ home: m.away, away: m.home, status: 'pending', score: null, method: null, playerStats: null, playerGrades: null, goalEvents: null })
+      }
+      matchdays.push(md)
+    }
+
+    writeJSON('schedule.json', { season: newSeasonNum, matchdays })
+
+    // Rebuild site
+    try { execSync('node build-site.js', { cwd: __dirname, timeout: 10000 }) } catch (e) { /* ignore */ }
+
+    return jsonRes(res, { success: true, season: newSeasonNum })
+  }
+
+  // --- Transfer player between teams ---
+  if (pathname === '/api/transfer-player' && req.method === 'POST') {
+    const body = await parseBody(req)
+    const { playerName, fromTeam, toTeam } = body
+    if (!playerName || !fromTeam || !toTeam) return jsonRes(res, { error: 'Missing playerName, fromTeam, or toTeam' }, 400)
+
+    const league = readJSON('league.json')
+    const src = league.teams.find(t => t.name === fromTeam)
+    const dst = league.teams.find(t => t.name === toTeam)
+    if (!src || !dst) return jsonRes(res, { error: 'Team not found' }, 404)
+
+    const pIdx = src.players.findIndex(p => p.name === playerName)
+    if (pIdx === -1) return jsonRes(res, { error: 'Player not found on source team' }, 404)
+
+    const player = src.players.splice(pIdx, 1)[0]
+    dst.players.push(player)
+
+    // Recalculate ratings
+    for (const t of [src, dst]) {
+      const sr = t.players.slice(0, 6).map(p => parseInt(p.rating, 10))
+      if (sr.length > 0) t.rating = String(Math.round(sr.reduce((a, b) => a + b, 0) / sr.length))
+    }
+
+    writeJSON('league.json', league)
+    try { execSync('node build-site.js', { cwd: __dirname, timeout: 10000 }) } catch (e) { /* ignore */ }
+
+    return jsonRes(res, { success: true, player: playerName, from: fromTeam, to: toTeam })
+  }
+
   // --- Static files ---
   let filePath = pathname === '/' ? '/index.html' : pathname
   filePath = path.join(siteDir, decodeURIComponent(filePath))
@@ -356,4 +601,4 @@ http.createServer(async (req, res) => {
     res.writeHead(200, { 'Content-Type': (types[ext] || 'text/html') + '; charset=utf-8' })
     res.end(data)
   })
-}).listen(PORT, () => console.log(`LFA server: http://localhost:${PORT}`))
+}).listen(PORT, () => console.log(`${CONFIG.league.shortName} server: http://localhost:${PORT}`))

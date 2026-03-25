@@ -1,6 +1,7 @@
 const fs = require('fs')
 const path = require('path')
 const engine = require('./engine/engine')
+const CONFIG = JSON.parse(fs.readFileSync(path.join(__dirname, 'data', 'config.json'), 'utf8'))
 
 // ---------------------------------------------------------------------------
 // Constants
@@ -303,7 +304,7 @@ function printHeader(t1Data, t2Data) {
 
   console.log('')
   console.log('\u2554' + '\u2550'.repeat(w) + '\u2557')
-  console.log('\u2551' + '              LFA 6v6 MATCH SIMULATOR'.padEnd(w) + '\u2551')
+  console.log('\u2551' + ('              ' + CONFIG.league.shortName + ' ' + CONFIG.league.format + ' MATCH SIMULATOR').padEnd(w) + '\u2551')
   console.log('\u2560' + '\u2550'.repeat(w) + '\u2563')
   console.log('\u2551' + `  ${t1Data.name}  vs  ${t2Data.name}`.padEnd(w) + '\u2551')
   console.log('\u2551' + `  Colors: ${t1Colors}  vs  ${t2Colors}`.padEnd(w) + '\u2551')

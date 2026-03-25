@@ -14,6 +14,7 @@ const path = require('path')
 const leaguePath = path.join(__dirname, 'data', 'league.json')
 const historyPath = path.join(__dirname, 'data', 'history.json')
 const cardsDir = path.join(__dirname, 'cards')
+const CONFIG = JSON.parse(fs.readFileSync(path.join(__dirname, 'data', 'config.json'), 'utf8'))
 
 function loadLeague() { return JSON.parse(fs.readFileSync(leaguePath, 'utf8')) }
 function loadHistory() { return JSON.parse(fs.readFileSync(historyPath, 'utf8')) }
@@ -476,17 +477,17 @@ function generatePlayerCard(playerName) {
     if (!season.awards) continue
     const a = season.awards
     if (a.mvp && a.mvp.name === player.name && a.mvp.team === team.name)
-      playerAwards.push({ season: season.number, award: 'MVP', color: '#8b5cf6' })
+      playerAwards.push({ season: season.number, award: CONFIG.awards.mvp, color: '#8b5cf6' })
     if (a.lfaPromise && a.lfaPromise.name === player.name && a.lfaPromise.team === team.name)
-      playerAwards.push({ season: season.number, award: 'LFA Promise', color: '#06b6d4' })
+      playerAwards.push({ season: season.number, award: CONFIG.awards.lfaPromise, color: '#06b6d4' })
     if (a.goalkeeperOfSeason && a.goalkeeperOfSeason.name === player.name && a.goalkeeperOfSeason.team === team.name)
-      playerAwards.push({ season: season.number, award: 'GK of Season', color: '#f59e0b' })
+      playerAwards.push({ season: season.number, award: CONFIG.awards.goalkeeperOfSeason, color: '#f59e0b' })
     if (a.fieldPlayerOfYear && a.fieldPlayerOfYear.name === player.name && a.fieldPlayerOfYear.team === team.name)
-      playerAwards.push({ season: season.number, award: 'Field Player', color: '#10b981' })
+      playerAwards.push({ season: season.number, award: CONFIG.awards.fieldPlayerOfYear, color: '#10b981' })
     if (a.fichichi && a.fichichi.name === player.name && a.fichichi.team === team.name)
-      playerAwards.push({ season: season.number, award: 'Fichichi', color: '#ef4444' })
+      playerAwards.push({ season: season.number, award: CONFIG.awards.fichichi, color: '#ef4444' })
     if (a.assistKing && a.assistKing.name === player.name && a.assistKing.team === team.name)
-      playerAwards.push({ season: season.number, award: 'Assist King', color: '#3b82f6' })
+      playerAwards.push({ season: season.number, award: CONFIG.awards.assistKing, color: '#3b82f6' })
 
     // Championships
     if (season.guyKilneTrophy && season.guyKilneTrophy.team === team.name) {
@@ -542,7 +543,7 @@ function generatePlayerCard(playerName) {
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>${player.name} — LFA Player Card</title>
+<title>${player.name} — ${CONFIG.league.shortName} Player Card</title>
 <style>${baseCSS()}</style>
 </head>
 <body>
@@ -628,7 +629,7 @@ function generateCoachCard(teamIdx) {
     }
     if (season.champion === team.name) titles++
     if (season.awards && season.awards.coachOfYear && season.awards.coachOfYear.team === team.name) {
-      coachAwards.push({ season: season.number, award: 'Coach of the Year', color: '#8b5cf6' })
+      coachAwards.push({ season: season.number, award: CONFIG.awards.coachOfYear, color: '#8b5cf6' })
     }
   }
 
@@ -655,7 +656,7 @@ function generateCoachCard(teamIdx) {
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>${coach.name} — LFA Coach Card</title>
+<title>${coach.name} — ${CONFIG.league.shortName} Coach Card</title>
 <style>${baseCSS()}</style>
 </head>
 <body>
@@ -738,13 +739,13 @@ function generateAwardsPage(seasonNum) {
   }
 
   const awardsHtml = [
-    awardCard('MVP', a.mvp, `${a.mvp ? a.mvp.team + ' \u2022 ' + a.mvp.position + ' \u2022 Grade: ' + a.mvp.grade : ''}`, '#8b5cf6', '\u{1F3C6}'),
-    awardCard('LFA Promise', a.lfaPromise, `${a.lfaPromise ? a.lfaPromise.team + ' \u2022 ' + a.lfaPromise.position + ' \u2022 Age ' + a.lfaPromise.age : ''}`, '#06b6d4', '\u2B50'),
-    awardCard('Goalkeeper of the Season', a.goalkeeperOfSeason, `${a.goalkeeperOfSeason ? a.goalkeeperOfSeason.team + ' \u2022 ' + a.goalkeeperOfSeason.saves + ' saves' : ''}`, '#f59e0b', '\u{1F9E4}'),
-    a.fieldPlayerOfYear ? awardCard('Field Player of the Year', a.fieldPlayerOfYear, `${a.fieldPlayerOfYear.team} \u2022 ${a.fieldPlayerOfYear.position}`, '#10b981', '\u26BD') : '',
-    awardCard('Coach of the Year', a.coachOfYear, `${a.coachOfYear ? a.coachOfYear.team + ' \u2022 ' + a.coachOfYear.style : ''}`, '#6366f1', '\u{1F4CB}'),
-    awardCard('Fichichi (Top Scorer)', a.fichichi, `${a.fichichi ? a.fichichi.team + ' \u2022 ' + a.fichichi.goals + ' goals, ' + a.fichichi.assists + ' assists' : ''}`, '#ef4444', '\u{1F525}'),
-    awardCard('Assist King', a.assistKing, `${a.assistKing ? a.assistKing.team + ' \u2022 ' + a.assistKing.assists + ' assists (' + a.assistKing.perMatch + '/match)' : ''}`, '#3b82f6', '\u{1F91D}')
+    awardCard(CONFIG.awards.mvp, a.mvp, `${a.mvp ? a.mvp.team + ' \u2022 ' + a.mvp.position + ' \u2022 Grade: ' + a.mvp.grade : ''}`, '#8b5cf6', '\u{1F3C6}'),
+    awardCard(CONFIG.awards.lfaPromise, a.lfaPromise, `${a.lfaPromise ? a.lfaPromise.team + ' \u2022 ' + a.lfaPromise.position + ' \u2022 Age ' + a.lfaPromise.age : ''}`, '#06b6d4', '\u2B50'),
+    awardCard(CONFIG.awards.goalkeeperOfSeason, a.goalkeeperOfSeason, `${a.goalkeeperOfSeason ? a.goalkeeperOfSeason.team + ' \u2022 ' + a.goalkeeperOfSeason.saves + ' saves' : ''}`, '#f59e0b', '\u{1F9E4}'),
+    a.fieldPlayerOfYear ? awardCard(CONFIG.awards.fieldPlayerOfYear, a.fieldPlayerOfYear, `${a.fieldPlayerOfYear.team} \u2022 ${a.fieldPlayerOfYear.position}`, '#10b981', '\u26BD') : '',
+    awardCard(CONFIG.awards.coachOfYear, a.coachOfYear, `${a.coachOfYear ? a.coachOfYear.team + ' \u2022 ' + a.coachOfYear.style : ''}`, '#6366f1', '\u{1F4CB}'),
+    awardCard(CONFIG.awards.fichichi, a.fichichi, `${a.fichichi ? a.fichichi.team + ' \u2022 ' + a.fichichi.goals + ' goals, ' + a.fichichi.assists + ' assists' : ''}`, '#ef4444', '\u{1F525}'),
+    awardCard(CONFIG.awards.assistKing, a.assistKing, `${a.assistKing ? a.assistKing.team + ' \u2022 ' + a.assistKing.assists + ' assists (' + a.assistKing.perMatch + '/match)' : ''}`, '#3b82f6', '\u{1F91D}')
   ].filter(Boolean).join('\n')
 
   const champInfo = season.guyKilneTrophy
@@ -753,7 +754,7 @@ function generateAwardsPage(seasonNum) {
         <div class="champion-info">
           <div class="champion-title">Season ${season.number} Champion</div>
           <div class="champion-team">${season.champion}</div>
-          <div class="champion-captain">Guy Kilne Trophy: ${season.guyKilneTrophy.captain}</div>
+          <div class="champion-captain">${CONFIG.trophy.name}: ${season.guyKilneTrophy.captain}</div>
         </div>
       </div>`
     : ''
@@ -763,7 +764,7 @@ function generateAwardsPage(seasonNum) {
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LFA Season ${season.number} Awards</title>
+<title>${CONFIG.league.shortName} Season ${season.number} Awards</title>
 <style>
   ${baseCSS()}
   .awards-page { max-width: 700px; margin: 0 auto; }
@@ -800,7 +801,7 @@ function generateAwardsPage(seasonNum) {
 </head>
 <body>
 <div class="awards-page">
-  <div class="page-title">LFA Season ${season.number}</div>
+  <div class="page-title">${CONFIG.league.shortName} Season ${season.number}</div>
   <div class="page-subtitle">Awards & Honors</div>
   ${champInfo}
   ${awardsHtml}
@@ -822,7 +823,7 @@ const cmd = args[0]
 
 if (!cmd) {
   console.log(`
-  LFA Card Generator
+  ${CONFIG.league.shortName} Card Generator
 
   Commands:
     player <name>       Generate player card

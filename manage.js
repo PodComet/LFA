@@ -32,6 +32,7 @@ const path = require('path')
 
 const leaguePath = path.join(__dirname, 'data', 'league.json')
 const historyPath = path.join(__dirname, 'data', 'history.json')
+const CONFIG = JSON.parse(fs.readFileSync(path.join(__dirname, 'data', 'config.json'), 'utf8'))
 
 function loadLeague() { return JSON.parse(fs.readFileSync(leaguePath, 'utf8')) }
 function saveLeague(data) { fs.writeFileSync(leaguePath, JSON.stringify(data, null, 2)) }
@@ -63,7 +64,7 @@ const line = (n = 70) => console.log('-'.repeat(n))
 
 function cmdTeams() {
   const league = loadLeague()
-  console.log('\n  LFA LEAGUE — 12 Teams\n')
+  console.log(`\n  ${CONFIG.league.shortName} LEAGUE — ${CONFIG.league.teamCount} Teams\n`)
   console.log(`  ${'#'.padStart(3)}  ${pad('Team', 22)} ${rpad('Rating', 6)}  ${pad('Coach', 16)} ${pad('Style', 14)} ${pad('Colors', 20)}`)
   line()
   league.teams.forEach((t, i) => {
@@ -156,7 +157,7 @@ function cmdStandings(seasonNum) {
   if (!season) { console.error(`Season ${seasonNum} not found`); return }
 
   const label = season.champion ? `Champion: ${season.champion}` : '(in progress)'
-  console.log(`\n  LFA Season ${season.number} Standings — ${label}\n`)
+  console.log(`\n  ${CONFIG.league.shortName} Season ${season.number} Standings — ${label}\n`)
   console.log(`  ${rpad('Pos', 4)} ${pad('Team', 22)} ${rpad('P', 3)} ${rpad('W', 3)} ${rpad('D', 3)} ${rpad('L', 3)} ${rpad('GF', 4)} ${rpad('GA', 4)} ${rpad('GD', 4)} ${rpad('Pts', 4)}`)
   line()
   season.standings.forEach((s, i) => {
@@ -172,7 +173,7 @@ function cmdLeaders(seasonNum) {
   const season = history.seasons.find(s => s.number === seasonNum)
   if (!season) { console.error(`Season ${seasonNum} not found`); return }
 
-  console.log(`\n  LFA Season ${season.number} — Stat Leaders\n`)
+  console.log(`\n  ${CONFIG.league.shortName} Season ${season.number} — Stat Leaders\n`)
 
   const stats = season.playerSeasonStats.filter(p => p.appearances > 0)
 
@@ -229,7 +230,7 @@ function cmdCoaches() {
   const league = loadLeague()
   const history = loadHistory()
 
-  console.log('\n  LFA Coaches — Career Overview\n')
+  console.log(`\n  ${CONFIG.league.shortName} Coaches — Career Overview\n`)
   console.log(`  ${pad('Coach', 16)} ${pad('Team', 22)} ${pad('Style', 14)} ${rpad('Rtg', 4)} ${rpad('Seasons', 8)} ${rpad('W', 4)} ${rpad('D', 4)} ${rpad('L', 4)} ${rpad('Win%', 6)} ${rpad('Titles', 6)}`)
   line(80)
 
@@ -259,7 +260,7 @@ function cmdPlayoffs(seasonNum) {
   if (!season.playoffs) { console.log(`\n  Season ${seasonNum} — No playoff data (in progress)\n`); return }
 
   const po = season.playoffs
-  console.log(`\n  LFA Season ${season.number} — Playoffs\n`)
+  console.log(`\n  ${CONFIG.league.shortName} Season ${season.number} — Playoffs\n`)
 
   console.log('  QUARTERFINALS (Best of 3)')
   line()
@@ -285,14 +286,14 @@ function cmdPlayoffs(seasonNum) {
   console.log(`  ${pad(f.team1, 22)} ${f.score[0]} - ${f.score[1]}  ${f.team2}`)
   console.log(`\n  CHAMPION: ${f.winner}`)
   if (season.guyKilneTrophy) {
-    console.log(`  Guy Kilne Trophy: ${season.guyKilneTrophy.captain} (Captain, ${season.guyKilneTrophy.team})`)
+    console.log(`  ${CONFIG.trophy.name}: ${season.guyKilneTrophy.captain} (Captain, ${season.guyKilneTrophy.team})`)
   }
   console.log('')
 }
 
 function cmdTrophy() {
   const history = loadHistory()
-  console.log('\n  GUY KILNE TROPHY — All-Time Winners\n')
+  console.log(`\n  ${CONFIG.trophy.name.toUpperCase()} — All-Time Winners\n`)
   console.log(`  ${rpad('Season', 8)} ${pad('Captain', 18)} ${pad('Team', 22)}`)
   line(50)
 
@@ -324,15 +325,15 @@ function cmdAwards(seasonNum) {
   if (!season.awards) { console.log(`\n  Season ${seasonNum} — No awards data (in progress)\n`); return }
 
   const a = season.awards
-  console.log(`\n  LFA Season ${season.number} — Awards\n`)
+  console.log(`\n  ${CONFIG.league.shortName} Season ${season.number} — Awards\n`)
   line()
-  if (a.mvp) console.log(`  MVP                    ${pad(a.mvp.name, 18)} ${pad(a.mvp.team, 22)} ${a.mvp.position}  (Grade: ${a.mvp.grade})`)
-  if (a.lfaPromise) console.log(`  LFA Promise            ${pad(a.lfaPromise.name, 18)} ${pad(a.lfaPromise.team, 22)} ${a.lfaPromise.position}  (Age ${a.lfaPromise.age})`)
-  if (a.goalkeeperOfSeason) console.log(`  GK of the Season       ${pad(a.goalkeeperOfSeason.name, 18)} ${pad(a.goalkeeperOfSeason.team, 22)} ${a.goalkeeperOfSeason.saves} saves`)
-  if (a.fieldPlayerOfYear) console.log(`  Field Player of Year   ${pad(a.fieldPlayerOfYear.name, 18)} ${pad(a.fieldPlayerOfYear.team, 22)} ${a.fieldPlayerOfYear.position}`)
-  if (a.coachOfYear) console.log(`  Coach of the Year      ${pad(a.coachOfYear.name, 18)} ${pad(a.coachOfYear.team, 22)} ${a.coachOfYear.style}`)
-  if (a.fichichi) console.log(`  Fichichi               ${pad(a.fichichi.name, 18)} ${pad(a.fichichi.team, 22)} ${a.fichichi.goals} goals, ${a.fichichi.assists} assists`)
-  if (a.assistKing) console.log(`  Assist King            ${pad(a.assistKing.name, 18)} ${pad(a.assistKing.team, 22)} ${a.assistKing.assists} assists (${a.assistKing.perMatch}/match)`)
+  if (a.mvp) console.log(`  ${pad(CONFIG.awards.mvp, 24)} ${pad(a.mvp.name, 18)} ${pad(a.mvp.team, 22)} ${a.mvp.position}  (Grade: ${a.mvp.grade})`)
+  if (a.lfaPromise) console.log(`  ${pad(CONFIG.awards.lfaPromise, 24)} ${pad(a.lfaPromise.name, 18)} ${pad(a.lfaPromise.team, 22)} ${a.lfaPromise.position}  (Age ${a.lfaPromise.age})`)
+  if (a.goalkeeperOfSeason) console.log(`  ${pad(CONFIG.awards.goalkeeperOfSeason, 24)} ${pad(a.goalkeeperOfSeason.name, 18)} ${pad(a.goalkeeperOfSeason.team, 22)} ${a.goalkeeperOfSeason.saves} saves`)
+  if (a.fieldPlayerOfYear) console.log(`  ${pad(CONFIG.awards.fieldPlayerOfYear, 24)} ${pad(a.fieldPlayerOfYear.name, 18)} ${pad(a.fieldPlayerOfYear.team, 22)} ${a.fieldPlayerOfYear.position}`)
+  if (a.coachOfYear) console.log(`  ${pad(CONFIG.awards.coachOfYear, 24)} ${pad(a.coachOfYear.name, 18)} ${pad(a.coachOfYear.team, 22)} ${a.coachOfYear.style}`)
+  if (a.fichichi) console.log(`  ${pad(CONFIG.awards.fichichi, 24)} ${pad(a.fichichi.name, 18)} ${pad(a.fichichi.team, 22)} ${a.fichichi.goals} goals, ${a.fichichi.assists} assists`)
+  if (a.assistKing) console.log(`  ${pad(CONFIG.awards.assistKing, 24)} ${pad(a.assistKing.name, 18)} ${pad(a.assistKing.team, 22)} ${a.assistKing.assists} assists (${a.assistKing.perMatch}/match)`)
   console.log('')
 }
 
@@ -510,7 +511,7 @@ const cmd = args[0]
 
 if (!cmd) {
   console.log(`
-  LFA League Manager
+  ${CONFIG.league.shortName} League Manager
 
   Commands:
     teams                              List all teams
@@ -521,7 +522,7 @@ if (!cmd) {
     history <name>                     Player career history by season
     coaches                            Coach overview + career win%
     playoffs [season#]                 Playoff bracket
-    trophy                             Guy Kilne trophy history
+    trophy                             ${CONFIG.trophy.name} history
     awards [season#]                   Season awards
     card <name>                        Generate HTML player/coach card
 

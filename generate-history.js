@@ -16,6 +16,7 @@ const path = require('path')
 const { getSkillsAtAge, getRatingAtAge } = require('./player-development')
 
 const league = JSON.parse(fs.readFileSync(path.join(__dirname, 'data', 'league.json'), 'utf8'))
+const CONFIG = JSON.parse(fs.readFileSync(path.join(__dirname, 'data', 'config.json'), 'utf8'))
 const NUM_SEASONS = 15
 const CURRENT_SEASON = 16
 
@@ -74,12 +75,10 @@ function coachBoosts(coach) {
 
 // Match simulation (quick, for history generation)
 // ---------------------------------------------------------------------------
-function pickGoals(teamRating, oppRating, homeBonus, offBoost, defPenalty) {
-  offBoost = offBoost || 0
-  defPenalty = defPenalty || 0
-  const diff = (teamRating - oppRating) / 10
-  const base = 2.0 + diff * 0.3 + homeBonus + offBoost - defPenalty
-  return Math.max(0, Math.round(base + (Math.random() - 0.5) * 3))
+// Race-to-5 simulation
+function scoreProb(teamRating, oppRating, homeBonus, offBoost, defPenalty) {
+  const base = 0.42 + (teamRating - oppRating) / 250 + homeBonus / 10 + (offBoost || 0) / 5 - (defPenalty || 0) / 5
+  return Math.max(0.15, Math.min(0.70, base))
 }
 
 function simulateMatch(team1, team2, homeTeamIdx) {
@@ -91,25 +90,37 @@ function simulateMatch(team1, team2, homeTeamIdx) {
   const cb1 = coachBoosts(team1.coach)
   const cb2 = coachBoosts(team2.coach)
 
-  let g1 = pickGoals(r1, r2, hb1, cb1.off, cb2.def)
-  let g2 = pickGoals(r2, r1, hb2, cb2.off, cb1.def)
+  const p1 = scoreProb(r1, r2, hb1, cb1.off, cb2.def)
+  const p2 = scoreProb(r2, r1, hb2, cb2.off, cb1.def)
 
-  // Apply first-to-5 rules
-  if (g1 >= 5 && g2 < 4) g1 = 5
-  else if (g2 >= 5 && g1 < 4) g2 = 5
-  else if (g1 >= 4 && g2 >= 4) {
-    if (g1 === g2 && g1 >= 5) { g1 = 5; g2 = 5 }
-    else if (g1 > g2) { g1 = 6; g2 = rand(4, 5) }
-    else if (g2 > g1) { g2 = 6; g1 = rand(4, 5) }
-    else {
-      const coin = rand(0, 2)
-      if (coin === 0) { g1 = 5; g2 = 5 }
-      else if (coin === 1) { g1 = 6; g2 = 4 }
-      else { g1 = 4; g2 = 6 }
+  // Valid scores: 5-0..5-3 (first-to-5), 6-4, 6-5 (extended after 4-4), 5-5 (draw)
+  let g1 = 0, g2 = 0
+  const MAX_ROUNDS = 50
+
+  for (let round = 0; round < MAX_ROUNDS; round++) {
+    if (Math.random() < p1) g1++
+    if (Math.random() < p2) g2++
+
+    const extended = (g1 >= 4 && g2 >= 4)
+
+    if (!extended) {
+      if (g1 >= 5 && g2 <= 3) break
+      if (g2 >= 5 && g1 <= 3) break
+    } else {
+      if (g1 === 5 && g2 === 5) break
+      if (g1 >= 6 && g1 > g2) break
+      if (g2 >= 6 && g2 > g1) break
     }
   }
-  else if (g1 >= 5) g1 = 5
-  else if (g2 >= 5) g2 = 5
+
+  if (g1 < 5 && g2 < 5) { if (g1 >= g2) g1 = 5; else g2 = 5 }
+  if (g1 >= 4 && g2 >= 4) {
+    if (g1 > 6) g1 = 6; if (g2 > 6) g2 = 6
+    if ((g1 === 5 && g2 === 4) || (g1 === 4 && g2 === 5)) {
+      if (g1 > g2) g1 = 6; else g2 = 6
+    }
+  }
+  if (g1 > 6) g1 = 6; if (g2 > 6) g2 = 6
 
   return { g1, g2 }
 }
@@ -594,7 +605,7 @@ const sizeMB = (fs.statSync(outPath).size / (1024 * 1024)).toFixed(2)
 console.log(`Written to ${outPath} (${sizeMB} MB)`)
 console.log(`${seasons.length} seasons, ${seasons.length * 120} player-season records`)
 
-console.log('\nGuy Kilne Trophy Winners:')
+console.log('\n' + CONFIG.trophy.name + ' Winners:')
 for (const s of seasons) {
   if (s.guyKilneTrophy) {
     console.log(`  Season ${s.number}: ${s.guyKilneTrophy.captain} (${s.guyKilneTrophy.team})`)
@@ -609,10 +620,10 @@ for (const s of seasons) {
   const a = s.awards
   console.log(`  Season ${s.number}:`)
   if (a.mvp) console.log(`    MVP: ${a.mvp.name} (${a.mvp.team}, ${a.mvp.position})`)
-  if (a.lfaPromise) console.log(`    LFA Promise: ${a.lfaPromise.name} (${a.lfaPromise.team}, age ${a.lfaPromise.age})`)
+  if (a.lfaPromise) console.log(`    ${CONFIG.awards.lfaPromise}: ${a.lfaPromise.name} (${a.lfaPromise.team}, age ${a.lfaPromise.age})`)
   if (a.goalkeeperOfSeason) console.log(`    GK of Season: ${a.goalkeeperOfSeason.name} (${a.goalkeeperOfSeason.team}, ${a.goalkeeperOfSeason.saves} saves)`)
   if (a.fieldPlayerOfYear) console.log(`    Field Player: ${a.fieldPlayerOfYear.name} (${a.fieldPlayerOfYear.team})`)
   if (a.coachOfYear) console.log(`    Coach of Year: ${a.coachOfYear.name} (${a.coachOfYear.team})`)
-  if (a.fichichi) console.log(`    Fichichi: ${a.fichichi.name} (${a.fichichi.team}, ${a.fichichi.goals} goals)`)
-  if (a.assistKing) console.log(`    Assist King: ${a.assistKing.name} (${a.assistKing.team}, ${a.assistKing.perMatch}/match)`)
+  if (a.fichichi) console.log(`    ${CONFIG.awards.fichichi}: ${a.fichichi.name} (${a.fichichi.team}, ${a.fichichi.goals} goals)`)
+  if (a.assistKing) console.log(`    ${CONFIG.awards.assistKing}: ${a.assistKing.name} (${a.assistKing.team}, ${a.assistKing.perMatch}/match)`)
 }

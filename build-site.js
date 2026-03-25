@@ -12,14 +12,15 @@ const siteDir = path.join(__dirname, 'site')
 if (!fs.existsSync(siteDir)) fs.mkdirSync(siteDir, { recursive: true })
 
 // Embed data as JS
-const dataJS = `const LEAGUE=${JSON.stringify(league)};const HISTORY=${JSON.stringify(history)};`
+const config = JSON.parse(fs.readFileSync(path.join(__dirname, 'data', 'config.json'), 'utf8'))
+const dataJS = `const LEAGUE=${JSON.stringify(league)};const HISTORY=${JSON.stringify(history)};const CONFIG=${JSON.stringify(config)};`
 
 const html = `<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LFA — Labornese Football Association</title>
+<title>${config.league.shortName} — ${config.league.name}</title>
 <style>
 ${CSS()}
 </style>
@@ -72,7 +73,7 @@ a{color:var(--accent);text-decoration:none}a:hover{text-decoration:underline}
 .card:hover{transform:translateY(-3px);box-shadow:0 8px 24px rgba(0,0,0,.3)}
 .card-body{padding:18px}
 .card-header-bar{padding:14px 18px;display:flex;align-items:center;gap:14px}
-.mini-avatar{width:48px;height:48px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:16px;color:#fff;flex-shrink:0}
+.mini-avatar{width:48px;height:48px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;color:#fff;flex-shrink:0}
 .card-name{font-size:16px;font-weight:700;color:var(--white)}
 .card-detail{font-size:12px;color:var(--text2);margin-top:2px}
 .card-stat-row{display:flex;justify-content:space-between;padding:6px 0;border-top:1px solid var(--border);font-size:13px}
@@ -190,6 +191,13 @@ table.stats .totals td{font-weight:700;color:var(--white);border-top:2px solid r
 .mc-btn.enter{background:rgba(255,255,255,.08);color:var(--text);border:1px solid var(--border)}
 .mc-btn.enter:hover{background:rgba(255,255,255,.12)}
 .mc-btn:disabled{opacity:.5;cursor:not-allowed}
+.mc-goal-events{display:grid;grid-template-columns:1fr 1fr;gap:0;border-top:1px solid var(--border);padding:12px 20px}
+.mc-goals-col{display:flex;flex-direction:column;gap:4px}
+.mc-goals-col.away{text-align:right}
+.mc-goal-ev{font-size:12px;color:var(--text);line-height:1.6}
+.mc-goal-ev.missed{color:var(--red);opacity:.7;text-decoration:line-through;text-decoration-color:var(--red)}
+.mc-assist{color:var(--text2);font-size:11px}
+.mc-pen-label{font-size:10px;font-weight:700;color:var(--orange);letter-spacing:.5px}
 .mc-details{border-top:1px solid var(--border);padding:16px 20px}
 .mc-roster{display:grid;grid-template-columns:1fr 1fr;gap:20px}
 .mc-roster-team{font-size:12px}
@@ -247,6 +255,47 @@ table.stats .totals td{font-weight:700;color:var(--white);border-top:2px solid r
 .pot-bar{height:4px;border-radius:2px;background:rgba(255,255,255,.08);width:60px;display:inline-block;vertical-align:middle;margin-left:6px}
 .pot-fill{height:100%;border-radius:2px}
 
+/* Season Editor */
+.se-container{max-width:900px;margin:0 auto}
+.se-team-panel{background:var(--card);border:1px solid var(--border);border-radius:14px;margin-bottom:12px;overflow:hidden}
+.se-team-header{padding:14px 20px;display:flex;align-items:center;gap:12px;cursor:pointer;user-select:none;transition:background .15s}
+.se-team-header:hover{background:var(--card2)}
+.se-team-header .se-arrow{color:var(--text2);font-size:12px;transition:transform .2s;margin-left:auto}
+.se-team-header.open .se-arrow{transform:rotate(90deg)}
+.se-team-name-h{font-size:16px;font-weight:700;color:var(--white)}
+.se-team-rating{font-size:13px;color:var(--text2)}
+.se-team-body{display:none;padding:0 20px 20px}
+.se-team-body.open{display:block}
+.se-section{margin-top:16px}
+.se-section-title{font-size:12px;font-weight:700;color:var(--text2);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px}
+.se-row{display:flex;gap:10px;align-items:center;margin-bottom:8px;flex-wrap:wrap}
+.se-label{font-size:12px;color:var(--text2);min-width:70px}
+.se-input{background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:6px 10px;color:var(--white);font-size:13px;font-family:inherit;outline:none;transition:border-color .15s}
+.se-input:focus{border-color:var(--accent)}
+.se-input.sm{width:70px}.se-input.md{width:140px}.se-input.lg{width:220px}
+.se-color{width:36px;height:28px;border:1px solid var(--border);border-radius:6px;padding:1px;cursor:pointer;background:var(--bg)}
+.se-player-row{display:grid;grid-template-columns:30px 1fr 60px 60px 60px 36px;gap:8px;align-items:center;padding:4px 0;border-bottom:1px solid var(--border)}
+.se-player-row:last-child{border-bottom:none}
+.se-player-idx{font-size:11px;color:var(--text2);text-align:center}
+.se-player-starter{font-size:10px;font-weight:700;color:var(--green)}
+.se-btn{padding:6px 16px;border:none;border-radius:8px;cursor:pointer;font-size:13px;font-weight:600;font-family:inherit;transition:opacity .15s}
+.se-btn:hover{opacity:.85}
+.se-btn.primary{background:var(--accent);color:#fff}
+.se-btn.success{background:var(--green);color:#fff}
+.se-btn.danger{background:var(--red);color:#fff}
+.se-btn.small{padding:4px 10px;font-size:11px}
+.se-actions{display:flex;gap:10px;margin-top:20px;justify-content:flex-end}
+.se-status{padding:8px 16px;border-radius:8px;font-size:13px;margin-top:12px;display:none}
+.se-status.show{display:block}
+.se-status.ok{background:rgba(16,185,129,.12);color:var(--green)}
+.se-status.err{background:rgba(239,68,68,.12);color:var(--red)}
+.se-transfer-modal{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.6);display:flex;align-items:center;justify-content:center;z-index:100}
+.se-transfer-box{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:24px;min-width:340px;max-width:460px}
+.se-transfer-box h3{color:var(--white);margin-bottom:16px;font-size:16px}
+.se-select{background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:6px 10px;color:var(--white);font-size:13px;font-family:inherit;width:100%}
+.new-season-card{background:linear-gradient(135deg,var(--accent)15,var(--green)15);border:2px dashed var(--accent);border-radius:14px;padding:24px;text-align:center;cursor:pointer;transition:border-color .15s,transform .15s}
+.new-season-card:hover{border-color:var(--green);transform:translateY(-2px)}
+
 /* Responsive */
 @media(max-width:600px){
   .profile-header{flex-direction:column;text-align:center}
@@ -276,17 +325,50 @@ function teamColor(t) { return (t&&t.colors)?t.colors.primary:'#555' }
 function teamColor2(t) { return (t&&t.colors)?t.colors.secondary:'#333' }
 
 // Mini avatar with initials and team colors
+function teamAbbrev(team) {
+  if (typeof team === 'string') { const t = teamByName(team); return t && t.abbreviation ? t.abbreviation : team.split(' ').map(n=>n[0]).join('').slice(0,3).toUpperCase() }
+  return team.abbreviation || team.name.split(' ').map(w=>w[0]).join('').slice(0,3)
+}
+
 function miniAv(name,color) {
-  const init = name.split(' ').map(n=>n[0]).join('').slice(0,2).toUpperCase()
-  return '<div class="mini-avatar" style="background:'+color+'">'+init+'</div>'
+  const tc = hexLum(color) > 180 ? '#222' : '#fff'
+  return '<div class="mini-avatar" style="background:'+color+';color:'+tc+'">'+teamAbbrev(name)+'</div>'
 }
 
 // Team crest SVG
+function hexLum(hex) {
+  hex = hex.replace('#','')
+  if (hex.length===3) hex = hex[0]+hex[0]+hex[1]+hex[1]+hex[2]+hex[2]
+  const r = parseInt(hex.substr(0,2),16), g = parseInt(hex.substr(2,2),16), b = parseInt(hex.substr(4,2),16)
+  return (r*299+g*587+b*114)/1000
+}
 function teamCrest(team, size) {
   size = size || 56
   const c1 = teamColor(team), c2 = teamColor2(team)
-  const init = team.name.split(' ').map(w=>w[0]).join('').slice(0,2)
-  return '<svg viewBox="0 0 60 60" width="'+size+'" height="'+size+'"><defs><linearGradient id="tg_'+team.name.replace(/\\s/g,'')+'" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="'+c1+'"/><stop offset="100%" stop-color="'+c2+'"/></linearGradient></defs><rect x="2" y="2" width="56" height="56" rx="12" fill="url(#tg_'+team.name.replace(/\\s/g,'')+')" stroke="rgba(255,255,255,.2)" stroke-width="2"/><text x="30" y="36" text-anchor="middle" fill="#fff" font-size="18" font-weight="900" font-family="Arial">'+init+'</text></svg>'
+  const init = teamAbbrev(team)
+  const fs = init.length > 2 ? 14 : 18
+  const textColor = (hexLum(c1) + hexLum(c2)) / 2 > 180 ? '#222' : '#fff'
+  return '<svg viewBox="0 0 60 60" width="'+size+'" height="'+size+'"><defs><linearGradient id="tg_'+team.name.replace(/[^a-zA-Z0-9]/g,'')+'" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="'+c1+'"/><stop offset="100%" stop-color="'+c2+'"/></linearGradient></defs><rect x="2" y="2" width="56" height="56" rx="12" fill="url(#tg_'+team.name.replace(/[^a-zA-Z0-9]/g,'')+')" stroke="rgba(255,255,255,.2)" stroke-width="2"/><text x="30" y="36" text-anchor="middle" fill="'+textColor+'" font-size="'+fs+'" font-weight="900" font-family="Arial">'+init+'</text></svg>'
+}
+
+// Team jersey SVG — shirt shape with team colors
+function teamJersey(team, size) {
+  size = size || 64
+  const c1 = teamColor(team), c2 = teamColor2(team)
+  const id = 'jrs_'+team.name.replace(/[^a-zA-Z0-9]/g,'')
+  // Shirt outline: body is primary, sleeves are secondary, collar and trim in secondary
+  return '<svg viewBox="0 0 100 110" width="'+size+'" height="'+(size*1.1)+'">' +
+    '<defs><linearGradient id="'+id+'" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="'+c1+'"/><stop offset="100%" stop-color="'+c1+'dd"/></linearGradient></defs>' +
+    // Sleeves (secondary color)
+    '<path d="M10,18 L0,40 L8,42 L18,25 Z" fill="'+c2+'" stroke="rgba(255,255,255,.15)" stroke-width="1"/>' +
+    '<path d="M90,18 L100,40 L92,42 L82,25 Z" fill="'+c2+'" stroke="rgba(255,255,255,.15)" stroke-width="1"/>' +
+    // Body (primary color)
+    '<path d="M18,18 L18,100 Q18,108 26,108 L74,108 Q82,108 82,100 L82,18 Q65,10 50,10 Q35,10 18,18 Z" fill="url(#'+id+')" stroke="rgba(255,255,255,.2)" stroke-width="1.5"/>' +
+    // Collar (secondary)
+    '<path d="M35,12 Q42,8 50,7 Q58,8 65,12 L62,18 Q55,14 50,13 Q45,14 38,18 Z" fill="'+c2+'"/>' +
+    // Trim stripe across chest (secondary, subtle)
+    '<rect x="22" y="38" width="56" height="4" rx="2" fill="'+c2+'" opacity=".35"/>' +
+    '</svg>'
 }
 
 // Season champion decal SVG (large team-colored emblem)
@@ -294,7 +376,7 @@ function championDecal(teamName) {
   const team = teamByName(teamName)
   if (!team) return ''
   const c1 = teamColor(team), c2 = teamColor2(team)
-  const init = teamName.split(' ').map(w=>w[0]).join('').slice(0,3)
+  const init = teamAbbrev(teamName)
   return '<svg viewBox="0 0 200 200" width="200" height="200"><defs><linearGradient id="decal" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="'+c1+'"/><stop offset="100%" stop-color="'+c2+'"/></linearGradient></defs>'+
     '<polygon points="100,10 130,40 170,45 140,75 148,115 100,95 52,115 60,75 30,45 70,40" fill="url(#decal)" opacity=".9"/>'+
     '<polygon points="100,25 120,45 150,48 130,70 135,100 100,85 65,100 70,70 50,48 80,45" fill="url(#decal)" opacity=".5"/>'+
@@ -307,7 +389,7 @@ function championDecal(teamName) {
 // Award color map
 const AWARD_COLORS = {mvp:'#8b5cf6',lfaPromise:'#06b6d4',goalkeeperOfSeason:'#f59e0b',fieldPlayerOfYear:'#10b981',coachOfYear:'#6366f1',fichichi:'#ef4444',assistKing:'#3b82f6'}
 const AWARD_ICONS = {mvp:'\\u{1F3C6}',lfaPromise:'\\u2B50',goalkeeperOfSeason:'\\u{1F9E4}',fieldPlayerOfYear:'\\u26BD',coachOfYear:'\\u{1F4CB}',fichichi:'\\u{1F525}',assistKing:'\\u{1F91D}'}
-const AWARD_NAMES = {mvp:'MVP',lfaPromise:'LFA Promise',goalkeeperOfSeason:'GK of the Season',fieldPlayerOfYear:'Field Player of the Year',coachOfYear:'Coach of the Year',fichichi:'Fichichi (Top Scorer)',assistKing:'Assist King'}
+const AWARD_NAMES = CONFIG.awards
 
 // Collect player awards across seasons
 function getPlayerAwards(name, team) {
@@ -344,7 +426,7 @@ function getCoachAwards(team) {
 function renderNav(active) {
   const nav = $('#nav')
   nav.innerHTML = ''
-  const logo = h('div','nav-logo','<span>LFA</span> Labornese Football')
+  const logo = h('div','nav-logo','<span>'+CONFIG.league.shortName+'</span> '+CONFIG.league.name)
   logo.onclick = () => go('')
   nav.appendChild(logo)
   const links = h('div','nav-links')
@@ -381,6 +463,7 @@ function render() {
   const base = parts[0] || ''
 
   if (base === '') { renderNav(''); renderHome(main) }
+  else if (base === 'edit-season') { renderNav(''); renderSeasonEditor(main, parts[1]) }
   else if (base === 'season') { renderNav('season'); renderCurrentSeason(main, parts.slice(1)) }
   else if (base === 'statistics') { renderNav('statistics'); renderStatistics(main, parts.slice(1)) }
   else if (base === 'results') { renderNav('results'); renderResults(main, parts.slice(1)) }
@@ -391,7 +474,7 @@ function render() {
 // HOME
 // -------------------------------------------------------------------------
 function renderHome(main) {
-  main.innerHTML = '<div class="page-title">LFA \\u2014 Labornese Football Association</div><div class="page-sub">6v6 Football League Simulator \\u2022 12 Teams \\u2022 Season '+HISTORY.currentSeason+'</div>'
+  main.innerHTML = '<div class="page-title">'+CONFIG.league.shortName+' \\u2014 '+CONFIG.league.name+'</div><div class="page-sub">'+CONFIG.league.format+' Football League Simulator \\u2022 '+CONFIG.league.teamCount+' Teams \\u2022 Season '+HISTORY.currentSeason+'</div>'
 
   const grid = h('div','grid grid-2')
 
@@ -406,6 +489,27 @@ function renderHome(main) {
   resCard.innerHTML = '<div class="card-body" style="padding:24px"><div style="font-size:32px;margin-bottom:8px">\\u{1F4C5}</div><div class="card-name" style="font-size:20px">Results</div><div class="card-detail" style="margin-top:6px">Full match results, playoffs, and award winners by season</div></div>'
   resCard.onclick = () => go('results')
   grid.appendChild(resCard)
+
+  // Edit current season card
+  const editCard = h('div','card')
+  editCard.innerHTML = '<div class="card-body" style="padding:24px"><div style="font-size:32px;margin-bottom:8px">\\u270F\\uFE0F</div><div class="card-name" style="font-size:20px">Edit Season '+HISTORY.currentSeason+'</div><div class="card-detail" style="margin-top:6px">Edit teams, players, coaches, colors, and abbreviations</div></div>'
+  editCard.onclick = () => go('edit-season/'+HISTORY.currentSeason)
+  grid.appendChild(editCard)
+
+  // Start New Season card
+  const newCard = h('div','card new-season-card')
+  newCard.innerHTML = '<div style="font-size:32px;margin-bottom:8px">\\u{1F195}</div><div class="card-name" style="font-size:20px">Start Season '+(HISTORY.currentSeason+1)+'</div><div class="card-detail" style="margin-top:6px">Create a new season from current rosters</div>'
+  newCard.onclick = async () => {
+    if (!confirm('Start Season '+(HISTORY.currentSeason+1)+'? This will create a new schedule.')) return
+    newCard.innerHTML = '<div class="loading">Creating season...</div>'
+    try {
+      const resp = await fetch('/api/start-new-season', { method: 'POST' })
+      const data = await resp.json()
+      if (data.success) { go('edit-season/'+data.season); setTimeout(() => window.location.reload(), 200) }
+      else { alert('Error: '+(data.error||'Unknown')) }
+    } catch(e) { alert('Error: '+e.message) }
+  }
+  grid.appendChild(newCard)
 
   main.appendChild(grid)
 
@@ -459,7 +563,7 @@ function renderStatsMenu(main) {
 
 // -- Seasons list --
 function renderSeasonsList(main) {
-  main.innerHTML = '<div class="breadcrumb"><span onclick="go(\\u0027statistics\\u0027)">Statistics</span> / Seasons</div><div class="page-title">Seasons</div><div class="page-sub">All LFA seasons</div>'
+  main.innerHTML = '<div class="breadcrumb"><span onclick="go(\\u0027statistics\\u0027)">Statistics</span> / Seasons</div><div class="page-title">Seasons</div><div class="page-sub">All '+CONFIG.league.shortName+' seasons</div>'
   const grid = h('div','grid grid-3')
   for (const s of [...HISTORY.seasons].reverse()) {
     const card = h('div','season-card')
@@ -486,7 +590,7 @@ function renderSeasonCard(main, num) {
   // Champion banner
   if (s.champion) {
     const banner = h('div','champion-banner')
-    banner.innerHTML = '<div class="champion-trophy">\\u{1F3C6}</div><div><div class="champion-title">Season '+num+' Champion</div><div class="champion-team-name">'+s.champion+'</div>'+(s.guyKilneTrophy?'<div class="champion-captain">Guy Kilne Trophy: '+s.guyKilneTrophy.captain+'</div>':'')+'</div>'+(team?'<div style="margin-left:auto;opacity:.6">'+teamCrest(team,72)+'</div>':'')
+    banner.innerHTML = '<div class="champion-trophy">\\u{1F3C6}</div><div><div class="champion-title">Season '+num+' Champion</div><div class="champion-team-name">'+s.champion+'</div>'+(s.guyKilneTrophy?'<div class="champion-captain">'+CONFIG.trophy.name+': '+s.guyKilneTrophy.captain+'</div>':'')+'</div>'+(team?'<div style="margin-left:auto;opacity:.6">'+teamCrest(team,72)+'</div>':'')
     main.appendChild(banner)
   } else {
     main.appendChild(h('div','page-title','Season '+num+' (In Progress)'))
@@ -704,7 +808,7 @@ function renderCoachCard(main, idx) {
 
   // Awards
   const coachAwards = getCoachAwards(team.name)
-  const awardsHtml = coachAwards.length>0?coachAwards.map(a=>'<span class="badge" style="background:var(--purple)">S'+a.season+' Coach of the Year</span>').join(''):'<span style="color:var(--text2);font-size:13px">No awards</span>'
+  const awardsHtml = coachAwards.length>0?coachAwards.map(a=>'<span class="badge" style="background:var(--purple)">S'+a.season+' '+CONFIG.awards.coachOfYear+'</span>').join(''):'<span style="color:var(--text2);font-size:13px">No awards</span>'
   main.appendChild(h('div','section','<div class="section-title">Awards</div>'+awardsHtml))
 
   // Season table
@@ -713,7 +817,7 @@ function renderCoachCard(main, idx) {
 
 // -- Teams list --
 function renderTeamsList(main) {
-  main.innerHTML = '<div class="breadcrumb"><span onclick="go(\\u0027statistics\\u0027)">Statistics</span> / Teams</div><div class="page-title">Teams</div><div class="page-sub">12 LFA teams</div>'
+  main.innerHTML = '<div class="breadcrumb"><span onclick="go(\\u0027statistics\\u0027)">Statistics</span> / Teams</div><div class="page-title">Teams</div><div class="page-sub">'+CONFIG.league.teamCount+' '+CONFIG.league.shortName+' teams</div>'
   const grid = h('div','grid grid-3')
   for (const t of LEAGUE.teams) {
     const c1=teamColor(t),c2=teamColor2(t)
@@ -738,7 +842,7 @@ function renderTeamCard(main, name) {
   const header = h('div','profile-header')
   header.style.background = 'linear-gradient(135deg,'+c1+'25,'+c2+'20)'
   const titles = HISTORY.seasons.filter(s=>s.champion===name).length
-  header.innerHTML = '<div style="flex-shrink:0">'+teamCrest(team,90)+'</div><div class="profile-info"><div class="profile-name" style="color:#fff">'+name+'</div><div class="profile-team">'+(team.coach?'Coach: '+team.coach.name+' ('+team.coach.style+')':'No coach')+'</div><div class="profile-meta"><div>Rating: <b>'+team.rating+'</b></div><div>Titles: <b>'+titles+'</b></div><div>Captain: <b>'+(team.captain||'-')+'</b></div></div></div><div class="rating-circle '+rCls(team.rating)+'">'+team.rating+'</div>'
+  header.innerHTML = '<div style="flex-shrink:0;display:flex;gap:12px;align-items:center">'+teamCrest(team,72)+teamJersey(team,64)+'</div><div class="profile-info"><div class="profile-name" style="color:#fff">'+name+'</div><div class="profile-team">'+(team.coach?'Coach: '+team.coach.name+' ('+team.coach.style+')':'No coach')+'</div><div class="profile-meta"><div>Rating: <b>'+team.rating+'</b></div><div>Titles: <b>'+titles+'</b></div><div>Captain: <b>'+(team.captain||'-')+'</b></div></div></div><div class="rating-circle '+rCls(team.rating)+'">'+team.rating+'</div>'
   main.appendChild(header)
 
   // Roster
@@ -792,7 +896,7 @@ function renderSeasonResults(main, num) {
     const team = teamByName(s.champion)
     const c1 = team?teamColor(team):'#333'
     const banner = h('div','champion-banner')
-    banner.innerHTML = '<div class="champion-trophy">\\u{1F3C6}</div><div><div class="champion-title">Season '+num+' Champion</div><div class="champion-team-name">'+s.champion+'</div>'+(s.guyKilneTrophy?'<div class="champion-captain">Guy Kilne Trophy: '+s.guyKilneTrophy.captain+'</div>':'')+'</div>'
+    banner.innerHTML = '<div class="champion-trophy">\\u{1F3C6}</div><div><div class="champion-title">Season '+num+' Champion</div><div class="champion-team-name">'+s.champion+'</div>'+(s.guyKilneTrophy?'<div class="champion-captain">'+CONFIG.trophy.name+': '+s.guyKilneTrophy.captain+'</div>':'')+'</div>'
     main.appendChild(banner)
   }
 
@@ -858,7 +962,7 @@ function renderPlayoffResults(el, s) {
 
   // Final
   const f = po.final
-  html += '<div class="section"><div class="section-title">Final (Neutral Site)</div><div class="bracket-series" style="border-left-color:var(--gold);border-left-width:4px"><div class="bracket-teams" style="font-size:18px">'+f.team1+' vs '+f.team2+'</div><div style="font-size:24px;font-weight:800;color:var(--white);margin:8px 0">'+f.score[0]+' - '+f.score[1]+'</div><div class="bracket-winner" style="font-size:16px">\\u{1F3C6} '+f.winner+'</div>'+(f.captain?'<div style="font-size:13px;color:var(--text2);margin-top:4px">Captain '+f.captain+' lifts the Guy Kilne Trophy</div>':'')+'</div></div>'
+  html += '<div class="section"><div class="section-title">Final (Neutral Site)</div><div class="bracket-series" style="border-left-color:var(--gold);border-left-width:4px"><div class="bracket-teams" style="font-size:18px">'+f.team1+' vs '+f.team2+'</div><div style="font-size:24px;font-weight:800;color:var(--white);margin:8px 0">'+f.score[0]+' - '+f.score[1]+'</div><div class="bracket-winner" style="font-size:16px">\\u{1F3C6} '+f.winner+'</div>'+(f.captain?'<div style="font-size:13px;color:var(--text2);margin-top:4px">Captain '+f.captain+' lifts the '+CONFIG.trophy.name+'</div>':'')+'</div></div>'
 
   el.innerHTML = html
 }
@@ -1255,6 +1359,38 @@ async function renderEndOfSeason(main, schedule) {
   }
   panel.appendChild(btn)
   main.appendChild(panel)
+
+  // Start New Season button
+  const newSeasonPanel = h('div','section')
+  newSeasonPanel.style.textAlign = 'center'
+  newSeasonPanel.style.marginTop = '24px'
+  newSeasonPanel.innerHTML = '<div class="section-title">Start Next Season</div><p style="color:var(--text);margin-bottom:16px">Create Season ' + (HISTORY.currentSeason + 1) + ' using the current rosters. You can edit teams, players, and coaches before generating the schedule.</p>'
+  const newBtn = h('button','se-btn success','Start Season ' + (HISTORY.currentSeason + 1))
+  newBtn.style.fontSize = '16px'
+  newBtn.style.padding = '12px 32px'
+  newBtn.onclick = async () => {
+    if (!confirm('Start Season ' + (HISTORY.currentSeason + 1) + '? This will create a new schedule from current rosters.')) return
+    newBtn.disabled = true
+    newBtn.textContent = 'Creating season...'
+    try {
+      const resp = await fetch('/api/start-new-season', { method: 'POST' })
+      const data = await resp.json()
+      if (data.success) {
+        go('edit-season/' + data.season)
+        setTimeout(() => window.location.reload(), 200)
+      } else {
+        alert('Error: ' + (data.error || 'Unknown'))
+        newBtn.disabled = false
+        newBtn.textContent = 'Start Season ' + (HISTORY.currentSeason + 1)
+      }
+    } catch(e) {
+      alert('Error: ' + e.message)
+      newBtn.disabled = false
+      newBtn.textContent = 'Start Season ' + (HISTORY.currentSeason + 1)
+    }
+  }
+  newSeasonPanel.appendChild(newBtn)
+  main.appendChild(newSeasonPanel)
 }
 
 function renderDevelopmentResults(main, data) {
@@ -1366,6 +1502,29 @@ function buildMatchCard(match, mdNum, idx) {
   header.innerHTML = headerHTML
   card.appendChild(header)
 
+  // Goal events for completed matches
+  if (match.status === 'completed' && match.goalEvents) {
+    const ge = match.goalEvents
+    const eventsEl = h('div', 'mc-goal-events')
+    let evHTML = '<div class="mc-goals-col">'
+    if (ge.home && ge.home.length > 0) {
+      for (const ev of ge.home) {
+        if (ev.missed) { evHTML += '<div class="mc-goal-ev missed">\\u274C <span class="mc-pen-label">PEN</span> ' + ev.scorer + '</div>'; continue }
+        evHTML += '<div class="mc-goal-ev">' + (ev.penalty ? '<span class="mc-pen-label">PEN</span> ' : '\\u26BD ') + ev.scorer + (ev.assister ? ' <span class="mc-assist">(' + ev.assister + ')</span>' : '') + '</div>'
+      }
+    }
+    evHTML += '</div><div class="mc-goals-col away">'
+    if (ge.away && ge.away.length > 0) {
+      for (const ev of ge.away) {
+        if (ev.missed) { evHTML += '<div class="mc-goal-ev missed">' + ev.scorer + ' <span class="mc-pen-label">PEN</span> \\u274C</div>'; continue }
+        evHTML += '<div class="mc-goal-ev">' + (ev.assister ? '<span class="mc-assist">(' + ev.assister + ')</span> ' : '') + ev.scorer + (ev.penalty ? ' <span class="mc-pen-label">PEN</span>' : ' \\u26BD') + '</div>'
+      }
+    }
+    evHTML += '</div>'
+    eventsEl.innerHTML = evHTML
+    card.appendChild(eventsEl)
+  }
+
   // Player stats details for completed matches
   if (match.status === 'completed' && match.playerStats) {
     const details = h('div', 'mc-details')
@@ -1432,6 +1591,216 @@ async function submitScore(mdNum, idx) {
     go('season/' + mdNum)
   } catch (e) {
     alert('Error: ' + e.message)
+  }
+}
+
+// -------------------------------------------------------------------------
+// Season Editor
+// -------------------------------------------------------------------------
+async function renderSeasonEditor(main, seasonNum) {
+  seasonNum = parseInt(seasonNum, 10) || HISTORY.currentSeason
+  main.innerHTML = '<div class="loading">Loading season data...</div>'
+
+  let teams
+  try {
+    const resp = await fetch('/api/season-editor/' + seasonNum)
+    const data = await resp.json()
+    if (data.error) { main.innerHTML = '<div class="empty-state">' + data.error + '</div>'; return }
+    teams = data.teams
+  } catch(e) { main.innerHTML = '<div class="empty-state">Failed to load: ' + e.message + '</div>'; return }
+
+  main.innerHTML = ''
+  main.appendChild(h('div','breadcrumb','<span onclick="go(\\'\\')">Home</span> / Edit Season ' + seasonNum))
+  main.appendChild(h('div','page-title','Edit Season ' + seasonNum))
+  main.appendChild(h('div','page-sub','Edit teams, players, coaches, colors, and abbreviations. Changes are saved to the league data.'))
+
+  const container = h('div','se-container')
+  const statusEl = h('div','se-status')
+  const editorState = { teams: JSON.parse(JSON.stringify(teams)) }
+
+  for (let ti = 0; ti < editorState.teams.length; ti++) {
+    const team = editorState.teams[ti]
+    team._originalName = team.name
+    const panel = h('div','se-team-panel')
+    panel.id = 'se-panel-' + ti
+
+    // Header
+    const header = h('div','se-team-header')
+    header.innerHTML = '<div class="mini-avatar" style="background:' + team.colors.primary + ';width:28px;height:28px;font-size:11px;color:' + (hexLum(team.colors.primary) > 180 ? '#222' : '#fff') + '">' + (team.abbreviation || team.name.split(' ').map(w=>w[0]).join('').slice(0,3).toUpperCase()) + '</div>' +
+      '<span class="se-team-name-h">' + team.name + '</span>' +
+      '<span class="se-team-rating">OVR ' + team.rating + '</span>' +
+      '<span class="se-arrow">\\u25B6</span>'
+    header.onclick = function() {
+      this.classList.toggle('open')
+      this.nextElementSibling.classList.toggle('open')
+    }
+    panel.appendChild(header)
+
+    // Body
+    const body = h('div','se-team-body')
+
+    // Team info section
+    body.innerHTML = '<div class="se-section"><div class="se-section-title">Team Info</div>' +
+      '<div class="se-row"><span class="se-label">Name</span><input class="se-input lg" value="' + escAttr(team.name) + '" data-ti="' + ti + '" data-field="name" onchange="seUpdate(this)"></div>' +
+      '<div class="se-row"><span class="se-label">Abbrev</span><input class="se-input sm" value="' + escAttr(team.abbreviation || '') + '" data-ti="' + ti + '" data-field="abbreviation" onchange="seUpdate(this)" maxlength="4" placeholder="Auto"></div>' +
+      '<div class="se-row"><span class="se-label">Primary</span><input type="color" class="se-color" value="' + team.colors.primary + '" data-ti="' + ti + '" data-field="colorPrimary" onchange="seUpdate(this)"><span class="se-label">Secondary</span><input type="color" class="se-color" value="' + team.colors.secondary + '" data-ti="' + ti + '" data-field="colorSecondary" onchange="seUpdate(this)"></div>' +
+      '</div>'
+
+    // Coach section
+    const coach = team.coach || { name: '', rating: '60', style: 'balanced' }
+    body.innerHTML += '<div class="se-section"><div class="se-section-title">Coach</div>' +
+      '<div class="se-row"><span class="se-label">Name</span><input class="se-input lg" value="' + escAttr(coach.name) + '" data-ti="' + ti + '" data-field="coachName" onchange="seUpdate(this)"></div>' +
+      '<div class="se-row"><span class="se-label">Rating</span><input class="se-input sm" type="number" min="40" max="99" value="' + coach.rating + '" data-ti="' + ti + '" data-field="coachRating" onchange="seUpdate(this)">' +
+      '<span class="se-label">Style</span><select class="se-select" style="width:160px" data-ti="' + ti + '" data-field="coachStyle" onchange="seUpdate(this)">' +
+      ['attacking','defensive','balanced','possession','counter-attack'].map(s => '<option value="' + s + '"' + (coach.style === s ? ' selected' : '') + '>' + s + '</option>').join('') +
+      '</select></div></div>'
+
+    // Players section
+    let playersHTML = '<div class="se-section"><div class="se-section-title">Players (' + team.players.length + ')</div>'
+    playersHTML += '<div class="se-player-row" style="font-weight:700;font-size:11px;color:var(--text2);border-bottom:2px solid var(--border)"><div>#</div><div>Name</div><div>Pos</div><div>Rtg</div><div>Age</div><div></div></div>'
+    for (let pi = 0; pi < team.players.length; pi++) {
+      const p = team.players[pi]
+      const isStarter = pi < 6
+      playersHTML += '<div class="se-player-row">' +
+        '<div class="se-player-idx">' + (pi + 1) + (isStarter ? '<div class="se-player-starter">S</div>' : '') + '</div>' +
+        '<input class="se-input" style="width:100%" value="' + escAttr(p.name) + '" data-ti="' + ti + '" data-pi="' + pi + '" data-field="playerName" onchange="seUpdate(this)">' +
+        '<select class="se-select" style="width:60px" data-ti="' + ti + '" data-pi="' + pi + '" data-field="playerPos" onchange="seUpdate(this)">' +
+        ['GK','CB','CM','ST'].map(pos => '<option' + (p.position === pos ? ' selected' : '') + '>' + pos + '</option>').join('') +
+        '</select>' +
+        '<input class="se-input sm" type="number" min="40" max="99" value="' + p.rating + '" data-ti="' + ti + '" data-pi="' + pi + '" data-field="playerRating" onchange="seUpdate(this)">' +
+        '<input class="se-input sm" type="number" min="16" max="45" value="' + (p.age || 25) + '" data-ti="' + ti + '" data-pi="' + pi + '" data-field="playerAge" onchange="seUpdate(this)">' +
+        '<button class="se-btn danger small" title="Transfer" onclick="seTransfer(' + ti + ',' + pi + ')">\\u21C4</button>' +
+        '</div>'
+    }
+    playersHTML += '</div>'
+    body.innerHTML += playersHTML
+
+    panel.appendChild(body)
+    container.appendChild(panel)
+  }
+
+  // Actions bar
+  const actions = h('div','se-actions')
+  actions.innerHTML = '<button class="se-btn primary" onclick="seSave()">Save All Changes</button><button class="se-btn success" onclick="go(\\'\\')">Back to Home</button>'
+  container.appendChild(actions)
+  container.appendChild(statusEl)
+  statusEl.id = 'se-status'
+
+  main.appendChild(container)
+
+  // Store editor state globally for event handlers
+  window._seState = editorState
+  window._seSeasonNum = seasonNum
+}
+
+function escAttr(s) { return String(s).replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;') }
+
+function seUpdate(el) {
+  const state = window._seState
+  if (!state) return
+  const ti = parseInt(el.dataset.ti, 10)
+  const team = state.teams[ti]
+  const field = el.dataset.field
+  const val = el.value
+
+  if (field === 'name') team.name = val
+  else if (field === 'abbreviation') team.abbreviation = val || undefined
+  else if (field === 'colorPrimary') team.colors.primary = val
+  else if (field === 'colorSecondary') team.colors.secondary = val
+  else if (field === 'coachName') team.coach.name = val
+  else if (field === 'coachRating') team.coach.rating = val
+  else if (field === 'coachStyle') team.coach.style = val
+  else if (field.startsWith('player')) {
+    const pi = parseInt(el.dataset.pi, 10)
+    const p = team.players[pi]
+    if (field === 'playerName') p.name = val
+    else if (field === 'playerPos') p.position = val
+    else if (field === 'playerRating') p.rating = val
+    else if (field === 'playerAge') p.age = parseInt(val, 10)
+  }
+}
+
+async function seSave() {
+  const state = window._seState
+  if (!state) return
+  const statusEl = document.getElementById('se-status')
+
+  // Prepare payload with originalName for matching
+  const payload = state.teams.map(t => ({
+    originalName: t._originalName,
+    name: t.name,
+    abbreviation: t.abbreviation,
+    colors: t.colors,
+    rating: t.rating,
+    coach: t.coach,
+    players: t.players.map(p => ({ name: p.name, position: p.position, rating: p.rating, age: p.age }))
+  }))
+
+  statusEl.className = 'se-status show ok'
+  statusEl.textContent = 'Saving...'
+
+  try {
+    const resp = await fetch('/api/season-editor/save', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ teams: payload })
+    })
+    const data = await resp.json()
+    if (data.success) {
+      statusEl.className = 'se-status show ok'
+      statusEl.textContent = 'Saved successfully! Site rebuilt.'
+      // Update originalNames for subsequent saves
+      for (let i = 0; i < state.teams.length; i++) {
+        state.teams[i]._originalName = state.teams[i].name
+      }
+    } else {
+      statusEl.className = 'se-status show err'
+      statusEl.textContent = 'Error: ' + (data.error || 'Unknown')
+    }
+  } catch(e) {
+    statusEl.className = 'se-status show err'
+    statusEl.textContent = 'Error: ' + e.message
+  }
+}
+
+function seTransfer(ti, pi) {
+  const state = window._seState
+  if (!state) return
+  const team = state.teams[ti]
+  const player = team.players[pi]
+
+  // Build transfer modal
+  const modal = h('div','se-transfer-modal')
+  let optHTML = ''
+  for (let i = 0; i < state.teams.length; i++) {
+    if (i === ti) continue
+    optHTML += '<option value="' + i + '">' + state.teams[i].name + '</option>'
+  }
+  modal.innerHTML = '<div class="se-transfer-box"><h3>Transfer ' + escAttr(player.name) + '</h3>' +
+    '<div style="margin-bottom:12px;font-size:13px;color:var(--text2)">From: ' + escAttr(team.name) + '</div>' +
+    '<div style="margin-bottom:12px"><label style="font-size:12px;color:var(--text2);display:block;margin-bottom:4px">Transfer to:</label><select class="se-select" id="se-transfer-target">' + optHTML + '</select></div>' +
+    '<div style="display:flex;gap:8px;justify-content:flex-end"><button class="se-btn primary" id="se-transfer-confirm">Transfer</button><button class="se-btn" style="background:var(--card2);color:var(--text)" id="se-transfer-cancel">Cancel</button></div></div>'
+
+  document.body.appendChild(modal)
+
+  document.getElementById('se-transfer-cancel').onclick = () => modal.remove()
+  document.getElementById('se-transfer-confirm').onclick = async () => {
+    const targetIdx = parseInt(document.getElementById('se-transfer-target').value, 10)
+    try {
+      const resp = await fetch('/api/transfer-player', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ playerName: player.name, fromTeam: team._originalName, toTeam: state.teams[targetIdx]._originalName })
+      })
+      const data = await resp.json()
+      if (data.success) {
+        modal.remove()
+        // Refresh editor
+        go('edit-season/' + window._seSeasonNum)
+      } else {
+        alert('Error: ' + (data.error || 'Unknown'))
+      }
+    } catch(e) { alert('Error: ' + e.message) }
   }
 }
 

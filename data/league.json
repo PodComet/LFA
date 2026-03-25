@@ -1,33 +1,33 @@
 {
   "teams": [
     {
-      "name": "Thunderbolts",
+      "name": "Concinia Girr",
       "colors": {
-        "primary": "#FFD700",
-        "secondary": "#1A1A2E"
+        "primary": "#008080",
+        "secondary": "#FF69B4"
       },
       "jersey": {
-        "home": "Gold body with navy sleeves",
-        "away": "Navy body with gold trim"
+        "home": "Teal body with pink sleeves and collar",
+        "away": "Pink body with teal trim"
       },
-      "rating": "87",
+      "rating": "88",
       "players": [
         {
           "name": "Pelé",
           "position": "GK",
-          "rating": "85",
+          "rating": "84",
           "starter": true,
           "skill": {
-            "passing": "53",
-            "shooting": "12",
-            "tackling": "31",
+            "passing": "51",
+            "shooting": "13",
+            "tackling": "30",
             "saving": "88",
-            "agility": "72",
+            "agility": "70",
             "strength": "67",
-            "penalty_taking": "15",
-            "jumping": "82",
-            "speed": "44",
-            "marking": "23",
+            "penalty_taking": "14",
+            "jumping": "83",
+            "speed": "45",
+            "marking": "21",
             "head_game": "61",
             "set_piece_taking": "17"
           },
@@ -38,26 +38,26 @@
           "fitness": 100,
           "height": 191,
           "injured": false,
-          "age": 29
+          "age": 31
         },
         {
           "name": "Ronaldo",
           "position": "CB",
-          "rating": "84",
+          "rating": "85",
           "starter": true,
           "skill": {
-            "passing": "61",
-            "shooting": "29",
+            "passing": "64",
+            "shooting": "32",
             "tackling": "84",
-            "saving": "13",
-            "agility": "65",
-            "strength": "78",
-            "penalty_taking": "23",
-            "jumping": "81",
+            "saving": "14",
+            "agility": "63",
+            "strength": "77",
+            "penalty_taking": "20",
+            "jumping": "83",
             "speed": "60",
-            "marking": "83",
-            "head_game": "83",
-            "set_piece_taking": "15"
+            "marking": "84",
+            "head_game": "85",
+            "set_piece_taking": "16"
           },
           "currentPOS": [
             200,
@@ -66,26 +66,26 @@
           "fitness": 100,
           "height": 188,
           "injured": false,
-          "age": 26
+          "age": 28
         },
         {
           "name": "Kaká",
           "position": "CM",
-          "rating": "88",
+          "rating": "90",
           "starter": true,
           "skill": {
             "passing": "89",
-            "shooting": "70",
-            "tackling": "60",
+            "shooting": "71",
+            "tackling": "62",
             "saving": "12",
-            "agility": "84",
-            "strength": "68",
-            "penalty_taking": "73",
-            "jumping": "56",
-            "speed": "67",
-            "marking": "60",
+            "agility": "85",
+            "strength": "69",
+            "penalty_taking": "76",
+            "jumping": "57",
+            "speed": "69",
+            "marking": "63",
             "head_game": "61",
-            "set_piece_taking": "63"
+            "set_piece_taking": "65"
           },
           "currentPOS": [
             130,
@@ -94,7 +94,7 @@
           "fitness": 100,
           "height": 178,
           "injured": false,
-          "age": 26
+          "age": 28
         },
         {
           "name": "Neymar",
@@ -102,18 +102,18 @@
           "rating": "84",
           "starter": true,
           "skill": {
-            "passing": "82",
-            "shooting": "64",
-            "tackling": "62",
+            "passing": "83",
+            "shooting": "62",
+            "tackling": "63",
             "saving": "9",
-            "agility": "78",
-            "strength": "71",
-            "penalty_taking": "66",
-            "jumping": "62",
-            "speed": "71",
+            "agility": "76",
+            "strength": "70",
+            "penalty_taking": "67",
+            "jumping": "61",
+            "speed": "72",
             "marking": "48",
             "head_game": "58",
-            "set_piece_taking": "55"
+            "set_piece_taking": "53"
           },
           "currentPOS": [
             270,
@@ -122,26 +122,26 @@
           "fitness": 100,
           "height": 182,
           "injured": false,
-          "age": 30
+          "age": 32
         },
         {
           "name": "Rivaldo",
           "position": "ST",
-          "rating": "91",
+          "rating": "93",
           "starter": true,
           "skill": {
-            "passing": "68",
-            "shooting": "94",
-            "tackling": "22",
-            "saving": "7",
+            "passing": "76",
+            "shooting": "93",
+            "tackling": "28",
+            "saving": "13",
             "agility": "91",
-            "strength": "75",
-            "penalty_taking": "85",
-            "jumping": "71",
-            "speed": "87",
-            "marking": "20",
-            "head_game": "88",
-            "set_piece_taking": "52"
+            "strength": "78",
+            "penalty_taking": "89",
+            "jumping": "75",
+            "speed": "91",
+            "marking": "21",
+            "head_game": "91",
+            "set_piece_taking": "57"
           },
           "currentPOS": [
             150,
@@ -150,26 +150,26 @@
           "fitness": 100,
           "height": 176,
           "injured": false,
-          "age": 22
+          "age": 24
         },
         {
           "name": "Dida",
           "position": "ST",
-          "rating": "88",
+          "rating": "92",
           "starter": true,
           "skill": {
-            "passing": "61",
-            "shooting": "90",
-            "tackling": "25",
-            "saving": "4",
-            "agility": "90",
-            "strength": "77",
-            "penalty_taking": "79",
-            "jumping": "78",
-            "speed": "71",
-            "marking": "36",
-            "head_game": "73",
-            "set_piece_taking": "82"
+            "passing": "66",
+            "shooting": "93",
+            "tackling": "34",
+            "saving": "7",
+            "agility": "92",
+            "strength": "78",
+            "penalty_taking": "83",
+            "jumping": "83",
+            "speed": "76",
+            "marking": "40",
+            "head_game": "79",
+            "set_piece_taking": "88"
           },
           "currentPOS": [
             250,
@@ -178,7 +178,7 @@
           "fitness": 100,
           "height": 181,
           "injured": false,
-          "age": 22
+          "age": 24
         },
         {
           "name": "Cafu",
@@ -186,99 +186,99 @@
           "rating": "79",
           "starter": false,
           "skill": {
-            "passing": "45",
-            "shooting": "11",
-            "tackling": "26",
-            "saving": "81",
-            "agility": "70",
-            "strength": "65",
-            "penalty_taking": "12",
-            "jumping": "77",
-            "speed": "46",
+            "passing": "46",
+            "shooting": "13",
+            "tackling": "25",
+            "saving": "82",
+            "agility": "69",
+            "strength": "66",
+            "penalty_taking": "14",
+            "jumping": "75",
+            "speed": "48",
             "marking": "23",
-            "head_game": "62",
-            "set_piece_taking": "16"
+            "head_game": "64",
+            "set_piece_taking": "18"
           },
           "currentPOS": null,
           "fitness": 100,
           "height": 189,
           "injured": false,
-          "age": 26
+          "age": 28
         },
         {
           "name": "Zico",
           "position": "CB",
-          "rating": "80",
+          "rating": "78",
           "starter": false,
           "skill": {
-            "passing": "55",
+            "passing": "54",
             "shooting": "26",
-            "tackling": "78",
-            "saving": "12",
-            "agility": "63",
-            "strength": "76",
-            "penalty_taking": "19",
+            "tackling": "77",
+            "saving": "11",
+            "agility": "55",
+            "strength": "73",
+            "penalty_taking": "22",
             "jumping": "72",
-            "speed": "63",
-            "marking": "74",
-            "head_game": "77",
-            "set_piece_taking": "25"
+            "speed": "58",
+            "marking": "73",
+            "head_game": "76",
+            "set_piece_taking": "21"
           },
           "currentPOS": null,
           "fitness": 100,
           "height": 185,
           "injured": false,
-          "age": 31
+          "age": 33
         },
         {
           "name": "Garrincha",
           "position": "CM",
-          "rating": "84",
+          "rating": "88",
           "starter": false,
           "skill": {
-            "passing": "82",
-            "shooting": "64",
-            "tackling": "54",
-            "saving": "11",
-            "agility": "80",
-            "strength": "66",
-            "penalty_taking": "61",
-            "jumping": "53",
-            "speed": "72",
-            "marking": "66",
-            "head_game": "54",
-            "set_piece_taking": "42"
+            "passing": "88",
+            "shooting": "70",
+            "tackling": "56",
+            "saving": "13",
+            "agility": "84",
+            "strength": "69",
+            "penalty_taking": "64",
+            "jumping": "58",
+            "speed": "76",
+            "marking": "69",
+            "head_game": "60",
+            "set_piece_taking": "46"
           },
           "currentPOS": null,
           "fitness": 100,
           "height": 174,
           "injured": false,
-          "age": 23
+          "age": 25
         },
         {
           "name": "Romário",
           "position": "ST",
-          "rating": "82",
+          "rating": "81",
           "starter": false,
           "skill": {
-            "passing": "53",
-            "shooting": "84",
-            "tackling": "17",
-            "saving": "6",
-            "agility": "83",
-            "strength": "71",
-            "penalty_taking": "70",
-            "jumping": "63",
+            "passing": "55",
+            "shooting": "81",
+            "tackling": "16",
+            "saving": "5",
+            "agility": "82",
+            "strength": "68",
+            "penalty_taking": "71",
+            "jumping": "62",
             "speed": "85",
             "marking": "19",
-            "head_game": "83",
+            "head_game": "82",
             "set_piece_taking": "73"
           },
           "currentPOS": null,
           "fitness": 100,
           "height": 179,
           "injured": false,
-          "age": 29
+          "age": 31
         }
       ],
       "coach": {
@@ -291,19 +291,20 @@
         },
         "age": 61
       },
-      "captain": "Rivaldo"
+      "captain": "Rivaldo",
+      "abbreviation": "CG"
     },
     {
-      "name": "Cyclones",
+      "name": "Puzi Rell",
       "colors": {
-        "primary": "#00CED1",
-        "secondary": "#2F4F4F"
+        "primary": "#DC143C",
+        "secondary": "#000000"
       },
       "jersey": {
-        "home": "Teal body with dark slate accents",
-        "away": "Slate grey body with teal stripes"
+        "home": "Red body with black sleeves and collar",
+        "away": "Black body with red chest stripe"
       },
-      "rating": "84",
+      "rating": "85",
       "players": [
         {
           "name": "Bebeto",
@@ -311,18 +312,18 @@
           "rating": "83",
           "starter": true,
           "skill": {
-            "passing": "53",
+            "passing": "54",
             "shooting": "13",
-            "tackling": "27",
-            "saving": "85",
-            "agility": "72",
-            "strength": "69",
-            "penalty_taking": "20",
-            "jumping": "82",
-            "speed": "47",
+            "tackling": "26",
+            "saving": "86",
+            "agility": "73",
+            "strength": "70",
+            "penalty_taking": "21",
+            "jumping": "81",
+            "speed": "45",
             "marking": "33",
-            "head_game": "74",
-            "set_piece_taking": "15"
+            "head_game": "73",
+            "set_piece_taking": "16"
           },
           "currentPOS": [
             200,
@@ -331,24 +332,24 @@
           "fitness": 100,
           "height": 190,
           "injured": false,
-          "age": 27
+          "age": 29
         },
         {
           "name": "Denílson",
           "position": "CB",
-          "rating": "82",
+          "rating": "84",
           "starter": true,
           "skill": {
-            "passing": "59",
-            "shooting": "20",
-            "tackling": "81",
+            "passing": "61",
+            "shooting": "21",
+            "tackling": "83",
             "saving": "10",
-            "agility": "60",
-            "strength": "79",
-            "penalty_taking": "20",
-            "jumping": "76",
-            "speed": "56",
-            "marking": "81",
+            "agility": "62",
+            "strength": "80",
+            "penalty_taking": "22",
+            "jumping": "78",
+            "speed": "59",
+            "marking": "83",
             "head_game": "72",
             "set_piece_taking": "17"
           },
@@ -359,26 +360,26 @@
           "fitness": 100,
           "height": 186,
           "injured": false,
-          "age": 28
+          "age": 30
         },
         {
           "name": "Juninho",
           "position": "CM",
-          "rating": "85",
+          "rating": "87",
           "starter": true,
           "skill": {
-            "passing": "87",
-            "shooting": "62",
-            "tackling": "58",
-            "saving": "12",
-            "agility": "80",
-            "strength": "66",
-            "penalty_taking": "70",
-            "jumping": "55",
-            "speed": "61",
-            "marking": "49",
-            "head_game": "67",
-            "set_piece_taking": "70"
+            "passing": "91",
+            "shooting": "65",
+            "tackling": "61",
+            "saving": "14",
+            "agility": "82",
+            "strength": "69",
+            "penalty_taking": "73",
+            "jumping": "58",
+            "speed": "62",
+            "marking": "52",
+            "head_game": "66",
+            "set_piece_taking": "73"
           },
           "currentPOS": [
             130,
@@ -387,26 +388,26 @@
           "fitness": 100,
           "height": 175,
           "injured": false,
-          "age": 23
+          "age": 25
         },
         {
           "name": "Raí",
           "position": "CM",
-          "rating": "83",
+          "rating": "82",
           "starter": true,
           "skill": {
-            "passing": "82",
-            "shooting": "56",
-            "tackling": "57",
-            "saving": "10",
-            "agility": "79",
-            "strength": "66",
-            "penalty_taking": "60",
+            "passing": "83",
+            "shooting": "55",
+            "tackling": "56",
+            "saving": "6",
+            "agility": "74",
+            "strength": "62",
+            "penalty_taking": "62",
             "jumping": "52",
-            "speed": "64",
-            "marking": "57",
+            "speed": "59",
+            "marking": "56",
             "head_game": "44",
-            "set_piece_taking": "61"
+            "set_piece_taking": "64"
           },
           "currentPOS": [
             270,
@@ -415,26 +416,26 @@
           "fitness": 100,
           "height": 172,
           "injured": false,
-          "age": 31
+          "age": 33
         },
         {
           "name": "Sócrates",
           "position": "ST",
-          "rating": "86",
+          "rating": "87",
           "starter": true,
           "skill": {
-            "passing": "61",
-            "shooting": "91",
-            "tackling": "17",
-            "saving": "7",
+            "passing": "60",
+            "shooting": "95",
+            "tackling": "16",
+            "saving": "6",
             "agility": "85",
-            "strength": "71",
+            "strength": "74",
             "penalty_taking": "78",
             "jumping": "69",
-            "speed": "79",
+            "speed": "78",
             "marking": "25",
-            "head_game": "84",
-            "set_piece_taking": "44"
+            "head_game": "85",
+            "set_piece_taking": "41"
           },
           "currentPOS": [
             150,
@@ -443,26 +444,26 @@
           "fitness": 100,
           "height": 177,
           "injured": false,
-          "age": 28
+          "age": 30
         },
         {
           "name": "Falcão",
           "position": "ST",
-          "rating": "84",
+          "rating": "85",
           "starter": true,
           "skill": {
-            "passing": "54",
-            "shooting": "87",
-            "tackling": "19",
-            "saving": "7",
-            "agility": "86",
-            "strength": "73",
-            "penalty_taking": "75",
-            "jumping": "74",
-            "speed": "77",
-            "marking": "30",
-            "head_game": "80",
-            "set_piece_taking": "50"
+            "passing": "55",
+            "shooting": "89",
+            "tackling": "21",
+            "saving": "5",
+            "agility": "89",
+            "strength": "72",
+            "penalty_taking": "77",
+            "jumping": "75",
+            "speed": "79",
+            "marking": "33",
+            "head_game": "84",
+            "set_piece_taking": "51"
           },
           "currentPOS": [
             250,
@@ -471,107 +472,107 @@
           "fitness": 100,
           "height": 183,
           "injured": false,
-          "age": 26
+          "age": 28
         },
         {
           "name": "Toninho",
           "position": "GK",
-          "rating": "75",
+          "rating": "71",
           "starter": false,
           "skill": {
-            "passing": "42",
-            "shooting": "9",
-            "tackling": "20",
-            "saving": "77",
-            "agility": "62",
-            "strength": "62",
-            "penalty_taking": "11",
-            "jumping": "72",
-            "speed": "45",
-            "marking": "22",
-            "head_game": "72",
-            "set_piece_taking": "8"
+            "passing": "41",
+            "shooting": "8",
+            "tackling": "14",
+            "saving": "75",
+            "agility": "57",
+            "strength": "59",
+            "penalty_taking": "12",
+            "jumping": "66",
+            "speed": "39",
+            "marking": "18",
+            "head_game": "69",
+            "set_piece_taking": "4"
           },
           "currentPOS": null,
           "fitness": 100,
           "height": 188,
           "injured": false,
-          "age": 33
+          "age": 35
         },
         {
           "name": "Mazinho",
           "position": "CB",
-          "rating": "78",
+          "rating": "76",
           "starter": false,
           "skill": {
-            "passing": "50",
-            "shooting": "19",
-            "tackling": "75",
-            "saving": "10",
-            "agility": "57",
-            "strength": "74",
-            "penalty_taking": "19",
+            "passing": "48",
+            "shooting": "17",
+            "tackling": "74",
+            "saving": "7",
+            "agility": "53",
+            "strength": "73",
+            "penalty_taking": "16",
             "jumping": "71",
-            "speed": "61",
-            "marking": "81",
+            "speed": "55",
+            "marking": "80",
             "head_game": "62",
-            "set_piece_taking": "25"
+            "set_piece_taking": "26"
           },
           "currentPOS": null,
           "fitness": 100,
           "height": 184,
           "injured": false,
-          "age": 31
+          "age": 33
         },
         {
           "name": "Branco",
           "position": "CM",
-          "rating": "81",
+          "rating": "84",
           "starter": false,
           "skill": {
-            "passing": "81",
-            "shooting": "57",
-            "tackling": "53",
-            "saving": "11",
-            "agility": "74",
-            "strength": "65",
-            "penalty_taking": "55",
-            "jumping": "51",
-            "speed": "84",
-            "marking": "65",
-            "head_game": "63",
-            "set_piece_taking": "70"
+            "passing": "85",
+            "shooting": "60",
+            "tackling": "58",
+            "saving": "13",
+            "agility": "77",
+            "strength": "70",
+            "penalty_taking": "56",
+            "jumping": "52",
+            "speed": "90",
+            "marking": "68",
+            "head_game": "66",
+            "set_piece_taking": "75"
           },
           "currentPOS": null,
           "fitness": 100,
           "height": 176,
           "injured": false,
-          "age": 23
+          "age": 25
         },
         {
           "name": "Aldair",
           "position": "ST",
-          "rating": "77",
+          "rating": "74",
           "starter": false,
           "skill": {
-            "passing": "49",
-            "shooting": "79",
-            "tackling": "13",
-            "saving": "5",
-            "agility": "77",
-            "strength": "66",
-            "penalty_taking": "67",
-            "jumping": "59",
-            "speed": "75",
-            "marking": "24",
-            "head_game": "61",
-            "set_piece_taking": "77"
+            "passing": "47",
+            "shooting": "77",
+            "tackling": "14",
+            "saving": "1",
+            "agility": "71",
+            "strength": "64",
+            "penalty_taking": "64",
+            "jumping": "55",
+            "speed": "71",
+            "marking": "22",
+            "head_game": "60",
+            "set_piece_taking": "74"
           },
           "currentPOS": null,
           "fitness": 100,
           "height": 180,
           "injured": false,
-          "age": 32
+          "age": 34
         }
       ],
       "coach": {
@@ -584,38 +585,39 @@
         },
         "age": 53
       },
-      "captain": "Sócrates"
+      "captain": "Sócrates",
+      "abbreviation": "PR"
     },
     {
-      "name": "Red Phoenix",
+      "name": "O Girr",
       "colors": {
-        "primary": "#DC143C",
-        "secondary": "#FFFAF0"
+        "primary": "#4169E1",
+        "secondary": "#FFFFFF"
       },
       "jersey": {
-        "home": "Crimson body with cream collar",
-        "away": "Cream body with crimson sash"
+        "home": "Royal blue body with white sleeves",
+        "away": "White body with blue sash"
       },
-      "rating": "89",
+      "rating": "88",
       "players": [
         {
           "name": "Mauro",
           "position": "GK",
-          "rating": "87",
+          "rating": "83",
           "starter": true,
           "skill": {
-            "passing": "56",
-            "shooting": "14",
+            "passing": "51",
+            "shooting": "12",
             "tackling": "30",
-            "saving": "91",
-            "agility": "74",
-            "strength": "72",
-            "penalty_taking": "17",
-            "jumping": "89",
-            "speed": "55",
-            "marking": "23",
-            "head_game": "57",
-            "set_piece_taking": "13"
+            "saving": "87",
+            "agility": "66",
+            "strength": "70",
+            "penalty_taking": "12",
+            "jumping": "85",
+            "speed": "47",
+            "marking": "24",
+            "head_game": "55",
+            "set_piece_taking": "12"
           },
           "currentPOS": [
             200,
@@ -624,24 +626,24 @@
           "fitness": 100,
           "height": 193,
           "injured": false,
-          "age": 33
+          "age": 35
         },
         {
           "name": "Djalminha",
           "position": "CB",
-          "rating": "88",
+          "rating": "87",
           "starter": true,
           "skill": {
-            "passing": "66",
-            "shooting": "31",
-            "tackling": "88",
-            "saving": "12",
-            "agility": "70",
-            "strength": "84",
-            "penalty_taking": "22",
+            "passing": "64",
+            "shooting": "30",
+            "tackling": "89",
+            "saving": "13",
+            "agility": "69",
+            "strength": "82",
+            "penalty_taking": "25",
             "jumping": "83",
-            "speed": "64",
-            "marking": "91",
+            "speed": "60",
+            "marking": "90",
             "head_game": "80",
             "set_piece_taking": "16"
           },
@@ -652,7 +654,7 @@
           "fitness": 100,
           "height": 192,
           "injured": false,
-          "age": 30
+          "age": 32
         },
         {
           "name": "Edílson",
@@ -661,16 +663,16 @@
           "starter": true,
           "skill": {
             "passing": "90",
-            "shooting": "70",
-            "tackling": "60",
+            "shooting": "72",
+            "tackling": "58",
             "saving": "10",
             "agility": "87",
             "strength": "72",
-            "penalty_taking": "76",
-            "jumping": "57",
-            "speed": "65",
+            "penalty_taking": "72",
+            "jumping": "56",
+            "speed": "64",
             "marking": "46",
-            "head_game": "51",
+            "head_game": "50",
             "set_piece_taking": "63"
           },
           "currentPOS": [
@@ -680,7 +682,7 @@
           "fitness": 100,
           "height": 180,
           "injured": false,
-          "age": 30
+          "age": 32
         },
         {
           "name": "Vampeta",
@@ -688,18 +690,18 @@
           "rating": "88",
           "starter": true,
           "skill": {
-            "passing": "88",
-            "shooting": "67",
-            "tackling": "61",
+            "passing": "89",
+            "shooting": "64",
+            "tackling": "62",
             "saving": "10",
-            "agility": "83",
-            "strength": "74",
-            "penalty_taking": "70",
-            "jumping": "54",
+            "agility": "82",
+            "strength": "75",
+            "penalty_taking": "72",
+            "jumping": "57",
             "speed": "69",
-            "marking": "56",
+            "marking": "55",
             "head_game": "44",
-            "set_piece_taking": "46"
+            "set_piece_taking": "48"
           },
           "currentPOS": [
             270,
@@ -708,26 +710,26 @@
           "fitness": 100,
           "height": 179,
           "injured": false,
-          "age": 28
+          "age": 30
         },
         {
           "name": "Amaral",
           "position": "ST",
-          "rating": "92",
+          "rating": "93",
           "starter": true,
           "skill": {
-            "passing": "70",
-            "shooting": "94",
-            "tackling": "23",
-            "saving": "8",
-            "agility": "92",
+            "passing": "69",
+            "shooting": "97",
+            "tackling": "22",
+            "saving": "10",
+            "agility": "94",
             "strength": "73",
             "penalty_taking": "89",
-            "jumping": "75",
-            "speed": "89",
+            "jumping": "74",
+            "speed": "88",
             "marking": "23",
-            "head_game": "77",
-            "set_piece_taking": "52"
+            "head_game": "76",
+            "set_piece_taking": "51"
           },
           "currentPOS": [
             150,
@@ -736,7 +738,7 @@
           "fitness": 100,
           "height": 178,
           "injured": false,
-          "age": 29
+          "age": 31
         },
         {
           "name": "Léo",
@@ -744,17 +746,17 @@
           "rating": "88",
           "starter": true,
           "skill": {
-            "passing": "62",
-            "shooting": "92",
-            "tackling": "18",
+            "passing": "58",
+            "shooting": "93",
+            "tackling": "20",
             "saving": "6",
-            "agility": "90",
+            "agility": "86",
             "strength": "70",
-            "penalty_taking": "82",
-            "jumping": "71",
-            "speed": "76",
-            "marking": "20",
-            "head_game": "76",
+            "penalty_taking": "83",
+            "jumping": "70",
+            "speed": "77",
+            "marking": "19",
+            "head_game": "78",
             "set_piece_taking": "59"
           },
           "currentPOS": [
@@ -764,82 +766,82 @@
           "fitness": 100,
           "height": 175,
           "injured": false,
-          "age": 30
+          "age": 32
         },
         {
           "name": "Dodô",
           "position": "GK",
-          "rating": "81",
+          "rating": "82",
           "starter": false,
           "skill": {
-            "passing": "48",
+            "passing": "51",
             "shooting": "12",
-            "tackling": "29",
+            "tackling": "30",
             "saving": "83",
-            "agility": "70",
-            "strength": "66",
-            "penalty_taking": "14",
-            "jumping": "78",
-            "speed": "46",
-            "marking": "32",
-            "head_game": "62",
+            "agility": "71",
+            "strength": "68",
+            "penalty_taking": "13",
+            "jumping": "79",
+            "speed": "45",
+            "marking": "30",
+            "head_game": "60",
             "set_piece_taking": "14"
           },
           "currentPOS": null,
           "fitness": 100,
           "height": 190,
           "injured": false,
-          "age": 26
+          "age": 28
         },
         {
           "name": "Cléber",
           "position": "CB",
-          "rating": "82",
+          "rating": "78",
           "starter": false,
           "skill": {
-            "passing": "58",
-            "shooting": "23",
-            "tackling": "79",
-            "saving": "10",
-            "agility": "61",
-            "strength": "75",
-            "penalty_taking": "20",
-            "jumping": "73",
-            "speed": "55",
-            "marking": "85",
-            "head_game": "67",
-            "set_piece_taking": "17"
+            "passing": "54",
+            "shooting": "20",
+            "tackling": "75",
+            "saving": "9",
+            "agility": "56",
+            "strength": "71",
+            "penalty_taking": "18",
+            "jumping": "69",
+            "speed": "50",
+            "marking": "83",
+            "head_game": "64",
+            "set_piece_taking": "15"
           },
           "currentPOS": null,
           "fitness": 100,
           "height": 187,
           "injured": false,
-          "age": 31
+          "age": 33
         },
         {
           "name": "Fábio",
           "position": "CM",
-          "rating": "86",
+          "rating": "90",
           "starter": false,
           "skill": {
-            "passing": "87",
-            "shooting": "66",
-            "tackling": "58",
+            "passing": "93",
+            "shooting": "71",
+            "tackling": "60",
             "saving": "10",
-            "agility": "80",
-            "strength": "66",
-            "penalty_taking": "64",
-            "jumping": "53",
-            "speed": "68",
-            "marking": "62",
-            "head_game": "47",
-            "set_piece_taking": "44"
+            "agility": "83",
+            "strength": "68",
+            "penalty_taking": "67",
+            "jumping": "57",
+            "speed": "72",
+            "marking": "64",
+            "head_game": "49",
+            "set_piece_taking": "48"
           },
           "currentPOS": null,
           "fitness": 100,
           "height": 177,
           "injured": false,
-          "age": 22
+          "age": 24
         },
         {
           "name": "Lúcio",
@@ -847,24 +849,24 @@
           "rating": "84",
           "starter": false,
           "skill": {
-            "passing": "57",
-            "shooting": "85",
-            "tackling": "20",
+            "passing": "56",
+            "shooting": "84",
+            "tackling": "18",
             "saving": "4",
             "agility": "85",
             "strength": "72",
-            "penalty_taking": "75",
-            "jumping": "66",
-            "speed": "73",
-            "marking": "27",
-            "head_game": "77",
+            "penalty_taking": "76",
+            "jumping": "70",
+            "speed": "71",
+            "marking": "28",
+            "head_game": "76",
             "set_piece_taking": "69"
           },
           "currentPOS": null,
           "fitness": 100,
           "height": 180,
           "injured": false,
-          "age": 29
+          "age": 31
         }
       ],
       "coach": {
@@ -877,38 +879,39 @@
         },
         "age": 57
       },
-      "captain": "Amaral"
+      "captain": "Amaral",
+      "abbreviation": "OG"
     },
     {
-      "name": "Shadow Wolves",
+      "name": "Kiel Torn",
       "colors": {
-        "primary": "#4B0082",
-        "secondary": "#C0C0C0"
+        "primary": "#87CEEB",
+        "secondary": "#000080"
       },
       "jersey": {
-        "home": "Indigo body with silver shoulders",
-        "away": "Silver body with indigo pinstripes"
+        "home": "Sky blue body with navy sleeves and collar",
+        "away": "Navy body with sky blue trim"
       },
-      "rating": "82",
+      "rating": "83",
       "players": [
         {
           "name": "Taffarel",
           "position": "GK",
-          "rating": "80",
+          "rating": "81",
           "starter": true,
           "skill": {
-            "passing": "49",
-            "shooting": "9",
-            "tackling": "27",
-            "saving": "82",
-            "agility": "68",
-            "strength": "66",
-            "penalty_taking": "17",
-            "jumping": "78",
-            "speed": "49",
-            "marking": "26",
+            "passing": "48",
+            "shooting": "11",
+            "tackling": "29",
+            "saving": "84",
+            "agility": "67",
+            "strength": "62",
+            "penalty_taking": "18",
+            "jumping": "80",
+            "speed": "50",
+            "marking": "25",
             "head_game": "64",
-            "set_piece_taking": "24"
+            "set_piece_taking": "28"
           },
           "currentPOS": [
             200,
@@ -917,26 +920,26 @@
           "fitness": 100,
           "height": 189,
           "injured": false,
-          "age": 29
+          "age": 31
         },
         {
           "name": "Edmundo",
           "position": "CB",
-          "rating": "80",
+          "rating": "77",
           "starter": true,
           "skill": {
-            "passing": "54",
-            "shooting": "20",
-            "tackling": "79",
+            "passing": "53",
+            "shooting": "15",
+            "tackling": "74",
             "saving": "11",
-            "agility": "60",
-            "strength": "74",
-            "penalty_taking": "17",
-            "jumping": "75",
-            "speed": "70",
-            "marking": "88",
-            "head_game": "73",
-            "set_piece_taking": "21"
+            "agility": "54",
+            "strength": "76",
+            "penalty_taking": "15",
+            "jumping": "73",
+            "speed": "67",
+            "marking": "86",
+            "head_game": "69",
+            "set_piece_taking": "19"
           },
           "currentPOS": [
             200,
@@ -945,26 +948,26 @@
           "fitness": 100,
           "height": 185,
           "injured": false,
-          "age": 31
+          "age": 33
         },
         {
           "name": "Elano",
           "position": "CM",
-          "rating": "85",
+          "rating": "88",
           "starter": true,
           "skill": {
-            "passing": "86",
-            "shooting": "60",
-            "tackling": "57",
+            "passing": "89",
+            "shooting": "61",
+            "tackling": "58",
             "saving": "13",
-            "agility": "80",
+            "agility": "83",
             "strength": "64",
-            "penalty_taking": "64",
+            "penalty_taking": "65",
             "jumping": "53",
-            "speed": "68",
-            "marking": "48",
-            "head_game": "68",
-            "set_piece_taking": "62"
+            "speed": "73",
+            "marking": "52",
+            "head_game": "73",
+            "set_piece_taking": "66"
           },
           "currentPOS": [
             130,
@@ -973,7 +976,7 @@
           "fitness": 100,
           "height": 174,
           "injured": false,
-          "age": 24
+          "age": 26
         },
         {
           "name": "Grafite",
@@ -982,17 +985,17 @@
           "starter": true,
           "skill": {
             "passing": "82",
-            "shooting": "56",
-            "tackling": "53",
-            "saving": "11",
-            "agility": "74",
-            "strength": "65",
-            "penalty_taking": "58",
-            "jumping": "51",
+            "shooting": "53",
+            "tackling": "52",
+            "saving": "15",
+            "agility": "72",
+            "strength": "64",
+            "penalty_taking": "59",
+            "jumping": "49",
             "speed": "76",
-            "marking": "45",
-            "head_game": "58",
-            "set_piece_taking": "49"
+            "marking": "43",
+            "head_game": "64",
+            "set_piece_taking": "51"
           },
           "currentPOS": [
             270,
@@ -1001,26 +1004,26 @@
           "fitness": 100,
           "height": 180,
           "injured": false,
-          "age": 28
+          "age": 30
         },
         {
           "name": "Hulk",
           "position": "ST",
-          "rating": "85",
+          "rating": "89",
           "starter": true,
           "skill": {
-            "passing": "56",
-            "shooting": "87",
-            "tackling": "19",
-            "saving": "6",
-            "agility": "84",
-            "strength": "77",
+            "passing": "59",
+            "shooting": "92",
+            "tackling": "21",
+            "saving": "4",
+            "agility": "88",
+            "strength": "79",
             "penalty_taking": "75",
-            "jumping": "73",
-            "speed": "78",
-            "marking": "18",
-            "head_game": "72",
-            "set_piece_taking": "54"
+            "jumping": "74",
+            "speed": "84",
+            "marking": "19",
+            "head_game": "77",
+            "set_piece_taking": "59"
           },
           "currentPOS": [
             150,
@@ -1029,7 +1032,7 @@
           "fitness": 100,
           "height": 182,
           "injured": false,
-          "age": 24
+          "age": 26
         },
         {
           "name": "Jô",
@@ -1037,18 +1040,18 @@
           "rating": "80",
           "starter": true,
           "skill": {
-            "passing": "52",
-            "shooting": "82",
+            "passing": "49",
+            "shooting": "83",
             "tackling": "19",
-            "saving": "7",
-            "agility": "80",
+            "saving": "8",
+            "agility": "79",
             "strength": "68",
-            "penalty_taking": "73",
-            "jumping": "67",
+            "penalty_taking": "72",
+            "jumping": "64",
             "speed": "67",
-            "marking": "35",
+            "marking": "36",
             "head_game": "82",
-            "set_piece_taking": "51"
+            "set_piece_taking": "48"
           },
           "currentPOS": [
             250,
@@ -1057,107 +1060,107 @@
           "fitness": 100,
           "height": 178,
           "injured": false,
-          "age": 29
+          "age": 31
         },
         {
           "name": "Luisão",
           "position": "GK",
-          "rating": "74",
+          "rating": "76",
           "starter": false,
           "skill": {
             "passing": "42",
-            "shooting": "10",
-            "tackling": "20",
-            "saving": "75",
-            "agility": "65",
-            "strength": "59",
+            "shooting": "12",
+            "tackling": "19",
+            "saving": "76",
+            "agility": "69",
+            "strength": "60",
             "penalty_taking": "12",
-            "jumping": "73",
-            "speed": "45",
-            "marking": "40",
-            "head_game": "59",
-            "set_piece_taking": "24"
+            "jumping": "75",
+            "speed": "46",
+            "marking": "42",
+            "head_game": "63",
+            "set_piece_taking": "26"
           },
           "currentPOS": null,
           "fitness": 100,
           "height": 187,
           "injured": false,
-          "age": 25
+          "age": 27
         },
         {
           "name": "Maicon",
           "position": "CB",
-          "rating": "74",
+          "rating": "68",
           "starter": false,
           "skill": {
-            "passing": "48",
-            "shooting": "17",
-            "tackling": "72",
-            "saving": "9",
-            "agility": "53",
-            "strength": "71",
-            "penalty_taking": "14",
-            "jumping": "66",
-            "speed": "49",
-            "marking": "75",
-            "head_game": "75",
-            "set_piece_taking": "18"
+            "passing": "43",
+            "shooting": "13",
+            "tackling": "65",
+            "saving": "5",
+            "agility": "47",
+            "strength": "66",
+            "penalty_taking": "13",
+            "jumping": "59",
+            "speed": "36",
+            "marking": "69",
+            "head_game": "71",
+            "set_piece_taking": "13"
           },
           "currentPOS": null,
           "fitness": 100,
           "height": 183,
           "injured": false,
-          "age": 35
+          "age": 37
         },
         {
           "name": "Marquinhos",
           "position": "CM",
-          "rating": "82",
+          "rating": "88",
           "starter": false,
           "skill": {
-            "passing": "80",
-            "shooting": "59",
-            "tackling": "52",
+            "passing": "89",
+            "shooting": "61",
+            "tackling": "58",
             "saving": "13",
-            "agility": "78",
-            "strength": "63",
-            "penalty_taking": "55",
-            "jumping": "48",
-            "speed": "81",
-            "marking": "49",
-            "head_game": "46",
-            "set_piece_taking": "62"
+            "agility": "84",
+            "strength": "67",
+            "penalty_taking": "58",
+            "jumping": "50",
+            "speed": "86",
+            "marking": "54",
+            "head_game": "54",
+            "set_piece_taking": "66"
           },
           "currentPOS": null,
           "fitness": 100,
           "height": 170,
           "injured": false,
-          "age": 21
+          "age": 23
         },
         {
           "name": "Thiago",
           "position": "ST",
-          "rating": "76",
+          "rating": "74",
           "starter": false,
           "skill": {
-            "passing": "46",
-            "shooting": "78",
-            "tackling": "14",
-            "saving": "5",
-            "agility": "76",
-            "strength": "65",
-            "penalty_taking": "66",
-            "jumping": "57",
-            "speed": "76",
-            "marking": "30",
-            "head_game": "61",
-            "set_piece_taking": "72"
+            "passing": "42",
+            "shooting": "76",
+            "tackling": "12",
+            "saving": "6",
+            "agility": "71",
+            "strength": "63",
+            "penalty_taking": "65",
+            "jumping": "56",
+            "speed": "72",
+            "marking": "29",
+            "head_game": "62",
+            "set_piece_taking": "71"
           },
           "currentPOS": null,
           "fitness": 100,
           "height": 179,
           "injured": false,
-          "age": 32
+          "age": 34
         }
       ],
       "coach": {
@@ -1170,38 +1173,39 @@
         },
         "age": 47
       },
-      "captain": "Hulk"
+      "captain": "Hulk",
+      "abbreviation": "KT"
     },
     {
-      "name": "Iron Eagles",
+      "name": "O Torn",
       "colors": {
-        "primary": "#708090",
-        "secondary": "#B22222"
+        "primary": "#FFFFFF",
+        "secondary": "#FF8C00"
       },
       "jersey": {
-        "home": "Slate grey body with firebrick red trim",
-        "away": "Firebrick red body with grey sleeves"
+        "home": "White body with orange sleeves and collar",
+        "away": "Orange body with white trim"
       },
-      "rating": "86",
+      "rating": "85",
       "players": [
         {
           "name": "Willian",
           "position": "GK",
-          "rating": "84",
+          "rating": "83",
           "starter": true,
           "skill": {
-            "passing": "55",
+            "passing": "53",
             "shooting": "14",
-            "tackling": "30",
-            "saving": "86",
-            "agility": "71",
-            "strength": "70",
-            "penalty_taking": "16",
-            "jumping": "82",
-            "speed": "46",
-            "marking": "26",
+            "tackling": "28",
+            "saving": "85",
+            "agility": "67",
+            "strength": "68",
+            "penalty_taking": "15",
+            "jumping": "80",
+            "speed": "42",
+            "marking": "23",
             "head_game": "62",
-            "set_piece_taking": "18"
+            "set_piece_taking": "15"
           },
           "currentPOS": [
             200,
@@ -1210,26 +1214,26 @@
           "fitness": 100,
           "height": 192,
           "injured": false,
-          "age": 31
+          "age": 33
         },
         {
           "name": "Fernandinho",
           "position": "CB",
-          "rating": "84",
+          "rating": "83",
           "starter": true,
           "skill": {
-            "passing": "58",
-            "shooting": "26",
-            "tackling": "84",
-            "saving": "11",
-            "agility": "65",
-            "strength": "81",
-            "penalty_taking": "21",
-            "jumping": "76",
+            "passing": "59",
+            "shooting": "25",
+            "tackling": "81",
+            "saving": "10",
+            "agility": "62",
+            "strength": "79",
+            "penalty_taking": "26",
+            "jumping": "75",
             "speed": "63",
-            "marking": "71",
-            "head_game": "67",
-            "set_piece_taking": "31"
+            "marking": "70",
+            "head_game": "70",
+            "set_piece_taking": "30"
           },
           "currentPOS": [
             200,
@@ -1238,26 +1242,26 @@
           "fitness": 100,
           "height": 190,
           "injured": false,
-          "age": 28
+          "age": 30
         },
         {
           "name": "Casemiro",
           "position": "CM",
-          "rating": "87",
+          "rating": "86",
           "starter": true,
           "skill": {
-            "passing": "89",
-            "shooting": "65",
-            "tackling": "57",
-            "saving": "12",
-            "agility": "78",
-            "strength": "66",
-            "penalty_taking": "69",
+            "passing": "85",
+            "shooting": "64",
+            "tackling": "56",
+            "saving": "11",
+            "agility": "79",
+            "strength": "67",
+            "penalty_taking": "73",
             "jumping": "55",
-            "speed": "81",
-            "marking": "49",
-            "head_game": "48",
-            "set_piece_taking": "72"
+            "speed": "84",
+            "marking": "50",
+            "head_game": "47",
+            "set_piece_taking": "73"
           },
           "currentPOS": [
             130,
@@ -1266,7 +1270,7 @@
           "fitness": 100,
           "height": 176,
           "injured": false,
-          "age": 29
+          "age": 31
         },
         {
           "name": "Firmino",
@@ -1274,18 +1278,18 @@
           "rating": "85",
           "starter": true,
           "skill": {
-            "passing": "85",
-            "shooting": "62",
-            "tackling": "56",
-            "saving": "12",
+            "passing": "83",
+            "shooting": "61",
+            "tackling": "57",
+            "saving": "11",
             "agility": "79",
             "strength": "68",
-            "penalty_taking": "66",
-            "jumping": "53",
-            "speed": "78",
-            "marking": "47",
-            "head_game": "43",
-            "set_piece_taking": "60"
+            "penalty_taking": "65",
+            "jumping": "55",
+            "speed": "76",
+            "marking": "50",
+            "head_game": "40",
+            "set_piece_taking": "59"
           },
           "currentPOS": [
             270,
@@ -1294,26 +1298,26 @@
           "fitness": 100,
           "height": 174,
           "injured": false,
-          "age": 27
+          "age": 29
         },
         {
           "name": "Coutinho",
           "position": "ST",
-          "rating": "89",
+          "rating": "88",
           "starter": true,
           "skill": {
-            "passing": "61",
-            "shooting": "91",
-            "tackling": "22",
-            "saving": "8",
+            "passing": "62",
+            "shooting": "88",
+            "tackling": "21",
+            "saving": "9",
             "agility": "91",
             "strength": "75",
-            "penalty_taking": "81",
-            "jumping": "72",
-            "speed": "87",
-            "marking": "22",
-            "head_game": "66",
-            "set_piece_taking": "65"
+            "penalty_taking": "79",
+            "jumping": "70",
+            "speed": "85",
+            "marking": "20",
+            "head_game": "68",
+            "set_piece_taking": "66"
           },
           "currentPOS": [
             150,
@@ -1322,25 +1326,25 @@
           "fitness": 100,
           "height": 180,
           "injured": false,
-          "age": 30
+          "age": 32
         },
         {
           "name": "Paulinho",
           "position": "ST",
-          "rating": "86",
+          "rating": "87",
           "starter": true,
           "skill": {
-            "passing": "59",
-            "shooting": "86",
-            "tackling": "19",
-            "saving": "8",
-            "agility": "84",
-            "strength": "77",
+            "passing": "60",
+            "shooting": "87",
+            "tackling": "20",
+            "saving": "6",
+            "agility": "88",
+            "strength": "81",
             "penalty_taking": "82",
-            "jumping": "76",
-            "speed": "92",
-            "marking": "36",
-            "head_game": "57",
+            "jumping": "77",
+            "speed": "91",
+            "marking": "37",
+            "head_game": "58",
             "set_piece_taking": "71"
           },
           "currentPOS": [
@@ -1350,107 +1354,107 @@
           "fitness": 100,
           "height": 184,
           "injured": false,
-          "age": 23
+          "age": 25
         },
         {
           "name": "Ramires",
           "position": "GK",
-          "rating": "76",
+          "rating": "73",
           "starter": false,
           "skill": {
-            "passing": "43",
-            "shooting": "9",
-            "tackling": "25",
-            "saving": "76",
-            "agility": "66",
-            "strength": "64",
-            "penalty_taking": "16",
-            "jumping": "71",
-            "speed": "45",
-            "marking": "30",
-            "head_game": "72",
-            "set_piece_taking": "16"
+            "passing": "40",
+            "shooting": "7",
+            "tackling": "21",
+            "saving": "74",
+            "agility": "59",
+            "strength": "63",
+            "penalty_taking": "13",
+            "jumping": "66",
+            "speed": "39",
+            "marking": "29",
+            "head_game": "70",
+            "set_piece_taking": "15"
           },
           "currentPOS": null,
           "fitness": 100,
           "height": 188,
           "injured": false,
-          "age": 32
+          "age": 34
         },
         {
           "name": "Renato",
           "position": "CB",
-          "rating": "80",
+          "rating": "78",
           "starter": false,
           "skill": {
             "passing": "56",
-            "shooting": "23",
-            "tackling": "79",
-            "saving": "7",
-            "agility": "61",
-            "strength": "74",
+            "shooting": "20",
+            "tackling": "71",
+            "saving": "4",
+            "agility": "56",
+            "strength": "72",
             "penalty_taking": "19",
-            "jumping": "69",
-            "speed": "65",
+            "jumping": "68",
+            "speed": "61",
             "marking": "87",
             "head_game": "80",
-            "set_piece_taking": "26"
+            "set_piece_taking": "27"
           },
           "currentPOS": null,
           "fitness": 100,
           "height": 186,
           "injured": false,
-          "age": 31
+          "age": 33
         },
         {
           "name": "Robinho",
           "position": "CM",
-          "rating": "86",
+          "rating": "90",
           "starter": false,
           "skill": {
-            "passing": "86",
-            "shooting": "63",
-            "tackling": "57",
-            "saving": "13",
-            "agility": "79",
-            "strength": "65",
-            "penalty_taking": "60",
-            "jumping": "50",
-            "speed": "73",
-            "marking": "48",
-            "head_game": "66",
-            "set_piece_taking": "54"
+            "passing": "91",
+            "shooting": "65",
+            "tackling": "60",
+            "saving": "17",
+            "agility": "80",
+            "strength": "66",
+            "penalty_taking": "63",
+            "jumping": "54",
+            "speed": "78",
+            "marking": "53",
+            "head_game": "71",
+            "set_piece_taking": "59"
           },
           "currentPOS": null,
           "fitness": 100,
           "height": 172,
           "injured": false,
-          "age": 21
+          "age": 23
         },
         {
           "name": "Adriano",
           "position": "ST",
-          "rating": "84",
+          "rating": "85",
           "starter": false,
           "skill": {
-            "passing": "57",
+            "passing": "60",
             "shooting": "86",
             "tackling": "17",
-            "saving": "5",
-            "agility": "84",
-            "strength": "72",
-            "penalty_taking": "76",
-            "jumping": "65",
-            "speed": "90",
+            "saving": "7",
+            "agility": "82",
+            "strength": "75",
+            "penalty_taking": "79",
+            "jumping": "64",
+            "speed": "91",
             "marking": "22",
-            "head_game": "79",
-            "set_piece_taking": "69"
+            "head_game": "78",
+            "set_piece_taking": "73"
           },
           "currentPOS": null,
           "fitness": 100,
           "height": 178,
           "injured": false,
-          "age": 23
+          "age": 25
         }
       ],
       "coach": {
@@ -1463,38 +1467,39 @@
         },
         "age": 55
       },
-      "captain": "Coutinho"
+      "captain": "Coutinho",
+      "abbreviation": "OT"
     },
     {
-      "name": "Solar Flares",
+      "name": "A C Π Labornis City",
       "colors": {
-        "primary": "#FF8C00",
-        "secondary": "#000000"
+        "primary": "#228B22",
+        "secondary": "#FFD700"
       },
       "jersey": {
-        "home": "Orange body with black side panels",
-        "away": "Black body with orange chevron"
+        "home": "Green body with yellow sleeves and collar",
+        "away": "Yellow body with green trim"
       },
-      "rating": "80",
+      "rating": "81",
       "players": [
         {
           "name": "Baptista",
           "position": "GK",
-          "rating": "78",
+          "rating": "76",
           "starter": true,
           "skill": {
-            "passing": "46",
-            "shooting": "15",
-            "tackling": "24",
-            "saving": "79",
-            "agility": "64",
+            "passing": "44",
+            "shooting": "11",
+            "tackling": "23",
+            "saving": "77",
+            "agility": "63",
             "strength": "65",
-            "penalty_taking": "15",
-            "jumping": "76",
-            "speed": "44",
-            "marking": "28",
+            "penalty_taking": "13",
+            "jumping": "74",
+            "speed": "40",
+            "marking": "26",
             "head_game": "56",
-            "set_piece_taking": "22"
+            "set_piece_taking": "18"
           },
           "currentPOS": [
             200,
@@ -1503,26 +1508,26 @@
           "fitness": 100,
           "height": 188,
           "injured": false,
-          "age": 31
+          "age": 33
         },
         {
           "name": "Cicinho",
           "position": "CB",
-          "rating": "79",
+          "rating": "82",
           "starter": true,
           "skill": {
-            "passing": "57",
-            "shooting": "21",
-            "tackling": "78",
-            "saving": "10",
-            "agility": "58",
-            "strength": "71",
-            "penalty_taking": "15",
-            "jumping": "75",
-            "speed": "69",
-            "marking": "82",
-            "head_game": "80",
-            "set_piece_taking": "32"
+            "passing": "55",
+            "shooting": "23",
+            "tackling": "81",
+            "saving": "14",
+            "agility": "63",
+            "strength": "73",
+            "penalty_taking": "16",
+            "jumping": "79",
+            "speed": "72",
+            "marking": "83",
+            "head_game": "85",
+            "set_piece_taking": "35"
           },
           "currentPOS": [
             200,
@@ -1531,26 +1536,26 @@
           "fitness": 100,
           "height": 184,
           "injured": false,
-          "age": 25
+          "age": 27
         },
         {
           "name": "Gilberto",
           "position": "CM",
-          "rating": "81",
+          "rating": "83",
           "starter": true,
           "skill": {
-            "passing": "78",
-            "shooting": "57",
-            "tackling": "51",
-            "saving": "14",
-            "agility": "76",
+            "passing": "82",
+            "shooting": "59",
+            "tackling": "52",
+            "saving": "15",
+            "agility": "77",
             "strength": "64",
-            "penalty_taking": "60",
-            "jumping": "47",
-            "speed": "59",
-            "marking": "56",
-            "head_game": "60",
-            "set_piece_taking": "71"
+            "penalty_taking": "63",
+            "jumping": "48",
+            "speed": "60",
+            "marking": "58",
+            "head_game": "62",
+            "set_piece_taking": "72"
           },
           "currentPOS": [
             130,
@@ -1559,26 +1564,26 @@
           "fitness": 100,
           "height": 176,
           "injured": false,
-          "age": 25
+          "age": 27
         },
         {
           "name": "Mineiro",
           "position": "CM",
-          "rating": "79",
+          "rating": "78",
           "starter": true,
           "skill": {
-            "passing": "76",
-            "shooting": "54",
-            "tackling": "47",
-            "saving": "11",
-            "agility": "72",
+            "passing": "75",
+            "shooting": "53",
+            "tackling": "45",
+            "saving": "9",
+            "agility": "76",
             "strength": "66",
-            "penalty_taking": "55",
-            "jumping": "51",
-            "speed": "75",
-            "marking": "60",
-            "head_game": "62",
-            "set_piece_taking": "42"
+            "penalty_taking": "53",
+            "jumping": "53",
+            "speed": "74",
+            "marking": "58",
+            "head_game": "61",
+            "set_piece_taking": "41"
           },
           "currentPOS": [
             270,
@@ -1587,7 +1592,7 @@
           "fitness": 100,
           "height": 178,
           "injured": false,
-          "age": 28
+          "age": 30
         },
         {
           "name": "Ricardinho",
@@ -1595,18 +1600,18 @@
           "rating": "82",
           "starter": true,
           "skill": {
-            "passing": "52",
-            "shooting": "84",
-            "tackling": "18",
-            "saving": "6",
-            "agility": "81",
-            "strength": "71",
-            "penalty_taking": "72",
+            "passing": "51",
+            "shooting": "82",
+            "tackling": "22",
+            "saving": "5",
+            "agility": "80",
+            "strength": "70",
+            "penalty_taking": "73",
             "jumping": "69",
-            "speed": "85",
+            "speed": "84",
             "marking": "30",
             "head_game": "84",
-            "set_piece_taking": "49"
+            "set_piece_taking": "48"
           },
           "currentPOS": [
             150,
@@ -1615,25 +1620,25 @@
           "fitness": 100,
           "height": 181,
           "injured": false,
-          "age": 29
+          "age": 31
         },
         {
           "name": "Roque",
           "position": "ST",
-          "rating": "81",
+          "rating": "83",
           "starter": true,
           "skill": {
-            "passing": "52",
-            "shooting": "81",
-            "tackling": "15",
-            "saving": "5",
-            "agility": "80",
-            "strength": "71",
-            "penalty_taking": "68",
-            "jumping": "64",
-            "speed": "87",
-            "marking": "29",
-            "head_game": "80",
+            "passing": "55",
+            "shooting": "82",
+            "tackling": "20",
+            "saving": "4",
+            "agility": "86",
+            "strength": "70",
+            "penalty_taking": "70",
+            "jumping": "65",
+            "speed": "88",
+            "marking": "26",
+            "head_game": "82",
             "set_piece_taking": "57"
           },
           "currentPOS": [
@@ -1643,107 +1648,107 @@
           "fitness": 100,
           "height": 177,
           "injured": false,
-          "age": 24
+          "age": 26
         },
         {
           "name": "Serginho",
           "position": "GK",
-          "rating": "71",
+          "rating": "69",
           "starter": false,
           "skill": {
-            "passing": "37",
-            "shooting": "6",
-            "tackling": "18",
-            "saving": "75",
+            "passing": "36",
+            "shooting": "3",
+            "tackling": "15",
+            "saving": "73",
             "agility": "58",
-            "strength": "57",
-            "penalty_taking": "8",
-            "jumping": "69",
-            "speed": "47",
-            "marking": "37",
-            "head_game": "73",
-            "set_piece_taking": "18"
+            "strength": "55",
+            "penalty_taking": "5",
+            "jumping": "67",
+            "speed": "44",
+            "marking": "34",
+            "head_game": "68",
+            "set_piece_taking": "16"
           },
           "currentPOS": null,
           "fitness": 100,
           "height": 186,
           "injured": false,
-          "age": 33
+          "age": 35
         },
         {
           "name": "Vampiro",
           "position": "CB",
-          "rating": "73",
+          "rating": "71",
           "starter": false,
           "skill": {
-            "passing": "48",
-            "shooting": "18",
-            "tackling": "72",
-            "saving": "9",
-            "agility": "55",
-            "strength": "70",
-            "penalty_taking": "14",
-            "jumping": "63",
-            "speed": "55",
-            "marking": "71",
-            "head_game": "66",
+            "passing": "46",
+            "shooting": "13",
+            "tackling": "69",
+            "saving": "10",
+            "agility": "53",
+            "strength": "67",
+            "penalty_taking": "16",
+            "jumping": "59",
+            "speed": "47",
+            "marking": "69",
+            "head_game": "68",
             "set_piece_taking": "20"
           },
           "currentPOS": null,
           "fitness": 100,
           "height": 182,
           "injured": false,
-          "age": 32
+          "age": 34
         },
         {
           "name": "Zinho",
           "position": "CM",
-          "rating": "79",
+          "rating": "82",
           "starter": false,
           "skill": {
-            "passing": "77",
-            "shooting": "55",
-            "tackling": "52",
-            "saving": "11",
-            "agility": "70",
-            "strength": "59",
+            "passing": "79",
+            "shooting": "58",
+            "tackling": "54",
+            "saving": "9",
+            "agility": "74",
+            "strength": "64",
             "penalty_taking": "51",
-            "jumping": "45",
-            "speed": "83",
-            "marking": "51",
-            "head_game": "53",
-            "set_piece_taking": "62"
+            "jumping": "48",
+            "speed": "87",
+            "marking": "55",
+            "head_game": "59",
+            "set_piece_taking": "65"
           },
           "currentPOS": null,
           "fitness": 100,
           "height": 170,
           "injured": false,
-          "age": 23
+          "age": 25
         },
         {
           "name": "Marcelinho",
           "position": "ST",
-          "rating": "77",
+          "rating": "79",
           "starter": false,
           "skill": {
-            "passing": "49",
+            "passing": "55",
             "shooting": "79",
             "tackling": "14",
-            "saving": "7",
-            "agility": "78",
-            "strength": "67",
-            "penalty_taking": "65",
-            "jumping": "62",
-            "speed": "70",
-            "marking": "20",
-            "head_game": "68",
-            "set_piece_taking": "54"
+            "saving": "8",
+            "agility": "80",
+            "strength": "69",
+            "penalty_taking": "67",
+            "jumping": "64",
+            "speed": "75",
+            "marking": "26",
+            "head_game": "69",
+            "set_piece_taking": "58"
           },
           "currentPOS": null,
           "fitness": 100,
           "height": 175,
           "injured": false,
-          "age": 23
+          "age": 25
         }
       ],
       "coach": {
@@ -1756,38 +1761,39 @@
         },
         "age": 56
       },
-      "captain": "Ricardinho"
+      "captain": "Ricardinho",
+      "abbreviation": "ALC"
     },
     {
-      "name": "Arctic Foxes",
+      "name": "O Labornis City",
       "colors": {
-        "primary": "#E0F7FA",
-        "secondary": "#006064"
+        "primary": "#8B4513",
+        "secondary": "#90EE90"
       },
       "jersey": {
-        "home": "Ice blue body with teal accents",
-        "away": "Deep teal body with ice blue trim"
+        "home": "Brown body with light green sleeves",
+        "away": "Light green body with brown collar"
       },
-      "rating": "86",
+      "rating": "87",
       "players": [
         {
           "name": "Dunga",
           "position": "GK",
-          "rating": "85",
+          "rating": "86",
           "starter": true,
           "skill": {
-            "passing": "55",
-            "shooting": "14",
-            "tackling": "28",
-            "saving": "88",
+            "passing": "56",
+            "shooting": "11",
+            "tackling": "26",
+            "saving": "91",
             "agility": "73",
-            "strength": "68",
-            "penalty_taking": "16",
+            "strength": "69",
+            "penalty_taking": "18",
             "jumping": "84",
-            "speed": "43",
-            "marking": "31",
+            "speed": "44",
+            "marking": "32",
             "head_game": "64",
-            "set_piece_taking": "20"
+            "set_piece_taking": "16"
           },
           "currentPOS": [
             200,
@@ -1796,7 +1802,7 @@
           "fitness": 100,
           "height": 191,
           "injured": false,
-          "age": 27
+          "age": 29
         },
         {
           "name": "Cerezo",
@@ -1804,18 +1810,18 @@
           "rating": "84",
           "starter": true,
           "skill": {
-            "passing": "60",
-            "shooting": "28",
-            "tackling": "85",
-            "saving": "12",
+            "passing": "62",
+            "shooting": "30",
+            "tackling": "84",
+            "saving": "13",
             "agility": "65",
-            "strength": "80",
-            "penalty_taking": "20",
+            "strength": "79",
+            "penalty_taking": "21",
             "jumping": "76",
-            "speed": "73",
-            "marking": "78",
-            "head_game": "72",
-            "set_piece_taking": "18"
+            "speed": "72",
+            "marking": "79",
+            "head_game": "74",
+            "set_piece_taking": "19"
           },
           "currentPOS": [
             200,
@@ -1824,25 +1830,25 @@
           "fitness": 100,
           "height": 188,
           "injured": false,
-          "age": 26
+          "age": 28
         },
         {
           "name": "Josimar",
           "position": "CM",
-          "rating": "87",
+          "rating": "89",
           "starter": true,
           "skill": {
-            "passing": "89",
-            "shooting": "65",
-            "tackling": "60",
-            "saving": "11",
-            "agility": "82",
-            "strength": "69",
-            "penalty_taking": "71",
-            "jumping": "58",
-            "speed": "69",
-            "marking": "65",
-            "head_game": "45",
+            "passing": "93",
+            "shooting": "67",
+            "tackling": "64",
+            "saving": "10",
+            "agility": "84",
+            "strength": "68",
+            "penalty_taking": "69",
+            "jumping": "60",
+            "speed": "72",
+            "marking": "68",
+            "head_game": "43",
             "set_piece_taking": "69"
           },
           "currentPOS": [
@@ -1852,26 +1858,26 @@
           "fitness": 100,
           "height": 180,
           "injured": false,
-          "age": 24
+          "age": 26
         },
         {
           "name": "Müller",
           "position": "CM",
-          "rating": "85",
+          "rating": "87",
           "starter": true,
           "skill": {
-            "passing": "86",
-            "shooting": "61",
-            "tackling": "53",
+            "passing": "91",
+            "shooting": "62",
+            "tackling": "58",
             "saving": "10",
-            "agility": "80",
-            "strength": "67",
-            "penalty_taking": "62",
-            "jumping": "53",
-            "speed": "71",
-            "marking": "54",
-            "head_game": "58",
-            "set_piece_taking": "53"
+            "agility": "81",
+            "strength": "69",
+            "penalty_taking": "65",
+            "jumping": "52",
+            "speed": "72",
+            "marking": "56",
+            "head_game": "61",
+            "set_piece_taking": "55"
           },
           "currentPOS": [
             270,
@@ -1880,26 +1886,26 @@
           "fitness": 100,
           "height": 176,
           "injured": false,
-          "age": 25
+          "age": 27
         },
         {
           "name": "Careca",
           "position": "ST",
-          "rating": "88",
+          "rating": "89",
           "starter": true,
           "skill": {
-            "passing": "64",
-            "shooting": "90",
-            "tackling": "20",
-            "saving": "8",
-            "agility": "89",
-            "strength": "75",
-            "penalty_taking": "80",
-            "jumping": "72",
-            "speed": "80",
-            "marking": "37",
-            "head_game": "80",
-            "set_piece_taking": "70"
+            "passing": "67",
+            "shooting": "91",
+            "tackling": "23",
+            "saving": "10",
+            "agility": "88",
+            "strength": "73",
+            "penalty_taking": "81",
+            "jumping": "73",
+            "speed": "83",
+            "marking": "40",
+            "head_game": "83",
+            "set_piece_taking": "72"
           },
           "currentPOS": [
             150,
@@ -1908,7 +1914,7 @@
           "fitness": 100,
           "height": 177,
           "injured": false,
-          "age": 24
+          "age": 26
         },
         {
           "name": "Silas",
@@ -1916,18 +1922,18 @@
           "rating": "84",
           "starter": true,
           "skill": {
-            "passing": "54",
-            "shooting": "86",
-            "tackling": "17",
-            "saving": "6",
-            "agility": "85",
-            "strength": "73",
-            "penalty_taking": "75",
-            "jumping": "74",
-            "speed": "85",
-            "marking": "37",
+            "passing": "53",
+            "shooting": "85",
+            "tackling": "19",
+            "saving": "4",
+            "agility": "84",
+            "strength": "76",
+            "penalty_taking": "74",
+            "jumping": "72",
+            "speed": "84",
+            "marking": "35",
             "head_game": "85",
-            "set_piece_taking": "61"
+            "set_piece_taking": "58"
           },
           "currentPOS": [
             250,
@@ -1936,107 +1942,107 @@
           "fitness": 100,
           "height": 183,
           "injured": false,
-          "age": 28
+          "age": 30
         },
         {
           "name": "Tita",
           "position": "GK",
-          "rating": "77",
+          "rating": "79",
           "starter": false,
           "skill": {
-            "passing": "44",
-            "shooting": "10",
-            "tackling": "24",
+            "passing": "49",
+            "shooting": "11",
+            "tackling": "25",
             "saving": "80",
-            "agility": "64",
-            "strength": "62",
-            "penalty_taking": "13",
-            "jumping": "76",
-            "speed": "55",
+            "agility": "67",
+            "strength": "65",
+            "penalty_taking": "14",
+            "jumping": "79",
+            "speed": "57",
             "marking": "27",
-            "head_game": "73",
-            "set_piece_taking": "26"
+            "head_game": "76",
+            "set_piece_taking": "29"
           },
           "currentPOS": null,
           "fitness": 100,
           "height": 187,
           "injured": false,
-          "age": 23
+          "age": 25
         },
         {
           "name": "Éder",
           "position": "CB",
-          "rating": "78",
+          "rating": "71",
           "starter": false,
           "skill": {
-            "passing": "54",
-            "shooting": "20",
-            "tackling": "75",
-            "saving": "11",
-            "agility": "54",
-            "strength": "75",
-            "penalty_taking": "15",
-            "jumping": "67",
-            "speed": "58",
-            "marking": "72",
-            "head_game": "72",
-            "set_piece_taking": "32"
+            "passing": "47",
+            "shooting": "14",
+            "tackling": "66",
+            "saving": "7",
+            "agility": "46",
+            "strength": "69",
+            "penalty_taking": "8",
+            "jumping": "60",
+            "speed": "44",
+            "marking": "66",
+            "head_game": "68",
+            "set_piece_taking": "29"
           },
           "currentPOS": null,
           "fitness": 100,
           "height": 185,
           "injured": false,
-          "age": 35
+          "age": 37
         },
         {
           "name": "Pato",
           "position": "CM",
-          "rating": "82",
+          "rating": "85",
           "starter": false,
           "skill": {
-            "passing": "81",
-            "shooting": "60",
-            "tackling": "53",
-            "saving": "10",
-            "agility": "76",
-            "strength": "65",
-            "penalty_taking": "56",
-            "jumping": "51",
-            "speed": "73",
-            "marking": "64",
-            "head_game": "46",
-            "set_piece_taking": "64"
+            "passing": "82",
+            "shooting": "65",
+            "tackling": "58",
+            "saving": "13",
+            "agility": "82",
+            "strength": "67",
+            "penalty_taking": "60",
+            "jumping": "55",
+            "speed": "77",
+            "marking": "68",
+            "head_game": "51",
+            "set_piece_taking": "66"
           },
           "currentPOS": null,
           "fitness": 100,
           "height": 174,
           "injured": false,
-          "age": 23
+          "age": 25
         },
         {
           "name": "Ganso",
           "position": "ST",
-          "rating": "83",
+          "rating": "88",
           "starter": false,
           "skill": {
-            "passing": "55",
-            "shooting": "84",
+            "passing": "60",
+            "shooting": "91",
             "tackling": "18",
-            "saving": "8",
-            "agility": "84",
-            "strength": "70",
-            "penalty_taking": "74",
-            "jumping": "68",
-            "speed": "79",
-            "marking": "39",
-            "head_game": "80",
-            "set_piece_taking": "48"
+            "saving": "11",
+            "agility": "85",
+            "strength": "75",
+            "penalty_taking": "77",
+            "jumping": "71",
+            "speed": "85",
+            "marking": "46",
+            "head_game": "83",
+            "set_piece_taking": "51"
           },
           "currentPOS": null,
           "fitness": 100,
           "height": 181,
           "injured": false,
-          "age": 21
+          "age": 23
         }
       ],
       "coach": {
@@ -2049,38 +2055,39 @@
         },
         "age": 43
       },
-      "captain": "Careca"
+      "captain": "Careca",
+      "abbreviation": "OLC"
     },
     {
-      "name": "Golden Lions",
+      "name": "Red Digg",
       "colors": {
-        "primary": "#DAA520",
-        "secondary": "#228B22"
+        "primary": "#722F37",
+        "secondary": "#000000"
       },
       "jersey": {
-        "home": "Goldenrod body with forest green collar",
-        "away": "Forest green body with gold lion crest"
+        "home": "Claret body with black sleeves and collar",
+        "away": "Black body with claret chest band"
       },
       "rating": "89",
       "players": [
         {
           "name": "Réver",
           "position": "GK",
-          "rating": "86",
+          "rating": "83",
           "starter": true,
           "skill": {
-            "passing": "56",
-            "shooting": "14",
-            "tackling": "29",
-            "saving": "90",
-            "agility": "73",
-            "strength": "72",
-            "penalty_taking": "15",
-            "jumping": "86",
-            "speed": "40",
-            "marking": "39",
-            "head_game": "65",
-            "set_piece_taking": "12"
+            "passing": "54",
+            "shooting": "11",
+            "tackling": "27",
+            "saving": "88",
+            "agility": "68",
+            "strength": "67",
+            "penalty_taking": "16",
+            "jumping": "79",
+            "speed": "34",
+            "marking": "36",
+            "head_game": "63",
+            "set_piece_taking": "9"
           },
           "currentPOS": [
             200,
@@ -2089,26 +2096,26 @@
           "fitness": 100,
           "height": 193,
           "injured": false,
-          "age": 33
+          "age": 35
         },
         {
           "name": "Dedé",
           "position": "CB",
-          "rating": "87",
+          "rating": "86",
           "starter": true,
           "skill": {
             "passing": "63",
-            "shooting": "29",
-            "tackling": "88",
+            "shooting": "30",
+            "tackling": "84",
             "saving": "12",
             "agility": "68",
-            "strength": "82",
-            "penalty_taking": "23",
-            "jumping": "78",
-            "speed": "60",
-            "marking": "78",
-            "head_game": "72",
-            "set_piece_taking": "30"
+            "strength": "80",
+            "penalty_taking": "22",
+            "jumping": "79",
+            "speed": "56",
+            "marking": "80",
+            "head_game": "71",
+            "set_piece_taking": "29"
           },
           "currentPOS": [
             200,
@@ -2117,7 +2124,7 @@
           "fitness": 100,
           "height": 190,
           "injured": false,
-          "age": 30
+          "age": 32
         },
         {
           "name": "Gílson",
@@ -2125,18 +2132,18 @@
           "rating": "88",
           "starter": true,
           "skill": {
-            "passing": "89",
+            "passing": "88",
             "shooting": "68",
-            "tackling": "56",
-            "saving": "10",
+            "tackling": "59",
+            "saving": "9",
             "agility": "81",
             "strength": "69",
-            "penalty_taking": "72",
+            "penalty_taking": "71",
             "jumping": "56",
             "speed": "72",
             "marking": "46",
-            "head_game": "54",
-            "set_piece_taking": "50"
+            "head_game": "56",
+            "set_piece_taking": "47"
           },
           "currentPOS": [
             130,
@@ -2145,26 +2152,26 @@
           "fitness": 100,
           "height": 178,
           "injured": false,
-          "age": 29
+          "age": 31
         },
         {
           "name": "Jairzinho",
           "position": "CM",
-          "rating": "88",
+          "rating": "92",
           "starter": true,
           "skill": {
-            "passing": "90",
-            "shooting": "65",
-            "tackling": "61",
+            "passing": "95",
+            "shooting": "71",
+            "tackling": "67",
             "saving": "11",
-            "agility": "85",
-            "strength": "72",
-            "penalty_taking": "70",
-            "jumping": "56",
-            "speed": "71",
-            "marking": "64",
-            "head_game": "59",
-            "set_piece_taking": "50"
+            "agility": "88",
+            "strength": "77",
+            "penalty_taking": "74",
+            "jumping": "58",
+            "speed": "74",
+            "marking": "66",
+            "head_game": "65",
+            "set_piece_taking": "55"
           },
           "currentPOS": [
             270,
@@ -2173,26 +2180,26 @@
           "fitness": 100,
           "height": 180,
           "injured": false,
-          "age": 23
+          "age": 25
         },
         {
           "name": "Betinho",
           "position": "ST",
-          "rating": "92",
+          "rating": "93",
           "starter": true,
           "skill": {
             "passing": "67",
-            "shooting": "94",
-            "tackling": "23",
-            "saving": "10",
-            "agility": "92",
-            "strength": "78",
-            "penalty_taking": "86",
-            "jumping": "78",
-            "speed": "87",
-            "marking": "26",
-            "head_game": "64",
-            "set_piece_taking": "54"
+            "shooting": "95",
+            "tackling": "26",
+            "saving": "11",
+            "agility": "94",
+            "strength": "81",
+            "penalty_taking": "89",
+            "jumping": "79",
+            "speed": "88",
+            "marking": "27",
+            "head_game": "65",
+            "set_piece_taking": "58"
           },
           "currentPOS": [
             150,
@@ -2201,26 +2208,26 @@
           "fitness": 100,
           "height": 180,
           "injured": false,
-          "age": 24
+          "age": 26
         },
         {
           "name": "Trovão",
           "position": "ST",
-          "rating": "90",
+          "rating": "94",
           "starter": true,
           "skill": {
-            "passing": "62",
-            "shooting": "91",
-            "tackling": "20",
-            "saving": "7",
-            "agility": "89",
-            "strength": "77",
-            "penalty_taking": "82",
-            "jumping": "75",
-            "speed": "86",
-            "marking": "35",
-            "head_game": "65",
-            "set_piece_taking": "48"
+            "passing": "68",
+            "shooting": "93",
+            "tackling": "26",
+            "saving": "8",
+            "agility": "92",
+            "strength": "80",
+            "penalty_taking": "84",
+            "jumping": "79",
+            "speed": "90",
+            "marking": "38",
+            "head_game": "71",
+            "set_piece_taking": "53"
           },
           "currentPOS": [
             250,
@@ -2229,107 +2236,107 @@
           "fitness": 100,
           "height": 179,
           "injured": false,
-          "age": 23
+          "age": 25
         },
         {
           "name": "Dinho",
           "position": "GK",
-          "rating": "78",
+          "rating": "75",
           "starter": false,
           "skill": {
-            "passing": "46",
-            "shooting": "11",
-            "tackling": "21",
-            "saving": "78",
-            "agility": "67",
-            "strength": "63",
-            "penalty_taking": "12",
-            "jumping": "76",
-            "speed": "50",
-            "marking": "24",
-            "head_game": "72",
-            "set_piece_taking": "12"
+            "passing": "44",
+            "shooting": "6",
+            "tackling": "18",
+            "saving": "74",
+            "agility": "61",
+            "strength": "60",
+            "penalty_taking": "9",
+            "jumping": "75",
+            "speed": "44",
+            "marking": "21",
+            "head_game": "71",
+            "set_piece_taking": "14"
           },
           "currentPOS": null,
           "fitness": 100,
           "height": 189,
           "injured": false,
-          "age": 32
+          "age": 34
         },
         {
           "name": "Leandro",
           "position": "CB",
-          "rating": "81",
+          "rating": "77",
           "starter": false,
           "skill": {
-            "passing": "56",
-            "shooting": "23",
-            "tackling": "80",
-            "saving": "8",
-            "agility": "60",
-            "strength": "74",
-            "penalty_taking": "17",
-            "jumping": "73",
-            "speed": "62",
+            "passing": "52",
+            "shooting": "20",
+            "tackling": "77",
+            "saving": "1",
+            "agility": "51",
+            "strength": "68",
+            "penalty_taking": "13",
+            "jumping": "68",
+            "speed": "57",
             "marking": "86",
-            "head_game": "73",
-            "set_piece_taking": "16"
+            "head_game": "70",
+            "set_piece_taking": "13"
           },
           "currentPOS": null,
           "fitness": 100,
           "height": 186,
           "injured": false,
-          "age": 33
+          "age": 35
         },
         {
           "name": "Wendel",
           "position": "CM",
-          "rating": "85",
+          "rating": "86",
           "starter": false,
           "skill": {
             "passing": "83",
-            "shooting": "63",
-            "tackling": "56",
-            "saving": "12",
-            "agility": "78",
+            "shooting": "67",
+            "tackling": "54",
+            "saving": "13",
+            "agility": "81",
             "strength": "65",
-            "penalty_taking": "61",
-            "jumping": "52",
-            "speed": "77",
-            "marking": "62",
-            "head_game": "66",
-            "set_piece_taking": "44"
+            "penalty_taking": "62",
+            "jumping": "56",
+            "speed": "78",
+            "marking": "66",
+            "head_game": "68",
+            "set_piece_taking": "47"
           },
           "currentPOS": null,
           "fitness": 100,
           "height": 175,
           "injured": false,
-          "age": 23
+          "age": 25
         },
         {
           "name": "Tácio",
           "position": "ST",
-          "rating": "85",
+          "rating": "83",
           "starter": false,
           "skill": {
-            "passing": "57",
-            "shooting": "88",
-            "tackling": "21",
-            "saving": "6",
-            "agility": "85",
+            "passing": "55",
+            "shooting": "87",
+            "tackling": "19",
+            "saving": "4",
+            "agility": "79",
             "strength": "71",
-            "penalty_taking": "76",
-            "jumping": "66",
-            "speed": "75",
-            "marking": "35",
-            "head_game": "82",
-            "set_piece_taking": "70"
+            "penalty_taking": "74",
+            "jumping": "62",
+            "speed": "72",
+            "marking": "34",
+            "head_game": "85",
+            "set_piece_taking": "69"
           },
           "currentPOS": null,
           "fitness": 100,
           "height": 178,
           "injured": false,
-          "age": 31
+          "age": 33
         }
       ],
       "coach": {
@@ -2342,38 +2349,39 @@
         },
         "age": 42
       },
-      "captain": "Betinho"
+      "captain": "Betinho",
+      "abbreviation": "RD"
     },
     {
-      "name": "Blue Tide",
+      "name": "A C Π Rell",
       "colors": {
-        "primary": "#1E90FF",
-        "secondary": "#FFFFFF"
+        "primary": "#000000",
+        "secondary": "#000080"
       },
       "jersey": {
-        "home": "Dodger blue body with white trim",
-        "away": "White body with blue wave pattern"
+        "home": "Black body with navy sleeves",
+        "away": "Navy body with black pinstripes"
       },
-      "rating": "83",
+      "rating": "84",
       "players": [
         {
           "name": "Ícaro",
           "position": "GK",
-          "rating": "81",
+          "rating": "79",
           "starter": true,
           "skill": {
-            "passing": "50",
+            "passing": "49",
             "shooting": "11",
             "tackling": "27",
-            "saving": "81",
-            "agility": "68",
-            "strength": "66",
-            "penalty_taking": "16",
-            "jumping": "77",
+            "saving": "77",
+            "agility": "69",
+            "strength": "63",
+            "penalty_taking": "15",
+            "jumping": "75",
             "speed": "43",
-            "marking": "36",
+            "marking": "32",
             "head_game": "76",
-            "set_piece_taking": "10"
+            "set_piece_taking": "11"
           },
           "currentPOS": [
             200,
@@ -2382,25 +2390,25 @@
           "fitness": 100,
           "height": 190,
           "injured": false,
-          "age": 28
+          "age": 30
         },
         {
           "name": "Nivaldo",
           "position": "CB",
-          "rating": "82",
+          "rating": "80",
           "starter": true,
           "skill": {
             "passing": "55",
-            "shooting": "23",
-            "tackling": "80",
+            "shooting": "20",
+            "tackling": "79",
             "saving": "11",
-            "agility": "59",
-            "strength": "77",
-            "penalty_taking": "19",
-            "jumping": "75",
+            "agility": "60",
+            "strength": "73",
+            "penalty_taking": "18",
+            "jumping": "70",
             "speed": "57",
-            "marking": "85",
-            "head_game": "85",
+            "marking": "84",
+            "head_game": "86",
             "set_piece_taking": "20"
           },
           "currentPOS": [
@@ -2410,7 +2418,7 @@
           "fitness": 100,
           "height": 187,
           "injured": false,
-          "age": 31
+          "age": 33
         },
         {
           "name": "Osvaldo",
@@ -2419,17 +2427,17 @@
           "starter": true,
           "skill": {
             "passing": "85",
-            "shooting": "64",
+            "shooting": "65",
             "tackling": "56",
-            "saving": "11",
-            "agility": "77",
-            "strength": "66",
-            "penalty_taking": "67",
-            "jumping": "54",
-            "speed": "77",
-            "marking": "59",
-            "head_game": "63",
-            "set_piece_taking": "58"
+            "saving": "10",
+            "agility": "76",
+            "strength": "64",
+            "penalty_taking": "68",
+            "jumping": "55",
+            "speed": "78",
+            "marking": "57",
+            "head_game": "66",
+            "set_piece_taking": "60"
           },
           "currentPOS": [
             130,
@@ -2438,26 +2446,26 @@
           "fitness": 100,
           "height": 177,
           "injured": false,
-          "age": 27
+          "age": 29
         },
         {
           "name": "Brandão",
           "position": "CM",
-          "rating": "83",
+          "rating": "85",
           "starter": true,
           "skill": {
-            "passing": "82",
-            "shooting": "62",
-            "tackling": "52",
-            "saving": "10",
-            "agility": "78",
-            "strength": "63",
-            "penalty_taking": "62",
+            "passing": "85",
+            "shooting": "64",
+            "tackling": "55",
+            "saving": "9",
+            "agility": "80",
+            "strength": "62",
+            "penalty_taking": "63",
             "jumping": "52",
-            "speed": "65",
-            "marking": "44",
-            "head_game": "60",
-            "set_piece_taking": "66"
+            "speed": "66",
+            "marking": "46",
+            "head_game": "63",
+            "set_piece_taking": "71"
           },
           "currentPOS": [
             270,
@@ -2466,26 +2474,26 @@
           "fitness": 100,
           "height": 173,
           "injured": false,
-          "age": 25
+          "age": 27
         },
         {
           "name": "Nenê",
           "position": "ST",
-          "rating": "85",
+          "rating": "88",
           "starter": true,
           "skill": {
-            "passing": "59",
-            "shooting": "85",
+            "passing": "63",
+            "shooting": "87",
             "tackling": "19",
-            "saving": "8",
-            "agility": "85",
-            "strength": "74",
-            "penalty_taking": "78",
-            "jumping": "70",
-            "speed": "82",
+            "saving": "6",
+            "agility": "84",
+            "strength": "79",
+            "penalty_taking": "84",
+            "jumping": "73",
+            "speed": "86",
             "marking": "17",
-            "head_game": "86",
-            "set_piece_taking": "61"
+            "head_game": "93",
+            "set_piece_taking": "65"
           },
           "currentPOS": [
             150,
@@ -2494,26 +2502,26 @@
           "fitness": 100,
           "height": 179,
           "injured": false,
-          "age": 22
+          "age": 24
         },
         {
           "name": "Jadson",
           "position": "ST",
-          "rating": "84",
+          "rating": "87",
           "starter": true,
           "skill": {
-            "passing": "55",
-            "shooting": "87",
-            "tackling": "16",
-            "saving": "6",
-            "agility": "83",
-            "strength": "71",
-            "penalty_taking": "72",
-            "jumping": "68",
+            "passing": "58",
+            "shooting": "91",
+            "tackling": "20",
+            "saving": "9",
+            "agility": "85",
+            "strength": "73",
+            "penalty_taking": "75",
+            "jumping": "72",
             "speed": "78",
-            "marking": "32",
-            "head_game": "75",
-            "set_piece_taking": "48"
+            "marking": "36",
+            "head_game": "78",
+            "set_piece_taking": "51"
           },
           "currentPOS": [
             250,
@@ -2522,107 +2530,107 @@
           "fitness": 100,
           "height": 182,
           "injured": false,
-          "age": 23
+          "age": 25
         },
         {
           "name": "Cícero",
           "position": "GK",
-          "rating": "77",
+          "rating": "79",
           "starter": false,
           "skill": {
-            "passing": "40",
-            "shooting": "11",
-            "tackling": "22",
-            "saving": "78",
-            "agility": "63",
-            "strength": "63",
-            "penalty_taking": "15",
+            "passing": "42",
+            "shooting": "14",
+            "tackling": "25",
+            "saving": "80",
+            "agility": "65",
+            "strength": "64",
+            "penalty_taking": "19",
             "jumping": "74",
-            "speed": "46",
-            "marking": "34",
-            "head_game": "64",
-            "set_piece_taking": "27"
+            "speed": "45",
+            "marking": "36",
+            "head_game": "68",
+            "set_piece_taking": "30"
           },
           "currentPOS": null,
           "fitness": 100,
           "height": 186,
           "injured": false,
-          "age": 23
+          "age": 25
         },
         {
           "name": "Elias",
           "position": "CB",
-          "rating": "77",
+          "rating": "78",
           "starter": false,
           "skill": {
-            "passing": "52",
-            "shooting": "18",
-            "tackling": "74",
-            "saving": "11",
-            "agility": "58",
-            "strength": "72",
-            "penalty_taking": "12",
-            "jumping": "68",
-            "speed": "56",
+            "passing": "57",
+            "shooting": "20",
+            "tackling": "75",
+            "saving": "12",
+            "agility": "60",
+            "strength": "75",
+            "penalty_taking": "11",
+            "jumping": "69",
+            "speed": "57",
             "marking": "84",
-            "head_game": "69",
-            "set_piece_taking": "30"
+            "head_game": "71",
+            "set_piece_taking": "32"
           },
           "currentPOS": null,
           "fitness": 100,
           "height": 184,
           "injured": false,
-          "age": 22
+          "age": 24
         },
         {
           "name": "Tardelli",
           "position": "CM",
-          "rating": "80",
+          "rating": "84",
           "starter": false,
           "skill": {
-            "passing": "80",
-            "shooting": "57",
-            "tackling": "50",
+            "passing": "88",
+            "shooting": "60",
+            "tackling": "53",
             "saving": "12",
-            "agility": "74",
-            "strength": "60",
-            "penalty_taking": "54",
-            "jumping": "47",
-            "speed": "75",
-            "marking": "56",
-            "head_game": "62",
-            "set_piece_taking": "51"
+            "agility": "78",
+            "strength": "64",
+            "penalty_taking": "57",
+            "jumping": "49",
+            "speed": "76",
+            "marking": "55",
+            "head_game": "65",
+            "set_piece_taking": "52"
           },
           "currentPOS": null,
           "fitness": 100,
           "height": 175,
           "injured": false,
-          "age": 21
+          "age": 23
         },
         {
           "name": "Luan",
           "position": "ST",
-          "rating": "83",
+          "rating": "88",
           "starter": false,
           "skill": {
-            "passing": "55",
-            "shooting": "87",
-            "tackling": "18",
-            "saving": "9",
-            "agility": "82",
-            "strength": "70",
-            "penalty_taking": "72",
-            "jumping": "64",
-            "speed": "75",
-            "marking": "35",
-            "head_game": "68",
-            "set_piece_taking": "53"
+            "passing": "60",
+            "shooting": "92",
+            "tackling": "22",
+            "saving": "11",
+            "agility": "87",
+            "strength": "76",
+            "penalty_taking": "76",
+            "jumping": "69",
+            "speed": "80",
+            "marking": "40",
+            "head_game": "73",
+            "set_piece_taking": "60"
           },
           "currentPOS": null,
           "fitness": 100,
           "height": 180,
           "injured": false,
-          "age": 21
+          "age": 23
         }
       ],
       "coach": {
@@ -2635,38 +2643,39 @@
         },
         "age": 43
       },
-      "captain": "Nenê"
+      "captain": "Nenê",
+      "abbreviation": "AR"
     },
     {
-      "name": "Emerald Strikers",
+      "name": "Verayet Olympus",
       "colors": {
-        "primary": "#2ECC71",
-        "secondary": "#1C1C1C"
+        "primary": "#C0C0C0",
+        "secondary": "#005F6B"
       },
       "jersey": {
-        "home": "Emerald green body with black cuffs",
-        "away": "Black body with emerald diagonal stripe"
+        "home": "Silver body with dark teal sleeves",
+        "away": "Dark teal body with silver trim"
       },
       "rating": "81",
       "players": [
         {
           "name": "Dudu",
           "position": "GK",
-          "rating": "78",
+          "rating": "75",
           "starter": true,
           "skill": {
-            "passing": "46",
-            "shooting": "10",
-            "tackling": "24",
-            "saving": "79",
-            "agility": "64",
-            "strength": "63",
-            "penalty_taking": "16",
-            "jumping": "73",
-            "speed": "47",
-            "marking": "28",
-            "head_game": "65",
-            "set_piece_taking": "18"
+            "passing": "43",
+            "shooting": "7",
+            "tackling": "23",
+            "saving": "75",
+            "agility": "58",
+            "strength": "60",
+            "penalty_taking": "13",
+            "jumping": "68",
+            "speed": "41",
+            "marking": "26",
+            "head_game": "63",
+            "set_piece_taking": "16"
           },
           "currentPOS": [
             200,
@@ -2675,25 +2684,25 @@
           "fitness": 100,
           "height": 189,
           "injured": false,
-          "age": 33
+          "age": 35
         },
         {
           "name": "Borges",
           "position": "CB",
-          "rating": "80",
+          "rating": "79",
           "starter": true,
           "skill": {
             "passing": "53",
-            "shooting": "20",
+            "shooting": "22",
             "tackling": "79",
-            "saving": "11",
+            "saving": "10",
             "agility": "59",
-            "strength": "76",
+            "strength": "75",
             "penalty_taking": "18",
-            "jumping": "73",
-            "speed": "51",
+            "jumping": "72",
+            "speed": "47",
             "marking": "82",
-            "head_game": "72",
+            "head_game": "68",
             "set_piece_taking": "32"
           },
           "currentPOS": [
@@ -2703,7 +2712,7 @@
           "fitness": 100,
           "height": 185,
           "injured": false,
-          "age": 30
+          "age": 32
         },
         {
           "name": "Kléber",
@@ -2711,17 +2720,17 @@
           "rating": "81",
           "starter": true,
           "skill": {
-            "passing": "80",
+            "passing": "78",
             "shooting": "60",
-            "tackling": "54",
+            "tackling": "53",
             "saving": "11",
             "agility": "75",
             "strength": "66",
-            "penalty_taking": "58",
+            "penalty_taking": "59",
             "jumping": "49",
-            "speed": "73",
-            "marking": "54",
-            "head_game": "59",
+            "speed": "71",
+            "marking": "55",
+            "head_game": "58",
             "set_piece_taking": "50"
           },
           "currentPOS": [
@@ -2731,26 +2740,26 @@
           "fitness": 100,
           "height": 178,
           "injured": false,
-          "age": 29
+          "age": 31
         },
         {
           "name": "Dagoberto",
           "position": "CM",
-          "rating": "83",
+          "rating": "85",
           "starter": true,
           "skill": {
-            "passing": "81",
-            "shooting": "58",
-            "tackling": "54",
-            "saving": "11",
-            "agility": "77",
-            "strength": "65",
-            "penalty_taking": "59",
+            "passing": "82",
+            "shooting": "61",
+            "tackling": "56",
+            "saving": "9",
+            "agility": "82",
+            "strength": "64",
+            "penalty_taking": "62",
             "jumping": "50",
-            "speed": "83",
-            "marking": "59",
-            "head_game": "41",
-            "set_piece_taking": "55"
+            "speed": "85",
+            "marking": "61",
+            "head_game": "44",
+            "set_piece_taking": "58"
           },
           "currentPOS": [
             270,
@@ -2759,25 +2768,25 @@
           "fitness": 100,
           "height": 174,
           "injured": false,
-          "age": 24
+          "age": 26
         },
         {
           "name": "Obina",
           "position": "ST",
-          "rating": "83",
+          "rating": "84",
           "starter": true,
           "skill": {
-            "passing": "53",
+            "passing": "51",
             "shooting": "86",
-            "tackling": "19",
+            "tackling": "18",
             "saving": "7",
-            "agility": "82",
+            "agility": "83",
             "strength": "72",
-            "penalty_taking": "75",
-            "jumping": "69",
-            "speed": "76",
-            "marking": "13",
-            "head_game": "81",
+            "penalty_taking": "74",
+            "jumping": "67",
+            "speed": "77",
+            "marking": "15",
+            "head_game": "83",
             "set_piece_taking": "48"
           },
           "currentPOS": [
@@ -2787,7 +2796,7 @@
           "fitness": 100,
           "height": 180,
           "injured": false,
-          "age": 26
+          "age": 28
         },
         {
           "name": "Souza",
@@ -2795,18 +2804,18 @@
           "rating": "80",
           "starter": true,
           "skill": {
-            "passing": "51",
-            "shooting": "83",
+            "passing": "54",
+            "shooting": "82",
             "tackling": "17",
-            "saving": "6",
-            "agility": "81",
+            "saving": "8",
+            "agility": "80",
             "strength": "69",
             "penalty_taking": "68",
-            "jumping": "66",
-            "speed": "87",
-            "marking": "16",
-            "head_game": "68",
-            "set_piece_taking": "68"
+            "jumping": "64",
+            "speed": "86",
+            "marking": "17",
+            "head_game": "67",
+            "set_piece_taking": "66"
           },
           "currentPOS": [
             250,
@@ -2815,107 +2824,107 @@
           "fitness": 100,
           "height": 176,
           "injured": false,
-          "age": 29
+          "age": 31
         },
         {
           "name": "Grafitti",
           "position": "GK",
-          "rating": "74",
+          "rating": "76",
           "starter": false,
           "skill": {
             "passing": "38",
-            "shooting": "9",
-            "tackling": "18",
-            "saving": "78",
+            "shooting": "10",
+            "tackling": "21",
+            "saving": "81",
             "agility": "61",
-            "strength": "59",
-            "penalty_taking": "11",
-            "jumping": "72",
+            "strength": "60",
+            "penalty_taking": "10",
+            "jumping": "74",
             "speed": "57",
             "marking": "29",
-            "head_game": "72",
-            "set_piece_taking": "27"
+            "head_game": "74",
+            "set_piece_taking": "29"
           },
           "currentPOS": null,
           "fitness": 100,
           "height": 186,
           "injured": false,
-          "age": 25
+          "age": 27
         },
         {
           "name": "Tinga",
           "position": "CB",
-          "rating": "77",
+          "rating": "79",
           "starter": false,
           "skill": {
-            "passing": "52",
-            "shooting": "18",
-            "tackling": "75",
+            "passing": "56",
+            "shooting": "16",
+            "tackling": "79",
             "saving": "12",
-            "agility": "56",
+            "agility": "60",
             "strength": "72",
-            "penalty_taking": "15",
-            "jumping": "70",
-            "speed": "51",
-            "marking": "73",
-            "head_game": "68",
+            "penalty_taking": "18",
+            "jumping": "67",
+            "speed": "52",
+            "marking": "76",
+            "head_game": "69",
             "set_piece_taking": "25"
           },
           "currentPOS": null,
           "fitness": 100,
           "height": 184,
           "injured": false,
-          "age": 24
+          "age": 26
         },
         {
           "name": "Kerlon",
           "position": "CM",
-          "rating": "79",
+          "rating": "82",
           "starter": false,
           "skill": {
-            "passing": "79",
-            "shooting": "53",
-            "tackling": "49",
-            "saving": "11",
-            "agility": "73",
-            "strength": "60",
-            "penalty_taking": "50",
-            "jumping": "46",
-            "speed": "69",
+            "passing": "83",
+            "shooting": "54",
+            "tackling": "50",
+            "saving": "15",
+            "agility": "77",
+            "strength": "64",
+            "penalty_taking": "51",
+            "jumping": "47",
+            "speed": "71",
             "marking": "51",
-            "head_game": "44",
-            "set_piece_taking": "63"
+            "head_game": "47",
+            "set_piece_taking": "62"
           },
           "currentPOS": null,
           "fitness": 100,
           "height": 173,
           "injured": false,
-          "age": 23
+          "age": 25
         },
         {
           "name": "Rômulo",
           "position": "ST",
-          "rating": "80",
+          "rating": "88",
           "starter": false,
           "skill": {
-            "passing": "51",
-            "shooting": "84",
-            "tackling": "19",
-            "saving": "8",
-            "agility": "79",
-            "strength": "69",
-            "penalty_taking": "65",
-            "jumping": "63",
-            "speed": "89",
-            "marking": "30",
-            "head_game": "81",
-            "set_piece_taking": "50"
+            "passing": "58",
+            "shooting": "94",
+            "tackling": "26",
+            "saving": "11",
+            "agility": "85",
+            "strength": "77",
+            "penalty_taking": "71",
+            "jumping": "71",
+            "speed": "95",
+            "marking": "33",
+            "head_game": "93",
+            "set_piece_taking": "60"
           },
           "currentPOS": null,
           "fitness": 100,
           "height": 175,
           "injured": false,
-          "age": 19
+          "age": 21
         }
       ],
       "coach": {
@@ -2928,19 +2937,20 @@
         },
         "age": 55
       },
-      "captain": "Obina"
+      "captain": "Obina",
+      "abbreviation": "VO"
     },
     {
-      "name": "Crimson Vanguard",
+      "name": "A C Π Qued",
       "colors": {
-        "primary": "#8B0000",
-        "secondary": "#F5F5DC"
+        "primary": "#8B00FF",
+        "secondary": "#FF8C00"
       },
       "jersey": {
-        "home": "Dark red body with beige shoulders",
-        "away": "Beige body with dark red vertical stripe"
+        "home": "Violet body with orange sleeves and collar",
+        "away": "Orange body with violet trim"
       },
-      "rating": "86",
+      "rating": "87",
       "players": [
         {
           "name": "Vinícius",
@@ -2948,17 +2958,17 @@
           "rating": "85",
           "starter": true,
           "skill": {
-            "passing": "53",
+            "passing": "52",
             "shooting": "17",
-            "tackling": "27",
+            "tackling": "25",
             "saving": "87",
-            "agility": "71",
-            "strength": "70",
-            "penalty_taking": "18",
-            "jumping": "85",
-            "speed": "58",
-            "marking": "31",
-            "head_game": "71",
+            "agility": "73",
+            "strength": "72",
+            "penalty_taking": "15",
+            "jumping": "84",
+            "speed": "57",
+            "marking": "30",
+            "head_game": "68",
             "set_piece_taking": "20"
           },
           "currentPOS": [
@@ -2968,26 +2978,26 @@
           "fitness": 100,
           "height": 192,
           "injured": false,
-          "age": 27
+          "age": 29
         },
         {
           "name": "Pedrinho",
           "position": "CB",
-          "rating": "84",
+          "rating": "85",
           "starter": true,
           "skill": {
-            "passing": "63",
-            "shooting": "28",
-            "tackling": "86",
-            "saving": "14",
+            "passing": "62",
+            "shooting": "29",
+            "tackling": "87",
+            "saving": "13",
             "agility": "64",
-            "strength": "80",
-            "penalty_taking": "22",
-            "jumping": "77",
+            "strength": "84",
+            "penalty_taking": "21",
+            "jumping": "78",
             "speed": "61",
-            "marking": "79",
-            "head_game": "62",
-            "set_piece_taking": "32"
+            "marking": "82",
+            "head_game": "64",
+            "set_piece_taking": "33"
           },
           "currentPOS": [
             200,
@@ -2996,26 +3006,26 @@
           "fitness": 100,
           "height": 190,
           "injured": false,
-          "age": 28
+          "age": 30
         },
         {
           "name": "Renatinho",
           "position": "CM",
-          "rating": "88",
+          "rating": "90",
           "starter": true,
           "skill": {
-            "passing": "86",
-            "shooting": "69",
-            "tackling": "60",
-            "saving": "15",
-            "agility": "84",
-            "strength": "70",
-            "penalty_taking": "73",
-            "jumping": "56",
+            "passing": "89",
+            "shooting": "70",
+            "tackling": "63",
+            "saving": "17",
+            "agility": "88",
+            "strength": "73",
+            "penalty_taking": "75",
+            "jumping": "53",
             "speed": "72",
-            "marking": "64",
-            "head_game": "48",
-            "set_piece_taking": "67"
+            "marking": "62",
+            "head_game": "52",
+            "set_piece_taking": "68"
           },
           "currentPOS": [
             130,
@@ -3024,25 +3034,25 @@
           "fitness": 100,
           "height": 179,
           "injured": false,
-          "age": 24
+          "age": 26
         },
         {
           "name": "Waguinho",
           "position": "CM",
-          "rating": "85",
+          "rating": "86",
           "starter": true,
           "skill": {
-            "passing": "86",
+            "passing": "88",
             "shooting": "63",
             "tackling": "57",
-            "saving": "12",
-            "agility": "77",
+            "saving": "13",
+            "agility": "80",
             "strength": "65",
             "penalty_taking": "65",
             "jumping": "53",
-            "speed": "70",
-            "marking": "64",
-            "head_game": "53",
+            "speed": "73",
+            "marking": "65",
+            "head_game": "56",
             "set_piece_taking": "70"
           },
           "currentPOS": [
@@ -3052,7 +3062,7 @@
           "fitness": 100,
           "height": 176,
           "injured": false,
-          "age": 26
+          "age": 28
         },
         {
           "name": "Beto",
@@ -3060,18 +3070,18 @@
           "rating": "88",
           "starter": true,
           "skill": {
-            "passing": "61",
-            "shooting": "91",
-            "tackling": "20",
-            "saving": "8",
-            "agility": "87",
-            "strength": "74",
+            "passing": "59",
+            "shooting": "89",
+            "tackling": "18",
+            "saving": "6",
+            "agility": "89",
+            "strength": "76",
             "penalty_taking": "85",
-            "jumping": "71",
-            "speed": "86",
-            "marking": "29",
-            "head_game": "77",
-            "set_piece_taking": "78"
+            "jumping": "66",
+            "speed": "89",
+            "marking": "32",
+            "head_game": "80",
+            "set_piece_taking": "77"
           },
           "currentPOS": [
             150,
@@ -3080,7 +3090,7 @@
           "fitness": 100,
           "height": 181,
           "injured": false,
-          "age": 28
+          "age": 30
         },
         {
           "name": "Cássio",
@@ -3089,17 +3099,17 @@
           "starter": true,
           "skill": {
             "passing": "62",
-            "shooting": "88",
-            "tackling": "19",
+            "shooting": "87",
+            "tackling": "17",
             "saving": "7",
-            "agility": "87",
+            "agility": "86",
             "strength": "73",
-            "penalty_taking": "80",
+            "penalty_taking": "81",
             "jumping": "70",
-            "speed": "71",
+            "speed": "73",
             "marking": "34",
-            "head_game": "86",
-            "set_piece_taking": "64"
+            "head_game": "85",
+            "set_piece_taking": "60"
           },
           "currentPOS": [
             250,
@@ -3108,107 +3118,107 @@
           "fitness": 100,
           "height": 183,
           "injured": false,
-          "age": 27
+          "age": 29
         },
         {
           "name": "Wéverton",
           "position": "GK",
-          "rating": "76",
+          "rating": "72",
           "starter": false,
           "skill": {
-            "passing": "42",
-            "shooting": "8",
-            "tackling": "22",
-            "saving": "79",
-            "agility": "64",
-            "strength": "63",
-            "penalty_taking": "10",
-            "jumping": "72",
-            "speed": "47",
-            "marking": "32",
-            "head_game": "54",
-            "set_piece_taking": "16"
+            "passing": "38",
+            "shooting": "5",
+            "tackling": "18",
+            "saving": "75",
+            "agility": "57",
+            "strength": "59",
+            "penalty_taking": "8",
+            "jumping": "64",
+            "speed": "37",
+            "marking": "27",
+            "head_game": "51",
+            "set_piece_taking": "15"
           },
           "currentPOS": null,
           "fitness": 100,
           "height": 188,
           "injured": false,
-          "age": 34
+          "age": 36
         },
         {
           "name": "Marcos",
           "position": "CB",
-          "rating": "83",
+          "rating": "87",
           "starter": false,
           "skill": {
-            "passing": "60",
-            "shooting": "26",
-            "tackling": "82",
-            "saving": "14",
-            "agility": "62",
-            "strength": "75",
-            "penalty_taking": "19",
-            "jumping": "77",
-            "speed": "62",
-            "marking": "90",
-            "head_game": "85",
-            "set_piece_taking": "24"
+            "passing": "63",
+            "shooting": "30",
+            "tackling": "86",
+            "saving": "16",
+            "agility": "64",
+            "strength": "81",
+            "penalty_taking": "21",
+            "jumping": "82",
+            "speed": "65",
+            "marking": "93",
+            "head_game": "93",
+            "set_piece_taking": "27"
           },
           "currentPOS": null,
           "fitness": 100,
           "height": 185,
           "injured": false,
-          "age": 23
+          "age": 25
         },
         {
           "name": "Rogério",
           "position": "CM",
-          "rating": "84",
+          "rating": "88",
           "starter": false,
           "skill": {
-            "passing": "82",
-            "shooting": "63",
-            "tackling": "56",
-            "saving": "11",
-            "agility": "74",
-            "strength": "64",
-            "penalty_taking": "58",
-            "jumping": "51",
-            "speed": "84",
-            "marking": "62",
-            "head_game": "62",
-            "set_piece_taking": "48"
+            "passing": "87",
+            "shooting": "65",
+            "tackling": "61",
+            "saving": "10",
+            "agility": "79",
+            "strength": "68",
+            "penalty_taking": "61",
+            "jumping": "56",
+            "speed": "85",
+            "marking": "64",
+            "head_game": "69",
+            "set_piece_taking": "53"
           },
           "currentPOS": null,
           "fitness": 100,
           "height": 174,
           "injured": false,
-          "age": 23
+          "age": 25
         },
         {
           "name": "Doni",
           "position": "ST",
-          "rating": "83",
+          "rating": "89",
           "starter": false,
           "skill": {
-            "passing": "57",
-            "shooting": "83",
-            "tackling": "17",
-            "saving": "8",
-            "agility": "83",
-            "strength": "69",
-            "penalty_taking": "72",
-            "jumping": "66",
-            "speed": "77",
-            "marking": "35",
-            "head_game": "68",
-            "set_piece_taking": "50"
+            "passing": "64",
+            "shooting": "88",
+            "tackling": "21",
+            "saving": "13",
+            "agility": "91",
+            "strength": "74",
+            "penalty_taking": "78",
+            "jumping": "74",
+            "speed": "84",
+            "marking": "43",
+            "head_game": "79",
+            "set_piece_taking": "55"
           },
           "currentPOS": null,
           "fitness": 100,
           "height": 179,
           "injured": false,
-          "age": 19
+          "age": 21
         }
       ],
       "coach": {
@@ -3221,19 +3231,20 @@
         },
         "age": 48
       },
-      "captain": "Beto"
+      "captain": "Beto",
+      "abbreviation": "AQ"
     },
     {
-      "name": "Storm Chasers",
+      "name": "L. B. Rann",
       "colors": {
-        "primary": "#9B59B6",
-        "secondary": "#ECF0F1"
+        "primary": "#4CBB17",
+        "secondary": "#FFFFFF"
       },
       "jersey": {
-        "home": "Purple body with light grey accents",
-        "away": "Light grey body with purple chest band"
+        "home": "Kelly green body with white sleeves",
+        "away": "White body with green collar and trim"
       },
-      "rating": "85",
+      "rating": "86",
       "players": [
         {
           "name": "Fábinho",
@@ -3241,18 +3252,18 @@
           "rating": "83",
           "starter": true,
           "skill": {
-            "passing": "51",
-            "shooting": "15",
-            "tackling": "29",
-            "saving": "85",
-            "agility": "72",
-            "strength": "70",
+            "passing": "49",
+            "shooting": "11",
+            "tackling": "28",
+            "saving": "86",
+            "agility": "71",
+            "strength": "71",
             "penalty_taking": "17",
-            "jumping": "79",
-            "speed": "42",
-            "marking": "29",
-            "head_game": "59",
-            "set_piece_taking": "27"
+            "jumping": "80",
+            "speed": "41",
+            "marking": "30",
+            "head_game": "60",
+            "set_piece_taking": "25"
           },
           "currentPOS": [
             200,
@@ -3261,25 +3272,25 @@
           "fitness": 100,
           "height": 191,
           "injured": false,
-          "age": 27
+          "age": 29
         },
         {
           "name": "Helton",
           "position": "CB",
-          "rating": "83",
+          "rating": "84",
           "starter": true,
           "skill": {
-            "passing": "61",
-            "shooting": "24",
-            "tackling": "83",
-            "saving": "13",
-            "agility": "62",
-            "strength": "79",
-            "penalty_taking": "22",
-            "jumping": "76",
-            "speed": "68",
-            "marking": "89",
-            "head_game": "78",
+            "passing": "62",
+            "shooting": "23",
+            "tackling": "81",
+            "saving": "15",
+            "agility": "65",
+            "strength": "81",
+            "penalty_taking": "23",
+            "jumping": "74",
+            "speed": "67",
+            "marking": "93",
+            "head_game": "80",
             "set_piece_taking": "26"
           },
           "currentPOS": [
@@ -3289,26 +3300,26 @@
           "fitness": 100,
           "height": 188,
           "injured": false,
-          "age": 28
+          "age": 30
         },
         {
           "name": "Lauro",
           "position": "CM",
-          "rating": "86",
+          "rating": "87",
           "starter": true,
           "skill": {
-            "passing": "87",
-            "shooting": "64",
-            "tackling": "57",
-            "saving": "12",
+            "passing": "89",
+            "shooting": "67",
+            "tackling": "62",
+            "saving": "10",
             "agility": "79",
-            "strength": "68",
-            "penalty_taking": "68",
-            "jumping": "53",
-            "speed": "83",
-            "marking": "65",
-            "head_game": "59",
-            "set_piece_taking": "64"
+            "strength": "69",
+            "penalty_taking": "66",
+            "jumping": "54",
+            "speed": "84",
+            "marking": "63",
+            "head_game": "60",
+            "set_piece_taking": "67"
           },
           "currentPOS": [
             130,
@@ -3317,26 +3328,26 @@
           "fitness": 100,
           "height": 177,
           "injured": false,
-          "age": 24
+          "age": 26
         },
         {
           "name": "Jefferson",
           "position": "CM",
-          "rating": "85",
+          "rating": "88",
           "starter": true,
           "skill": {
-            "passing": "85",
-            "shooting": "62",
-            "tackling": "59",
+            "passing": "86",
+            "shooting": "65",
+            "tackling": "62",
             "saving": "9",
-            "agility": "80",
+            "agility": "85",
             "strength": "62",
-            "penalty_taking": "65",
-            "jumping": "51",
-            "speed": "77",
-            "marking": "55",
-            "head_game": "68",
-            "set_piece_taking": "69"
+            "penalty_taking": "68",
+            "jumping": "52",
+            "speed": "80",
+            "marking": "59",
+            "head_game": "73",
+            "set_piece_taking": "74"
           },
           "currentPOS": [
             270,
@@ -3345,26 +3356,26 @@
           "fitness": 100,
           "height": 174,
           "injured": false,
-          "age": 23
+          "age": 25
         },
         {
           "name": "Muriel",
           "position": "ST",
-          "rating": "87",
+          "rating": "90",
           "starter": true,
           "skill": {
-            "passing": "61",
-            "shooting": "90",
-            "tackling": "24",
-            "saving": "7",
-            "agility": "87",
-            "strength": "73",
-            "penalty_taking": "81",
-            "jumping": "72",
-            "speed": "89",
-            "marking": "17",
-            "head_game": "83",
-            "set_piece_taking": "53"
+            "passing": "64",
+            "shooting": "94",
+            "tackling": "26",
+            "saving": "8",
+            "agility": "90",
+            "strength": "75",
+            "penalty_taking": "84",
+            "jumping": "76",
+            "speed": "93",
+            "marking": "16",
+            "head_game": "87",
+            "set_piece_taking": "55"
           },
           "currentPOS": [
             150,
@@ -3373,26 +3384,26 @@
           "fitness": 100,
           "height": 178,
           "injured": false,
-          "age": 22
+          "age": 24
         },
         {
           "name": "Prass",
           "position": "ST",
-          "rating": "84",
+          "rating": "86",
           "starter": true,
           "skill": {
-            "passing": "58",
+            "passing": "60",
             "shooting": "85",
-            "tackling": "20",
-            "saving": "5",
-            "agility": "84",
-            "strength": "70",
-            "penalty_taking": "75",
-            "jumping": "70",
-            "speed": "87",
-            "marking": "31",
-            "head_game": "69",
-            "set_piece_taking": "80"
+            "tackling": "26",
+            "saving": "7",
+            "agility": "85",
+            "strength": "73",
+            "penalty_taking": "76",
+            "jumping": "75",
+            "speed": "90",
+            "marking": "33",
+            "head_game": "73",
+            "set_piece_taking": "82"
           },
           "currentPOS": [
             250,
@@ -3401,107 +3412,107 @@
           "fitness": 100,
           "height": 180,
           "injured": false,
-          "age": 23
+          "age": 25
         },
         {
           "name": "Volpi",
           "position": "GK",
-          "rating": "77",
+          "rating": "78",
           "starter": false,
           "skill": {
-            "passing": "45",
-            "shooting": "11",
-            "tackling": "24",
+            "passing": "46",
+            "shooting": "10",
+            "tackling": "29",
             "saving": "79",
-            "agility": "66",
-            "strength": "64",
-            "penalty_taking": "13",
-            "jumping": "75",
-            "speed": "43",
-            "marking": "40",
-            "head_game": "60",
-            "set_piece_taking": "19"
+            "agility": "68",
+            "strength": "63",
+            "penalty_taking": "16",
+            "jumping": "79",
+            "speed": "44",
+            "marking": "43",
+            "head_game": "63",
+            "set_piece_taking": "20"
           },
           "currentPOS": null,
           "fitness": 100,
           "height": 187,
           "injured": false,
-          "age": 24
+          "age": 26
         },
         {
           "name": "Cavalieri",
           "position": "CB",
-          "rating": "78",
+          "rating": "76",
           "starter": false,
           "skill": {
-            "passing": "53",
-            "shooting": "18",
-            "tackling": "75",
-            "saving": "10",
-            "agility": "56",
-            "strength": "72",
-            "penalty_taking": "15",
-            "jumping": "71",
-            "speed": "69",
-            "marking": "70",
-            "head_game": "77",
+            "passing": "50",
+            "shooting": "15",
+            "tackling": "72",
+            "saving": "8",
+            "agility": "54",
+            "strength": "70",
+            "penalty_taking": "17",
+            "jumping": "68",
+            "speed": "68",
+            "marking": "69",
+            "head_game": "76",
             "set_piece_taking": "17"
           },
           "currentPOS": null,
           "fitness": 100,
           "height": 186,
           "injured": false,
-          "age": 32
+          "age": 34
         },
         {
           "name": "Sidão",
           "position": "CM",
-          "rating": "83",
+          "rating": "87",
           "starter": false,
           "skill": {
-            "passing": "81",
-            "shooting": "58",
-            "tackling": "53",
-            "saving": "12",
-            "agility": "76",
-            "strength": "61",
-            "penalty_taking": "55",
-            "jumping": "52",
+            "passing": "87",
+            "shooting": "64",
+            "tackling": "56",
+            "saving": "16",
+            "agility": "78",
+            "strength": "65",
+            "penalty_taking": "57",
+            "jumping": "53",
             "speed": "78",
-            "marking": "48",
-            "head_game": "63",
-            "set_piece_taking": "72"
+            "marking": "50",
+            "head_game": "66",
+            "set_piece_taking": "74"
           },
           "currentPOS": null,
           "fitness": 100,
           "height": 176,
           "injured": false,
-          "age": 21
+          "age": 23
         },
         {
           "name": "Aranha",
           "position": "ST",
-          "rating": "80",
+          "rating": "81",
           "starter": false,
           "skill": {
-            "passing": "52",
-            "shooting": "82",
+            "passing": "54",
+            "shooting": "84",
             "tackling": "16",
             "saving": "3",
-            "agility": "79",
+            "agility": "78",
             "strength": "67",
-            "penalty_taking": "65",
+            "penalty_taking": "66",
             "jumping": "63",
-            "speed": "88",
+            "speed": "90",
             "marking": "23",
             "head_game": "78",
-            "set_piece_taking": "70"
+            "set_piece_taking": "72"
           },
           "currentPOS": null,
           "fitness": 100,
           "height": 181,
           "injured": false,
-          "age": 29
+          "age": 31
         }
       ],
       "coach": {
@@ -3514,7 +3525,8 @@
         },
         "age": 53
       },
-      "captain": "Muriel"
+      "captain": "Muriel",
+      "abbreviation": "LBR"
     }
   ]
 }

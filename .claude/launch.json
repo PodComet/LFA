@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "cards",
+      "runtimeExecutable": "node",
+      "runtimeArgs": ["serve-cards.js"],
+      "port": 3456
+    }
+  ]
+}
