@@ -570,6 +570,107 @@ async function runMatch() {
   updateCoachCareer(team2Index, awayGoals, homeGoals)
 
   fs.writeFileSync(leaguePath, JSON.stringify(league, null, 2))
+
+  // ---- Update season history ----
+  const historyPath = path.join(__dirname, 'data', 'history.json')
+  if (fs.existsSync(historyPath)) {
+    const history = JSON.parse(fs.readFileSync(historyPath, 'utf8'))
+    const currentSeason = history.seasons.find(s => s.number === history.currentSeason)
+    if (currentSeason) {
+      // Update standings
+      function updateStanding(teamName, gf, ga) {
+        let s = currentSeason.standings.find(s => s.team === teamName)
+        if (!s) {
+          s = { team: teamName, played: 0, won: 0, drawn: 0, lost: 0, gf: 0, ga: 0, points: 0 }
+          currentSeason.standings.push(s)
+        }
+        s.played++
+        s.gf += gf; s.ga += ga
+        if (gf > ga) { s.won++; s.points += 3 }
+        else if (gf === ga) { s.drawn++; s.points += 1 }
+        else { s.lost++ }
+      }
+      updateStanding(t1Data.name, homeGoals, awayGoals)
+      updateStanding(t2Data.name, awayGoals, homeGoals)
+
+      // Sort standings
+      currentSeason.standings.sort((a, b) => {
+        if (b.points !== a.points) return b.points - a.points
+        const gdA = a.gf - a.ga, gdB = b.gf - b.ga
+        if (gdB !== gdA) return gdB - gdA
+        return b.gf - a.gf
+      })
+
+      // Update player season stats
+      function updatePlayerStats(teamName, participants, enginePlayers) {
+        for (const p of participants) {
+          const s = p.finalStats || (enginePlayers.find(cp => cp.name === p.name) || {}).stats || p.stats
+          if (!s) continue
+          let ps = currentSeason.playerSeasonStats.find(
+            ps => ps.name === p.name && ps.team === teamName
+          )
+          if (!ps) {
+            ps = {
+              team: teamName, name: p.name, position: p.position,
+              rating: p.rating, appearances: 0, goals: 0, assists: 0,
+              shots: { total: 0, on: 0, off: 0 },
+              passes: { total: 0, on: 0, off: 0 },
+              tackles: { total: 0, on: 0, off: 0, fouls: 0 }
+            }
+            if (p.position === 'GK') ps.saves = 0
+            currentSeason.playerSeasonStats.push(ps)
+          }
+          ps.appearances++
+          ps.goals += s.goals || 0
+          ps.assists += s.assists || 0
+          ps.shots.total += s.shots ? s.shots.total : 0
+          ps.shots.on += s.shots ? s.shots.on : 0
+          ps.shots.off += s.shots ? s.shots.off : 0
+          ps.passes.total += s.passes ? s.passes.total : 0
+          ps.passes.on += s.passes ? s.passes.on : 0
+          ps.passes.off += s.passes ? s.passes.off : 0
+          ps.tackles.total += s.tackles ? s.tackles.total : 0
+          ps.tackles.on += s.tackles ? s.tackles.on : 0
+          ps.tackles.off += s.tackles ? s.tackles.off : 0
+          ps.tackles.fouls += s.tackles ? s.tackles.fouls : 0
+          if (ps.saves !== undefined && s.saves !== undefined) ps.saves += s.saves
+        }
+      }
+
+      const koPlayers = matchDetails.kickOffTeam.players
+      const stPlayers = matchDetails.secondTeam.players
+      if (homeIsKickOff) {
+        updatePlayerStats(t1Data.name, allParticipants.home, koPlayers)
+        updatePlayerStats(t2Data.name, allParticipants.away, stPlayers)
+      } else {
+        updatePlayerStats(t2Data.name, allParticipants.away, koPlayers)
+        updatePlayerStats(t1Data.name, allParticipants.home, stPlayers)
+      }
+
+      // Update coach season stats
+      function updateCoachSeason(teamName, gf, ga) {
+        let cs = currentSeason.coachSeasonStats.find(c => c.team === teamName)
+        if (!cs) {
+          const team = league.teams.find(t => t.name === teamName)
+          cs = {
+            team: teamName,
+            coach: team && team.coach ? team.coach.name : 'Unknown',
+            style: team && team.coach ? team.coach.style : 'balanced',
+            played: 0, won: 0, drawn: 0, lost: 0, points: 0
+          }
+          currentSeason.coachSeasonStats.push(cs)
+        }
+        cs.played++
+        if (gf > ga) { cs.won++; cs.points += 3 }
+        else if (gf === ga) { cs.drawn++; cs.points += 1 }
+        else { cs.lost++ }
+      }
+      updateCoachSeason(t1Data.name, homeGoals, awayGoals)
+      updateCoachSeason(t2Data.name, awayGoals, homeGoals)
+
+      fs.writeFileSync(historyPath, JSON.stringify(history, null, 2))
+    }
+  }
 }
 
 function updateFinalStats(currentPlayers, participants) {

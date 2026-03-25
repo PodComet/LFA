@@ -5,7 +5,9 @@
   "main": "simulate.js",
   "scripts": {
     "start": "node simulate.js",
-    "match": "node simulate.js"
+    "match": "node simulate.js",
+    "manage": "node manage.js",
+    "generate-history": "node generate-history.js"
   },
   "keywords": ["football", "soccer", "6v6", "simulator"],
   "author": "",

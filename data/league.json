@@ -276,8 +276,8 @@
         "rating": "88",
         "style": "attacking",
         "career": {
-          "matches": 14,
-          "points": 26
+          "matches": 15,
+          "points": 29
         }
       }
     },
@@ -557,7 +557,7 @@
         "rating": "72",
         "style": "defensive",
         "career": {
-          "matches": 25,
+          "matches": 26,
           "points": 32
         }
       }
