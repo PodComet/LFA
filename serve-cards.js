@@ -14,24 +14,41 @@ function writeJSON(file, data) { fs.writeFileSync(path.join(dataDir, file), JSON
 // ---------------------------------------------------------------------------
 // Match simulation using the engine (quick version for API)
 // ---------------------------------------------------------------------------
+// Coach style modifiers for quick simulation
+const STYLE_MODIFIERS = {
+  'attacking':      { off: 0.35, def: -0.10 },
+  'defensive':      { off: -0.10, def: 0.30 },
+  'balanced':       { off: 0.10, def: 0.10 },
+  'possession':     { off: 0.15, def: 0.15 },
+  'counter-attack': { off: 0.25, def: 0.05 }
+}
+
+function coachBoosts(coach) {
+  if (!coach || !coach.rating) return { off: 0, def: 0 }
+  const cr = parseInt(coach.rating, 10)
+  const base = (cr - 55) / 400
+  const mods = STYLE_MODIFIERS[coach.style] || { off: 0, def: 0 }
+  return { off: mods.off * (0.5 + base * 5), def: mods.def * (0.5 + base * 5) }
+}
+
 function simulateMatchWithEngine(homeTeam, awayTeam) {
-  // Run simulate.js as a subprocess and capture output
-  // But for API speed, use the quick simulation from generate-history instead
   const league = readJSON('league.json')
   const home = league.teams.find(t => t.name === homeTeam)
   const away = league.teams.find(t => t.name === awayTeam)
   if (!home || !away) return null
 
   function rand(min, max) { return Math.floor(Math.random() * (max - min + 1)) + min }
-  function pickGoals(teamRating, oppRating, homeBonus) {
+  function pickGoals(teamRating, oppRating, homeBonus, offBoost, defPenalty) {
+    offBoost = offBoost || 0; defPenalty = defPenalty || 0
     const diff = (teamRating - oppRating) / 10
-    const base = 2.0 + diff * 0.3 + homeBonus
+    const base = 2.0 + diff * 0.3 + homeBonus + offBoost - defPenalty
     return Math.max(0, Math.round(base + (Math.random() - 0.5) * 3))
   }
 
   const r1 = parseInt(home.rating, 10), r2 = parseInt(away.rating, 10)
-  let g1 = pickGoals(r1, r2, 0.3)
-  let g2 = pickGoals(r2, r1, -0.15)
+  const cb1 = coachBoosts(home.coach), cb2 = coachBoosts(away.coach)
+  let g1 = pickGoals(r1, r2, 0.3, cb1.off, cb2.def)
+  let g2 = pickGoals(r2, r1, -0.15, cb2.off, cb1.def)
 
   // First-to-5 rules
   if (g1 >= 5 && g2 < 4) g1 = 5
@@ -282,6 +299,22 @@ http.createServer(async (req, res) => {
     updateHistory(match.home, match.away, body.score[0], body.score[1], null, null)
 
     return jsonRes(res, { success: true, match })
+  }
+
+  // --- Change coach style ---
+  if (pathname.startsWith('/api/coach-style/') && req.method === 'POST') {
+    const teamName = decodeURIComponent(pathname.split('/')[3])
+    const body = await parseBody(req)
+    const validStyles = ['attacking', 'defensive', 'balanced', 'possession', 'counter-attack']
+    if (!body.style || !validStyles.includes(body.style)) return jsonRes(res, { error: 'Invalid style. Must be one of: ' + validStyles.join(', ') }, 400)
+
+    const league = readJSON('league.json')
+    const team = league.teams.find(t => t.name === teamName)
+    if (!team) return jsonRes(res, { error: 'Team not found' }, 404)
+
+    team.coach.style = body.style
+    writeJSON('league.json', league)
+    return jsonRes(res, { success: true, team: team.name, coach: team.coach.name, style: body.style })
   }
 
   // --- End of season: apply player development ---

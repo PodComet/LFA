@@ -53,11 +53,32 @@ function pickCaptain(team) {
 }
 
 // ---------------------------------------------------------------------------
+// Coach style modifiers for quick simulation
+// offBoost: extra goals scored, defBoost: fewer goals conceded
+// Scaled by coach rating: (coachRating - 55) / 400 as multiplier
+const STYLE_MODIFIERS = {
+  'attacking':      { off: 0.35, def: -0.10 },
+  'defensive':      { off: -0.10, def: 0.30 },
+  'balanced':       { off: 0.10, def: 0.10 },
+  'possession':     { off: 0.15, def: 0.15 },
+  'counter-attack': { off: 0.25, def: 0.05 }
+}
+
+function coachBoosts(coach) {
+  if (!coach || !coach.rating) return { off: 0, def: 0 }
+  const cr = parseInt(coach.rating, 10)
+  const base = (cr - 55) / 400  // -0.05 to +0.09
+  const mods = STYLE_MODIFIERS[coach.style] || { off: 0, def: 0 }
+  return { off: mods.off * (0.5 + base * 5), def: mods.def * (0.5 + base * 5) }
+}
+
 // Match simulation (quick, for history generation)
 // ---------------------------------------------------------------------------
-function pickGoals(teamRating, oppRating, homeBonus) {
+function pickGoals(teamRating, oppRating, homeBonus, offBoost, defPenalty) {
+  offBoost = offBoost || 0
+  defPenalty = defPenalty || 0
   const diff = (teamRating - oppRating) / 10
-  const base = 2.0 + diff * 0.3 + homeBonus
+  const base = 2.0 + diff * 0.3 + homeBonus + offBoost - defPenalty
   return Math.max(0, Math.round(base + (Math.random() - 0.5) * 3))
 }
 
@@ -67,9 +88,11 @@ function simulateMatch(team1, team2, homeTeamIdx) {
   const r2 = parseInt(team2.rating, 10)
   const hb1 = homeTeamIdx === 0 ? 0.3 : (homeTeamIdx === 1 ? -0.15 : 0)
   const hb2 = homeTeamIdx === 1 ? 0.3 : (homeTeamIdx === 0 ? -0.15 : 0)
+  const cb1 = coachBoosts(team1.coach)
+  const cb2 = coachBoosts(team2.coach)
 
-  let g1 = pickGoals(r1, r2, hb1)
-  let g2 = pickGoals(r2, r1, hb2)
+  let g1 = pickGoals(r1, r2, hb1, cb1.off, cb2.def)
+  let g2 = pickGoals(r2, r1, hb2, cb2.off, cb1.def)
 
   // Apply first-to-5 rules
   if (g1 >= 5 && g2 < 4) g1 = 5

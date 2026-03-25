@@ -220,6 +220,19 @@ table.stats .totals td{font-weight:700;color:var(--white);border-top:2px solid r
 .leader-value{font-weight:700;font-size:15px;color:var(--white);min-width:45px;text-align:right}
 .stats-btn{background:rgba(251,191,36,.1) !important;border-color:rgba(251,191,36,.3) !important;color:var(--gold) !important}
 .stats-btn.active{background:var(--gold) !important;color:#000 !important;border-color:var(--gold) !important}
+.coach-btn{background:rgba(99,102,241,.1) !important;border-color:rgba(99,102,241,.3) !important;color:var(--purple) !important}
+.coach-btn.active{background:var(--purple) !important;color:#fff !important;border-color:var(--purple) !important}
+.coach-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:20px;margin-bottom:14px}
+.coach-card-header{display:flex;align-items:center;gap:16px;margin-bottom:16px}
+.coach-info{flex:1}
+.style-picker{display:flex;gap:6px;flex-wrap:wrap}
+.style-opt{padding:8px 14px;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;border:2px solid var(--border);background:var(--card2);color:var(--text2);transition:all .15s}
+.style-opt:hover{border-color:rgba(255,255,255,.2);color:var(--white)}
+.style-opt.active{border-color:var(--accent);background:rgba(59,130,246,.15);color:var(--accent)}
+.style-desc{font-size:11px;color:var(--text2);margin-top:4px}
+.style-boost{display:inline-block;padding:2px 6px;border-radius:4px;font-size:10px;font-weight:600;margin:2px}
+.style-boost.pos{background:rgba(16,185,129,.12);color:var(--green)}
+.style-boost.neg{background:rgba(239,68,68,.12);color:var(--red)}
 .eos-btn{background:rgba(16,185,129,.1) !important;border-color:rgba(16,185,129,.3) !important;color:var(--green) !important}
 .eos-btn.active{background:var(--green) !important;color:#fff !important;border-color:var(--green) !important}
 .dev-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:16px 20px;display:flex;align-items:center;gap:14px}
@@ -880,7 +893,8 @@ async function renderCurrentSeason(main, parts) {
   const part0 = parts.length > 0 ? parts[0] : ''
   const isStats = part0 === 'stats'
   const isEndOfSeason = part0 === 'endofseason'
-  const mdNum = (isStats || isEndOfSeason) ? 0 : (part0 !== '' ? parseInt(part0, 10) : 0)
+  const isCoaches = part0 === 'coaches'
+  const mdNum = (isStats || isEndOfSeason || isCoaches) ? 0 : (part0 !== '' ? parseInt(part0, 10) : 0)
 
   main.innerHTML = ''
   main.appendChild(h('div','page-title','Season ' + schedule.season + ' \\u2014 Current Season'))
@@ -905,6 +919,15 @@ async function renderCurrentSeason(main, parts) {
   statsBtn.onclick = () => go('season/stats')
   nav.appendChild(statsBtn)
 
+  // Coaches button
+  const coachBtn = h('div', 'md-btn coach-btn' + (isCoaches ? ' active' : ''), '\\u{1F4CB}')
+  coachBtn.title = 'Coach Management'
+  coachBtn.style.width = 'auto'
+  coachBtn.style.padding = '0 12px'
+  coachBtn.style.fontSize = '16px'
+  coachBtn.onclick = () => go('season/coaches')
+  nav.appendChild(coachBtn)
+
   // End of Season button (only show if all regular season matches are played)
   const allPlayed = schedule.matchdays.every(md => md.matches.every(m => m.status === 'completed'))
   if (allPlayed) {
@@ -920,6 +943,11 @@ async function renderCurrentSeason(main, parts) {
 
   if (isEndOfSeason) {
     renderEndOfSeason(main, schedule)
+    return
+  }
+
+  if (isCoaches) {
+    renderCoachManagement(main)
     return
   }
 
@@ -1121,6 +1149,68 @@ function renderSeasonStats(main, schedule) {
   }))
 
   main.appendChild(grid)
+}
+
+// -------------------------------------------------------------------------
+// COACH MANAGEMENT
+// -------------------------------------------------------------------------
+const STYLES = {
+  'attacking':      { label: 'Attacking', icon: '\\u2694', desc: 'All-out offense. Boosts striker output, slight defensive vulnerability.', boosts: ['Offense +', 'Defense -'] },
+  'defensive':      { label: 'Defensive', icon: '\\u{1F6E1}', desc: 'Solid backline. Reduces goals conceded, limits attacking output.', boosts: ['Defense +', 'Offense -'] },
+  'balanced':       { label: 'Balanced', icon: '\\u2696', desc: 'Steady approach. Small improvements across the board.', boosts: ['Offense +', 'Defense +'] },
+  'possession':     { label: 'Possession', icon: '\\u{1F504}', desc: 'Control the ball. Good offensive and defensive stability through possession.', boosts: ['Offense +', 'Defense +'] },
+  'counter-attack': { label: 'Counter-Attack', icon: '\\u26A1', desc: 'Fast transitions. Strong offensive punch with modest defensive cover.', boosts: ['Offense ++', 'Defense +'] }
+}
+
+async function renderCoachManagement(main) {
+  main.appendChild(h('div','page-sub','Set each coach\\u0027s tactical philosophy. Style affects match simulation based on the coach\\u0027s skill level.'))
+
+  // Fetch fresh league data
+  const res = await fetch('/api/league')
+  const league = await res.json()
+
+  for (const team of league.teams) {
+    const coach = team.coach
+    const tc = teamColor(team)
+    const card = h('div','coach-card')
+
+    const header = h('div','coach-card-header')
+    header.innerHTML = miniAv(coach.name, tc) +
+      '<div class="coach-info"><div style="font-size:16px;font-weight:700;color:var(--white)">' + coach.name + '</div>' +
+      '<div style="font-size:13px;color:var(--text2)">' + team.name + ' \\u2022 Rating: <span style="color:var(--white);font-weight:600">' + coach.rating + '</span></div></div>'
+    card.appendChild(header)
+
+    const picker = h('div','style-picker')
+    for (const [key, info] of Object.entries(STYLES)) {
+      const opt = h('div','style-opt' + (coach.style === key ? ' active' : ''))
+      opt.innerHTML = '<div>' + info.icon + ' ' + info.label + '</div><div class="style-desc">' + info.desc + '</div><div style="margin-top:4px">' +
+        info.boosts.map(b => {
+          const isNeg = b.includes('-')
+          return '<span class="style-boost ' + (isNeg ? 'neg' : 'pos') + '">' + b + '</span>'
+        }).join('') + '</div>'
+
+      opt.onclick = async () => {
+        if (coach.style === key) return
+        opt.style.opacity = '0.5'
+        try {
+          await fetch('/api/coach-style/' + encodeURIComponent(team.name), {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ style: key })
+          })
+          coach.style = key
+          picker.querySelectorAll('.style-opt').forEach(o => o.classList.remove('active'))
+          opt.classList.add('active')
+        } catch (e) {
+          alert('Error: ' + e.message)
+        }
+        opt.style.opacity = '1'
+      }
+      picker.appendChild(opt)
+    }
+    card.appendChild(picker)
+    main.appendChild(card)
+  }
 }
 
 let developmentResults = null
