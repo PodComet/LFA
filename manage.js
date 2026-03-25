@@ -10,6 +10,10 @@
 //   node manage.js leaders [season#]            — stat leaders
 //   node manage.js history <name>               — player career history
 //   node manage.js coaches                      — coach overview + career win%
+//   node manage.js playoffs [season#]            — playoff bracket
+//   node manage.js trophy                        — Guy Kilne trophy history
+//   node manage.js awards [season#]              — season awards
+//   node manage.js card <name>                   — generate HTML player/coach card
 //
 //   node manage.js edit player <name> <field> <value>
 //   node manage.js edit team <team#> <field> <value>
@@ -248,6 +252,118 @@ function cmdCoaches() {
   console.log('')
 }
 
+function cmdPlayoffs(seasonNum) {
+  const history = loadHistory()
+  const season = history.seasons.find(s => s.number === seasonNum)
+  if (!season) { console.error(`Season ${seasonNum} not found`); return }
+  if (!season.playoffs) { console.log(`\n  Season ${seasonNum} — No playoff data (in progress)\n`); return }
+
+  const po = season.playoffs
+  console.log(`\n  LFA Season ${season.number} — Playoffs\n`)
+
+  console.log('  QUARTERFINALS (Best of 3)')
+  line()
+  for (const qf of po.quarterFinals) {
+    console.log(`  #${qf.seedNums[0]} ${pad(qf.higherSeed, 22)} vs  #${qf.seedNums[1]} ${pad(qf.lowerSeed, 22)} => ${qf.winner} (${qf.seriesScore})`)
+    for (let i = 0; i < qf.games.length; i++) {
+      const g = qf.games[i]
+      console.log(`      Game ${i + 1}: ${pad(g.home, 20)} ${g.score[0]} - ${g.score[1]}  ${g.away}`)
+    }
+    console.log('')
+  }
+
+  console.log('  SEMIFINALS (Neutral Site)')
+  line()
+  for (const sf of po.semiFinals) {
+    console.log(`  ${pad(sf.team1, 22)} ${sf.score[0]} - ${sf.score[1]}  ${sf.team2}  =>  ${sf.winner}`)
+  }
+  console.log('')
+
+  console.log('  FINAL (Neutral Site)')
+  line()
+  const f = po.final
+  console.log(`  ${pad(f.team1, 22)} ${f.score[0]} - ${f.score[1]}  ${f.team2}`)
+  console.log(`\n  CHAMPION: ${f.winner}`)
+  if (season.guyKilneTrophy) {
+    console.log(`  Guy Kilne Trophy: ${season.guyKilneTrophy.captain} (Captain, ${season.guyKilneTrophy.team})`)
+  }
+  console.log('')
+}
+
+function cmdTrophy() {
+  const history = loadHistory()
+  console.log('\n  GUY KILNE TROPHY — All-Time Winners\n')
+  console.log(`  ${rpad('Season', 8)} ${pad('Captain', 18)} ${pad('Team', 22)}`)
+  line(50)
+
+  const wins = {}
+  for (const season of history.seasons) {
+    if (season.guyKilneTrophy) {
+      const t = season.guyKilneTrophy
+      console.log(`  ${rpad('S' + season.number, 8)} ${pad(t.captain, 18)} ${pad(t.team, 22)}`)
+      wins[t.team] = (wins[t.team] || 0) + 1
+    } else {
+      console.log(`  ${rpad('S' + season.number, 8)} ${pad('(in progress)', 18)}`)
+    }
+  }
+
+  console.log('')
+  console.log('  TITLES BY TEAM')
+  line(35)
+  const sorted = Object.entries(wins).sort((a, b) => b[1] - a[1])
+  for (const [team, count] of sorted) {
+    console.log(`  ${pad(team, 22)} ${count}`)
+  }
+  console.log('')
+}
+
+function cmdAwards(seasonNum) {
+  const history = loadHistory()
+  const season = history.seasons.find(s => s.number === seasonNum)
+  if (!season) { console.error(`Season ${seasonNum} not found`); return }
+  if (!season.awards) { console.log(`\n  Season ${seasonNum} — No awards data (in progress)\n`); return }
+
+  const a = season.awards
+  console.log(`\n  LFA Season ${season.number} — Awards\n`)
+  line()
+  if (a.mvp) console.log(`  MVP                    ${pad(a.mvp.name, 18)} ${pad(a.mvp.team, 22)} ${a.mvp.position}  (Grade: ${a.mvp.grade})`)
+  if (a.lfaPromise) console.log(`  LFA Promise            ${pad(a.lfaPromise.name, 18)} ${pad(a.lfaPromise.team, 22)} ${a.lfaPromise.position}  (Age ${a.lfaPromise.age})`)
+  if (a.goalkeeperOfSeason) console.log(`  GK of the Season       ${pad(a.goalkeeperOfSeason.name, 18)} ${pad(a.goalkeeperOfSeason.team, 22)} ${a.goalkeeperOfSeason.saves} saves`)
+  if (a.fieldPlayerOfYear) console.log(`  Field Player of Year   ${pad(a.fieldPlayerOfYear.name, 18)} ${pad(a.fieldPlayerOfYear.team, 22)} ${a.fieldPlayerOfYear.position}`)
+  if (a.coachOfYear) console.log(`  Coach of the Year      ${pad(a.coachOfYear.name, 18)} ${pad(a.coachOfYear.team, 22)} ${a.coachOfYear.style}`)
+  if (a.fichichi) console.log(`  Fichichi               ${pad(a.fichichi.name, 18)} ${pad(a.fichichi.team, 22)} ${a.fichichi.goals} goals, ${a.fichichi.assists} assists`)
+  if (a.assistKing) console.log(`  Assist King            ${pad(a.assistKing.name, 18)} ${pad(a.assistKing.team, 22)} ${a.assistKing.assists} assists (${a.assistKing.perMatch}/match)`)
+  console.log('')
+}
+
+function cmdCard(name) {
+  const { execSync } = require('child_process')
+  const league = loadLeague()
+
+  // Check if it's a player
+  let isPlayer = false
+  for (const t of league.teams) {
+    if (t.players.find(p => p.name.toLowerCase() === name.toLowerCase())) {
+      isPlayer = true; break
+    }
+  }
+
+  if (isPlayer) {
+    const result = execSync(`node "${path.join(__dirname, 'cards.js')}" player ${name}`, { encoding: 'utf8' })
+    console.log(result.trim())
+    return
+  }
+
+  // Try as coach
+  const idx = league.teams.findIndex(t => t.coach && t.coach.name.toLowerCase() === name.toLowerCase())
+  if (idx >= 0) {
+    const result = execSync(`node "${path.join(__dirname, 'cards.js')}" coach ${idx}`, { encoding: 'utf8' })
+    console.log(result.trim())
+  } else {
+    console.error(`Not found as player or coach: ${name}`)
+  }
+}
+
 // ---------------------------------------------------------------------------
 // Edit commands
 // ---------------------------------------------------------------------------
@@ -404,6 +520,10 @@ if (!cmd) {
     leaders [season#]                  Stat leaders
     history <name>                     Player career history by season
     coaches                            Coach overview + career win%
+    playoffs [season#]                 Playoff bracket
+    trophy                             Guy Kilne trophy history
+    awards [season#]                   Season awards
+    card <name>                        Generate HTML player/coach card
 
     edit player <name> <field> <value> Edit player (name, position, rating)
     edit team <team#> <field> <value>  Edit team (name, rating, colors.primary, colors.secondary)
@@ -442,6 +562,24 @@ switch (cmd) {
     break
   case 'coaches':
     cmdCoaches()
+    break
+  case 'playoffs': {
+    const h = loadHistory()
+    const sn = args[1] ? parseInt(args[1], 10) : h.currentSeason - 1
+    cmdPlayoffs(sn)
+    break
+  }
+  case 'trophy':
+    cmdTrophy()
+    break
+  case 'awards': {
+    const h = loadHistory()
+    const sn = args[1] ? parseInt(args[1], 10) : h.currentSeason - 1
+    cmdAwards(sn)
+    break
+  }
+  case 'card':
+    cmdCard(args.slice(1).join(' '))
     break
   case 'edit': {
     const sub = args[1]

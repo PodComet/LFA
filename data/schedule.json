@@ -1,0 +1,660 @@
+{
+  "season": 16,
+  "matchdays": [
+    {
+      "number": 1,
+      "matches": [
+        {
+          "home": "Thunderbolts",
+          "away": "Cyclones",
+          "status": "pending",
+          "score": null,
+          "method": null,
+          "playerStats": null,
+          "playerGrades": null
+        },
+        {
+          "home": "Red Phoenix",
+          "away": "Storm Chasers",
+          "status": "pending",
+          "score": null,
+          "method": null,
+          "playerStats": null,
+          "playerGrades": null
+        },
+        {
+          "home": "Shadow Wolves",
+          "away": "Crimson Vanguard",
+          "status": "pending",
+          "score": null,
+          "method": null,
+          "playerStats": null,
+          "playerGrades": null
+        },
+        {
+          "home": "Iron Eagles",
+          "away": "Emerald Strikers",
+          "status": "pending",
+          "score": null,
+          "method": null,
+          "playerStats": null,
+          "playerGrades": null
+        },
+        {
+          "home": "Blue Tide",
+          "away": "Solar Flares",
+          "status": "pending",
+          "score": null,
+          "method": null,
+          "playerStats": null,
+          "playerGrades": null
+        },
+        {
+          "home": "Golden Lions",
+          "away": "Arctic Foxes",
+          "status": "pending",
+          "score": null,
+          "method": null,
+          "playerStats": null,
+          "playerGrades": null
+        }
+      ]
+    },
+    {
+      "number": 2,
+      "matches": [
+        {
+          "home": "Thunderbolts",
+          "away": "Storm Chasers",
+          "status": "pending",
+          "score": null,
+          "method": null,
+          "playerStats": null,
+          "playerGrades": null
+        },
+        {
+          "home": "Crimson Vanguard",
+          "away": "Cyclones",
+          "status": "pending",
+          "score": null,
+          "method": null,
+          "playerStats": null,
+          "playerGrades": null
+        },
+        {
+          "home": "Red Phoenix",
+          "away": "Emerald Strikers",
+          "status": "pending",
+          "score": null,
+          "method": null,
+          "playerStats": null,
+          "playerGrades": null
+        },
+        {
+          "home": "Blue Tide",
+          "away": "Shadow Wolves",
+          "status": "pending",
+          "score": null,
+          "method": null,
+          "playerStats": null,
+          "playerGrades": null
+        },
+        {
+          "home": "Golden Lions",
+          "away": "Iron Eagles",
+          "status": "pending",
+          "score": null,
+          "method": null,
+          "playerStats": null,
+          "playerGrades": null
+        },
+        {
+          "home": "Arctic Foxes",
+          "away": "Solar Flares",
+          "status": "pending",
+          "score": null,
+          "method": null,
+          "playerStats": null,
+          "playerGrades": null
+        }
+      ]
+    },
+    {
+      "number": 3,
+      "matches": [
+        {
+          "home": "Crimson Vanguard",
+          "away": "Thunderbolts",
+          "status": "pending",
+          "score": null,
+          "method": null,
+          "playerStats": null,
+          "playerGrades": null
+        },
+        {
+          "home": "Storm Chasers",
+          "away": "Emerald Strikers",
+          "status": "pending",
+          "score": null,
+          "method": null,
+          "playerStats": null,
+          "playerGrades": null
+        },
+        {
+          "home": "Cyclones",
+          "away": "Blue Tide",
+          "status": "pending",
+          "score": null,
+          "method": null,
+          "playerStats": null,
+          "playerGrades": null
+        },
+        {
+          "home": "Red Phoenix",
+          "away": "Golden Lions",
+          "status": "pending",
+          "score": null,
+          "method": null,
+          "playerStats": null,
+          "playerGrades": null
+        },
+        {
+          "home": "Shadow Wolves",
+          "away": "Arctic Foxes",
+          "status": "pending",
+          "score": null,
+          "method": null,
+          "playerStats": null,
+          "playerGrades": null
+        },
+        {
+          "home": "Iron Eagles",
+          "away": "Solar Flares",
+          "status": "pending",
+          "score": null,
+          "method": null,
+          "playerStats": null,
+          "playerGrades": null
+        }
+      ]
+    },
+    {
+      "number": 4,
+      "matches": [
+        {
+          "home": "Emerald Strikers",
+          "away": "Thunderbolts",
+          "status": "pending",
+          "score": null,
+          "method": null,
+          "playerStats": null,
+          "playerGrades": null
+        },
+        {
+          "home": "Blue Tide",
+          "away": "Crimson Vanguard",
+          "status": "pending",
+          "score": null,
+          "method": null,
+          "playerStats": null,
+          "playerGrades": null
+        },
+        {
+          "home": "Golden Lions",
+          "away": "Storm Chasers",
+          "status": "pending",
+          "score": null,
+          "method": null,
+          "playerStats": null,
+          "playerGrades": null
+        },
+        {
+          "home": "Arctic Foxes",
+          "away": "Cyclones",
+          "status": "pending",
+          "score": null,
+          "method": null,
+          "playerStats": null,
+          "playerGrades": null
+        },
+        {
+          "home": "Solar Flares",
+          "away": "Red Phoenix",
+          "status": "pending",
+          "score": null,
+          "method": null,
+          "playerStats": null,
+          "playerGrades": null
+        },
+        {
+          "home": "Iron Eagles",
+          "away": "Shadow Wolves",
+          "status": "pending",
+          "score": null,
+          "method": null,
+          "playerStats": null,
+          "playerGrades": null
+        }
+      ]
+    },
+    {
+      "number": 5,
+      "matches": [
+        {
+          "home": "Thunderbolts",
+          "away": "Blue Tide",
+          "status": "pending",
+          "score": null,
+          "method": null,
+          "playerStats": null,
+          "playerGrades": null
+        },
+        {
+          "home": "Emerald Strikers",
+          "away": "Golden Lions",
+          "status": "pending",
+          "score": null,
+          "method": null,
+          "playerStats": null,
+          "playerGrades": null
+        },
+        {
+          "home": "Crimson Vanguard",
+          "away": "Arctic Foxes",
+          "status": "pending",
+          "score": null,
+          "method": null,
+          "playerStats": null,
+          "playerGrades": null
+        },
+        {
+          "home": "Storm Chasers",
+          "away": "Solar Flares",
+          "status": "pending",
+          "score": null,
+          "method": null,
+          "playerStats": null,
+          "playerGrades": null
+        },
+        {
+          "home": "Cyclones",
+          "away": "Iron Eagles",
+          "status": "pending",
+          "score": null,
+          "method": null,
+          "playerStats": null,
+          "playerGrades": null
+        },
+        {
+          "home": "Shadow Wolves",
+          "away": "Red Phoenix",
+          "status": "pending",
+          "score": null,
+          "method": null,
+          "playerStats": null,
+          "playerGrades": null
+        }
+      ]
+    },
+    {
+      "number": 6,
+      "matches": [
+        {
+          "home": "Golden Lions",
+          "away": "Thunderbolts",
+          "status": "pending",
+          "score": null,
+          "method": null,
+          "playerStats": null,
+          "playerGrades": null
+        },
+        {
+          "home": "Blue Tide",
+          "away": "Arctic Foxes",
+          "status": "pending",
+          "score": null,
+          "method": null,
+          "playerStats": null,
+          "playerGrades": null
+        },
+        {
+          "home": "Solar Flares",
+          "away": "Emerald Strikers",
+          "status": "pending",
+          "score": null,
+          "method": null,
+          "playerStats": null,
+          "playerGrades": null
+        },
+        {
+          "home": "Iron Eagles",
+          "away": "Crimson Vanguard",
+          "status": "pending",
+          "score": null,
+          "method": null,
+          "playerStats": null,
+          "playerGrades": null
+        },
+        {
+          "home": "Shadow Wolves",
+          "away": "Storm Chasers",
+          "status": "pending",
+          "score": null,
+          "method": null,
+          "playerStats": null,
+          "playerGrades": null
+        },
+        {
+          "home": "Red Phoenix",
+          "away": "Cyclones",
+          "status": "pending",
+          "score": null,
+          "method": null,
+          "playerStats": null,
+          "playerGrades": null
+        }
+      ]
+    },
+    {
+      "number": 7,
+      "matches": [
+        {
+          "home": "Arctic Foxes",
+          "away": "Thunderbolts",
+          "status": "pending",
+          "score": null,
+          "method": null,
+          "playerStats": null,
+          "playerGrades": null
+        },
+        {
+          "home": "Solar Flares",
+          "away": "Golden Lions",
+          "status": "pending",
+          "score": null,
+          "method": null,
+          "playerStats": null,
+          "playerGrades": null
+        },
+        {
+          "home": "Blue Tide",
+          "away": "Iron Eagles",
+          "status": "pending",
+          "score": null,
+          "method": null,
+          "playerStats": null,
+          "playerGrades": null
+        },
+        {
+          "home": "Emerald Strikers",
+          "away": "Shadow Wolves",
+          "status": "pending",
+          "score": null,
+          "method": null,
+          "playerStats": null,
+          "playerGrades": null
+        },
+        {
+          "home": "Crimson Vanguard",
+          "away": "Red Phoenix",
+          "status": "pending",
+          "score": null,
+          "method": null,
+          "playerStats": null,
+          "playerGrades": null
+        },
+        {
+          "home": "Storm Chasers",
+          "away": "Cyclones",
+          "status": "pending",
+          "score": null,
+          "method": null,
+          "playerStats": null,
+          "playerGrades": null
+        }
+      ]
+    },
+    {
+      "number": 8,
+      "matches": [
+        {
+          "home": "Thunderbolts",
+          "away": "Solar Flares",
+          "status": "pending",
+          "score": null,
+          "method": null,
+          "playerStats": null,
+          "playerGrades": null
+        },
+        {
+          "home": "Iron Eagles",
+          "away": "Arctic Foxes",
+          "status": "pending",
+          "score": null,
+          "method": null,
+          "playerStats": null,
+          "playerGrades": null
+        },
+        {
+          "home": "Shadow Wolves",
+          "away": "Golden Lions",
+          "status": "pending",
+          "score": null,
+          "method": null,
+          "playerStats": null,
+          "playerGrades": null
+        },
+        {
+          "home": "Red Phoenix",
+          "away": "Blue Tide",
+          "status": "pending",
+          "score": null,
+          "method": null,
+          "playerStats": null,
+          "playerGrades": null
+        },
+        {
+          "home": "Cyclones",
+          "away": "Emerald Strikers",
+          "status": "pending",
+          "score": null,
+          "method": null,
+          "playerStats": null,
+          "playerGrades": null
+        },
+        {
+          "home": "Storm Chasers",
+          "away": "Crimson Vanguard",
+          "status": "pending",
+          "score": null,
+          "method": null,
+          "playerStats": null,
+          "playerGrades": null
+        }
+      ]
+    },
+    {
+      "number": 9,
+      "matches": [
+        {
+          "home": "Thunderbolts",
+          "away": "Iron Eagles",
+          "status": "pending",
+          "score": null,
+          "method": null,
+          "playerStats": null,
+          "playerGrades": null
+        },
+        {
+          "home": "Solar Flares",
+          "away": "Shadow Wolves",
+          "status": "pending",
+          "score": null,
+          "method": null,
+          "playerStats": null,
+          "playerGrades": null
+        },
+        {
+          "home": "Arctic Foxes",
+          "away": "Red Phoenix",
+          "status": "pending",
+          "score": null,
+          "method": null,
+          "playerStats": null,
+          "playerGrades": null
+        },
+        {
+          "home": "Golden Lions",
+          "away": "Cyclones",
+          "status": "pending",
+          "score": null,
+          "method": null,
+          "playerStats": null,
+          "playerGrades": null
+        },
+        {
+          "home": "Blue Tide",
+          "away": "Storm Chasers",
+          "status": "pending",
+          "score": null,
+          "method": null,
+          "playerStats": null,
+          "playerGrades": null
+        },
+        {
+          "home": "Emerald Strikers",
+          "away": "Crimson Vanguard",
+          "status": "pending",
+          "score": null,
+          "method": null,
+          "playerStats": null,
+          "playerGrades": null
+        }
+      ]
+    },
+    {
+      "number": 10,
+      "matches": [
+        {
+          "home": "Shadow Wolves",
+          "away": "Thunderbolts",
+          "status": "pending",
+          "score": null,
+          "method": null,
+          "playerStats": null,
+          "playerGrades": null
+        },
+        {
+          "home": "Red Phoenix",
+          "away": "Iron Eagles",
+          "status": "pending",
+          "score": null,
+          "method": null,
+          "playerStats": null,
+          "playerGrades": null
+        },
+        {
+          "home": "Cyclones",
+          "away": "Solar Flares",
+          "status": "pending",
+          "score": null,
+          "method": null,
+          "playerStats": null,
+          "playerGrades": null
+        },
+        {
+          "home": "Storm Chasers",
+          "away": "Arctic Foxes",
+          "status": "pending",
+          "score": null,
+          "method": null,
+          "playerStats": null,
+          "playerGrades": null
+        },
+        {
+          "home": "Crimson Vanguard",
+          "away": "Golden Lions",
+          "status": "pending",
+          "score": null,
+          "method": null,
+          "playerStats": null,
+          "playerGrades": null
+        },
+        {
+          "home": "Emerald Strikers",
+          "away": "Blue Tide",
+          "status": "pending",
+          "score": null,
+          "method": null,
+          "playerStats": null,
+          "playerGrades": null
+        }
+      ]
+    },
+    {
+      "number": 11,
+      "matches": [
+        {
+          "home": "Thunderbolts",
+          "away": "Red Phoenix",
+          "status": "pending",
+          "score": null,
+          "method": null,
+          "playerStats": null,
+          "playerGrades": null
+        },
+        {
+          "home": "Cyclones",
+          "away": "Shadow Wolves",
+          "status": "pending",
+          "score": null,
+          "method": null,
+          "playerStats": null,
+          "playerGrades": null
+        },
+        {
+          "home": "Iron Eagles",
+          "away": "Storm Chasers",
+          "status": "pending",
+          "score": null,
+          "method": null,
+          "playerStats": null,
+          "playerGrades": null
+        },
+        {
+          "home": "Solar Flares",
+          "away": "Crimson Vanguard",
+          "status": "pending",
+          "score": null,
+          "method": null,
+          "playerStats": null,
+          "playerGrades": null
+        },
+        {
+          "home": "Arctic Foxes",
+          "away": "Emerald Strikers",
+          "status": "pending",
+          "score": null,
+          "method": null,
+          "playerStats": null,
+          "playerGrades": null
+        },
+        {
+          "home": "Golden Lions",
+          "away": "Blue Tide",
+          "status": "pending",
+          "score": null,
+          "method": null,
+          "playerStats": null,
+          "playerGrades": null
+        }
+      ]
+    }
+  ],
+  "playoffs": {
+    "status": "pending",
+    "quarterFinals": null,
+    "semiFinals": null,
+    "final": null
+  }
+}
