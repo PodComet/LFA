@@ -2,6 +2,7 @@ const http = require('http')
 const fs = require('fs')
 const path = require('path')
 const { execSync } = require('child_process')
+const { developPlayer, playerPotential } = require('./player-development')
 
 const PORT = 3456
 const siteDir = path.join(__dirname, 'site')
@@ -281,6 +282,33 @@ http.createServer(async (req, res) => {
     updateHistory(match.home, match.away, body.score[0], body.score[1], null, null)
 
     return jsonRes(res, { success: true, match })
+  }
+
+  // --- End of season: apply player development ---
+  if (pathname === '/api/develop-season' && req.method === 'POST') {
+    const league = readJSON('league.json')
+    const results = []
+
+    for (const team of league.teams) {
+      for (const player of team.players) {
+        const result = developPlayer(player, player.age)
+        result.team = team.name
+        result.potential = playerPotential(player)
+        results.push(result)
+        player.age += 1
+      }
+      // Recalculate team rating from starters
+      const starterRatings = team.players.slice(0, 6).map(p => parseInt(p.rating, 10))
+      team.rating = String(Math.round(starterRatings.reduce((a, b) => a + b, 0) / starterRatings.length))
+    }
+
+    writeJSON('league.json', league)
+
+    // Sort by rating delta for the summary
+    const improvers = [...results].sort((a, b) => b.ratingDelta - a.ratingDelta).slice(0, 10)
+    const decliners = [...results].sort((a, b) => a.ratingDelta - b.ratingDelta).slice(0, 10)
+
+    return jsonRes(res, { success: true, results, improvers, decliners })
   }
 
   // --- Static files ---

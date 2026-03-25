@@ -13,6 +13,7 @@
 // ---------------------------------------------------------------------------
 const fs = require('fs')
 const path = require('path')
+const { getSkillsAtAge, getRatingAtAge } = require('./player-development')
 
 const league = JSON.parse(fs.readFileSync(path.join(__dirname, 'data', 'league.json'), 'utf8'))
 const NUM_SEASONS = 15
@@ -496,11 +497,40 @@ console.log(`Generating ${NUM_SEASONS} seasons of historical data...`)
 const seasons = []
 let prevStandings = null
 
+// Store original skills/ratings so we can adjust per-season and restore
+const originalPlayerData = league.teams.map(t => t.players.map(p => ({
+  skill: { ...p.skill },
+  rating: p.rating
+})))
+
 for (let s = 1; s <= NUM_SEASONS; s++) {
+  const ageDelta = CURRENT_SEASON - s
+
+  // Adjust each player's skills to what they would have been at this season's age
+  for (let ti = 0; ti < league.teams.length; ti++) {
+    const team = league.teams[ti]
+    for (let pi = 0; pi < team.players.length; pi++) {
+      const player = team.players[pi]
+      const ageAtSeason = player.age - ageDelta
+      if (ageAtSeason >= 1) {
+        player.skill = getSkillsAtAge({ ...player, skill: originalPlayerData[ti][pi].skill, age: player.age }, ageAtSeason)
+        player.rating = String(getRatingAtAge({ ...player, skill: originalPlayerData[ti][pi].skill, rating: originalPlayerData[ti][pi].rating, age: player.age }, ageAtSeason))
+      }
+    }
+  }
+
   const season = generateSeason(s, league.teams, prevStandings)
   seasons.push(season)
   prevStandings = season.standings
   process.stdout.write(`  Season ${s} `)
+
+  // Restore original skills for next season's recalc
+  for (let ti = 0; ti < league.teams.length; ti++) {
+    for (let pi = 0; pi < league.teams[ti].players.length; pi++) {
+      league.teams[ti].players[pi].skill = { ...originalPlayerData[ti][pi].skill }
+      league.teams[ti].players[pi].rating = originalPlayerData[ti][pi].rating
+    }
+  }
 }
 console.log('')
 

@@ -220,6 +220,19 @@ table.stats .totals td{font-weight:700;color:var(--white);border-top:2px solid r
 .leader-value{font-weight:700;font-size:15px;color:var(--white);min-width:45px;text-align:right}
 .stats-btn{background:rgba(251,191,36,.1) !important;border-color:rgba(251,191,36,.3) !important;color:var(--gold) !important}
 .stats-btn.active{background:var(--gold) !important;color:#000 !important;border-color:var(--gold) !important}
+.eos-btn{background:rgba(16,185,129,.1) !important;border-color:rgba(16,185,129,.3) !important;color:var(--green) !important}
+.eos-btn.active{background:var(--green) !important;color:#fff !important;border-color:var(--green) !important}
+.dev-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:16px 20px;display:flex;align-items:center;gap:14px}
+.dev-delta{font-size:20px;font-weight:800;min-width:50px;text-align:center}
+.dev-delta.up{color:var(--green)}.dev-delta.down{color:var(--red)}.dev-delta.same{color:var(--text2)}
+.dev-name{font-size:15px;font-weight:700;color:var(--white)}
+.dev-meta{font-size:12px;color:var(--text2)}
+.dev-skills{display:flex;flex-wrap:wrap;gap:4px;margin-top:4px}
+.dev-skill{font-size:11px;padding:2px 6px;border-radius:4px}
+.dev-skill.up{background:rgba(16,185,129,.12);color:var(--green)}
+.dev-skill.down{background:rgba(239,68,68,.12);color:var(--red)}
+.pot-bar{height:4px;border-radius:2px;background:rgba(255,255,255,.08);width:60px;display:inline-block;vertical-align:middle;margin-left:6px}
+.pot-fill{height:100%;border-radius:2px}
 
 /* Responsive */
 @media(max-width:600px){
@@ -866,7 +879,8 @@ async function renderCurrentSeason(main, parts) {
 
   const part0 = parts.length > 0 ? parts[0] : ''
   const isStats = part0 === 'stats'
-  const mdNum = isStats ? 0 : (part0 !== '' ? parseInt(part0, 10) : 0)
+  const isEndOfSeason = part0 === 'endofseason'
+  const mdNum = (isStats || isEndOfSeason) ? 0 : (part0 !== '' ? parseInt(part0, 10) : 0)
 
   main.innerHTML = ''
   main.appendChild(h('div','page-title','Season ' + schedule.season + ' \\u2014 Current Season'))
@@ -890,7 +904,24 @@ async function renderCurrentSeason(main, parts) {
   statsBtn.style.fontSize = '16px'
   statsBtn.onclick = () => go('season/stats')
   nav.appendChild(statsBtn)
+
+  // End of Season button (only show if all regular season matches are played)
+  const allPlayed = schedule.matchdays.every(md => md.matches.every(m => m.status === 'completed'))
+  if (allPlayed) {
+    const eosBtn = h('div', 'md-btn eos-btn' + (isEndOfSeason ? ' active' : ''), '\\u{1F3C6}')
+    eosBtn.title = 'End of Season'
+    eosBtn.style.width = 'auto'
+    eosBtn.style.padding = '0 12px'
+    eosBtn.style.fontSize = '16px'
+    eosBtn.onclick = () => go('season/endofseason')
+    nav.appendChild(eosBtn)
+  }
   main.appendChild(nav)
+
+  if (isEndOfSeason) {
+    renderEndOfSeason(main, schedule)
+    return
+  }
 
   if (isStats) {
     renderSeasonStats(main, schedule)
@@ -1090,6 +1121,135 @@ function renderSeasonStats(main, schedule) {
   }))
 
   main.appendChild(grid)
+}
+
+let developmentResults = null
+
+async function renderEndOfSeason(main, schedule) {
+  const allPlayed = schedule.matchdays.every(md => md.matches.every(m => m.status === 'completed'))
+  if (!allPlayed) {
+    main.appendChild(h('div','empty-state','Complete all regular season matches first.'))
+    return
+  }
+
+  main.appendChild(h('div','page-sub','End of season player development \\u2014 skills evolve based on age and potential'))
+
+  // Check if development has already been applied this session
+  if (developmentResults) {
+    renderDevelopmentResults(main, developmentResults)
+    return
+  }
+
+  const panel = h('div','section')
+  panel.style.textAlign = 'center'
+  panel.innerHTML = '<div class="section-title">Player Development</div><p style="color:var(--text);margin-bottom:16px">Apply end-of-season skill development. Each player\\u0027s skills will evolve based on their age curve and potential. Young players grow, veterans may decline.</p><p style="color:var(--text2);font-size:13px;margin-bottom:20px">This will update league.json permanently. All players will age +1 year.</p>'
+
+  const btn = h('button','mc-btn simulate','Apply Development')
+  btn.style.fontSize = '16px'
+  btn.style.padding = '12px 32px'
+  btn.onclick = async () => {
+    btn.disabled = true
+    btn.textContent = 'Processing...'
+    try {
+      const res = await fetch('/api/develop-season', { method: 'POST' })
+      const data = await res.json()
+      if (data.success) {
+        developmentResults = data
+        go('season/endofseason')
+      } else {
+        panel.innerHTML += '<div style="color:var(--red);margin-top:12px">Error: ' + (data.error || 'Unknown error') + '</div>'
+      }
+    } catch (e) {
+      panel.innerHTML += '<div style="color:var(--red);margin-top:12px">Error: ' + e.message + '</div>'
+    }
+  }
+  panel.appendChild(btn)
+  main.appendChild(panel)
+}
+
+function renderDevelopmentResults(main, data) {
+  // Summary stats
+  const totalPlayers = data.results.length
+  const improved = data.results.filter(r => r.ratingDelta > 0).length
+  const declined = data.results.filter(r => r.ratingDelta < 0).length
+  const unchanged = data.results.filter(r => r.ratingDelta === 0).length
+
+  const summary = h('div','section')
+  summary.innerHTML = '<div class="section-title">Development Summary</div>' +
+    '<div style="display:flex;gap:32px;flex-wrap:wrap;margin-bottom:8px">' +
+    '<div><div style="font-size:24px;font-weight:800;color:var(--green)">' + improved + '</div><div style="font-size:12px;color:var(--text2)">Improved</div></div>' +
+    '<div><div style="font-size:24px;font-weight:800;color:var(--text2)">' + unchanged + '</div><div style="font-size:12px;color:var(--text2)">Unchanged</div></div>' +
+    '<div><div style="font-size:24px;font-weight:800;color:var(--red)">' + declined + '</div><div style="font-size:12px;color:var(--text2)">Declined</div></div>' +
+    '<div><div style="font-size:24px;font-weight:800;color:var(--white)">' + totalPlayers + '</div><div style="font-size:12px;color:var(--text2)">Total Players</div></div>' +
+    '</div>'
+  main.appendChild(summary)
+
+  // Top improvers
+  main.appendChild(h('div','section-title','\\u{1F4C8} Biggest Improvers'))
+  const impGrid = h('div','grid grid-2')
+  impGrid.style.marginBottom = '24px'
+  for (const r of data.improvers.filter(x => x.ratingDelta > 0)) {
+    impGrid.appendChild(devCard(r))
+  }
+  main.appendChild(impGrid)
+
+  // Top decliners
+  main.appendChild(h('div','section-title','\\u{1F4C9} Biggest Decliners'))
+  const decGrid = h('div','grid grid-2')
+  decGrid.style.marginBottom = '24px'
+  for (const r of data.decliners.filter(x => x.ratingDelta < 0)) {
+    decGrid.appendChild(devCard(r))
+  }
+  main.appendChild(decGrid)
+
+  // Full team-by-team breakdown
+  main.appendChild(h('div','section-title','\\u{1F4CB} All Players'))
+  const teams = {}
+  for (const r of data.results) {
+    if (!teams[r.team]) teams[r.team] = []
+    teams[r.team].push(r)
+  }
+
+  for (const [teamName, players] of Object.entries(teams)) {
+    const team = teamByName(teamName)
+    const c = teamColor(team)
+    const sec = h('div','section')
+    let html = '<div class="section-title"><span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:' + c + ';margin-right:8px"></span>' + teamName + '</div>'
+    html += '<table class="stats"><thead><tr><th>Player</th><th>Pos</th><th>Age</th><th>Pot</th><th>Old</th><th>New</th><th>+/-</th></tr></thead><tbody>'
+    for (const r of players) {
+      const cls = r.ratingDelta > 0 ? 'color:var(--green)' : r.ratingDelta < 0 ? 'color:var(--red)' : 'color:var(--text2)'
+      const potPct = Math.round((r.potential - 0.6) / 0.8 * 100)
+      const potColor = r.potential >= 1.1 ? 'var(--green)' : r.potential >= 0.9 ? 'var(--gold)' : 'var(--red)'
+      html += '<tr><td style="color:var(--white)">' + r.name + '</td><td>' + r.position + '</td><td>' + r.age + '\\u2192' + (r.age + 1) + '</td><td><div class="pot-bar"><div class="pot-fill" style="width:' + potPct + '%;background:' + potColor + '"></div></div></td><td>' + r.oldRating + '</td><td style="font-weight:700">' + r.newRating + '</td><td style="' + cls + ';font-weight:700">' + (r.ratingDelta >= 0 ? '+' : '') + r.ratingDelta + '</td></tr>'
+    }
+    html += '</tbody></table>'
+    sec.innerHTML = html
+    main.appendChild(sec)
+  }
+}
+
+function devCard(r) {
+  const card = h('div','dev-card')
+  const team = teamByName(r.team)
+  const c = teamColor(team)
+  const cls = r.ratingDelta > 0 ? 'up' : r.ratingDelta < 0 ? 'down' : 'same'
+  const sign = r.ratingDelta > 0 ? '+' : ''
+
+  let skillsHTML = ''
+  for (const [skill, change] of Object.entries(r.changes)) {
+    if (Math.abs(change.delta) >= 2) {
+      const sCls = change.delta > 0 ? 'up' : 'down'
+      const sSign = change.delta > 0 ? '+' : ''
+      skillsHTML += '<span class="dev-skill ' + sCls + '">' + skill.replace(/_/g, ' ') + ' ' + sSign + change.delta + '</span>'
+    }
+  }
+
+  card.innerHTML = '<div class="dev-delta ' + cls + '">' + sign + r.ratingDelta + '</div>' +
+    miniAv(r.name, c) +
+    '<div style="flex:1"><div class="dev-name">' + r.name + '</div><div class="dev-meta">' + r.position + ' \\u2022 ' + r.team + ' \\u2022 Age ' + r.age + '\\u2192' + (r.age + 1) + '</div>' +
+    (skillsHTML ? '<div class="dev-skills">' + skillsHTML + '</div>' : '') +
+    '</div>'
+  return card
 }
 
 function buildMatchCard(match, mdNum, idx) {
