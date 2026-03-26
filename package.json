@@ -12,8 +12,17 @@
     "build": "node build-site.js",
     "serve": "node serve-cards.js"
   },
-  "keywords": ["football", "soccer", "6v6", "simulator"],
+  "keywords": [
+    "football",
+    "soccer",
+    "6v6",
+    "simulator"
+  ],
   "author": "",
   "license": "ISC",
-  "type": "commonjs"
+  "type": "commonjs",
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.80.0",
+    "dotenv": "^17.3.1"
+  }
 }
