@@ -1086,7 +1086,7 @@ function renderSkillShop(main) {
           html += '<div class="ss-skill-item"><div class="ss-skill-lbl">'+lbl+'</div><input type="number" class="ss-skill-input" min="1" max="99" value="'+sk[k]+'" data-player="'+p.name+'" data-team="'+p.team+'" data-skill="'+k+'" onchange="window._ssSkillChange(this)"></div>'
         })
         html += '</div>'
-        html += '<div class="ss-intl-row"><label><input type="checkbox" '+(p.international?'checked':'')+' onchange="window._ssIntlChange(\\''+p.name.replace(/'/g,"\\\\'")+'\\',\\''+p.team.replace(/'/g,"\\\\'")+'\\',this.checked)"> Designate as <b>International</b> <span class="intl-badge">\\u2605</span> (boost next season skill change)</label></div>'
+        html += '<div class="ss-intl-row" onclick="event.stopPropagation()"><label><input type="checkbox" '+(p.international?'checked':'')+' onchange="window._ssIntlChange(\\''+p.name.replace(/'/g,"\\\\'")+'\\',\\''+p.team.replace(/'/g,"\\\\'")+'\\',this.checked)"> Designate as <b>International</b> <span class="intl-badge">\\u2605</span> (boost next season skill change)</label></div>'
         html += '<div class="ss-save-row"><button class="ss-save-btn" onclick="event.stopPropagation();window._ssSavePlayer(\\''+p.name.replace(/'/g,"\\\\'")+'\\',\\''+p.team.replace(/'/g,"\\\\'")+'\\')">Save Changes</button></div>'
       }
       html += '</div>'
