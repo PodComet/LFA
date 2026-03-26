@@ -1,0 +1,22 @@
+{
+  "league": {
+    "name": "Labornese Football Association",
+    "shortName": "LFA",
+    "format": "6v6",
+    "teamCount": 12,
+    "playersPerTeam": 10,
+    "startersPerTeam": 6
+  },
+  "trophy": {
+    "name": "Guy Kilne Trophy"
+  },
+  "awards": {
+    "mvp": "MVP",
+    "lfaPromise": "LFA Promise",
+    "goalkeeperOfSeason": "GK of the Season",
+    "fieldPlayerOfYear": "Field Player of the Year",
+    "coachOfYear": "Coach of the Year",
+    "fichichi": "Fichichi (Top Scorer)",
+    "assistKing": "Assist King"
+  }
+}

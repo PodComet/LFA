@@ -1,0 +1,2530 @@
+{
+  "currentSeason": 14,
+  "seasons": [
+    {
+      "number": 14,
+      "champion": "A C Π Labornis City",
+      "guyKilneTrophy": null,
+      "standings": [
+        {
+          "team": "Concinia Girr",
+          "played": 9,
+          "won": 7,
+          "drawn": 1,
+          "lost": 1,
+          "gf": 43,
+          "ga": 32,
+          "points": 22
+        },
+        {
+          "team": "L. B. Rann",
+          "played": 9,
+          "won": 5,
+          "drawn": 2,
+          "lost": 2,
+          "gf": 44,
+          "ga": 35,
+          "points": 17
+        },
+        {
+          "team": "O Labornis City",
+          "played": 9,
+          "won": 5,
+          "drawn": 2,
+          "lost": 2,
+          "gf": 48,
+          "ga": 43,
+          "points": 17
+        },
+        {
+          "team": "O Rell",
+          "played": 9,
+          "won": 5,
+          "drawn": 1,
+          "lost": 3,
+          "gf": 40,
+          "ga": 35,
+          "points": 16
+        },
+        {
+          "team": "Puzi Rell",
+          "played": 9,
+          "won": 4,
+          "drawn": 1,
+          "lost": 4,
+          "gf": 39,
+          "ga": 39,
+          "points": 13
+        },
+        {
+          "team": "Puzi Rann",
+          "played": 9,
+          "won": 3,
+          "drawn": 2,
+          "lost": 4,
+          "gf": 40,
+          "ga": 39,
+          "points": 11
+        },
+        {
+          "team": "A C Π Labornis City",
+          "played": 9,
+          "won": 3,
+          "drawn": 0,
+          "lost": 6,
+          "gf": 35,
+          "ga": 39,
+          "points": 9
+        },
+        {
+          "team": "O Torn",
+          "played": 9,
+          "won": 1,
+          "drawn": 5,
+          "lost": 3,
+          "gf": 36,
+          "ga": 43,
+          "points": 8
+        },
+        {
+          "team": "Red Digg",
+          "played": 9,
+          "won": 2,
+          "drawn": 2,
+          "lost": 5,
+          "gf": 31,
+          "ga": 39,
+          "points": 8
+        },
+        {
+          "team": "Kiel Torn",
+          "played": 9,
+          "won": 1,
+          "drawn": 2,
+          "lost": 6,
+          "gf": 33,
+          "ga": 45,
+          "points": 5
+        }
+      ],
+      "matchResults": [
+        {
+          "home": "Concinia Girr",
+          "away": "Puzi Rann",
+          "score": [
+            5,
+            3
+          ]
+        },
+        {
+          "home": "O Rell",
+          "away": "Puzi Rell",
+          "score": [
+            5,
+            3
+          ]
+        },
+        {
+          "home": "A C Π Labornis City",
+          "away": "Red Digg",
+          "score": [
+            5,
+            1
+          ]
+        },
+        {
+          "home": "L. B. Rann",
+          "away": "Kiel Torn",
+          "score": [
+            5,
+            1
+          ]
+        },
+        {
+          "home": "O Labornis City",
+          "away": "O Torn",
+          "score": [
+            6,
+            4
+          ]
+        },
+        {
+          "home": "Puzi Rell",
+          "away": "Concinia Girr",
+          "score": [
+            5,
+            2
+          ]
+        },
+        {
+          "home": "Puzi Rann",
+          "away": "A C Π Labornis City",
+          "score": [
+            5,
+            3
+          ]
+        },
+        {
+          "home": "Kiel Torn",
+          "away": "O Rell",
+          "score": [
+            3,
+            5
+          ]
+        },
+        {
+          "home": "Red Digg",
+          "away": "O Labornis City",
+          "score": [
+            5,
+            5
+          ]
+        },
+        {
+          "home": "O Torn",
+          "away": "L. B. Rann",
+          "score": [
+            5,
+            5
+          ]
+        },
+        {
+          "home": "Concinia Girr",
+          "away": "A C Π Labornis City",
+          "score": [
+            5,
+            3
+          ]
+        },
+        {
+          "home": "Puzi Rell",
+          "away": "Kiel Torn",
+          "score": [
+            6,
+            4
+          ]
+        },
+        {
+          "home": "O Labornis City",
+          "away": "Puzi Rann",
+          "score": [
+            5,
+            5
+          ]
+        },
+        {
+          "home": "O Rell",
+          "away": "O Torn",
+          "score": [
+            5,
+            5
+          ]
+        },
+        {
+          "home": "L. B. Rann",
+          "away": "Red Digg",
+          "score": [
+            5,
+            5
+          ]
+        },
+        {
+          "home": "Kiel Torn",
+          "away": "Concinia Girr",
+          "score": [
+            2,
+            5
+          ]
+        },
+        {
+          "home": "A C Π Labornis City",
+          "away": "O Labornis City",
+          "score": [
+            4,
+            6
+          ]
+        },
+        {
+          "home": "O Torn",
+          "away": "Puzi Rell",
+          "score": [
+            5,
+            5
+          ]
+        },
+        {
+          "home": "Puzi Rann",
+          "away": "L. B. Rann",
+          "score": [
+            5,
+            6
+          ]
+        },
+        {
+          "home": "Red Digg",
+          "away": "O Rell",
+          "score": [
+            2,
+            5
+          ]
+        },
+        {
+          "home": "Concinia Girr",
+          "away": "O Labornis City",
+          "score": [
+            6,
+            5
+          ]
+        },
+        {
+          "home": "Kiel Torn",
+          "away": "O Torn",
+          "score": [
+            5,
+            5
+          ]
+        },
+        {
+          "home": "L. B. Rann",
+          "away": "A C Π Labornis City",
+          "score": [
+            5,
+            3
+          ]
+        },
+        {
+          "home": "Puzi Rell",
+          "away": "Red Digg",
+          "score": [
+            5,
+            2
+          ]
+        },
+        {
+          "home": "O Rell",
+          "away": "Puzi Rann",
+          "score": [
+            5,
+            3
+          ]
+        },
+        {
+          "home": "O Torn",
+          "away": "Concinia Girr",
+          "score": [
+            5,
+            5
+          ]
+        },
+        {
+          "home": "O Labornis City",
+          "away": "L. B. Rann",
+          "score": [
+            6,
+            5
+          ]
+        },
+        {
+          "home": "Red Digg",
+          "away": "Kiel Torn",
+          "score": [
+            3,
+            5
+          ]
+        },
+        {
+          "home": "A C Π Labornis City",
+          "away": "O Rell",
+          "score": [
+            5,
+            3
+          ]
+        },
+        {
+          "home": "Puzi Rann",
+          "away": "Puzi Rell",
+          "score": [
+            6,
+            4
+          ]
+        },
+        {
+          "home": "Concinia Girr",
+          "away": "L. B. Rann",
+          "score": [
+            5,
+            3
+          ]
+        },
+        {
+          "home": "O Torn",
+          "away": "Red Digg",
+          "score": [
+            1,
+            5
+          ]
+        },
+        {
+          "home": "O Rell",
+          "away": "O Labornis City",
+          "score": [
+            6,
+            4
+          ]
+        },
+        {
+          "home": "Kiel Torn",
+          "away": "Puzi Rann",
+          "score": [
+            5,
+            5
+          ]
+        },
+        {
+          "home": "Puzi Rell",
+          "away": "A C Π Labornis City",
+          "score": [
+            6,
+            5
+          ]
+        },
+        {
+          "home": "Red Digg",
+          "away": "Concinia Girr",
+          "score": [
+            3,
+            5
+          ]
+        },
+        {
+          "home": "L. B. Rann",
+          "away": "O Rell",
+          "score": [
+            5,
+            3
+          ]
+        },
+        {
+          "home": "Puzi Rann",
+          "away": "O Torn",
+          "score": [
+            5,
+            1
+          ]
+        },
+        {
+          "home": "O Labornis City",
+          "away": "Puzi Rell",
+          "score": [
+            5,
+            3
+          ]
+        },
+        {
+          "home": "A C Π Labornis City",
+          "away": "Kiel Torn",
+          "score": [
+            5,
+            3
+          ]
+        },
+        {
+          "home": "Concinia Girr",
+          "away": "O Rell",
+          "score": [
+            5,
+            3
+          ]
+        },
+        {
+          "home": "Red Digg",
+          "away": "Puzi Rann",
+          "score": [
+            5,
+            3
+          ]
+        },
+        {
+          "home": "Puzi Rell",
+          "away": "L. B. Rann",
+          "score": [
+            2,
+            5
+          ]
+        },
+        {
+          "home": "O Torn",
+          "away": "A C Π Labornis City",
+          "score": [
+            5,
+            2
+          ]
+        },
+        {
+          "home": "Kiel Torn",
+          "away": "O Labornis City",
+          "score": [
+            5,
+            6
+          ]
+        }
+      ],
+      "playoffs": {
+        "quarterFinals": [
+          {
+            "higherSeed": "Concinia Girr",
+            "lowerSeed": "O Torn",
+            "seedNums": [
+              1,
+              8
+            ],
+            "games": [
+              {
+                "home": "Concinia Girr",
+                "away": "O Torn",
+                "score": [
+                  5,
+                  2
+                ]
+              },
+              {
+                "home": "O Torn",
+                "away": "Concinia Girr",
+                "score": [
+                  5,
+                  1
+                ]
+              },
+              {
+                "home": "Concinia Girr",
+                "away": "O Torn",
+                "score": [
+                  5,
+                  3
+                ]
+              }
+            ],
+            "winner": "Concinia Girr",
+            "seriesScore": "2-1"
+          },
+          {
+            "higherSeed": "L. B. Rann",
+            "lowerSeed": "A C Π Labornis City",
+            "seedNums": [
+              2,
+              7
+            ],
+            "games": [
+              {
+                "home": "L. B. Rann",
+                "away": "A C Π Labornis City",
+                "score": [
+                  3,
+                  5
+                ]
+              },
+              {
+                "home": "A C Π Labornis City",
+                "away": "L. B. Rann",
+                "score": [
+                  2,
+                  5
+                ]
+              },
+              {
+                "home": "L. B. Rann",
+                "away": "A C Π Labornis City",
+                "score": [
+                  3,
+                  5
+                ]
+              }
+            ],
+            "winner": "A C Π Labornis City",
+            "seriesScore": "2-1"
+          },
+          {
+            "higherSeed": "O Labornis City",
+            "lowerSeed": "Puzi Rann",
+            "seedNums": [
+              3,
+              6
+            ],
+            "games": [
+              {
+                "home": "O Labornis City",
+                "away": "Puzi Rann",
+                "score": [
+                  5,
+                  2
+                ]
+              },
+              {
+                "home": "Puzi Rann",
+                "away": "O Labornis City",
+                "score": [
+                  2,
+                  5
+                ]
+              }
+            ],
+            "winner": "O Labornis City",
+            "seriesScore": "2-0"
+          },
+          {
+            "higherSeed": "O Rell",
+            "lowerSeed": "Puzi Rell",
+            "seedNums": [
+              4,
+              5
+            ],
+            "games": [
+              {
+                "home": "O Rell",
+                "away": "Puzi Rell",
+                "score": [
+                  6,
+                  5
+                ]
+              },
+              {
+                "home": "Puzi Rell",
+                "away": "O Rell",
+                "score": [
+                  5,
+                  2
+                ]
+              },
+              {
+                "home": "O Rell",
+                "away": "Puzi Rell",
+                "score": [
+                  5,
+                  3
+                ]
+              }
+            ],
+            "winner": "O Rell",
+            "seriesScore": "2-1"
+          }
+        ],
+        "semiFinals": [
+          {
+            "team1": "Concinia Girr",
+            "team2": "A C Π Labornis City",
+            "score": [
+              3,
+              5
+            ],
+            "winner": "A C Π Labornis City",
+            "venue": "neutral"
+          },
+          {
+            "team1": "O Labornis City",
+            "team2": "O Rell",
+            "score": [
+              6,
+              4
+            ],
+            "winner": "O Labornis City",
+            "venue": "neutral"
+          }
+        ],
+        "final": {
+          "team1": "A C Π Labornis City",
+          "team2": "O Labornis City",
+          "score": [
+            6,
+            4
+          ],
+          "winner": "A C Π Labornis City",
+          "captain": "Will",
+          "venue": "neutral"
+        }
+      },
+      "playerSeasonStats": [
+        {
+          "team": "Concinia Girr",
+          "name": "Input",
+          "position": "GK",
+          "rating": "87",
+          "appearances": 9,
+          "goals": 0,
+          "assists": 2,
+          "shots": {
+            "total": 5,
+            "on": 3,
+            "off": 2
+          },
+          "passes": {
+            "total": 269,
+            "on": 177,
+            "off": 92
+          },
+          "tackles": {
+            "total": 9,
+            "on": 6,
+            "off": 3,
+            "fouls": 12
+          },
+          "saves": 45
+        },
+        {
+          "team": "Concinia Girr",
+          "name": "Melson",
+          "position": "CB",
+          "rating": "66",
+          "appearances": 9,
+          "goals": 0,
+          "assists": 0,
+          "shots": {
+            "total": 33,
+            "on": 18,
+            "off": 15
+          },
+          "passes": {
+            "total": 255,
+            "on": 175,
+            "off": 80
+          },
+          "tackles": {
+            "total": 80,
+            "on": 44,
+            "off": 36,
+            "fouls": 10
+          }
+        },
+        {
+          "team": "Concinia Girr",
+          "name": "Gregory",
+          "position": "CM",
+          "rating": "96",
+          "appearances": 9,
+          "goals": 6,
+          "assists": 10,
+          "shots": {
+            "total": 42,
+            "on": 26,
+            "off": 16
+          },
+          "passes": {
+            "total": 303,
+            "on": 190,
+            "off": 113
+          },
+          "tackles": {
+            "total": 74,
+            "on": 39,
+            "off": 35,
+            "fouls": 8
+          }
+        },
+        {
+          "team": "Concinia Girr",
+          "name": "Ape",
+          "position": "CM",
+          "rating": "78",
+          "appearances": 9,
+          "goals": 10,
+          "assists": 7,
+          "shots": {
+            "total": 36,
+            "on": 19,
+            "off": 17
+          },
+          "passes": {
+            "total": 295,
+            "on": 212,
+            "off": 83
+          },
+          "tackles": {
+            "total": 81,
+            "on": 49,
+            "off": 32,
+            "fouls": 10
+          }
+        },
+        {
+          "team": "Concinia Girr",
+          "name": "Tom",
+          "position": "ST",
+          "rating": "90",
+          "appearances": 9,
+          "goals": 17,
+          "assists": 3,
+          "shots": {
+            "total": 55,
+            "on": 30,
+            "off": 25
+          },
+          "passes": {
+            "total": 279,
+            "on": 182,
+            "off": 97
+          },
+          "tackles": {
+            "total": 71,
+            "on": 46,
+            "off": 25,
+            "fouls": 10
+          }
+        },
+        {
+          "team": "Concinia Girr",
+          "name": "Yert",
+          "position": "ST",
+          "rating": "84",
+          "appearances": 9,
+          "goals": 10,
+          "assists": 4,
+          "shots": {
+            "total": 66,
+            "on": 37,
+            "off": 29
+          },
+          "passes": {
+            "total": 253,
+            "on": 174,
+            "off": 79
+          },
+          "tackles": {
+            "total": 58,
+            "on": 37,
+            "off": 21,
+            "fouls": 11
+          }
+        },
+        {
+          "team": "Puzi Rann",
+          "name": "Hemkelly",
+          "position": "GK",
+          "rating": "91",
+          "appearances": 9,
+          "goals": 0,
+          "assists": 0,
+          "shots": {
+            "total": 3,
+            "on": 3,
+            "off": 0
+          },
+          "passes": {
+            "total": 238,
+            "on": 157,
+            "off": 81
+          },
+          "tackles": {
+            "total": 8,
+            "on": 5,
+            "off": 3,
+            "fouls": 8
+          },
+          "saves": 52
+        },
+        {
+          "team": "Puzi Rann",
+          "name": "Tennesseer",
+          "position": "CB",
+          "rating": "70",
+          "appearances": 9,
+          "goals": 3,
+          "assists": 2,
+          "shots": {
+            "total": 25,
+            "on": 17,
+            "off": 8
+          },
+          "passes": {
+            "total": 256,
+            "on": 180,
+            "off": 76
+          },
+          "tackles": {
+            "total": 73,
+            "on": 44,
+            "off": 29,
+            "fouls": 9
+          }
+        },
+        {
+          "team": "Puzi Rann",
+          "name": "Blockshot",
+          "position": "CM",
+          "rating": "80",
+          "appearances": 9,
+          "goals": 5,
+          "assists": 13,
+          "shots": {
+            "total": 31,
+            "on": 18,
+            "off": 13
+          },
+          "passes": {
+            "total": 272,
+            "on": 186,
+            "off": 86
+          },
+          "tackles": {
+            "total": 57,
+            "on": 32,
+            "off": 25,
+            "fouls": 7
+          }
+        },
+        {
+          "team": "Puzi Rann",
+          "name": "Homni",
+          "position": "CM",
+          "rating": "78",
+          "appearances": 9,
+          "goals": 1,
+          "assists": 4,
+          "shots": {
+            "total": 38,
+            "on": 22,
+            "off": 16
+          },
+          "passes": {
+            "total": 242,
+            "on": 157,
+            "off": 85
+          },
+          "tackles": {
+            "total": 68,
+            "on": 38,
+            "off": 30,
+            "fouls": 12
+          }
+        },
+        {
+          "team": "Puzi Rann",
+          "name": "Kerpshville",
+          "position": "ST",
+          "rating": "90",
+          "appearances": 9,
+          "goals": 20,
+          "assists": 4,
+          "shots": {
+            "total": 60,
+            "on": 32,
+            "off": 28
+          },
+          "passes": {
+            "total": 273,
+            "on": 191,
+            "off": 82
+          },
+          "tackles": {
+            "total": 75,
+            "on": 48,
+            "off": 27,
+            "fouls": 12
+          }
+        },
+        {
+          "team": "Puzi Rann",
+          "name": "Likgill",
+          "position": "ST",
+          "rating": "87",
+          "appearances": 9,
+          "goals": 11,
+          "assists": 3,
+          "shots": {
+            "total": 64,
+            "on": 39,
+            "off": 25
+          },
+          "passes": {
+            "total": 246,
+            "on": 165,
+            "off": 81
+          },
+          "tackles": {
+            "total": 72,
+            "on": 41,
+            "off": 31,
+            "fouls": 11
+          }
+        },
+        {
+          "team": "O Rell",
+          "name": "Goto",
+          "position": "GK",
+          "rating": "79",
+          "appearances": 9,
+          "goals": 0,
+          "assists": 0,
+          "shots": {
+            "total": 6,
+            "on": 6,
+            "off": 0
+          },
+          "passes": {
+            "total": 260,
+            "on": 167,
+            "off": 93
+          },
+          "tackles": {
+            "total": 13,
+            "on": 7,
+            "off": 6,
+            "fouls": 8
+          },
+          "saves": 51
+        },
+        {
+          "team": "O Rell",
+          "name": "Term",
+          "position": "CB",
+          "rating": "66",
+          "appearances": 9,
+          "goals": 1,
+          "assists": 2,
+          "shots": {
+            "total": 36,
+            "on": 19,
+            "off": 17
+          },
+          "passes": {
+            "total": 255,
+            "on": 171,
+            "off": 84
+          },
+          "tackles": {
+            "total": 59,
+            "on": 36,
+            "off": 23,
+            "fouls": 5
+          }
+        },
+        {
+          "team": "O Rell",
+          "name": "Kloo",
+          "position": "CM",
+          "rating": "68",
+          "appearances": 9,
+          "goals": 2,
+          "assists": 10,
+          "shots": {
+            "total": 28,
+            "on": 17,
+            "off": 11
+          },
+          "passes": {
+            "total": 328,
+            "on": 235,
+            "off": 93
+          },
+          "tackles": {
+            "total": 54,
+            "on": 31,
+            "off": 23,
+            "fouls": 8
+          }
+        },
+        {
+          "team": "O Rell",
+          "name": "Agnez",
+          "position": "CM",
+          "rating": "66",
+          "appearances": 9,
+          "goals": 5,
+          "assists": 2,
+          "shots": {
+            "total": 24,
+            "on": 14,
+            "off": 10
+          },
+          "passes": {
+            "total": 236,
+            "on": 151,
+            "off": 85
+          },
+          "tackles": {
+            "total": 69,
+            "on": 39,
+            "off": 30,
+            "fouls": 10
+          }
+        },
+        {
+          "team": "O Rell",
+          "name": "Gui",
+          "position": "ST",
+          "rating": "94",
+          "appearances": 9,
+          "goals": 20,
+          "assists": 6,
+          "shots": {
+            "total": 60,
+            "on": 31,
+            "off": 29
+          },
+          "passes": {
+            "total": 243,
+            "on": 164,
+            "off": 79
+          },
+          "tackles": {
+            "total": 56,
+            "on": 35,
+            "off": 21,
+            "fouls": 9
+          }
+        },
+        {
+          "team": "O Rell",
+          "name": "Lagen",
+          "position": "ST",
+          "rating": "90",
+          "appearances": 9,
+          "goals": 12,
+          "assists": 1,
+          "shots": {
+            "total": 59,
+            "on": 34,
+            "off": 25
+          },
+          "passes": {
+            "total": 256,
+            "on": 173,
+            "off": 83
+          },
+          "tackles": {
+            "total": 65,
+            "on": 43,
+            "off": 22,
+            "fouls": 8
+          }
+        },
+        {
+          "team": "Puzi Rell",
+          "name": "Stevens",
+          "position": "GK",
+          "rating": "75",
+          "appearances": 9,
+          "goals": 0,
+          "assists": 0,
+          "shots": {
+            "total": 7,
+            "on": 3,
+            "off": 4
+          },
+          "passes": {
+            "total": 298,
+            "on": 203,
+            "off": 95
+          },
+          "tackles": {
+            "total": 9,
+            "on": 6,
+            "off": 3,
+            "fouls": 11
+          },
+          "saves": 59
+        },
+        {
+          "team": "Puzi Rell",
+          "name": "Gray",
+          "position": "CB",
+          "rating": "70",
+          "appearances": 9,
+          "goals": 1,
+          "assists": 2,
+          "shots": {
+            "total": 32,
+            "on": 16,
+            "off": 16
+          },
+          "passes": {
+            "total": 322,
+            "on": 198,
+            "off": 124
+          },
+          "tackles": {
+            "total": 78,
+            "on": 49,
+            "off": 29,
+            "fouls": 11
+          }
+        },
+        {
+          "team": "Puzi Rell",
+          "name": "Benj",
+          "position": "CM",
+          "rating": "76",
+          "appearances": 9,
+          "goals": 1,
+          "assists": 7,
+          "shots": {
+            "total": 29,
+            "on": 17,
+            "off": 12
+          },
+          "passes": {
+            "total": 243,
+            "on": 175,
+            "off": 68
+          },
+          "tackles": {
+            "total": 67,
+            "on": 37,
+            "off": 30,
+            "fouls": 8
+          }
+        },
+        {
+          "team": "Puzi Rell",
+          "name": "Glayst",
+          "position": "CM",
+          "rating": "77",
+          "appearances": 9,
+          "goals": 9,
+          "assists": 9,
+          "shots": {
+            "total": 30,
+            "on": 13,
+            "off": 17
+          },
+          "passes": {
+            "total": 274,
+            "on": 175,
+            "off": 99
+          },
+          "tackles": {
+            "total": 70,
+            "on": 38,
+            "off": 32,
+            "fouls": 12
+          }
+        },
+        {
+          "team": "Puzi Rell",
+          "name": "Biln",
+          "position": "ST",
+          "rating": "80",
+          "appearances": 9,
+          "goals": 17,
+          "assists": 7,
+          "shots": {
+            "total": 64,
+            "on": 38,
+            "off": 26
+          },
+          "passes": {
+            "total": 248,
+            "on": 173,
+            "off": 75
+          },
+          "tackles": {
+            "total": 79,
+            "on": 41,
+            "off": 38,
+            "fouls": 6
+          }
+        },
+        {
+          "team": "Puzi Rell",
+          "name": "Kamb",
+          "position": "ST",
+          "rating": "73",
+          "appearances": 9,
+          "goals": 11,
+          "assists": 3,
+          "shots": {
+            "total": 53,
+            "on": 32,
+            "off": 21
+          },
+          "passes": {
+            "total": 273,
+            "on": 186,
+            "off": 87
+          },
+          "tackles": {
+            "total": 56,
+            "on": 34,
+            "off": 22,
+            "fouls": 6
+          }
+        },
+        {
+          "team": "A C Π Labornis City",
+          "name": "Geath",
+          "position": "GK",
+          "rating": "84",
+          "appearances": 9,
+          "goals": 0,
+          "assists": 0,
+          "shots": {
+            "total": 5,
+            "on": 3,
+            "off": 2
+          },
+          "passes": {
+            "total": 231,
+            "on": 146,
+            "off": 85
+          },
+          "tackles": {
+            "total": 6,
+            "on": 3,
+            "off": 3,
+            "fouls": 7
+          },
+          "saves": 55
+        },
+        {
+          "team": "A C Π Labornis City",
+          "name": "Will",
+          "position": "CB",
+          "rating": "98",
+          "appearances": 9,
+          "goals": 4,
+          "assists": 1,
+          "shots": {
+            "total": 41,
+            "on": 23,
+            "off": 18
+          },
+          "passes": {
+            "total": 259,
+            "on": 186,
+            "off": 73
+          },
+          "tackles": {
+            "total": 72,
+            "on": 43,
+            "off": 29,
+            "fouls": 5
+          }
+        },
+        {
+          "team": "A C Π Labornis City",
+          "name": "Stan",
+          "position": "CM",
+          "rating": "75",
+          "appearances": 9,
+          "goals": 4,
+          "assists": 6,
+          "shots": {
+            "total": 40,
+            "on": 22,
+            "off": 18
+          },
+          "passes": {
+            "total": 247,
+            "on": 171,
+            "off": 76
+          },
+          "tackles": {
+            "total": 64,
+            "on": 36,
+            "off": 28,
+            "fouls": 13
+          }
+        },
+        {
+          "team": "A C Π Labornis City",
+          "name": "Loren",
+          "position": "CM",
+          "rating": "81",
+          "appearances": 9,
+          "goals": 2,
+          "assists": 5,
+          "shots": {
+            "total": 26,
+            "on": 15,
+            "off": 11
+          },
+          "passes": {
+            "total": 301,
+            "on": 193,
+            "off": 108
+          },
+          "tackles": {
+            "total": 64,
+            "on": 35,
+            "off": 29,
+            "fouls": 7
+          }
+        },
+        {
+          "team": "A C Π Labornis City",
+          "name": "Poob",
+          "position": "ST",
+          "rating": "73",
+          "appearances": 9,
+          "goals": 10,
+          "assists": 4,
+          "shots": {
+            "total": 58,
+            "on": 36,
+            "off": 22
+          },
+          "passes": {
+            "total": 265,
+            "on": 184,
+            "off": 81
+          },
+          "tackles": {
+            "total": 70,
+            "on": 41,
+            "off": 29,
+            "fouls": 13
+          }
+        },
+        {
+          "team": "A C Π Labornis City",
+          "name": "Crawler-Pipe",
+          "position": "ST",
+          "rating": "74",
+          "appearances": 9,
+          "goals": 15,
+          "assists": 4,
+          "shots": {
+            "total": 62,
+            "on": 31,
+            "off": 31
+          },
+          "passes": {
+            "total": 249,
+            "on": 178,
+            "off": 71
+          },
+          "tackles": {
+            "total": 70,
+            "on": 41,
+            "off": 29,
+            "fouls": 8
+          }
+        },
+        {
+          "team": "Red Digg",
+          "name": "Boot",
+          "position": "GK",
+          "rating": "60",
+          "appearances": 9,
+          "goals": 0,
+          "assists": 1,
+          "shots": {
+            "total": 6,
+            "on": 2,
+            "off": 4
+          },
+          "passes": {
+            "total": 271,
+            "on": 190,
+            "off": 81
+          },
+          "tackles": {
+            "total": 10,
+            "on": 5,
+            "off": 5,
+            "fouls": 11
+          },
+          "saves": 62
+        },
+        {
+          "team": "Red Digg",
+          "name": "Bunch",
+          "position": "CB",
+          "rating": "68",
+          "appearances": 9,
+          "goals": 0,
+          "assists": 0,
+          "shots": {
+            "total": 34,
+            "on": 20,
+            "off": 14
+          },
+          "passes": {
+            "total": 280,
+            "on": 195,
+            "off": 85
+          },
+          "tackles": {
+            "total": 65,
+            "on": 41,
+            "off": 24,
+            "fouls": 12
+          }
+        },
+        {
+          "team": "Red Digg",
+          "name": "Hodero",
+          "position": "CM",
+          "rating": "71",
+          "appearances": 9,
+          "goals": 3,
+          "assists": 3,
+          "shots": {
+            "total": 30,
+            "on": 16,
+            "off": 14
+          },
+          "passes": {
+            "total": 278,
+            "on": 187,
+            "off": 91
+          },
+          "tackles": {
+            "total": 61,
+            "on": 32,
+            "off": 29,
+            "fouls": 11
+          }
+        },
+        {
+          "team": "Red Digg",
+          "name": "Birdlin",
+          "position": "CM",
+          "rating": "74",
+          "appearances": 9,
+          "goals": 5,
+          "assists": 5,
+          "shots": {
+            "total": 28,
+            "on": 16,
+            "off": 12
+          },
+          "passes": {
+            "total": 257,
+            "on": 181,
+            "off": 76
+          },
+          "tackles": {
+            "total": 65,
+            "on": 34,
+            "off": 31,
+            "fouls": 12
+          }
+        },
+        {
+          "team": "Red Digg",
+          "name": "Nelo",
+          "position": "ST",
+          "rating": "76",
+          "appearances": 9,
+          "goals": 6,
+          "assists": 4,
+          "shots": {
+            "total": 61,
+            "on": 35,
+            "off": 26
+          },
+          "passes": {
+            "total": 238,
+            "on": 153,
+            "off": 85
+          },
+          "tackles": {
+            "total": 80,
+            "on": 44,
+            "off": 36,
+            "fouls": 7
+          }
+        },
+        {
+          "team": "Red Digg",
+          "name": "Shleit",
+          "position": "ST",
+          "rating": "89",
+          "appearances": 9,
+          "goals": 17,
+          "assists": 3,
+          "shots": {
+            "total": 54,
+            "on": 29,
+            "off": 25
+          },
+          "passes": {
+            "total": 255,
+            "on": 167,
+            "off": 88
+          },
+          "tackles": {
+            "total": 66,
+            "on": 41,
+            "off": 25,
+            "fouls": 10
+          }
+        },
+        {
+          "team": "L. B. Rann",
+          "name": "Reso",
+          "position": "GK",
+          "rating": "80",
+          "appearances": 9,
+          "goals": 0,
+          "assists": 0,
+          "shots": {
+            "total": 5,
+            "on": 4,
+            "off": 1
+          },
+          "passes": {
+            "total": 271,
+            "on": 185,
+            "off": 86
+          },
+          "tackles": {
+            "total": 6,
+            "on": 4,
+            "off": 2,
+            "fouls": 10
+          },
+          "saves": 52
+        },
+        {
+          "team": "L. B. Rann",
+          "name": "Biar",
+          "position": "CB",
+          "rating": "75",
+          "appearances": 9,
+          "goals": 1,
+          "assists": 1,
+          "shots": {
+            "total": 32,
+            "on": 18,
+            "off": 14
+          },
+          "passes": {
+            "total": 242,
+            "on": 170,
+            "off": 72
+          },
+          "tackles": {
+            "total": 74,
+            "on": 43,
+            "off": 31,
+            "fouls": 8
+          }
+        },
+        {
+          "team": "L. B. Rann",
+          "name": "Tayne",
+          "position": "CM",
+          "rating": "79",
+          "appearances": 9,
+          "goals": 4,
+          "assists": 7,
+          "shots": {
+            "total": 29,
+            "on": 14,
+            "off": 15
+          },
+          "passes": {
+            "total": 264,
+            "on": 187,
+            "off": 77
+          },
+          "tackles": {
+            "total": 57,
+            "on": 35,
+            "off": 22,
+            "fouls": 7
+          }
+        },
+        {
+          "team": "L. B. Rann",
+          "name": "Ilin",
+          "position": "CM",
+          "rating": "81",
+          "appearances": 9,
+          "goals": 7,
+          "assists": 7,
+          "shots": {
+            "total": 28,
+            "on": 15,
+            "off": 13
+          },
+          "passes": {
+            "total": 276,
+            "on": 201,
+            "off": 75
+          },
+          "tackles": {
+            "total": 71,
+            "on": 42,
+            "off": 29,
+            "fouls": 10
+          }
+        },
+        {
+          "team": "L. B. Rann",
+          "name": "Shaor",
+          "position": "ST",
+          "rating": "80",
+          "appearances": 9,
+          "goals": 18,
+          "assists": 3,
+          "shots": {
+            "total": 66,
+            "on": 34,
+            "off": 32
+          },
+          "passes": {
+            "total": 277,
+            "on": 189,
+            "off": 88
+          },
+          "tackles": {
+            "total": 64,
+            "on": 38,
+            "off": 26,
+            "fouls": 7
+          }
+        },
+        {
+          "team": "L. B. Rann",
+          "name": "Case",
+          "position": "ST",
+          "rating": "62",
+          "appearances": 9,
+          "goals": 14,
+          "assists": 4,
+          "shots": {
+            "total": 52,
+            "on": 27,
+            "off": 25
+          },
+          "passes": {
+            "total": 293,
+            "on": 194,
+            "off": 99
+          },
+          "tackles": {
+            "total": 55,
+            "on": 33,
+            "off": 22,
+            "fouls": 13
+          }
+        },
+        {
+          "team": "Kiel Torn",
+          "name": "Noget",
+          "position": "GK",
+          "rating": "72",
+          "appearances": 9,
+          "goals": 0,
+          "assists": 0,
+          "shots": {
+            "total": 3,
+            "on": 2,
+            "off": 1
+          },
+          "passes": {
+            "total": 240,
+            "on": 150,
+            "off": 90
+          },
+          "tackles": {
+            "total": 8,
+            "on": 5,
+            "off": 3,
+            "fouls": 8
+          },
+          "saves": 47
+        },
+        {
+          "team": "Kiel Torn",
+          "name": "Houser",
+          "position": "CB",
+          "rating": "72",
+          "appearances": 9,
+          "goals": 0,
+          "assists": 1,
+          "shots": {
+            "total": 28,
+            "on": 13,
+            "off": 15
+          },
+          "passes": {
+            "total": 283,
+            "on": 193,
+            "off": 90
+          },
+          "tackles": {
+            "total": 71,
+            "on": 43,
+            "off": 28,
+            "fouls": 11
+          }
+        },
+        {
+          "team": "Kiel Torn",
+          "name": "Sean",
+          "position": "CM",
+          "rating": "78",
+          "appearances": 9,
+          "goals": 5,
+          "assists": 4,
+          "shots": {
+            "total": 31,
+            "on": 17,
+            "off": 14
+          },
+          "passes": {
+            "total": 301,
+            "on": 221,
+            "off": 80
+          },
+          "tackles": {
+            "total": 63,
+            "on": 37,
+            "off": 26,
+            "fouls": 10
+          }
+        },
+        {
+          "team": "Kiel Torn",
+          "name": "Jomoren",
+          "position": "CM",
+          "rating": "75",
+          "appearances": 9,
+          "goals": 4,
+          "assists": 8,
+          "shots": {
+            "total": 26,
+            "on": 15,
+            "off": 11
+          },
+          "passes": {
+            "total": 260,
+            "on": 186,
+            "off": 74
+          },
+          "tackles": {
+            "total": 60,
+            "on": 34,
+            "off": 26,
+            "fouls": 11
+          }
+        },
+        {
+          "team": "Kiel Torn",
+          "name": "Gon",
+          "position": "ST",
+          "rating": "79",
+          "appearances": 9,
+          "goals": 6,
+          "assists": 1,
+          "shots": {
+            "total": 59,
+            "on": 35,
+            "off": 24
+          },
+          "passes": {
+            "total": 291,
+            "on": 182,
+            "off": 109
+          },
+          "tackles": {
+            "total": 60,
+            "on": 38,
+            "off": 22,
+            "fouls": 9
+          }
+        },
+        {
+          "team": "Kiel Torn",
+          "name": "La",
+          "position": "ST",
+          "rating": "92",
+          "appearances": 9,
+          "goals": 18,
+          "assists": 1,
+          "shots": {
+            "total": 59,
+            "on": 32,
+            "off": 27
+          },
+          "passes": {
+            "total": 239,
+            "on": 162,
+            "off": 77
+          },
+          "tackles": {
+            "total": 69,
+            "on": 40,
+            "off": 29,
+            "fouls": 8
+          }
+        },
+        {
+          "team": "O Labornis City",
+          "name": "Gibb",
+          "position": "GK",
+          "rating": "90",
+          "appearances": 9,
+          "goals": 0,
+          "assists": 1,
+          "shots": {
+            "total": 6,
+            "on": 3,
+            "off": 3
+          },
+          "passes": {
+            "total": 245,
+            "on": 166,
+            "off": 79
+          },
+          "tackles": {
+            "total": 10,
+            "on": 7,
+            "off": 3,
+            "fouls": 14
+          },
+          "saves": 67
+        },
+        {
+          "team": "O Labornis City",
+          "name": "Kirk",
+          "position": "CB",
+          "rating": "80",
+          "appearances": 9,
+          "goals": 1,
+          "assists": 3,
+          "shots": {
+            "total": 28,
+            "on": 15,
+            "off": 13
+          },
+          "passes": {
+            "total": 270,
+            "on": 166,
+            "off": 104
+          },
+          "tackles": {
+            "total": 71,
+            "on": 41,
+            "off": 30,
+            "fouls": 9
+          }
+        },
+        {
+          "team": "O Labornis City",
+          "name": "Miguel",
+          "position": "CM",
+          "rating": "88",
+          "appearances": 9,
+          "goals": 9,
+          "assists": 13,
+          "shots": {
+            "total": 39,
+            "on": 23,
+            "off": 16
+          },
+          "passes": {
+            "total": 297,
+            "on": 202,
+            "off": 95
+          },
+          "tackles": {
+            "total": 69,
+            "on": 38,
+            "off": 31,
+            "fouls": 10
+          }
+        },
+        {
+          "team": "O Labornis City",
+          "name": "Yope",
+          "position": "CM",
+          "rating": "76",
+          "appearances": 9,
+          "goals": 7,
+          "assists": 7,
+          "shots": {
+            "total": 34,
+            "on": 17,
+            "off": 17
+          },
+          "passes": {
+            "total": 288,
+            "on": 196,
+            "off": 92
+          },
+          "tackles": {
+            "total": 60,
+            "on": 36,
+            "off": 24,
+            "fouls": 9
+          }
+        },
+        {
+          "team": "O Labornis City",
+          "name": "Nico",
+          "position": "ST",
+          "rating": "79",
+          "appearances": 9,
+          "goals": 19,
+          "assists": 1,
+          "shots": {
+            "total": 52,
+            "on": 30,
+            "off": 22
+          },
+          "passes": {
+            "total": 285,
+            "on": 206,
+            "off": 79
+          },
+          "tackles": {
+            "total": 71,
+            "on": 39,
+            "off": 32,
+            "fouls": 10
+          }
+        },
+        {
+          "team": "O Labornis City",
+          "name": "Peppel",
+          "position": "ST",
+          "rating": "70",
+          "appearances": 9,
+          "goals": 12,
+          "assists": 10,
+          "shots": {
+            "total": 58,
+            "on": 27,
+            "off": 31
+          },
+          "passes": {
+            "total": 252,
+            "on": 171,
+            "off": 81
+          },
+          "tackles": {
+            "total": 64,
+            "on": 37,
+            "off": 27,
+            "fouls": 15
+          }
+        },
+        {
+          "team": "O Torn",
+          "name": "Gling",
+          "position": "GK",
+          "rating": "66",
+          "appearances": 9,
+          "goals": 0,
+          "assists": 0,
+          "shots": {
+            "total": 6,
+            "on": 3,
+            "off": 3
+          },
+          "passes": {
+            "total": 303,
+            "on": 204,
+            "off": 99
+          },
+          "tackles": {
+            "total": 8,
+            "on": 5,
+            "off": 3,
+            "fouls": 7
+          },
+          "saves": 62
+        },
+        {
+          "team": "O Torn",
+          "name": "Tree",
+          "position": "CB",
+          "rating": "77",
+          "appearances": 9,
+          "goals": 1,
+          "assists": 2,
+          "shots": {
+            "total": 33,
+            "on": 18,
+            "off": 15
+          },
+          "passes": {
+            "total": 259,
+            "on": 185,
+            "off": 74
+          },
+          "tackles": {
+            "total": 60,
+            "on": 37,
+            "off": 23,
+            "fouls": 7
+          }
+        },
+        {
+          "team": "O Torn",
+          "name": "Kalmanoider",
+          "position": "CM",
+          "rating": "83",
+          "appearances": 9,
+          "goals": 8,
+          "assists": 7,
+          "shots": {
+            "total": 30,
+            "on": 17,
+            "off": 13
+          },
+          "passes": {
+            "total": 213,
+            "on": 154,
+            "off": 59
+          },
+          "tackles": {
+            "total": 55,
+            "on": 34,
+            "off": 21,
+            "fouls": 11
+          }
+        },
+        {
+          "team": "O Torn",
+          "name": "Kreamelder",
+          "position": "CM",
+          "rating": "88",
+          "appearances": 9,
+          "goals": 5,
+          "assists": 4,
+          "shots": {
+            "total": 30,
+            "on": 15,
+            "off": 15
+          },
+          "passes": {
+            "total": 286,
+            "on": 178,
+            "off": 108
+          },
+          "tackles": {
+            "total": 75,
+            "on": 42,
+            "off": 33,
+            "fouls": 7
+          }
+        },
+        {
+          "team": "O Torn",
+          "name": "Dreed",
+          "position": "ST",
+          "rating": "94",
+          "appearances": 9,
+          "goals": 18,
+          "assists": 3,
+          "shots": {
+            "total": 61,
+            "on": 36,
+            "off": 25
+          },
+          "passes": {
+            "total": 293,
+            "on": 183,
+            "off": 110
+          },
+          "tackles": {
+            "total": 75,
+            "on": 44,
+            "off": 31,
+            "fouls": 12
+          }
+        },
+        {
+          "team": "O Torn",
+          "name": "Boop",
+          "position": "ST",
+          "rating": "69",
+          "appearances": 9,
+          "goals": 4,
+          "assists": 3,
+          "shots": {
+            "total": 75,
+            "on": 36,
+            "off": 39
+          },
+          "passes": {
+            "total": 279,
+            "on": 179,
+            "off": 100
+          },
+          "tackles": {
+            "total": 69,
+            "on": 42,
+            "off": 27,
+            "fouls": 9
+          }
+        }
+      ],
+      "coachSeasonStats": [
+        {
+          "team": "Concinia Girr",
+          "coach": "Jorn",
+          "style": "balanced",
+          "rating": "87",
+          "played": 9,
+          "won": 7,
+          "drawn": 1,
+          "lost": 1,
+          "points": 22
+        },
+        {
+          "team": "Puzi Rell",
+          "coach": "Baud",
+          "style": "balanced",
+          "rating": "83",
+          "played": 9,
+          "won": 4,
+          "drawn": 1,
+          "lost": 4,
+          "points": 13
+        },
+        {
+          "team": "A C Π Labornis City",
+          "coach": "Don",
+          "style": "balanced",
+          "rating": "91",
+          "played": 9,
+          "won": 3,
+          "drawn": 0,
+          "lost": 6,
+          "points": 9
+        },
+        {
+          "team": "Kiel Torn",
+          "coach": "Yam",
+          "style": "balanced",
+          "rating": "62",
+          "played": 9,
+          "won": 1,
+          "drawn": 2,
+          "lost": 6,
+          "points": 5
+        },
+        {
+          "team": "O Labornis City",
+          "coach": "Philipe",
+          "style": "balanced",
+          "rating": "98",
+          "played": 9,
+          "won": 5,
+          "drawn": 2,
+          "lost": 2,
+          "points": 17
+        },
+        {
+          "team": "O Torn",
+          "coach": "Banner",
+          "style": "balanced",
+          "rating": "91",
+          "played": 9,
+          "won": 1,
+          "drawn": 5,
+          "lost": 3,
+          "points": 8
+        },
+        {
+          "team": "L. B. Rann",
+          "coach": "Doars",
+          "style": "balanced",
+          "rating": "74",
+          "played": 9,
+          "won": 5,
+          "drawn": 2,
+          "lost": 2,
+          "points": 17
+        },
+        {
+          "team": "Red Digg",
+          "coach": "Bloshk",
+          "style": "balanced",
+          "rating": "66",
+          "played": 9,
+          "won": 2,
+          "drawn": 2,
+          "lost": 5,
+          "points": 8
+        },
+        {
+          "team": "O Rell",
+          "coach": "Rod",
+          "style": "balanced",
+          "rating": "80",
+          "played": 9,
+          "won": 5,
+          "drawn": 1,
+          "lost": 3,
+          "points": 16
+        },
+        {
+          "team": "Puzi Rann",
+          "coach": "Nojiur",
+          "style": "balanced",
+          "rating": "88",
+          "played": 9,
+          "won": 3,
+          "drawn": 2,
+          "lost": 4,
+          "points": 11
+        }
+      ],
+      "awards": {
+        "mvp": {
+          "name": "Kerpshville",
+          "team": "Puzi Rann",
+          "position": "ST",
+          "grade": 4.7,
+          "age": null,
+          "goals": 20,
+          "assists": 4
+        },
+        "fichichi": {
+          "name": "Kerpshville",
+          "team": "Puzi Rann",
+          "position": "ST",
+          "goals": 20,
+          "assists": 4,
+          "perMatch": "2.2"
+        },
+        "assistKing": {
+          "name": "Blockshot",
+          "team": "Puzi Rann",
+          "position": "CM",
+          "assists": 13,
+          "perMatch": "1.4"
+        },
+        "goalkeeperOfSeason": {
+          "name": "Gibb",
+          "team": "O Labornis City",
+          "saves": 67,
+          "grade": 4.1
+        },
+        "fieldPlayerOfYear": {
+          "name": "Kerpshville",
+          "team": "Puzi Rann",
+          "position": "ST",
+          "grade": 4.7,
+          "goals": 20,
+          "assists": 4
+        },
+        "lfaPromise": {
+          "name": "Likgill",
+          "team": "Puzi Rann",
+          "position": "ST",
+          "grade": 4.1,
+          "age": 21
+        },
+        "coachOfYear": {
+          "name": "Jorn",
+          "team": "Concinia Girr",
+          "style": "balanced",
+          "rating": "87"
+        }
+      }
+    },
+    {
+      "number": 15,
+      "champion": null,
+      "guyKilneTrophy": null,
+      "standings": [],
+      "matchResults": [],
+      "playoffs": {
+        "quarterFinals": [
+          {
+            "higherSeed": "O Labornis City",
+            "lowerSeed": "A C Π Rell",
+            "seedNums": [
+              1,
+              8
+            ],
+            "games": [
+              {
+                "home": "O Labornis City",
+                "away": "A C Π Rell",
+                "score": [
+                  3,
+                  2
+                ]
+              },
+              {
+                "home": "A C Π Rell",
+                "away": "O Labornis City",
+                "score": [
+                  3,
+                  2
+                ]
+              },
+              {
+                "home": "O Labornis City",
+                "away": "A C Π Rell",
+                "score": [
+                  3,
+                  2
+                ]
+              }
+            ],
+            "winner": "O Labornis City",
+            "seriesScore": "2-1"
+          },
+          {
+            "higherSeed": "O Girr",
+            "lowerSeed": "A C Π Qued",
+            "seedNums": [
+              2,
+              7
+            ],
+            "games": [
+              {
+                "home": "O Girr",
+                "away": "A C Π Qued",
+                "score": [
+                  2,
+                  3
+                ]
+              },
+              {
+                "home": "A C Π Qued",
+                "away": "O Girr",
+                "score": [
+                  3,
+                  2
+                ]
+              }
+            ],
+            "winner": "A C Π Qued",
+            "seriesScore": "2-0"
+          },
+          {
+            "higherSeed": "A C Π Labornis City",
+            "lowerSeed": "Red Digg",
+            "seedNums": [
+              3,
+              6
+            ],
+            "games": [
+              {
+                "home": "A C Π Labornis City",
+                "away": "Red Digg",
+                "score": [
+                  3,
+                  2
+                ]
+              },
+              {
+                "home": "Red Digg",
+                "away": "A C Π Labornis City",
+                "score": [
+                  2,
+                  3
+                ]
+              }
+            ],
+            "winner": "A C Π Labornis City",
+            "seriesScore": "2-0"
+          },
+          {
+            "higherSeed": "Concinia Girr",
+            "lowerSeed": "O Torn",
+            "seedNums": [
+              4,
+              5
+            ],
+            "games": [
+              {
+                "home": "Concinia Girr",
+                "away": "O Torn",
+                "score": [
+                  3,
+                  1
+                ]
+              },
+              {
+                "home": "O Torn",
+                "away": "Concinia Girr",
+                "score": [
+                  4,
+                  1
+                ]
+              },
+              {
+                "home": "Concinia Girr",
+                "away": "O Torn",
+                "score": [
+                  3,
+                  1
+                ]
+              }
+            ],
+            "winner": "Concinia Girr",
+            "seriesScore": "2-1"
+          }
+        ],
+        "semiFinals": [
+          {
+            "team1": "O Labornis City",
+            "team2": "Concinia Girr",
+            "score": [
+              2,
+              3
+            ],
+            "winner": "Concinia Girr",
+            "venue": "neutral"
+          },
+          {
+            "team1": "A C Π Qued",
+            "team2": "A C Π Labornis City",
+            "score": [
+              3,
+              2
+            ],
+            "winner": "A C Π Qued",
+            "venue": "neutral"
+          }
+        ],
+        "final": {
+          "team1": "Concinia Girr",
+          "team2": "A C Π Qued",
+          "score": [
+            1,
+            3
+          ],
+          "winner": "A C Π Qued",
+          "captain": "Pedrinho",
+          "venue": "neutral"
+        }
+      },
+      "playerSeasonStats": [],
+      "coachSeasonStats": [],
+      "awards": null
+    },
+    {
+      "number": 16,
+      "champion": null,
+      "guyKilneTrophy": null,
+      "standings": [],
+      "matchResults": [],
+      "playoffs": null,
+      "playerSeasonStats": [],
+      "coachSeasonStats": [],
+      "awards": null
+    },
+    {
+      "number": 17,
+      "champion": null,
+      "guyKilneTrophy": null,
+      "standings": [],
+      "matchResults": [],
+      "playerSeasonStats": [],
+      "coachSeasonStats": [],
+      "awards": null
+    },
+    {
+      "number": 18,
+      "champion": null,
+      "guyKilneTrophy": null,
+      "standings": [],
+      "matchResults": [],
+      "playerSeasonStats": [],
+      "coachSeasonStats": [],
+      "awards": null
+    }
+  ]
+}

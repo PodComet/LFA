@@ -233,29 +233,30 @@ function noBallNotGK2CloseBallBottomTeam(matchDetails, currentPOS, pitchWidth, p
 }
 
 function checkPositionInBottomPenaltyBox(position, pitchWidth, pitchHeight) {
-  let yPos = common.isBetween(position[0], (pitchWidth / 3) - 5, pitchWidth - (pitchWidth / 3) + 5)
-  let xPos = common.isBetween(position[1], pitchHeight - (pitchHeight / 12) + 5, pitchHeight)
+  // Small 6v6 penalty box matching common.js
+  let yPos = common.isBetween(position[0], (pitchWidth / 2.5) + 5, pitchWidth - (pitchWidth / 2.5) - 5)
+  let xPos = common.isBetween(position[1], pitchHeight - (pitchHeight / 20) - 5, pitchHeight)
   if (yPos && xPos) return true
   return false
 }
 
 function checkPositionInBottomPenaltyBoxClose(position, pitchWidth, pitchHeight) {
-  let yPos = common.isBetween(position[0], (pitchWidth / 2.5) - 5, pitchWidth - (pitchWidth / 2.5) + 5)
-  let xPos = common.isBetween(position[1], (pitchHeight - (pitchHeight / 20) + 5), pitchHeight)
+  let yPos = common.isBetween(position[0], (pitchWidth / 2.2) - 5, pitchWidth - (pitchWidth / 2.2) + 5)
+  let xPos = common.isBetween(position[1], (pitchHeight - (pitchHeight / 30) + 3), pitchHeight)
   if (yPos && xPos) return true
   return false
 }
 
 function checkPositionInTopPenaltyBox(position, pitchWidth, pitchHeight) {
-  let xPos = common.isBetween(position[0], (pitchWidth / 3) - 5, pitchWidth - (pitchWidth / 3) + 5)
-  let yPos = common.isBetween(position[1], 0, (pitchHeight / 12) - 5)
+  let xPos = common.isBetween(position[0], (pitchWidth / 2.5) + 5, pitchWidth - (pitchWidth / 2.5) - 5)
+  let yPos = common.isBetween(position[1], 0, (pitchHeight / 20) + 5)
   if (yPos && xPos) return true
   return false
 }
 
 function checkPositionInTopPenaltyBoxClose(position, pitchWidth, pitchHeight) {
-  let xPos = common.isBetween(position[0], (pitchWidth / 2.5) - 5, pitchWidth - (pitchWidth / 2.5) + 5)
-  let yPos = common.isBetween(position[1], 0, (pitchHeight / 20) - 5)
+  let xPos = common.isBetween(position[0], (pitchWidth / 2.2) - 5, pitchWidth - (pitchWidth / 2.2) + 5)
+  let yPos = common.isBetween(position[1], 0, (pitchHeight / 30) - 3)
   if (yPos && xPos) return true
   return false
 }
@@ -337,10 +338,10 @@ function resolveTackle(player, team, opposition, matchDetails) {
     return thisPlayer.playerID === matchDetails.ball.Player
   })
   let thatPlayer
-  if (index) thatPlayer = opposition.players[index]
+  if (index >= 0) thatPlayer = opposition.players[index]
   else return false
   player.stats.tackles.total++
-  if (wasFoul(10, 18)) {
+  if (wasFoul(20, 18)) {
     setFoul(matchDetails, team, player, thatPlayer)
     return true
   }
@@ -363,10 +364,10 @@ function resolveSlide(player, team, opposition, matchDetails) {
     return thisPlayer.playerID === matchDetails.ball.Player
   })
   let thatPlayer
-  if (index) thatPlayer = opposition.players[index]
+  if (index >= 0) thatPlayer = opposition.players[index]
   else return false
   player.stats.tackles.total++
-  if (wasFoul(11, 20)) {
+  if (wasFoul(22, 20)) {
     setFoul(matchDetails, team, player, thatPlayer)
     return true
   }
@@ -431,15 +432,8 @@ function setPostTacklePosition(matchDetails, winningPlyr, losePlayer, increment)
   }
 }
 
-function setInjury(matchDetails, thatPlayer, player, tackledInjury, tacklerInjury) {
-  if (common.isInjured(tackledInjury)) {
-    thatPlayer.injured = true
-    matchDetails.iterationLog.push(`Player Injured - ${thatPlayer.name}`)
-  }
-  if (common.isInjured(tacklerInjury)) {
-    player.injured = true
-    matchDetails.iterationLog.push(`Player Injured - ${player.name}`)
-  }
+function setInjury() {
+  // Injuries disabled for LFA 6v6 first-to-5 format
 }
 
 function setFoul(matchDetails, team, player, thatPlayer) {

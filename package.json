@@ -1,14 +1,28 @@
 {
   "name": "lfa",
   "version": "1.1.0",
-  "description": "LFA - 6v6 Football League Simulator with 12 teams, substitutions, and customizable jerseys",
+  "description": "Football league simulator with substitutions and customizable jerseys (configure league name, teams, and awards in data/config.json)",
   "main": "simulate.js",
   "scripts": {
     "start": "node simulate.js",
-    "match": "node simulate.js"
+    "match": "node simulate.js",
+    "manage": "node manage.js",
+    "generate-history": "node generate-history.js",
+    "cards": "node cards.js",
+    "build": "node build-site.js",
+    "serve": "node serve-cards.js"
   },
-  "keywords": ["football", "soccer", "6v6", "simulator"],
+  "keywords": [
+    "football",
+    "soccer",
+    "6v6",
+    "simulator"
+  ],
   "author": "",
   "license": "ISC",
-  "type": "commonjs"
+  "type": "commonjs",
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.80.0",
+    "dotenv": "^17.3.1"
+  }
 }

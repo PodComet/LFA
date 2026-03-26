@@ -307,6 +307,13 @@ function setTopBottomQtrCentreYPos(matchDetails, attack, defence) {
       player.currentPOS = common.getRandomBottomPenaltyPosition(matchDetails)
     }
   }
+  let kickerSetPiece = parseInt(kickPlayer.skill.set_piece_taking || 30, 10)
+  if (kickerSetPiece > common.getRandomNumber(0, 100)) {
+    let [pitchW] = matchDetails.pitchSize
+    let shotX = common.getRandomNumber((pitchW / 2) - 40, (pitchW / 2) + 40)
+    matchDetails.ball.position = [shotX, pitchHeight + 1, 0]
+    matchDetails.iterationLog.push(`Dangerous free kick by ${kickPlayer.name} - on target!`)
+  }
   matchDetails.endIteration = true
   return matchDetails
 }
@@ -348,6 +355,13 @@ function setBottomUpperQtrCentreYPos(matchDetails, attack, defence) {
     } else {
       player.currentPOS = common.getRandomTopPenaltyPosition(matchDetails)
     }
+  }
+  let kickerSetPiece = parseInt(kickPlayer.skill.set_piece_taking || 30, 10)
+  if (kickerSetPiece > common.getRandomNumber(0, 100)) {
+    let [pitchW] = matchDetails.pitchSize
+    let shotX = common.getRandomNumber((pitchW / 2) - 40, (pitchW / 2) + 40)
+    matchDetails.ball.position = [shotX, -1, 0]
+    matchDetails.iterationLog.push(`Dangerous free kick by ${kickPlayer.name} - on target!`)
   }
   matchDetails.endIteration = true
   return matchDetails

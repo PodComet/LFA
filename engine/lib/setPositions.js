@@ -332,25 +332,23 @@ function setSetpieceKickOffTeam(matchDetails) {
   const [, pitchHeight] = matchDetails.pitchSize
   let ballPosition = matchDetails.ball.position.map(x => x)
   let attackingTowardsTop = (matchDetails.kickOffTeam.players[0].currentPOS[1] > pitchHeight / 2)
-  if (attackingTowardsTop && common.inTopPenalty(matchDetails, ballPosition)) {
+  // Only 20% of box fouls become penalties (rest are free kicks at box edge)
+  let isPenalty = common.getRandomNumber(1, 5) === 1
+  if (isPenalty && attackingTowardsTop && common.inTopPenalty(matchDetails, ballPosition)) {
     matchDetails.kickOffTeamStatistics.penalties++
     matchDetails.iterationLog.push(`penalty to: ${matchDetails.kickOffTeam.name}`)
-    matchDetails.iterationLog.push(`penalty awarded, ball moved to penalty spot`)
     return setTopPenalty(matchDetails)
-  } else if (attackingTowardsTop == false && common.inBottomPenalty(matchDetails, ballPosition)) {
+  } else if (isPenalty && attackingTowardsTop == false && common.inBottomPenalty(matchDetails, ballPosition)) {
     matchDetails.kickOffTeamStatistics.penalties++
     matchDetails.iterationLog.push(`penalty to: ${matchDetails.kickOffTeam.name}`)
-    matchDetails.iterationLog.push(`penalty awarded, ball moved to penalty spot`)
     return setBottomPenalty(matchDetails)
   } else if (attackingTowardsTop) {
     matchDetails.kickOffTeamStatistics.freekicks++
     matchDetails.iterationLog.push(`freekick to: ${matchDetails.kickOffTeam.name} [${matchDetails.ball.position}]`)
-    matchDetails.iterationLog.push(`freekick awarded`)
     return setFreekicks.setBottomFreekick(matchDetails, ballPosition)
   }
   matchDetails.kickOffTeamStatistics.freekicks++
   matchDetails.iterationLog.push(`freekick to: ${matchDetails.kickOffTeam.name} [${matchDetails.ball.position}]`)
-  matchDetails.iterationLog.push(`freekick awarded`)
   return setFreekicks.setTopFreekick(matchDetails, ballPosition)
 }
 
@@ -358,11 +356,12 @@ function setSetpieceSecondTeam(matchDetails) {
   const [, pitchHeight] = matchDetails.pitchSize
   let ballPosition = matchDetails.ball.position.map(x => x)
   let attackingTowardsTop = (matchDetails.secondTeam.players[0].currentPOS[1] > pitchHeight / 2)
-  if (attackingTowardsTop && common.inTopPenalty(matchDetails, ballPosition)) {
+  let isPenalty = common.getRandomNumber(1, 5) === 1
+  if (isPenalty && attackingTowardsTop && common.inTopPenalty(matchDetails, ballPosition)) {
     matchDetails.secondTeamStatistics.penalties++
     matchDetails.iterationLog.push(`penalty to: ${matchDetails.secondTeam.name}`)
     return setTopPenalty(matchDetails)
-  } else if (attackingTowardsTop == false && common.inBottomPenalty(matchDetails, ballPosition)) {
+  } else if (isPenalty && attackingTowardsTop == false && common.inBottomPenalty(matchDetails, ballPosition)) {
     matchDetails.secondTeamStatistics.penalties++
     matchDetails.iterationLog.push(`penalty to: ${matchDetails.secondTeam.name}`)
     return setBottomPenalty(matchDetails)
