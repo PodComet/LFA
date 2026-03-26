@@ -265,93 +265,123 @@ function generateMatchStill(match, homeTeam, awayTeam, momentType) {
   const types = ['shot', 'celebration', 'tackle', 'save', 'header', 'dribble']
   const type = momentType || types[Math.floor(Math.random() * types.length)]
 
-  // Helper: draw a human figure from ground level (x = center, groundY = feet y, h = height, color = jersey)
-  function person(x, groundY, h, jersey, shorts, skin, pose) {
-    const headR = h * 0.1
-    const torsoH = h * 0.35
-    const legH = h * 0.35
-    const armH = h * 0.3
-    const headY = groundY - h + headR
-    const shoulderY = headY + headR * 2 + 2
+  // Cinematic ground-level perspective constants
+  const groundY = 240        // low camera: ground line pushed down
+  const horizon = 95         // lower horizon = more sky/stadium visible
+  const pitchH = 300 - horizon
+
+  // Helper: draw a human figure — cinematic proportions with shadows and detail
+  function person(x, gy, h, jersey, shorts, skin, pose) {
+    const headR = h * 0.09
+    const torsoH = h * 0.33
+    const legH = h * 0.38
+    const armH = h * 0.28
+    const headY = gy - h + headR
+    const shoulderY = headY + headR * 2 + 1
     const hipY = shoulderY + torsoH
-    const footY = groundY
-    const w = h * 0.22
+    const footY = gy
+    const w = h * 0.2
+    const sw = w * 0.65  // stroke width for limbs
 
-    let arms = '', legs = '', torso = '', head = ''
+    let arms = '', legs = '', torso = '', head = '', shadow = ''
 
-    // Head
+    // Ground shadow (ellipse at feet)
+    shadow = `<ellipse cx="${x}" cy="${footY + 2}" rx="${h * 0.28}" ry="${h * 0.05}" fill="rgba(0,0,0,0.35)"/>`
+
+    // Head with better shading
     head = `<circle cx="${x}" cy="${headY}" r="${headR}" fill="${skin}"/>`
-    // Hair
-    head += `<ellipse cx="${x}" cy="${headY - headR * 0.3}" rx="${headR * 0.9}" ry="${headR * 0.5}" fill="#2a1a0a"/>`
+    head += `<circle cx="${x}" cy="${headY}" r="${headR}" fill="rgba(0,0,0,0.1)"/>`
+    head += `<ellipse cx="${x}" cy="${headY - headR * 0.25}" rx="${headR * 0.85}" ry="${headR * 0.45}" fill="#1a0e05"/>`
 
-    // Torso (jersey)
-    torso = `<rect x="${x - w}" y="${shoulderY}" width="${w * 2}" height="${torsoH}" rx="2" fill="${jersey}"/>`
-    // Jersey number area
-    torso += `<rect x="${x - w * 0.4}" y="${shoulderY + 2}" width="${w * 0.8}" height="${torsoH * 0.4}" rx="1" fill="${shorts}" opacity="0.3"/>`
+    // Torso — jersey with collar detail and highlight
+    torso = `<rect x="${x - w}" y="${shoulderY}" width="${w * 2}" height="${torsoH}" rx="3" fill="${jersey}"/>`
+    torso += `<rect x="${x - w}" y="${shoulderY}" width="${w * 2}" height="${torsoH * 0.15}" rx="2" fill="rgba(255,255,255,0.12)"/>`
+    torso += `<rect x="${x - w * 0.5}" y="${shoulderY}" width="${w}" height="2" rx="1" fill="${shorts}" opacity="0.5"/>`
+    // Jersey number
+    torso += `<text x="${x}" y="${shoulderY + torsoH * 0.55}" text-anchor="middle" font-size="${h * 0.1}" font-weight="900" font-family="system-ui" fill="${shorts}" opacity="0.4">${Math.floor(Math.random() * 20 + 1)}</text>`
+
+    // Shorts
+    torso += `<rect x="${x - w * 0.95}" y="${hipY - 1}" width="${w * 1.9}" height="${torsoH * 0.3}" rx="2" fill="${shorts}"/>`
+
+    // Socks (mid-leg colored strip)
+    const sockTop = hipY + legH * 0.55
+    const sockBot = footY - headR * 0.5
 
     if (pose === 'running') {
-      // Running: legs apart, arms swinging
-      legs = `<line x1="${x - 3}" y1="${hipY}" x2="${x - w - 4}" y2="${footY}" stroke="${shorts}" stroke-width="${w * 0.7}" stroke-linecap="round"/>
-              <line x1="${x + 3}" y1="${hipY}" x2="${x + w + 6}" y2="${footY - legH * 0.3}" stroke="${shorts}" stroke-width="${w * 0.7}" stroke-linecap="round"/>
-              <circle cx="${x - w - 4}" cy="${footY}" r="${headR * 0.6}" fill="#222"/>
-              <circle cx="${x + w + 6}" cy="${footY - legH * 0.3}" r="${headR * 0.6}" fill="#222"/>`
-      arms = `<line x1="${x - w}" y1="${shoulderY + 4}" x2="${x - w - 10}" y2="${shoulderY + armH}" stroke="${skin}" stroke-width="${w * 0.5}" stroke-linecap="round"/>
-              <line x1="${x + w}" y1="${shoulderY + 4}" x2="${x + w + 8}" y2="${shoulderY + armH * 0.6}" stroke="${skin}" stroke-width="${w * 0.5}" stroke-linecap="round"/>`
+      legs = `<line x1="${x - 3}" y1="${hipY}" x2="${x - w - 5}" y2="${footY}" stroke="${shorts}" stroke-width="${sw}" stroke-linecap="round"/>
+              <line x1="${x - w - 5}" y1="${sockTop}" x2="${x - w - 5}" y2="${sockBot}" stroke="${jersey}" stroke-width="${sw + 1}" stroke-linecap="round" opacity="0.7"/>
+              <line x1="${x + 3}" y1="${hipY}" x2="${x + w + 8}" y2="${footY - legH * 0.35}" stroke="${shorts}" stroke-width="${sw}" stroke-linecap="round"/>
+              <ellipse cx="${x - w - 5}" cy="${footY}" rx="${headR * 0.7}" ry="${headR * 0.4}" fill="#111"/>
+              <ellipse cx="${x + w + 8}" cy="${footY - legH * 0.35}" rx="${headR * 0.7}" ry="${headR * 0.4}" fill="#111"/>`
+      arms = `<line x1="${x - w}" y1="${shoulderY + 3}" x2="${x - w - 12}" y2="${shoulderY + armH}" stroke="${skin}" stroke-width="${w * 0.45}" stroke-linecap="round"/>
+              <line x1="${x + w}" y1="${shoulderY + 3}" x2="${x + w + 10}" y2="${shoulderY + armH * 0.5}" stroke="${skin}" stroke-width="${w * 0.45}" stroke-linecap="round"/>`
     } else if (pose === 'kicking') {
-      // Kicking: one leg back, one forward extended
-      legs = `<line x1="${x - 2}" y1="${hipY}" x2="${x - w - 2}" y2="${footY}" stroke="${shorts}" stroke-width="${w * 0.7}" stroke-linecap="round"/>
-              <line x1="${x + 2}" y1="${hipY}" x2="${x + w + 16}" y2="${footY - legH * 0.6}" stroke="${shorts}" stroke-width="${w * 0.7}" stroke-linecap="round"/>
-              <circle cx="${x - w - 2}" cy="${footY}" r="${headR * 0.6}" fill="#222"/>
-              <circle cx="${x + w + 16}" cy="${footY - legH * 0.6}" r="${headR * 0.7}" fill="#222"/>`
-      arms = `<line x1="${x - w}" y1="${shoulderY + 4}" x2="${x - w - 14}" y2="${shoulderY + armH * 0.5}" stroke="${skin}" stroke-width="${w * 0.5}" stroke-linecap="round"/>
-              <line x1="${x + w}" y1="${shoulderY + 4}" x2="${x + w + 6}" y2="${shoulderY + armH * 0.8}" stroke="${skin}" stroke-width="${w * 0.5}" stroke-linecap="round"/>`
+      legs = `<line x1="${x - 2}" y1="${hipY}" x2="${x - w - 3}" y2="${footY}" stroke="${shorts}" stroke-width="${sw}" stroke-linecap="round"/>
+              <line x1="${x - w - 3}" y1="${sockTop}" x2="${x - w - 3}" y2="${sockBot}" stroke="${jersey}" stroke-width="${sw + 1}" stroke-linecap="round" opacity="0.7"/>
+              <line x1="${x + 2}" y1="${hipY}" x2="${x + w + 20}" y2="${footY - legH * 0.65}" stroke="${shorts}" stroke-width="${sw}" stroke-linecap="round"/>
+              <ellipse cx="${x - w - 3}" cy="${footY}" rx="${headR * 0.7}" ry="${headR * 0.4}" fill="#111"/>
+              <ellipse cx="${x + w + 20}" cy="${footY - legH * 0.65}" rx="${headR * 0.8}" ry="${headR * 0.45}" fill="#111"/>`
+      arms = `<line x1="${x - w}" y1="${shoulderY + 3}" x2="${x - w - 16}" y2="${shoulderY + armH * 0.4}" stroke="${skin}" stroke-width="${w * 0.45}" stroke-linecap="round"/>
+              <line x1="${x + w}" y1="${shoulderY + 3}" x2="${x + w + 8}" y2="${shoulderY + armH * 0.75}" stroke="${skin}" stroke-width="${w * 0.45}" stroke-linecap="round"/>`
     } else if (pose === 'celebrating') {
-      // Both arms up
-      legs = `<line x1="${x - 4}" y1="${hipY}" x2="${x - 6}" y2="${footY}" stroke="${shorts}" stroke-width="${w * 0.7}" stroke-linecap="round"/>
-              <line x1="${x + 4}" y1="${hipY}" x2="${x + 6}" y2="${footY}" stroke="${shorts}" stroke-width="${w * 0.7}" stroke-linecap="round"/>
-              <circle cx="${x - 6}" cy="${footY}" r="${headR * 0.6}" fill="#222"/>
-              <circle cx="${x + 6}" cy="${footY}" r="${headR * 0.6}" fill="#222"/>`
-      arms = `<line x1="${x - w}" y1="${shoulderY + 2}" x2="${x - w - 10}" y2="${shoulderY - armH * 0.7}" stroke="${skin}" stroke-width="${w * 0.5}" stroke-linecap="round"/>
-              <line x1="${x + w}" y1="${shoulderY + 2}" x2="${x + w + 10}" y2="${shoulderY - armH * 0.7}" stroke="${skin}" stroke-width="${w * 0.5}" stroke-linecap="round"/>`
+      legs = `<line x1="${x - 4}" y1="${hipY}" x2="${x - 7}" y2="${footY}" stroke="${shorts}" stroke-width="${sw}" stroke-linecap="round"/>
+              <line x1="${x + 4}" y1="${hipY}" x2="${x + 7}" y2="${footY}" stroke="${shorts}" stroke-width="${sw}" stroke-linecap="round"/>
+              <ellipse cx="${x - 7}" cy="${footY}" rx="${headR * 0.7}" ry="${headR * 0.4}" fill="#111"/>
+              <ellipse cx="${x + 7}" cy="${footY}" rx="${headR * 0.7}" ry="${headR * 0.4}" fill="#111"/>`
+      arms = `<line x1="${x - w}" y1="${shoulderY + 2}" x2="${x - w - 12}" y2="${shoulderY - armH * 0.8}" stroke="${skin}" stroke-width="${w * 0.45}" stroke-linecap="round"/>
+              <line x1="${x + w}" y1="${shoulderY + 2}" x2="${x + w + 12}" y2="${shoulderY - armH * 0.8}" stroke="${skin}" stroke-width="${w * 0.45}" stroke-linecap="round"/>`
     } else if (pose === 'diving') {
-      // GK dive: horizontal body
-      const dy = groundY - h * 0.4
-      head = `<circle cx="${x - h * 0.4}" cy="${dy - 2}" r="${headR}" fill="${skin}"/>`
-      head += `<ellipse cx="${x - h * 0.4}" cy="${dy - headR * 0.8}" rx="${headR * 0.8}" ry="${headR * 0.4}" fill="#2a1a0a"/>`
-      torso = `<rect x="${x - h * 0.3}" y="${dy}" width="${torsoH + 6}" height="${w * 2}" rx="3" fill="${jersey}"/>`
-      legs = `<line x1="${x + torsoH * 0.3}" y1="${dy + w}" x2="${x + torsoH * 0.3 + legH}" y2="${dy + w + 6}" stroke="${shorts}" stroke-width="${w * 0.7}" stroke-linecap="round"/>
-              <line x1="${x + torsoH * 0.3}" y1="${dy + w}" x2="${x + torsoH * 0.3 + legH}" y2="${dy + w - 8}" stroke="${shorts}" stroke-width="${w * 0.7}" stroke-linecap="round"/>`
-      arms = `<line x1="${x - h * 0.3}" y1="${dy + w * 0.5}" x2="${x - h * 0.3 - armH}" y2="${dy - 8}" stroke="${skin}" stroke-width="${w * 0.5}" stroke-linecap="round"/>
-              <circle cx="${x - h * 0.3 - armH}" cy="${dy - 10}" r="${headR * 0.5}" fill="#ffa"/>`
+      const dy = gy - h * 0.38
+      shadow = `<ellipse cx="${x}" cy="${gy + 2}" rx="${h * 0.4}" ry="${h * 0.04}" fill="rgba(0,0,0,0.3)"/>`
+      head = `<circle cx="${x - h * 0.38}" cy="${dy - 2}" r="${headR}" fill="${skin}"/>`
+      head += `<ellipse cx="${x - h * 0.38}" cy="${dy - headR * 0.7}" rx="${headR * 0.8}" ry="${headR * 0.4}" fill="#1a0e05"/>`
+      torso = `<rect x="${x - h * 0.28}" y="${dy}" width="${torsoH + 8}" height="${w * 2}" rx="3" fill="${jersey}"/>`
+      torso += `<rect x="${x - h * 0.28}" y="${dy}" width="${torsoH + 8}" height="${w * 2}" rx="3" fill="rgba(255,255,255,0.06)"/>`
+      legs = `<line x1="${x + torsoH * 0.35}" y1="${dy + w}" x2="${x + torsoH * 0.35 + legH}" y2="${dy + w + 8}" stroke="${shorts}" stroke-width="${sw}" stroke-linecap="round"/>
+              <line x1="${x + torsoH * 0.35}" y1="${dy + w}" x2="${x + torsoH * 0.35 + legH}" y2="${dy + w - 10}" stroke="${shorts}" stroke-width="${sw}" stroke-linecap="round"/>`
+      arms = `<line x1="${x - h * 0.28}" y1="${dy + w * 0.4}" x2="${x - h * 0.28 - armH - 4}" y2="${dy - 12}" stroke="${skin}" stroke-width="${w * 0.5}" stroke-linecap="round"/>
+              <circle cx="${x - h * 0.28 - armH - 4}" cy="${dy - 14}" r="${headR * 0.55}" fill="#ff6"/>
+              <line x1="${x - h * 0.28}" y1="${dy + w * 1.2}" x2="${x - h * 0.28 - armH}" y2="${dy + w + 4}" stroke="${skin}" stroke-width="${w * 0.45}" stroke-linecap="round"/>`
     } else if (pose === 'heading') {
-      // Jumping: both legs bent below, body stretched up
-      const jumpH = h * 0.15
-      legs = `<line x1="${x - 3}" y1="${hipY - jumpH}" x2="${x - 8}" y2="${footY - jumpH * 0.5}" stroke="${shorts}" stroke-width="${w * 0.7}" stroke-linecap="round"/>
-              <line x1="${x + 3}" y1="${hipY - jumpH}" x2="${x + 6}" y2="${footY - jumpH * 0.3}" stroke="${shorts}" stroke-width="${w * 0.7}" stroke-linecap="round"/>
-              <circle cx="${x - 8}" cy="${footY - jumpH * 0.5}" r="${headR * 0.6}" fill="#222"/>
-              <circle cx="${x + 6}" cy="${footY - jumpH * 0.3}" r="${headR * 0.6}" fill="#222"/>`
+      const jumpH = h * 0.18
+      shadow = `<ellipse cx="${x}" cy="${footY + 2}" rx="${h * 0.2}" ry="${h * 0.035}" fill="rgba(0,0,0,0.2)"/>`
+      legs = `<line x1="${x - 4}" y1="${hipY - jumpH}" x2="${x - 10}" y2="${footY - jumpH * 0.4}" stroke="${shorts}" stroke-width="${sw}" stroke-linecap="round"/>
+              <line x1="${x + 4}" y1="${hipY - jumpH}" x2="${x + 8}" y2="${footY - jumpH * 0.2}" stroke="${shorts}" stroke-width="${sw}" stroke-linecap="round"/>
+              <ellipse cx="${x - 10}" cy="${footY - jumpH * 0.4}" rx="${headR * 0.7}" ry="${headR * 0.4}" fill="#111"/>
+              <ellipse cx="${x + 8}" cy="${footY - jumpH * 0.2}" rx="${headR * 0.7}" ry="${headR * 0.4}" fill="#111"/>`
       head = `<circle cx="${x}" cy="${headY - jumpH}" r="${headR}" fill="${skin}"/>`
-      head += `<ellipse cx="${x}" cy="${headY - jumpH - headR * 0.3}" rx="${headR * 0.9}" ry="${headR * 0.5}" fill="#2a1a0a"/>`
-      torso = `<rect x="${x - w}" y="${shoulderY - jumpH}" width="${w * 2}" height="${torsoH}" rx="2" fill="${jersey}"/>`
-      arms = `<line x1="${x - w}" y1="${shoulderY - jumpH + 4}" x2="${x - w - 8}" y2="${shoulderY - jumpH + armH * 0.6}" stroke="${skin}" stroke-width="${w * 0.5}" stroke-linecap="round"/>
-              <line x1="${x + w}" y1="${shoulderY - jumpH + 4}" x2="${x + w + 8}" y2="${shoulderY - jumpH + armH * 0.6}" stroke="${skin}" stroke-width="${w * 0.5}" stroke-linecap="round"/>`
+      head += `<ellipse cx="${x}" cy="${headY - jumpH - headR * 0.25}" rx="${headR * 0.85}" ry="${headR * 0.45}" fill="#1a0e05"/>`
+      torso = `<rect x="${x - w}" y="${shoulderY - jumpH}" width="${w * 2}" height="${torsoH}" rx="3" fill="${jersey}"/>`
+      arms = `<line x1="${x - w}" y1="${shoulderY - jumpH + 3}" x2="${x - w - 10}" y2="${shoulderY - jumpH + armH * 0.5}" stroke="${skin}" stroke-width="${w * 0.45}" stroke-linecap="round"/>
+              <line x1="${x + w}" y1="${shoulderY - jumpH + 3}" x2="${x + w + 10}" y2="${shoulderY - jumpH + armH * 0.5}" stroke="${skin}" stroke-width="${w * 0.45}" stroke-linecap="round"/>`
+    } else if (pose === 'sliding') {
+      // Sliding tackle: body low and horizontal
+      const sy = gy - h * 0.18
+      shadow = `<ellipse cx="${x + h * 0.15}" cy="${gy + 2}" rx="${h * 0.45}" ry="${h * 0.04}" fill="rgba(0,0,0,0.3)"/>`
+      head = `<circle cx="${x - h * 0.2}" cy="${sy - headR}" r="${headR}" fill="${skin}"/>`
+      head += `<ellipse cx="${x - h * 0.2}" cy="${sy - headR - headR * 0.2}" rx="${headR * 0.8}" ry="${headR * 0.4}" fill="#1a0e05"/>`
+      torso = `<rect x="${x - h * 0.15}" y="${sy}" width="${torsoH}" height="${w * 1.8}" rx="3" fill="${jersey}" transform="rotate(-15 ${x} ${sy})"/>`
+      legs = `<line x1="${x + torsoH * 0.2}" y1="${sy + w}" x2="${x + torsoH * 0.2 + legH + 5}" y2="${sy + w + 2}" stroke="${shorts}" stroke-width="${sw}" stroke-linecap="round"/>
+              <line x1="${x + torsoH * 0.2}" y1="${sy + w * 0.5}" x2="${x + torsoH * 0.2 + legH}" y2="${sy - 4}" stroke="${shorts}" stroke-width="${sw}" stroke-linecap="round"/>
+              <ellipse cx="${x + torsoH * 0.2 + legH + 5}" cy="${sy + w + 2}" rx="${headR * 0.7}" ry="${headR * 0.35}" fill="#111"/>`
+      arms = `<line x1="${x - h * 0.1}" y1="${sy + w * 0.3}" x2="${x - h * 0.1 - armH}" y2="${sy - 6}" stroke="${skin}" stroke-width="${w * 0.45}" stroke-linecap="round"/>`
     } else {
       // Standing/default
-      legs = `<line x1="${x - 4}" y1="${hipY}" x2="${x - 5}" y2="${footY}" stroke="${shorts}" stroke-width="${w * 0.7}" stroke-linecap="round"/>
-              <line x1="${x + 4}" y1="${hipY}" x2="${x + 5}" y2="${footY}" stroke="${shorts}" stroke-width="${w * 0.7}" stroke-linecap="round"/>
-              <circle cx="${x - 5}" cy="${footY}" r="${headR * 0.6}" fill="#222"/>
-              <circle cx="${x + 5}" cy="${footY}" r="${headR * 0.6}" fill="#222"/>`
-      arms = `<line x1="${x - w}" y1="${shoulderY + 4}" x2="${x - w - 6}" y2="${shoulderY + armH}" stroke="${skin}" stroke-width="${w * 0.5}" stroke-linecap="round"/>
-              <line x1="${x + w}" y1="${shoulderY + 4}" x2="${x + w + 6}" y2="${shoulderY + armH}" stroke="${skin}" stroke-width="${w * 0.5}" stroke-linecap="round"/>`
+      legs = `<line x1="${x - 4}" y1="${hipY}" x2="${x - 6}" y2="${footY}" stroke="${shorts}" stroke-width="${sw}" stroke-linecap="round"/>
+              <line x1="${x - 6}" y1="${sockTop}" x2="${x - 6}" y2="${sockBot}" stroke="${jersey}" stroke-width="${sw + 1}" stroke-linecap="round" opacity="0.7"/>
+              <line x1="${x + 4}" y1="${hipY}" x2="${x + 6}" y2="${footY}" stroke="${shorts}" stroke-width="${sw}" stroke-linecap="round"/>
+              <line x1="${x + 6}" y1="${sockTop}" x2="${x + 6}" y2="${sockBot}" stroke="${jersey}" stroke-width="${sw + 1}" stroke-linecap="round" opacity="0.7"/>
+              <ellipse cx="${x - 6}" cy="${footY}" rx="${headR * 0.7}" ry="${headR * 0.4}" fill="#111"/>
+              <ellipse cx="${x + 6}" cy="${footY}" rx="${headR * 0.7}" ry="${headR * 0.4}" fill="#111"/>`
+      arms = `<line x1="${x - w}" y1="${shoulderY + 3}" x2="${x - w - 7}" y2="${shoulderY + armH}" stroke="${skin}" stroke-width="${w * 0.45}" stroke-linecap="round"/>
+              <line x1="${x + w}" y1="${shoulderY + 3}" x2="${x + w + 7}" y2="${shoulderY + armH}" stroke="${skin}" stroke-width="${w * 0.45}" stroke-linecap="round"/>`
     }
 
-    return `<g>${legs}${torso}${arms}${head}</g>`
+    return `<g>${shadow}${legs}${torso}${arms}${head}</g>`
   }
 
   const skins = ['#f4c7a0', '#d4a373', '#8d5524', '#c68642', '#e0ac69', '#6b3f22']
   const rSkin = () => skins[Math.floor(Math.random() * skins.length)]
-  const groundY = 235
-  const horizon = 120
 
   // Pick a random goal scorer name for captions
   const allGoals = [...homeGoals, ...awayGoals]
@@ -361,120 +391,253 @@ function generateMatchStill(match, homeTeam, awayTeam, momentType) {
 
   if (type === 'shot') {
     caption = (randomScorer ? randomScorer.scorer : 'Striker') + ' unleashes a powerful shot'
-    // Shooter in foreground (large), GK in background (smaller), defender nearby
-    figures += person(220, groundY, 90, hc, hc2, rSkin(), 'kicking')
-    figures += person(420, groundY - 10, 65, ac, ac2, rSkin(), 'standing')  // GK
-    figures += person(320, groundY, 70, ac, ac2, rSkin(), 'running')  // defender
-    figures += person(140, groundY + 5, 55, hc, hc2, rSkin(), 'running')  // support
-    ballSvg = `<circle cx="280" cy="${groundY - 15}" r="6" fill="white" stroke="#aaa" stroke-width="0.5"/>`
-    // Motion blur on ball
-    extraElements = `<ellipse cx="265" cy="${groundY - 14}" rx="12" ry="3" fill="rgba(255,255,255,0.15)"/>`
+    figures += person(200, groundY, 100, hc, hc2, rSkin(), 'kicking')
+    figures += person(440, groundY - 15, 58, ac, ac2, rSkin(), 'diving')   // GK diving
+    figures += person(330, groundY - 5, 72, ac, ac2, rSkin(), 'running')   // defender
+    figures += person(120, groundY + 8, 50, hc, hc2, rSkin(), 'running')   // support
+    figures += person(500, groundY - 8, 42, ac, ac2, rSkin(), 'standing')  // far defender
+    ballSvg = `<circle cx="270" cy="${groundY - 20}" r="6" fill="white" stroke="#ccc" stroke-width="0.5"/>
+               <circle cx="270" cy="${groundY - 20}" r="6" fill="rgba(255,255,200,0.15)"/>`
+    // Motion blur trail
+    extraElements = `<ellipse cx="248" cy="${groundY - 18}" rx="18" ry="3" fill="rgba(255,255,255,0.1)"/>
+                     <ellipse cx="238" cy="${groundY - 17}" rx="10" ry="2" fill="rgba(255,255,255,0.06)"/>`
   } else if (type === 'celebration') {
     const scorer = randomScorer ? randomScorer.scorer : 'Goal scorer'
     const cTeam = winner === 'home' || !winner ? hc : ac
     const cTeam2 = winner === 'home' || !winner ? hc2 : ac2
     caption = scorer + ' celebrates with teammates!'
-    // Main celebrator large in center, teammates running toward
-    figures += person(280, groundY, 95, cTeam, cTeam2, rSkin(), 'celebrating')
-    figures += person(180, groundY + 5, 70, cTeam, cTeam2, rSkin(), 'running')
-    figures += person(400, groundY + 3, 65, cTeam, cTeam2, rSkin(), 'running')
-    figures += person(100, groundY + 8, 50, cTeam, cTeam2, rSkin(), 'celebrating')
-    // Dejected opponent in background
-    figures += person(500, groundY - 5, 48, ac, ac2, rSkin(), 'standing')
-    ballSvg = `<circle cx="540" cy="${groundY}" r="5" fill="white" stroke="#aaa" stroke-width="0.5"/>`
+    figures += person(280, groundY, 105, cTeam, cTeam2, rSkin(), 'celebrating')
+    figures += person(170, groundY + 5, 78, cTeam, cTeam2, rSkin(), 'running')
+    figures += person(410, groundY + 3, 72, cTeam, cTeam2, rSkin(), 'running')
+    figures += person(80, groundY + 10, 48, cTeam, cTeam2, rSkin(), 'celebrating')
+    figures += person(520, groundY - 8, 44, ac, ac2, rSkin(), 'standing')
+    ballSvg = `<circle cx="545" cy="${groundY}" r="5" fill="white" stroke="#aaa" stroke-width="0.5"/>`
   } else if (type === 'tackle') {
     caption = 'Crunching challenge in the midfield'
-    // Two players contesting, one sliding
-    figures += person(260, groundY, 85, hc, hc2, rSkin(), 'kicking')
-    figures += person(310, groundY, 80, ac, ac2, rSkin(), 'running')
-    figures += person(160, groundY + 5, 55, hc, hc2, rSkin(), 'running')
-    figures += person(430, groundY + 3, 52, ac, ac2, rSkin(), 'standing')
-    ballSvg = `<circle cx="285" cy="${groundY - 5}" r="6" fill="white" stroke="#aaa" stroke-width="0.5"/>`
-    // Grass spray
-    extraElements = Array.from({ length: 8 }, () => {
-      const gx = 275 + Math.random() * 30, gy = groundY - Math.random() * 15
-      return `<circle cx="${gx}" cy="${gy}" r="${1 + Math.random()}" fill="#4a8" opacity="${0.3 + Math.random() * 0.4}"/>`
+    figures += person(240, groundY, 95, hc, hc2, rSkin(), 'running')
+    figures += person(300, groundY, 90, ac, ac2, rSkin(), 'sliding')
+    figures += person(140, groundY + 8, 52, hc, hc2, rSkin(), 'running')
+    figures += person(450, groundY + 5, 48, ac, ac2, rSkin(), 'standing')
+    figures += person(500, groundY - 5, 40, hc, hc2, rSkin(), 'standing')
+    ballSvg = `<circle cx="270" cy="${groundY - 8}" r="6" fill="white" stroke="#ccc" stroke-width="0.5"/>`
+    // Grass spray particles
+    extraElements = Array.from({ length: 14 }, () => {
+      const gx = 280 + Math.random() * 50 - 10, gy2 = groundY - Math.random() * 25
+      const sz = 0.8 + Math.random() * 1.5
+      return `<circle cx="${gx}" cy="${gy2}" r="${sz}" fill="#4a8" opacity="${0.2 + Math.random() * 0.4}"/>`
+    }).join('') + Array.from({ length: 6 }, () => {
+      const dx = 285 + Math.random() * 40, dy2 = groundY - 2 - Math.random() * 10
+      return `<rect x="${dx}" y="${dy2}" width="${1 + Math.random() * 3}" height="1" fill="#5b5" opacity="0.3" transform="rotate(${Math.random() * 360} ${dx} ${dy2})"/>`
     }).join('')
   } else if (type === 'save') {
     caption = 'Spectacular diving save keeps the score level'
-    // GK diving large in foreground, striker behind
-    figures += person(300, groundY, 85, ac, ac2, rSkin(), 'diving')
-    figures += person(180, groundY + 3, 70, hc, hc2, rSkin(), 'kicking')
-    figures += person(100, groundY + 8, 50, hc, hc2, rSkin(), 'running')
-    figures += person(430, groundY + 5, 48, ac, ac2, rSkin(), 'standing')
-    ballSvg = `<circle cx="245" cy="${groundY - 40}" r="6" fill="white" stroke="#aaa" stroke-width="0.5"/>`
-    // Glove/hand reach effect
-    extraElements = `<ellipse cx="250" cy="${groundY - 38}" rx="8" ry="4" fill="rgba(255,255,0,0.2)"/>`
+    figures += person(290, groundY, 95, ac, ac2, rSkin(), 'diving')
+    figures += person(160, groundY + 5, 80, hc, hc2, rSkin(), 'kicking')
+    figures += person(80, groundY + 10, 48, hc, hc2, rSkin(), 'running')
+    figures += person(450, groundY + 5, 44, ac, ac2, rSkin(), 'standing')
+    ballSvg = `<circle cx="230" cy="${groundY - 48}" r="6" fill="white" stroke="#ccc" stroke-width="0.5"/>
+               <circle cx="230" cy="${groundY - 48}" r="6" fill="rgba(255,255,200,0.15)"/>`
+    extraElements = `<ellipse cx="237" cy="${groundY - 46}" rx="10" ry="3" fill="rgba(255,255,0,0.12)"/>`
   } else if (type === 'header') {
     caption = 'Rising highest to meet the cross'
-    figures += person(280, groundY, 90, hc, hc2, rSkin(), 'heading')
-    figures += person(310, groundY, 82, ac, ac2, rSkin(), 'heading')
-    figures += person(180, groundY + 5, 55, hc, hc2, rSkin(), 'standing')
-    figures += person(430, groundY + 3, 50, ac, ac2, rSkin(), 'running')
-    ballSvg = `<circle cx="290" cy="${groundY - 90}" r="6" fill="white" stroke="#aaa" stroke-width="0.5"/>`
+    figures += person(270, groundY, 100, hc, hc2, rSkin(), 'heading')
+    figures += person(310, groundY, 92, ac, ac2, rSkin(), 'heading')
+    figures += person(160, groundY + 8, 52, hc, hc2, rSkin(), 'standing')
+    figures += person(450, groundY + 5, 48, ac, ac2, rSkin(), 'running')
+    ballSvg = `<circle cx="285" cy="${groundY - 100}" r="6" fill="white" stroke="#ccc" stroke-width="0.5"/>`
   } else { // dribble
     caption = 'Skillful run past the defender'
-    figures += person(250, groundY, 88, hc, hc2, rSkin(), 'running')
-    figures += person(310, groundY + 2, 78, ac, ac2, rSkin(), 'running')
-    figures += person(150, groundY + 6, 52, hc, hc2, rSkin(), 'running')
-    figures += person(440, groundY + 4, 48, ac, ac2, rSkin(), 'standing')
-    ballSvg = `<circle cx="265" cy="${groundY - 3}" r="6" fill="white" stroke="#aaa" stroke-width="0.5"/>`
+    figures += person(240, groundY, 98, hc, hc2, rSkin(), 'running')
+    figures += person(320, groundY + 2, 82, ac, ac2, rSkin(), 'running')
+    figures += person(130, groundY + 8, 50, hc, hc2, rSkin(), 'running')
+    figures += person(460, groundY + 5, 45, ac, ac2, rSkin(), 'standing')
+    figures += person(400, groundY - 3, 55, ac, ac2, rSkin(), 'running')
+    ballSvg = `<circle cx="258" cy="${groundY - 5}" r="6" fill="white" stroke="#ccc" stroke-width="0.5"/>`
   }
 
-  // Stadium crowd in background
-  const crowdRows = Array.from({ length: 60 }, (_, i) => {
-    const cx = 10 + (i % 30) * 20 + Math.random() * 10
-    const cy = 40 + Math.floor(i / 30) * 18 + Math.random() * 8
-    const c = Math.random() > 0.5 ? hc : Math.random() > 0.3 ? ac : ['#e44', '#44e', '#ee4', '#fff', '#f80'][Math.floor(Math.random() * 5)]
+  // ── Rich stadium crowd (multiple tiers, varied density) ──
+  const crowdRows = []
+  // Upper tier (distant, small, dense)
+  for (let i = 0; i < 100; i++) {
+    const cx = Math.random() * 600
+    const cy = 28 + Math.random() * 22
+    const c = Math.random() > 0.4 ? hc : Math.random() > 0.3 ? ac : ['#e55', '#55e', '#ee5', '#fff', '#f90', '#f5a', '#5df'][Math.floor(Math.random() * 7)]
+    crowdRows.push(`<rect x="${cx}" y="${cy}" width="${2.5 + Math.random()}" height="${3 + Math.random()}" fill="${c}" opacity="${0.2 + Math.random() * 0.2}" rx="0.5"/>`)
+  }
+  // Lower tier (closer, bigger, more distinct)
+  for (let i = 0; i < 80; i++) {
+    const cx = Math.random() * 600
+    const cy = 52 + Math.random() * 30
+    const c = Math.random() > 0.4 ? hc : Math.random() > 0.3 ? ac : ['#e55', '#55e', '#ee5', '#fff', '#f90'][Math.floor(Math.random() * 5)]
     const sz = 3 + Math.random() * 2
-    return `<circle cx="${cx}" cy="${cy}" r="${sz}" fill="${c}" opacity="${0.3 + Math.random() * 0.3}"/>`
+    crowdRows.push(`<circle cx="${cx}" cy="${cy}" r="${sz}" fill="${c}" opacity="${0.25 + Math.random() * 0.3}"/>`)
+    // Occasional arm/scarf raised
+    if (Math.random() > 0.8) {
+      crowdRows.push(`<line x1="${cx}" y1="${cy - sz}" x2="${cx + (Math.random() > 0.5 ? 2 : -2)}" y2="${cy - sz - 4}" stroke="${c}" stroke-width="1" opacity="0.3"/>`)
+    }
+  }
+  // Front row (near pitch, largest)
+  for (let i = 0; i < 50; i++) {
+    const cx = Math.random() * 600
+    const cy = 82 + Math.random() * 12
+    const c = Math.random() > 0.4 ? hc : Math.random() > 0.3 ? ac : '#ddd'
+    crowdRows.push(`<circle cx="${cx}" cy="${cy}" r="${3.5 + Math.random() * 2}" fill="${c}" opacity="${0.2 + Math.random() * 0.25}"/>`)
+  }
+
+  // ── Floodlight positions with dramatic beams ──
+  const floodlights = [
+    { x: 40, y: 4 }, { x: 180, y: 2 }, { x: 420, y: 2 }, { x: 560, y: 4 }
+  ]
+  const floodSvg = floodlights.map((fl, fi) => {
+    const beamW = 50 + Math.random() * 30
+    return `<rect x="${fl.x - 1.5}" y="${fl.y}" width="3" height="20" fill="#667" rx="1"/>
+            <rect x="${fl.x - 4}" y="${fl.y}" width="8" height="4" fill="#889" rx="1"/>
+            <circle cx="${fl.x}" cy="${fl.y}" r="3" fill="#ffe066"/>
+            <circle cx="${fl.x}" cy="${fl.y}" r="6" fill="#ffe066" opacity="0.3"/>
+            <circle cx="${fl.x}" cy="${fl.y}" r="12" fill="#ffe066" opacity="0.08"/>`
   }).join('')
+
+  // ── Bokeh circles (out-of-focus light orbs) ──
+  const bokeh = Array.from({ length: 18 }, () => {
+    const bx = Math.random() * 600
+    const by = Math.random() * 110
+    const br = 3 + Math.random() * 10
+    const bop = 0.03 + Math.random() * 0.06
+    const bc = Math.random() > 0.5 ? '#ffe066' : Math.random() > 0.5 ? '#ffa040' : '#aaccff'
+    return `<circle cx="${bx}" cy="${by}" r="${br}" fill="${bc}" opacity="${bop}"/>`
+  }).join('')
+
+  // ── Foreground grass blades (shallow depth of field) ──
+  const fgGrass = Array.from({ length: 20 }, () => {
+    const gx = Math.random() * 600
+    const gy2 = 270 + Math.random() * 30
+    const gh = 8 + Math.random() * 18
+    const gw = 1 + Math.random() * 2
+    const lean = -5 + Math.random() * 10
+    return `<line x1="${gx}" y1="${gy2}" x2="${gx + lean}" y2="${gy2 - gh}" stroke="#2a7a3a" stroke-width="${gw}" stroke-linecap="round" opacity="${0.15 + Math.random() * 0.25}"/>`
+  }).join('')
+
+  // ── Atmospheric haze layer ──
+  const hazeLayers = `
+    <rect x="0" y="${horizon - 8}" width="600" height="20" fill="rgba(180,200,220,0.06)"/>
+    <rect x="0" y="${horizon - 3}" width="600" height="10" fill="rgba(255,255,220,0.04)"/>`
 
   return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 300" style="width:100%;border-radius:8px;overflow:hidden">
   <defs>
+    <!-- Dramatic dusk sky gradient -->
     <linearGradient id="sky${uid}" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#1a2a44"/><stop offset="60%" stop-color="#2a3a55"/><stop offset="100%" stop-color="#3a4a55"/>
+      <stop offset="0%" stop-color="#0a0e1a"/>
+      <stop offset="30%" stop-color="#14203a"/>
+      <stop offset="65%" stop-color="#1e3050"/>
+      <stop offset="85%" stop-color="#2a4060"/>
+      <stop offset="100%" stop-color="#3a4a55"/>
     </linearGradient>
+    <!-- Lush pitch with warm/cool variation -->
     <linearGradient id="grass${uid}" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#2d6b3f"/><stop offset="100%" stop-color="#1a5c2e"/>
+      <stop offset="0%" stop-color="#1f6b35"/>
+      <stop offset="40%" stop-color="#237a3c"/>
+      <stop offset="100%" stop-color="#1a5a28"/>
     </linearGradient>
-    <radialGradient id="vig${uid}" cx="50%" cy="45%" r="55%">
-      <stop offset="0%" stop-color="transparent"/><stop offset="100%" stop-color="rgba(0,0,0,0.55)"/>
+    <!-- Heavy cinematic vignette -->
+    <radialGradient id="vig${uid}" cx="50%" cy="48%" r="52%">
+      <stop offset="0%" stop-color="transparent"/>
+      <stop offset="65%" stop-color="rgba(0,0,0,0.15)"/>
+      <stop offset="100%" stop-color="rgba(0,0,0,0.7)"/>
     </radialGradient>
-    <radialGradient id="spot${uid}" cx="50%" cy="30%" r="50%">
-      <stop offset="0%" stop-color="rgba(255,255,200,0.08)"/><stop offset="100%" stop-color="transparent"/>
+    <!-- Warm spotlight from floodlights -->
+    <radialGradient id="warm${uid}" cx="50%" cy="20%" r="60%">
+      <stop offset="0%" stop-color="rgba(255,230,150,0.1)"/>
+      <stop offset="50%" stop-color="rgba(255,200,100,0.03)"/>
+      <stop offset="100%" stop-color="transparent"/>
     </radialGradient>
-    <filter id="blur${uid}"><feGaussianBlur stdDeviation="1.5"/></filter>
-    <filter id="dof${uid}"><feGaussianBlur stdDeviation="0.8"/></filter>
+    <!-- Cool fill from sky -->
+    <radialGradient id="cool${uid}" cx="50%" cy="90%" r="60%">
+      <stop offset="0%" stop-color="rgba(100,150,220,0.05)"/>
+      <stop offset="100%" stop-color="transparent"/>
+    </radialGradient>
+    <!-- Stadium roof shadow -->
+    <linearGradient id="roofShade${uid}" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="rgba(0,0,0,0.4)"/>
+      <stop offset="100%" stop-color="transparent"/>
+    </linearGradient>
+    <!-- Floodlight beam gradient -->
+    <linearGradient id="beam${uid}" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="rgba(255,240,180,0.12)"/>
+      <stop offset="100%" stop-color="rgba(255,240,180,0)"/>
+    </linearGradient>
+    <filter id="blur${uid}"><feGaussianBlur stdDeviation="2"/></filter>
+    <filter id="dof${uid}"><feGaussianBlur stdDeviation="0.4"/></filter>
+    <filter id="fgblur${uid}"><feGaussianBlur stdDeviation="2.5"/></filter>
+    <filter id="glow${uid}"><feGaussianBlur stdDeviation="4"/></filter>
+    <filter id="haze${uid}"><feGaussianBlur stdDeviation="1.2"/></filter>
+    <clipPath id="stadClip${uid}"><rect x="0" y="0" width="600" height="${horizon}"/></clipPath>
   </defs>
 
   <!-- Sky -->
-  <rect width="600" height="${horizon}" fill="url(#sky${uid})"/>
+  <rect width="600" height="300" fill="url(#sky${uid})"/>
 
-  <!-- Stadium structure -->
-  <rect x="0" y="30" width="600" height="${horizon - 30}" fill="#1a1a2e" rx="0"/>
-  <rect x="0" y="30" width="600" height="8" fill="#252540"/>
+  <!-- Stadium architecture -->
+  <g clip-path="url(#stadClip${uid})">
+    <!-- Stadium roof structure -->
+    <polygon points="0,18 300,8 600,18 600,26 0,26" fill="#181828"/>
+    <line x1="0" y1="26" x2="600" y2="26" stroke="#252540" stroke-width="2"/>
+    <!-- Roof overhang shadow -->
+    <rect x="0" y="26" width="600" height="8" fill="url(#roofShade${uid})"/>
+    <!-- Upper deck (dark seats) -->
+    <rect x="0" y="26" width="600" height="28" fill="#151525"/>
+    <!-- Upper crowd -->
+    <g filter="url(#blur${uid})">${crowdRows.slice(0, 100).join('')}</g>
+    <!-- Tier divider / balcony -->
+    <rect x="0" y="50" width="600" height="3" fill="#2a2a40"/>
+    <rect x="0" y="53" width="600" height="1" fill="#3a3a55" opacity="0.5"/>
+    <!-- Lower deck -->
+    <rect x="0" y="53" width="600" height="32" fill="#121222"/>
+    <!-- Lower crowd -->
+    <g filter="url(#blur${uid})" opacity="0.9">${crowdRows.slice(100, 180).join('')}</g>
+    <!-- Front row / advertising boards -->
+    <rect x="0" y="84" width="600" height="4" fill="#222238"/>
+    <rect x="0" y="84" width="600" height="4" fill="rgba(255,255,255,0.03)"/>
+    <!-- Ad boards - subtle colored strips -->
+    ${Array.from({ length: 12 }, (_, i) => {
+      const ax = i * 52 + Math.random() * 8
+      const aclr = ['#c22', '#22c', '#2a2', '#cc2', '#c6c', '#2cc'][Math.floor(Math.random() * 6)]
+      return `<rect x="${ax}" y="84" width="${30 + Math.random() * 15}" height="3.5" fill="${aclr}" opacity="0.15" rx="0.5"/>`
+    }).join('')}
+    <!-- Front row fans (closest) -->
+    <g filter="url(#haze${uid})">${crowdRows.slice(180).join('')}</g>
+  </g>
 
-  <!-- Floodlights -->
-  <rect x="50" y="10" width="4" height="30" fill="#555"/>
-  <circle cx="52" cy="10" r="5" fill="#ffe066" opacity="0.8"/>
-  <rect x="546" y="10" width="4" height="30" fill="#555"/>
-  <circle cx="548" cy="10" r="5" fill="#ffe066" opacity="0.8"/>
+  <!-- Floodlights with glow halos -->
+  ${floodSvg}
 
-  <!-- Crowd (blurred background) -->
-  <g filter="url(#blur${uid})">${crowdRows}</g>
+  <!-- Floodlight beams (dramatic light shafts) -->
+  <polygon points="36,8 -20,${horizon + 40} 100,${horizon + 40}" fill="url(#beam${uid})" opacity="0.6"/>
+  <polygon points="180,6 130,${horizon + 40} 230,${horizon + 40}" fill="url(#beam${uid})" opacity="0.4"/>
+  <polygon points="420,6 370,${horizon + 40} 470,${horizon + 40}" fill="url(#beam${uid})" opacity="0.4"/>
+  <polygon points="564,8 500,${horizon + 40} 620,${horizon + 40}" fill="url(#beam${uid})" opacity="0.6"/>
 
-  <!-- Pitch surface (ground level perspective) -->
-  <rect x="0" y="${horizon}" width="600" height="${300 - horizon}" fill="url(#grass${uid})"/>
-  <!-- Grass stripes -->
-  ${Array.from({ length: 8 }, (_, i) => `<rect x="${i * 80 - 10}" y="${horizon}" width="40" height="${300 - horizon}" fill="rgba(255,255,255,0.02)"/>`).join('')}
-  <!-- Pitch line -->
-  <line x1="0" y1="${horizon + 5}" x2="600" y2="${horizon + 5}" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+  <!-- Bokeh circles (lens effects) -->
+  ${bokeh}
 
-  <!-- Stadium spotlight glow -->
-  <rect width="600" height="300" fill="url(#spot${uid})"/>
+  <!-- Pitch surface -->
+  <rect x="0" y="${horizon}" width="600" height="${pitchH}" fill="url(#grass${uid})"/>
+  <!-- Mow stripes (perspective) -->
+  ${Array.from({ length: 10 }, (_, i) => {
+    const sx = i * 65 - 15
+    return `<polygon points="${sx},${horizon} ${sx + 32},${horizon} ${sx + 28 + i * 2},300 ${sx - 4 + i * 2},300" fill="rgba(255,255,255,0.018)"/>`
+  }).join('')}
+  <!-- Pitch line markings -->
+  <line x1="0" y1="${horizon + 3}" x2="600" y2="${horizon + 3}" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
 
-  <!-- Action figures -->
+  <!-- Atmospheric haze at pitch-crowd boundary -->
+  ${hazeLayers}
+
+  <!-- Warm floodlight wash -->
+  <rect width="600" height="300" fill="url(#warm${uid})"/>
+  <!-- Cool ambient fill -->
+  <rect width="600" height="300" fill="url(#cool${uid})"/>
+
+  <!-- Player figures with slight DOF -->
   <g filter="url(#dof${uid})">
   ${figures}
   </g>
@@ -482,17 +645,26 @@ function generateMatchStill(match, homeTeam, awayTeam, momentType) {
   <!-- Ball -->
   ${ballSvg}
 
-  <!-- Extra effects -->
+  <!-- Extra effects (motion blur, particles) -->
   ${extraElements}
 
-  <!-- Vignette -->
+  <!-- Foreground out-of-focus grass blades (shallow DOF) -->
+  <g filter="url(#fgblur${uid})">${fgGrass}</g>
+
+  <!-- Heavy cinematic vignette -->
   <rect width="600" height="300" fill="url(#vig${uid})"/>
 
-  <!-- Caption bar -->
-  <rect x="0" y="258" width="600" height="42" fill="rgba(0,0,0,0.8)"/>
-  <text x="16" y="278" fill="white" font-size="11" font-weight="700" font-family="system-ui">${hName} ${s[0]} - ${s[1]} ${aName}</text>
-  <text x="584" y="278" text-anchor="end" fill="rgba(255,255,255,0.5)" font-size="10" font-style="italic" font-family="system-ui">${caption}</text>
-  <text x="16" y="293" fill="rgba(255,255,255,0.25)" font-size="8" font-family="monospace">${CONFIG.league.shortName} Season ${match._season || ''} \u2022 Matchday ${match._md || ''} \u2022 \u{1F4F7} ${CONFIG.league.shortName} Media</text>
+  <!-- Film grain overlay (subtle noise texture) -->
+  <rect width="600" height="300" fill="rgba(0,0,0,0)" opacity="0.03">
+    <animate attributeName="opacity" values="0.02;0.04;0.02" dur="0.3s" repeatCount="indefinite"/>
+  </rect>
+
+  <!-- Cinematic caption bar with gradient -->
+  <rect x="0" y="252" width="600" height="48" fill="rgba(0,0,0,0.85)"/>
+  <rect x="0" y="250" width="600" height="4" fill="rgba(0,0,0,0.4)"/>
+  <text x="18" y="274" fill="white" font-size="12" font-weight="800" font-family="system-ui" letter-spacing="0.5">${hName} ${s[0]} \u2013 ${s[1]} ${aName}</text>
+  <text x="582" y="274" text-anchor="end" fill="rgba(255,255,255,0.45)" font-size="10" font-style="italic" font-family="system-ui">${caption}</text>
+  <text x="18" y="291" fill="rgba(255,255,255,0.2)" font-size="7.5" font-family="monospace" letter-spacing="1">${CONFIG.league.shortName} SEASON ${match._season || ''} \u2022 MATCHDAY ${match._md || ''} \u2022 \u{1F4F7} ${CONFIG.league.shortName} MEDIA</text>
 </svg>`
 }
 
@@ -640,10 +812,272 @@ function generateLocalReport(matches, standings, topScorers, league, mdNum, seas
     para3 += 'This result leaves ' + m.home + ' ' + pick(['sitting', 'positioned', 'placed']) + ' ' + ordinal(homePos) + ' in the table'
     para3 += ' while ' + m.away + ' ' + pick(['occupy', 'find themselves in', 'sit in']) + ' ' + ordinal(awayPos) + ' place.'
 
+    // --- Post-match interview ---
+    const interviewTeamName = winner || m.home
+    const interviewTeam = league.teams.find(t => t.name === interviewTeamName)
+    const interviewSide = interviewTeamName === m.home ? 'home' : 'away'
+    const teamStats = m.playerStats ? (m.playerStats[interviewSide] || []) : []
+    // Find highest-rated player on the interview team
+    const bestPlayer = teamStats.length ? [...teamStats].sort((a, b) => (b.grade || 0) - (a.grade || 0))[0] : null
+    const isCoach = !bestPlayer || Math.random() < 0.25  // 25% chance coach is interviewed even if there's a top player
+    const interviewee = isCoach
+      ? { name: interviewTeam ? interviewTeam.coach.name : 'the coach', role: 'coach', team: interviewTeamName }
+      : { name: bestPlayer.name, role: 'player', position: bestPlayer.position || (interviewTeam ? ((interviewTeam.players.find(p => p.name === bestPlayer.name) || {}).position || '') : ''), team: interviewTeamName, goals: bestPlayer.goals || 0, assists: bestPlayer.assists || 0, grade: bestPlayer.grade || 0, saves: bestPlayer.saves || 0 }
+
+    const opponentName = interviewTeamName === m.home ? m.away : m.home
+    const teamGoals = interviewTeamName === m.home ? s[0] : s[1]
+    const oppGoals = interviewTeamName === m.home ? s[1] : s[0]
+    const isAway = interviewTeamName === m.away
+    const teamPos = standings.findIndex(st => st.team === interviewTeamName) + 1
+    const oppPos = standings.findIndex(st => st.team === opponentName) + 1
+    const isUnderdog = teamPos > oppPos + 2
+    const beatLeader = oppPos === 1 && winner === interviewTeamName
+
+    // Question pool (contextual)
+    const scoreDiff = teamGoals - oppGoals
+    const totalMatchGoals = s[0] + s[1]
+    const ivHighScoring = totalMatchGoals >= 7
+    const ivLowScoring = totalMatchGoals <= 2
+    const ivShutout = !isDraw && oppGoals === 0
+    const hasHatTrick = interviewee.role === 'player' && interviewee.goals >= 3
+    const hasBrace = interviewee.role === 'player' && interviewee.goals === 2
+
+    const generalQs = [
+      'What made the difference between these two teams today?',
+      'How did the team\'s tactics work against ' + opponentName + '?',
+      'How did the coach prepare you all before the match?',
+      'How did the crowd affect the happenings on the pitch today?',
+      'What are your preparations going to look like before facing your next opponent?',
+      'How did you prepare mentally for this opponent?',
+      'Any message you would like to convey to the fans watching at home?',
+      'What can you say to this loud, magnificent crowd today?',
+      'Everything seemed to start from the defense for your team today. Would you agree?',
+      'Will you be returning next season, or are there thoughts about retirement?',
+      'How would you rate the team\'s overall performance today?',
+      'What does this result mean for the rest of the season?',
+      'How important was the team chemistry out there today?',
+      'Walk us through the key moment that decided this match.',
+      'The atmosphere inside the stadium was electric today. Did you feel that on the pitch?',
+      'What was the dressing room like before kickoff?',
+      'Who in the squad deserves a special mention today?',
+      'How do you keep the squad motivated through a long season like this?',
+      'There seemed to be a lot of intensity in the first fifteen minutes. Was that deliberate?',
+      'How much do results like this build confidence for the matches ahead?'
+    ]
+    const winQs = winner === interviewTeamName ? [
+      'How effective was the pressure you seemed to heap over your opponents today?',
+      'What did the coach say that brought about that inspiring quality of play?',
+      teamGoals >= 4 ? 'How did it feel to put ' + teamGoals + ' goals past a strong defense like ' + opponentName + '\'s?' : null,
+      isAway ? 'How special is it to win here, on ' + opponentName + '\'s home turf?' : null,
+      isUnderdog ? 'How does it feel to beat this strong team as an underdog?' : null,
+      beatLeader ? 'Was it extra special to beat the team placed number one in the league?' : null,
+      'Would you consider your team a playoff-caliber team?',
+      'Is this team good enough to win it all?',
+      scoreDiff >= 3 ? 'The scoreline was quite dominant. Did you expect to win by this margin?' : null,
+      scoreDiff === 1 ? 'It was tight until the end. How did you manage to hold on?' : null,
+      ivShutout ? 'A clean sheet today \u2014 how satisfying is it to keep ' + opponentName + ' off the scoresheet?' : null,
+      ivHighScoring ? 'It was an absolute goal fest out there. Did you sense early on it would be that kind of game?' : null,
+      'At what point did you feel the match was won?',
+      'The second half was completely different from the first. What changed?',
+      isAway ? 'Taking three points on the road is never easy. How do you rate this away performance?' : null,
+      !isAway ? 'The home form has been excellent. What makes this ground such a fortress?' : null
+    ].filter(Boolean) : []
+    const lossQs = winner && winner !== interviewTeamName ? [
+      'Where do you think it went wrong today?',
+      'The team conceded ' + oppGoals + ' goals. What needs to improve defensively?',
+      'How do you pick the squad up after a result like this?',
+      'Do you feel the scoreline reflected the balance of play?'
+    ] : []
+    const drawQs = isDraw ? [
+      'Did the weather play a big role in your preparations today?',
+      'Would you say the officiating had an impact on the result?',
+      'A draw against ' + opponentName + ' \u2014 is that a fair result in your eyes?',
+      'You came close to winning it at the end. How frustrating is it to only take a point?',
+      ivLowScoring ? 'It was a tight, cagey affair. Is a point a good result here?' : null,
+      ivHighScoring ? totalMatchGoals + ' goals and still a draw \u2014 how do you process a game like that?' : null,
+      'Both teams had their chances. What was the turning point that prevented a winner?'
+    ].filter(Boolean) : []
+    const goalQs = interviewee.role === 'player' && interviewee.goals >= 1 ? [
+      hasHatTrick ? 'A hat-trick! When did you realize it could be your day?' : null,
+      hasHatTrick ? 'Three goals in one match \u2014 which one was your favorite?' : null,
+      hasBrace ? 'Two goals today. Are you on track for the Golden Boot this season?' : null,
+      hasBrace ? 'How wonderful was the build-up for the second goal?' : null,
+      interviewee.goals === 1 ? 'Tell us about your goal today \u2014 walk us through the moment.' : null,
+      'How did it feel to find the back of the net against ' + opponentName + '?',
+      'The fans went wild when that goal went in. What was going through your mind?',
+      'That finish was clinical. Is that something you practice regularly in training?'
+    ].filter(Boolean) : []
+    const assistQs = interviewee.role === 'player' && interviewee.assists >= 1 ? [
+      interviewee.assists >= 2 ? 'Two assists today \u2014 you were the creative heartbeat of the team.' : 'That assist was a thing of beauty. Did you see the run developing?',
+      'The connection between you and the forwards looked telepathic today. How do you build that understanding?'
+    ] : []
+    const saveQs = interviewee.role === 'player' && interviewee.saves >= 3 ? [
+      'You made ' + interviewee.saves + ' saves today. Which one was the toughest?',
+      'The defense looked rock solid today. How did you organize that backline?',
+      interviewee.saves >= 5 ? 'An incredible ' + interviewee.saves + ' saves \u2014 you single-handedly kept the team in it.' : null,
+      'There was one save in particular that had the whole stadium on its feet. Talk us through it.'
+    ].filter(Boolean) : []
+    const coachQs = interviewee.role === 'coach' ? [
+      'What tactical adjustments did you make at halftime?',
+      'How proud are you of the players\' performance today?',
+      'What can you say about the wonderful game that your players had?',
+      winner === interviewTeamName ? 'Was the game plan executed exactly as you envisioned?' : 'Where do you think it went wrong tactically?',
+      'How did you set up the team to exploit ' + opponentName + '\'s weaknesses?',
+      'Which player surprised you the most with their performance today?',
+      'How do you manage the squad rotation with so many fixtures coming up?',
+      'The substitutions seemed to change the game. Walk us through your thinking.',
+      winner === interviewTeamName ? 'This is a big three points. Where does it put you in the title race?' : null,
+      'What message did you give the players before they walked out of the tunnel?'
+    ].filter(Boolean) : []
+
+    const allQs = [...generalQs, ...winQs, ...lossQs, ...drawQs, ...goalQs, ...assistQs, ...saveQs, ...coachQs]
+    // Pick 2 different questions, preferring contextual ones
+    const contextual = [...winQs, ...lossQs, ...drawQs, ...goalQs, ...assistQs, ...saveQs, ...coachQs]
+    let q1, q2
+    if (contextual.length >= 2) {
+      q1 = pick(contextual)
+      const remaining = contextual.filter(q => q !== q1)
+      q2 = remaining.length ? pick(remaining) : pick(generalQs)
+    } else if (contextual.length === 1) {
+      q1 = contextual[0]
+      q2 = pick(generalQs)
+    } else {
+      q1 = pick(generalQs)
+      q2 = pick(generalQs.filter(q => q !== q1))
+    }
+
+    // Generate answers
+    function genAnswer(question) {
+      const name = interviewee.name
+      const team = interviewee.team
+      const isC = interviewee.role === 'coach'
+      const pron = isC ? 'the lads' : 'we'
+      const coachRef = isC ? 'I' : 'the coach'
+
+      // Answer fragments pool
+      const openers = ['Look,', 'Yeah,', 'Well,', 'Honestly,', 'You know,', 'I think', 'For sure,', 'Absolutely,', 'Listen,', 'To be honest,', 'It\'s simple,', 'What can I say,']
+      const workEthic = ['everyone put in a shift today', 'the boys gave everything out there', 'it was a real team effort', 'we left everything on the pitch', 'every single player fought for the badge', 'the commitment from every player was immense', 'nobody hid out there today']
+      const tactics = ['we stuck to the game plan', coachRef + ' had us well prepared', 'we knew exactly what to do', 'the tactical setup was perfect', 'we executed the plan to perfection', 'the homework we did on them paid off']
+      const crowdLines = ['the fans were unbelievable today', 'you could feel the energy from the stands', 'the crowd pushed us over the line', 'hearing them sing gave us an extra gear', 'we couldn\'t have done it without the fans', 'that atmosphere was something special', 'the noise in there was incredible']
+      const humbleLines = [opponentName + ' are a quality side', 'full respect to ' + opponentName, opponentName + ' made it very difficult for us', 'it\'s never easy against ' + opponentName, 'credit to ' + opponentName + ', they didn\'t make it easy']
+      const futureLines = ['we\'ll take it one game at a time', 'we just focus on the next match', 'there\'s still a long way to go', 'we\'re not getting carried away', 'we\'ll recover and go again', 'the season is a marathon, not a sprint', 'we just keep our heads down and work']
+      const goalFeeling = ['there\'s no better feeling than scoring', 'the ball just fell perfectly', 'I saw the gap and went for it', 'it\'s what I work on in training every day', 'I just tried to stay composed and pick my spot']
+      const defenseLines = ['the back line was incredible today', 'we were organized and disciplined', 'everyone knew their defensive responsibilities', 'we hardly gave them a chance', 'the whole team defended as a unit']
+      const coachPraises = ['the manager has been brilliant', coachRef + ' prepared us perfectly', coachRef + '\'s halftime talk changed everything', 'the tactical adjustments were spot on', coachRef + ' gave us a clear structure and we followed it']
+
+      const o = pick(openers)
+
+      // --- Match-result questions ---
+      if (question.includes('difference between')) return o + ' ' + pick(workEthic) + '. ' + pick(humbleLines) + ', but ' + pron + ' wanted it more today. ' + pick(tactics) + ' and it paid off.'
+      if (question.includes('tactics') || question.includes('tactic')) return o + ' ' + pick(tactics) + '. We knew ' + opponentName + ' like to play a certain way, and ' + coachRef + ' had a clear plan to deal with that. I think you saw the result on the pitch.'
+      if (question.includes('pressure') || question.includes('heap')) return o + ' we knew we had to press them from the start. ' + pick(workEthic) + '. Once we got that early momentum, ' + opponentName + ' couldn\'t handle it.'
+      if (question.includes('dominant') || question.includes('margin')) return o + ' honestly, we just came out and played our game. ' + pick(tactics) + '. I don\'t think any of us expected this margin, but once the goals started flowing, our confidence went through the roof.'
+      if (question.includes('hold on') || question.includes('tight until')) return o + ' it was nervy at the end, no doubt. But ' + pick(defenseLines) + '. ' + pick(workEthic) + '. That last ten minutes felt like an hour, but ' + pron + ' dug deep.'
+      if (question.includes('clean sheet') || question.includes('off the scoresheet')) return o + ' that\'s down to the whole team, not just the defense. ' + pick(defenseLines) + '. ' + (isC ? 'We drilled the defensive shape all week and the players delivered.' : 'From the striker pressing to the goalkeeper commanding \u2014 everyone played their part.') + ' Clean sheets win trophies.'
+      if (question.includes('goal fest') || question.includes('that kind of game')) return o + ' you could tell from the warm-up that both teams came to attack. ' + pick(humbleLines) + '. It was end-to-end and ' + pick(crowdLines) + '. Thankfully we came out on the right side of it.'
+      if (question.includes('match was won') || question.includes('point did you feel')) return o + ' in this league, nothing is decided until the final whistle. But I\'d say after ' + pick(['the third goal', 'our second goal', 'that key moment in the second half']) + ', we started to believe we had it. ' + pick(humbleLines) + ' though \u2014 they never stopped fighting.'
+      if (question.includes('second half') && question.includes('changed')) return o + ' ' + (isC ? 'I told them a few things at halftime \u2014 small tweaks, really. We adjusted the pressing line and it opened up spaces.' : coachRef + ' made some crucial adjustments at the break. We came out with more intensity and it showed immediately.')
+      if (question.includes('away performance') || question.includes('three points on the road')) return o + ' away wins are the hardest thing to get in this league. The traveling fans were immense \u2014 ' + pick(crowdLines.map(l => l.replace('the fans', 'our fans'))) + '. ' + pick(tactics) + ', and we showed great maturity to see the game out.'
+      if (question.includes('fortress') || question.includes('home form')) return o + ' this is our pitch, our fans, our home. ' + pick(crowdLines) + '. Teams know it\'s a tough place to come. ' + pick(workEthic) + ', and the fans give us that extra ten percent.'
+
+      // --- Crowd and atmosphere ---
+      if (question.includes('crowd') || question.includes('fans') || question.includes('magnificent')) return o + ' ' + pick(crowdLines) + '. When you hear that noise, it lifts you to another level. This ' + (winner === team ? 'victory' : 'performance') + ' is for them.'
+      if (question.includes('atmosphere') || question.includes('electric')) return o + ' ' + pick(crowdLines) + '. There were moments where the roar from the stands gave me goosebumps. That\'s what football is all about. ' + pick(workEthic) + ' because we didn\'t want to let them down.'
+      if (question.includes('dressing room') && question.includes('before')) return o + ' it was focused, calm. ' + (isC ? 'I kept the talk short \u2014 the players knew what they had to do.' : coachRef + ' kept it simple. There was a quiet confidence.') + ' Everyone was ready. You could see it in their eyes.'
+
+      // --- Home turf / underdog / top team ---
+      if (question.includes('home turf') || question.includes('special')) return o + ' winning away is always tough, especially here. ' + pick(humbleLines) + ', but ' + pron + ' showed real character. ' + pick(crowdLines.map(l => l.replace('the fans', 'our traveling fans'))) + '.'
+      if (question.includes('underdog')) return o + ' people can say what they want about rankings. ' + pick(workEthic) + ' and ' + pron + ' proved that on any given day, we can beat anyone. ' + pick(futureLines) + '.'
+      if (question.includes('number one') || question.includes('leader')) return o + ' beating the league leaders is always a statement. But ' + pick(humbleLines) + '. ' + pick(workEthic) + ' and today, ' + pron + ' were the better team.'
+
+      // --- Goal-related ---
+      if (question.includes('hat-trick') && question.includes('favorite')) return o + ' honestly, they were all special. But if I had to pick one, probably the ' + pick(['first', 'second', 'third']) + '. The timing, the crowd reaction \u2014 everything about that moment was perfect.'
+      if (question.includes('hat-trick') && question.includes('your day')) return o + ' after the second goal, my teammates kept saying \'go get your hat-trick!\' ' + pick(goalFeeling) + '. When the third went in, the feeling was indescribable. ' + pick(crowdLines) + '.'
+      if (question.includes('Golden Boot')) return o + ' individual awards are nice, but ' + pick(futureLines) + '. The most important thing is the team winning. If the goals keep coming, great, but I\'m not counting.'
+      if (question.includes('build-up') && question.includes('second goal')) return o + ' that was textbook. The movement off the ball was incredible \u2014 ' + pick(tactics) + '. When you play like that, goals are going to come.'
+      if (question.includes('walk us through') && question.includes('goal')) return o + ' it happened so fast. I remember the ball coming across, I got into space, and I just hit it. ' + pick(goalFeeling) + '. The celebration with the lads afterward was special too.'
+      if (question.includes('goal') && question.includes('feel')) return o + ' ' + pick(goalFeeling) + '. ' + (interviewee.goals >= 2 ? 'To score ' + interviewee.goals + ' in one match is something I\'ll always remember. ' : '') + pick(workEthic) + ', and I\'m just happy to contribute.'
+      if (question.includes('fans went wild') || (question.includes('goal') && question.includes('mind'))) return o + ' pure adrenaline! I don\'t even remember running to the corner flag. ' + pick(crowdLines) + '. Moments like that are why you play this game.'
+      if (question.includes('clinical') || question.includes('practice')) return o + ' ' + (isC ? 'we work on finishing every single day in training. It\'s paying off.' : 'I stay after training most days to work on my finishing. ' + coachRef + ' always says preparation meets opportunity, and today it all came together.')
+      if (question.includes('wonderful') && question.includes('pass')) return o + ' that was a beautiful moment. The link-up play was fantastic \u2014 ' + pick(tactics) + ', and when the ball came through, I just had to finish it.'
+
+      // --- Assist-related ---
+      if (question.includes('assist') && question.includes('beauty')) return o + ' I saw the run developing and just tried to put it in the right area. Credit to the striker for a brilliant finish. That\'s the connection ' + coachRef + ' wants us to build.'
+      if (question.includes('telepathic') || question.includes('understanding')) return o + ' we spend hours on the training pitch working on that link-up play. It\'s about knowing where your teammate is going to be before they get there. Today it all clicked.'
+      if (question.includes('creative heartbeat')) return o + ' I just try to find pockets of space and create for others. When you have runners like we do, my job becomes a lot easier. The whole team made it possible.'
+
+      // --- Defense / GK ---
+      if (question.includes('defense') || question.includes('backline') || question.includes('start from the defense')) return o + ' ' + pick(defenseLines) + '. ' + (isC ? 'I always say clean sheets win championships.' : 'The goalkeeper was immense too.') + ' ' + pick(futureLines) + '.'
+      if (question.includes('saves') || question.includes('toughest')) return o + ' I don\'t really think about individual saves during the game. ' + pick(defenseLines) + '. The one in the ' + pick(['first half', 'second half', 'dying minutes']) + ' was probably the trickiest, but it\'s all instinct and positioning at that point.'
+      if (question.includes('single-handedly') || question.includes('kept the team in it')) return o + ' that\'s kind of you to say, but it\'s a team effort. ' + pick(defenseLines) + '. I\'m just doing my job. The defenders put their bodies on the line too.'
+      if (question.includes('stadium on its feet') && question.includes('save')) return o + ' that one was pure reflex, to be honest. I saw the shot late, got a strong hand to it. ' + pick(crowdLines) + '. Moments like that, the adrenaline takes over.'
+
+      // --- Preparation / Mental ---
+      if (question.includes('prepare') && question.includes('mental')) return o + ' ' + (isC ? 'I showed the lads video analysis and we worked on specific scenarios all week.' : pick(coachPraises) + '. We studied ' + opponentName + '\'s patterns and came in with a clear mind.') + ' ' + pick(futureLines) + '.'
+      if (question.includes('preparations') || question.includes('next opponent')) return o + ' ' + pick(futureLines) + '. We\'ll enjoy this result tonight, but tomorrow it\'s back to work. Every match in this league is tough.'
+
+      // --- Coach questions ---
+      if (question.includes('coach say') || (question.includes('halftime') && !question.includes('second half'))) return o + ' ' + (isC ? 'I told the players to keep their shape and trust the process. A few small adjustments made a big difference.' : pick(coachPraises) + '. ' + coachRef + ' told us to stay calm and the goals would come. And they did.')
+      if (question.includes('tactical adjustments')) return o + ' ' + (isC ? 'we tweaked the midfield shape and asked the full-backs to push higher. The players responded brilliantly.' : coachRef + ' made a couple of changes that completely shifted the momentum. The man deserves huge credit.')
+      if (question.includes('exploit') && question.includes('weakness')) return o + ' I\'m not going to give away all our secrets! But we watched a lot of footage and identified areas where we could cause problems. ' + pick(tactics) + '.'
+      if (question.includes('surprised') && question.includes('performance')) return o + ' honestly, I wasn\'t surprised \u2014 I see these players in training every day. But ' + pick(['the intensity', 'the quality', 'the composure']) + ' they showed today was outstanding. I\'m very proud.'
+      if (question.includes('rotation') || question.includes('fixtures coming')) return o + ' we have a deep squad and I trust every player in it. Rotation isn\'t about resting people, it\'s about keeping everyone sharp. Everyone has a role and they know it.'
+      if (question.includes('substitution')) return o + ' ' + (isC ? 'I felt the game needed fresh legs and a different energy. The subs came on and made an immediate impact \u2014 that\'s what squad depth gives you.' : 'the substitutions gave us new energy. The players who came on were brilliant \u2014 they changed the game.')
+      if (question.includes('title race') && question.includes('three points')) return o + ' every three points matters in this league. ' + pick(futureLines) + '. But yes, nights like this are what the title race is all about.'
+      if (question.includes('tunnel') || question.includes('walked out')) return o + ' I kept it simple: \'Play for each other, play for the badge, and leave nothing out there.\' Sometimes the best messages are the shortest ones.'
+
+      // --- Playoff / ambition ---
+      if (question.includes('playoff') || question.includes('caliber')) return o + ' ' + pick(workEthic) + '. If we keep performing like this, who knows? ' + pick(futureLines) + ', but I believe in this squad.'
+      if (question.includes('win it all') || question.includes('good enough')) return o + ' I\'d be lying if I said we don\'t dream about it. But ' + pick(futureLines) + '. ' + pick(workEthic) + ', and that\'s all you can ask.'
+
+      // --- Draw-specific ---
+      if (question.includes('weather')) return o + ' it was tricky conditions out there, but both teams had to deal with it. ' + pick(workEthic) + ' regardless of the weather.'
+      if (question.includes('officiating') || question.includes('referee')) return o + ' I don\'t want to talk too much about the officials. ' + pick(workEthic) + ', and in the end, the result speaks for itself.'
+      if (question.includes('fair result')) return o + ' ' + pick(humbleLines) + '. A point is a point. ' + pron + ' ' + pick(['will take it', 'can build on this', 'showed good character']) + '. ' + pick(futureLines) + '.'
+      if (question.includes('close to winning') || question.includes('frustrating')) return o + ' of course it\'s frustrating when you\'re that close. But ' + pick(humbleLines) + '. ' + pron + ' created enough chances to win it, and that\'s a positive to take forward.'
+      if (question.includes('cagey') || question.includes('tight')) return o + ' in a game like that, one mistake can decide it. ' + pick(defenseLines) + '. A point away from home \u2014 ' + pick(futureLines) + '.'
+      if (question.includes('process a game')) return o + ' it\'s tough to take when you score ' + teamGoals + ' goals and still don\'t win. But ' + pick(humbleLines) + '. We need to shore things up at the back, but the attacking intent was there.'
+      if (question.includes('turning point') || question.includes('prevented a winner')) return o + ' there were moments where either team could have nicked it. ' + (isC ? 'I think their equalizer shifted the momentum.' : 'a couple of key moments didn\'t go our way.') + ' But that\'s football \u2014 ' + pick(futureLines) + '.'
+
+      // --- Loss-specific ---
+      if (question.includes('went wrong')) return o + ' we didn\'t execute our plan well enough. ' + pick(humbleLines) + '. We\'ll analyze the footage and learn from this. ' + pick(futureLines) + '.'
+      if (question.includes('conceded') && question.includes('improve')) return o + ' ' + oppGoals + ' goals is too many, simple as that. We need to be tougher to break down. The effort was there, but ' + pick(['the concentration dropped at key moments', 'we switched off at the wrong times', 'we made it too easy for them']) + '.'
+      if (question.includes('pick the squad up')) return o + ' this group has character. ' + (isC ? 'I trust these players completely.' : 'we\'ve bounced back before and we\'ll do it again.') + ' One bad result doesn\'t define a season. ' + pick(futureLines) + '.'
+      if (question.includes('scoreline reflect')) return o + ' honestly, I think we were in the game for long stretches. ' + pick(humbleLines) + '. But the margins went against us today. ' + pick(futureLines) + '.'
+
+      // --- General / personality ---
+      if (question.includes('retirement') || question.includes('returning')) return o + ' I\'m fully focused on the rest of this season. ' + pick(futureLines) + '. We\'ll see what happens after that, but right now, ' + team + ' is all that matters to me.'
+      if (question.includes('proud') || question.includes('wonderful game')) return o + ' immensely proud. ' + pick(workEthic) + '. Every single one of them put in a shift, and as a ' + (isC ? 'coach' : 'teammate') + ', that\'s all you can ask for.'
+      if (question.includes('game plan') || question.includes('envisioned')) return o + ' ' + (winner === team ? 'pretty much, yes. ' + pick(tactics) + '. Of course, you always have to adapt, but the foundation was solid.' : 'not entirely. ' + pick(humbleLines) + '. We\'ll analyze this and come back stronger.')
+      if (question.includes('message') || question.includes('convey')) return o + ' just a massive thank you to the fans. ' + pick(crowdLines) + '. ' + pick(futureLines) + ', and we\'ll keep fighting for this badge.'
+      if (question.includes('overall performance') || question.includes('rate')) return o + ' I\'d give us a ' + pick(['seven', 'seven and a half', 'solid eight']) + ' out of ten. ' + pick(workEthic) + '. There\'s always room to improve, but the foundations are there.'
+      if (question.includes('rest of the season')) return o + ' ' + (winner === team ? 'results like this give you belief.' : 'we have to keep grinding.') + ' ' + pick(futureLines) + '. In this league, anything can happen.'
+      if (question.includes('team chemistry') || question.includes('chemistry')) return o + ' the bond in this squad is special. ' + (isC ? 'From the first day of preseason, I wanted to build a family, not just a team.' : 'we spend so much time together, on and off the pitch.') + ' That chemistry shows when it matters.'
+      if (question.includes('key moment') || question.includes('decided this match')) return o + ' I think ' + pick(['the opening goal changed everything', 'that moment in the second half was pivotal', 'the spell just before halftime was crucial']) + '. ' + pick(tactics) + ', and when that moment came, ' + pron + ' were ready.'
+      if (question.includes('special mention') || question.includes('who in the squad')) return o + ' I don\'t want to single anyone out because ' + pick(workEthic) + '. But if you push me, ' + pick(['the center-backs were immense', 'the midfield ran the show', 'the goalkeeper made some huge saves', 'the strikers were clinical']) + '.'
+      if (question.includes('motivated') || question.includes('long season')) return o + ' ' + (isC ? 'competition for places keeps everyone sharp. When you have a squad this talented, nobody can afford to take their foot off the gas.' : 'we push each other every day in training. No one\'s place is guaranteed, and that drives the standards up.') + ' ' + pick(futureLines) + '.'
+      if (question.includes('intensity') && question.includes('fifteen minutes')) return o + ' ' + (isC ? 'absolutely. I told the players to set the tone from the first whistle. If you let the opponent settle, it becomes much harder.' : 'that\'s something ' + coachRef + ' drills into us. Start fast, don\'t give them time to breathe.') + ' ' + pick(workEthic) + '.'
+      if (question.includes('confidence') || question.includes('build')) return o + ' massively. Results breed confidence, and ' + pick(workEthic) + '. When you\'re winning and playing well, everything feels easier. But ' + pick(futureLines) + '.'
+
+      // Fallback
+      return o + ' ' + pick(workEthic) + '. ' + pick(humbleLines) + '. ' + pick(futureLines) + '.'
+    }
+
+    const interview = {
+      interviewee: interviewee.name,
+      role: interviewee.role === 'coach' ? 'Head Coach' : (interviewee.position || 'Player'),
+      team: interviewee.team,
+      questions: [
+        { q: q1, a: genAnswer(q1) },
+        { q: q2, a: genAnswer(q2) }
+      ]
+    }
+
     return {
       home: m.home, away: m.away, score: s,
       title,
-      body: para1 + '\n\n' + para2 + '\n\n' + para3
+      body: para1 + '\n\n' + para2 + '\n\n' + para3,
+      interview
     }
   })
 
@@ -845,7 +1279,8 @@ function simulateMatchWithEngine(homeTeam, awayTeam) {
   const p1 = scoreProb(r1, r2, 0.3, cb1.off, cb2.def)
   const p2 = scoreProb(r2, r1, -0.15, cb2.off, cb1.def)
 
-  // Valid scores: 5-0..5-3 (first-to-5), 6-4, 6-5 (extended after 4-4), 5-5 (draw)
+  // Valid scores: 5-0..5-3 (first-to-5), 5-4/4-5 NOT valid,
+  // extended after 4-4: 6-4 (2-goal lead wins) or 5-5 (draw)
   let g1 = 0, g2 = 0
   const MAX_ROUNDS = 50
 
@@ -860,22 +1295,28 @@ function simulateMatchWithEngine(homeTeam, awayTeam) {
       if (g1 >= 5 && g2 <= 3) break
       if (g2 >= 5 && g1 <= 3) break
     } else {
-      // Extended: first to 6 wins, or 5-5 draw
+      // Extended: 5-5 draw, or 6-4 (need 2-goal lead to win)
       if (g1 === 5 && g2 === 5) break         // 5-5 draw
-      if (g1 >= 6 && g1 > g2) break           // 6-4 or 6-5
-      if (g2 >= 6 && g2 > g1) break           // 4-6 or 5-6
+      if (g1 === 6 && g2 === 4) break         // 6-4 win
+      if (g2 === 6 && g1 === 4) break         // 4-6 win
     }
   }
 
   // Safety: enforce valid final score
   if (g1 < 5 && g2 < 5) { if (g1 >= g2) g1 = 5; else g2 = 5 }
   if (g1 >= 4 && g2 >= 4) {
-    // In extended play, cap at 6
+    // Cap at valid extended scores: 5-5, 6-4, 4-6
     if (g1 > 6) g1 = 6; if (g2 > 6) g2 = 6
-    // Can't have 5-4 or 4-5 — must be 5-5, 6-4, 6-5
+    // 5-4 / 4-5 not valid — push to 5-5
     if ((g1 === 5 && g2 === 4) || (g1 === 4 && g2 === 5)) {
-      if (g1 > g2) g1 = 6; else g2 = 6
+      if (g1 < g2) g1 = 5; else g2 = 5 // make it 5-5
     }
+    // 6-5 / 5-6 not valid — push to 5-5
+    if ((g1 === 6 && g2 === 5) || (g1 === 5 && g2 === 6)) {
+      g1 = 5; g2 = 5
+    }
+    // 6-6 not valid — push to 5-5
+    if (g1 === 6 && g2 === 6) { g1 = 5; g2 = 5 }
   }
   if (g1 > 6) g1 = 6; if (g2 > 6) g2 = 6
 
@@ -1565,11 +2006,132 @@ http.createServer(async (req, res) => {
   }
 
   // --- Start New Season ---
+  // --- Create a brand new league (reset history) ---
+  if (pathname === '/api/new-league' && req.method === 'POST') {
+    const body = await parseBody(req)
+    const startingSeason = parseInt(body.startingSeason, 10) || 1
+    const league = readJSON('league.json')
+
+    // Reset history to a single empty season
+    const newHistory = {
+      currentSeason: startingSeason,
+      seasons: [{
+        number: startingSeason,
+        champion: null,
+        guyKilneTrophy: null,
+        standings: league.teams.map(t => ({
+          team: t.name, played: 0, won: 0, drawn: 0, lost: 0, gf: 0, ga: 0, points: 0
+        })),
+        matchResults: [],
+        playerSeasonStats: [],
+        coachSeasonStats: league.teams.map(t => ({
+          team: t.name, coach: t.coach.name, style: t.coach.style, rating: t.coach.rating,
+          played: 0, won: 0, drawn: 0, lost: 0, points: 0
+        })),
+        awards: null
+      }]
+    }
+    writeJSON('history.json', newHistory)
+
+    // Generate fresh schedule with all teams
+    const teams = league.teams.map(t => t.name)
+    const n = teams.length
+    const rounds = n - 1
+    const half = n / 2
+    const roster = [...teams]
+    const fixed = roster.shift()
+    const homeCount = {}
+    teams.forEach(t => homeCount[t] = 0)
+    const targetHome = {}
+    const maxHome = Math.ceil((n - 1) / 2)
+    teams.forEach(t => targetHome[t] = maxHome)
+
+    const allPairings = []
+    for (let r = 0; r < rounds; r++) {
+      for (let i = 0; i < half; i++) {
+        const a = i === 0 ? fixed : roster[i - 1]
+        const b = roster[roster.length - i - 1]
+        allPairings.push({ a, b, md: r })
+      }
+      roster.push(roster.shift())
+    }
+
+    const matchdays = Array.from({ length: rounds }, (_, i) => ({ number: i + 1, matches: [] }))
+    for (const pair of allPairings) {
+      let home, away
+      const aHome = homeCount[pair.a], bHome = homeCount[pair.b]
+      const aTarget = targetHome[pair.a], bTarget = targetHome[pair.b]
+      if (aHome < aTarget && bHome >= bTarget) { home = pair.a; away = pair.b }
+      else if (bHome < bTarget && aHome >= aTarget) { home = pair.b; away = pair.a }
+      else if (aHome <= bHome) { home = pair.a; away = pair.b }
+      else { home = pair.b; away = pair.a }
+      homeCount[home]++
+      matchdays[pair.md].matches.push({ home, away, status: 'pending', score: null, method: null, playerStats: null, playerGrades: null, goalEvents: null })
+    }
+
+    writeJSON('schedule.json', { season: startingSeason, matchdays })
+
+    // Rebuild site
+    try { execSync('node build-site.js', { cwd: __dirname, timeout: 10000 }) } catch (e) { /* ignore */ }
+
+    return jsonRes(res, { success: true, season: startingSeason })
+  }
+
   if (pathname === '/api/start-new-season' && req.method === 'POST') {
+    const body = await parseBody(req)
+    const selectedTeams = body.teams || null // array of team names, or null for all
+    const incomingNewTeams = body.newTeams || [] // array of { name, primary, secondary }
     const history = readJSON('history.json')
     const league = readJSON('league.json')
     const prefs = readJSON('preferences.json')
     const newSeasonNum = history.currentSeason + 1
+
+    // Create new team objects for any manually added teams
+    const positions = ['GK','CB','CB','LB','RB','CM','CM','AM','LW','ST']
+    const firstNames = ['Alex','Ben','Carlos','Dan','Erik','Finn','Gabe','Hugo','Ivan','Jay','Kai','Leo','Max','Nico','Omar','Pablo','Rafi','Sam','Teo','Uri']
+    const lastNames = ['Stone','Cruz','Park','Vale','Frost','Hart','Cole','Nash','Vega','Lake','Storm','Reed','Wolf','Bell','Fox','Grant','Hale','Moss','Kent','Shaw']
+    const coachNames = ['Silva','Bruno','Kova','Dietrich','Alonso','Takeda','Murray','Petrov','Lindgren','Moreno']
+    const styles = ['balanced','attacking','defensive','possession','counter-attack']
+    for (const nt of incomingNewTeams) {
+      if (!nt.name || league.teams.some(t => t.name.toLowerCase() === nt.name.toLowerCase())) continue
+      const abbr = nt.name.split(/\s+/).map(w => w[0]).join('').toUpperCase().slice(0, 3) || 'NEW'
+      const players = positions.map((pos, i) => {
+        const fn = firstNames[Math.floor(Math.random() * firstNames.length)]
+        const ln = lastNames[Math.floor(Math.random() * lastNames.length)]
+        const baseRating = 55 + Math.floor(Math.random() * 20) // 55-74
+        const skill = {}
+        const skillKeys = ['passing','shooting','tackling','saving','agility','strength','penalty_taking','jumping','speed','marking','head_game','set_piece_taking']
+        for (const sk of skillKeys) {
+          let val = baseRating + Math.floor(Math.random() * 15) - 7
+          if (pos === 'GK' && sk === 'saving') val = Math.max(val, 70 + Math.floor(Math.random() * 15))
+          if (pos === 'ST' && sk === 'shooting') val = Math.max(val, 65 + Math.floor(Math.random() * 15))
+          if (pos === 'CB' && sk === 'tackling') val = Math.max(val, 65 + Math.floor(Math.random() * 15))
+          skill[sk] = String(Math.max(30, Math.min(85, val)))
+        }
+        const vals = Object.values(skill).map(Number)
+        const rating = String(Math.round(vals.reduce((a, b) => a + b, 0) / vals.length))
+        return {
+          name: fn + ' ' + ln, position: pos, rating, starter: true,
+          skill, currentPOS: [0, 0], fitness: 100,
+          height: 170 + Math.floor(Math.random() * 25),
+          injured: false, age: 19 + Math.floor(Math.random() * 14), captain: i === 0
+        }
+      })
+      const coachName = coachNames[Math.floor(Math.random() * coachNames.length)]
+      const coachRating = String(55 + Math.floor(Math.random() * 25))
+      const starters = players.filter(p => p.starter)
+      const teamRating = String(Math.round(starters.reduce((a, p) => a + parseInt(p.rating, 10), 0) / starters.length))
+      league.teams.push({
+        name: nt.name, abbreviation: abbr,
+        colors: { primary: nt.primary || '#3b82f6', secondary: nt.secondary || '#ffffff' },
+        jersey: { home: 'Custom home kit', away: 'Custom away kit' },
+        rating: teamRating,
+        coach: { name: coachName, rating: coachRating, style: styles[Math.floor(Math.random() * styles.length)] },
+        captain: players[0].name,
+        players
+      })
+    }
+    if (incomingNewTeams.length) writeJSON('league.json', league)
 
     // Apply International boosts to player skills before the new season
     for (const t of league.teams) {
@@ -1614,17 +2176,27 @@ http.createServer(async (req, res) => {
     if (exp) teamCount += exp.teams
     if (con) teamCount -= con.teams
 
+    // Build list of participating team names (existing selected + newly created)
+    const newTeamNames = incomingNewTeams.map(nt => nt.name).filter(n => league.teams.some(t => t.name === n))
+    let teams = selectedTeams && selectedTeams.length >= 1
+      ? selectedTeams.filter(name => league.teams.some(t => t.name === name))
+      : league.teams.map(t => t.name)
+    // Add new teams that aren't already in the selected list
+    for (const ntn of newTeamNames) { if (!teams.includes(ntn)) teams.push(ntn) }
+    if (teams.length < 4) return jsonRes(res, { error: 'Need at least 4 teams' }, 400)
+    if (teams.length % 2 !== 0) return jsonRes(res, { error: 'Team count must be even' }, 400)
+
     // Create new season entry in history
     const newSeason = {
       number: newSeasonNum,
       champion: null,
       guyKilneTrophy: null,
-      standings: league.teams.map(t => ({
+      standings: league.teams.filter(t => teams.includes(t.name)).map(t => ({
         team: t.name, played: 0, won: 0, drawn: 0, lost: 0, gf: 0, ga: 0, points: 0
       })),
       matchResults: [],
       playerSeasonStats: [],
-      coachSeasonStats: league.teams.map(t => ({
+      coachSeasonStats: league.teams.filter(t => teams.includes(t.name)).map(t => ({
         team: t.name, coach: t.coach.name, style: t.coach.style, rating: t.coach.rating,
         played: 0, won: 0, drawn: 0, lost: 0, points: 0
       })),
@@ -1635,7 +2207,6 @@ http.createServer(async (req, res) => {
     writeJSON('history.json', history)
 
     // Generate single round-robin schedule with balanced home/away
-    const teams = league.teams.map(t => t.name)
     const n = teams.length
     const rounds = n - 1
     const half = n / 2

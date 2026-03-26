@@ -63,6 +63,30 @@ a{color:var(--accent);text-decoration:none}a:hover{text-decoration:underline}
 .breadcrumb span{cursor:pointer;color:var(--accent)}
 .breadcrumb span:hover{text-decoration:underline}
 
+/* Opening Screen */
+.os-wrap{display:flex;align-items:center;justify-content:center;min-height:100vh;padding:24px;position:relative;overflow:hidden}
+.os-bg{position:absolute;inset:0;background:radial-gradient(ellipse at 50% 30%,#162a4a 0%,#0b1220 70%);z-index:0}
+.os-bg::after{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='60' height='60' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='30' cy='30' r='1' fill='%23ffffff08'/%3E%3C/svg%3E") repeat;opacity:.5}
+.os-card{position:relative;z-index:1;background:var(--card);border:1px solid var(--border);border-radius:20px;padding:48px 40px;max-width:480px;width:100%;text-align:center;box-shadow:0 24px 80px rgba(0,0,0,.5)}
+.os-logo{font-size:48px;font-weight:900;color:var(--white);letter-spacing:-2px;margin-bottom:4px}
+.os-logo span{color:var(--gold)}
+.os-subtitle{font-size:14px;color:var(--text2);margin-bottom:36px;letter-spacing:1px;text-transform:uppercase}
+.os-divider{height:1px;background:var(--border);margin:28px 0}
+.os-btn{display:block;width:100%;padding:14px 24px;border-radius:12px;font-size:16px;font-weight:700;cursor:pointer;border:none;font-family:inherit;transition:all .15s;margin-bottom:12px}
+.os-btn-primary{background:var(--green);color:#fff}
+.os-btn-primary:hover{opacity:.9;transform:translateY(-1px)}
+.os-btn-secondary{background:transparent;color:var(--white);border:1px solid var(--border)}
+.os-btn-secondary:hover{background:rgba(255,255,255,.05);transform:translateY(-1px)}
+.os-btn:disabled{opacity:.4;cursor:not-allowed;transform:none}
+.os-season-info{font-size:13px;color:var(--text2);margin-top:4px}
+.os-new-section{text-align:left;margin-top:0}
+.os-new-section h4{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--text2);margin:0 0 10px}
+.os-input-row{display:flex;align-items:center;gap:12px;margin-bottom:16px}
+.os-input-row label{font-size:13px;color:var(--text);white-space:nowrap}
+.os-input-row input{width:80px;padding:8px 10px;background:var(--bg);border:1px solid var(--border);border-radius:8px;color:var(--white);font-size:15px;font-weight:700;text-align:center;font-family:inherit}
+.os-back{font-size:13px;color:var(--text2);cursor:pointer;margin-top:8px;display:inline-block}
+.os-back:hover{color:var(--white)}
+
 /* Grid */
 .grid{display:grid;gap:16px}
 .grid-2{grid-template-columns:repeat(auto-fill,minmax(320px,1fr))}
@@ -297,6 +321,44 @@ table.stats .totals td{font-weight:700;color:var(--white);border-top:2px solid r
 .new-season-card{background:linear-gradient(135deg,var(--accent)15,var(--green)15);border:2px dashed var(--accent);border-radius:14px;padding:24px;text-align:center;cursor:pointer;transition:border-color .15s,transform .15s}
 .new-season-card:hover{border-color:var(--green);transform:translateY(-2px)}
 
+/* New Season Modal */
+.nsm-overlay{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.7);z-index:100;display:flex;align-items:center;justify-content:center;overflow-y:auto;padding:20px}
+.nsm-panel{background:var(--card);border:1px solid var(--border);border-radius:14px;width:100%;max-width:600px;max-height:90vh;overflow-y:auto;padding:28px}
+.nsm-title{font-size:20px;font-weight:800;color:var(--white);margin-bottom:6px}
+.nsm-sub{font-size:13px;color:var(--text2);margin-bottom:20px}
+.nsm-section{margin-bottom:18px}
+.nsm-section h4{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--text2);margin:0 0 8px}
+.nsm-count{display:flex;align-items:center;gap:12px;margin-bottom:6px}
+.nsm-count input{width:60px;padding:6px 8px;background:var(--bg);border:1px solid var(--border);border-radius:6px;color:var(--white);font-size:15px;font-weight:700;text-align:center;font-family:inherit}
+.nsm-count span{font-size:13px;color:var(--text)}
+.nsm-team-list{display:grid;grid-template-columns:1fr 1fr;gap:6px;max-height:300px;overflow-y:auto;padding:4px 0}
+.nsm-team-row{display:flex;align-items:center;gap:8px;padding:7px 10px;border-radius:8px;cursor:pointer;transition:background .1s;font-size:13px;color:var(--text)}
+.nsm-team-row:hover{background:rgba(255,255,255,.04)}
+.nsm-team-row.selected{background:rgba(74,222,128,.1);color:var(--white)}
+.nsm-team-row.selected .nsm-check{background:var(--green);border-color:var(--green)}
+.nsm-check{width:18px;height:18px;border-radius:4px;border:2px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:11px;color:var(--white);flex-shrink:0;transition:background .1s,border-color .1s}
+.nsm-team-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+.nsm-team-name{flex:1;font-weight:600}
+.nsm-team-ovr{font-size:11px;color:var(--text2)}
+.nsm-footer{display:flex;justify-content:flex-end;gap:10px;margin-top:20px;padding-top:16px;border-top:1px solid var(--border)}
+.nsm-footer button{padding:8px 20px;border-radius:8px;font-size:14px;font-weight:700;cursor:pointer;border:none;font-family:inherit}
+.nsm-btn-cancel{background:transparent;color:var(--text2);border:1px solid var(--border) !important}
+.nsm-btn-cancel:hover{background:rgba(255,255,255,.05)}
+.nsm-btn-start{background:var(--green);color:#fff}
+.nsm-btn-start:hover{opacity:.9}
+.nsm-btn-start:disabled{opacity:.4;cursor:not-allowed}
+.nsm-info{font-size:12px;color:var(--text2);margin-top:6px;font-style:italic}
+.nsm-add-form{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:10px;padding:10px;background:rgba(255,255,255,.03);border:1px dashed var(--border);border-radius:8px}
+.nsm-add-form input[type="text"]{flex:1;min-width:120px;padding:6px 10px;background:var(--bg);border:1px solid var(--border);border-radius:6px;color:var(--white);font-size:13px;font-family:inherit}
+.nsm-add-form input[type="color"]{width:32px;height:28px;border:1px solid var(--border);border-radius:4px;background:var(--bg);cursor:pointer;padding:1px}
+.nsm-add-form label{font-size:11px;color:var(--text2);display:flex;align-items:center;gap:4px}
+.nsm-add-btn{padding:5px 14px;border-radius:6px;font-size:12px;font-weight:700;cursor:pointer;border:none;background:var(--green);color:#fff;font-family:inherit;white-space:nowrap}
+.nsm-add-btn:hover{opacity:.9}
+.nsm-add-btn:disabled{opacity:.4;cursor:not-allowed}
+.nsm-new-badge{font-size:9px;background:var(--green);color:#fff;padding:1px 5px;border-radius:3px;font-weight:700;margin-left:4px}
+.nsm-remove-new{font-size:11px;color:#f87171;cursor:pointer;margin-left:auto;padding:2px 6px;border-radius:4px}
+.nsm-remove-new:hover{background:rgba(248,113,113,.15)}
+
 /* Match Stats Editor */
 .mse-overlay{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.65);z-index:100;display:flex;align-items:center;justify-content:center;overflow-y:auto;padding:20px}
 .mse-panel{background:var(--card);border:1px solid var(--border);border-radius:14px;width:100%;max-width:720px;max-height:90vh;overflow-y:auto;padding:24px}
@@ -375,6 +437,15 @@ table.stats .totals td{font-weight:700;color:var(--white);border-top:2px solid r
 .rpt-match-body{padding:20px;font-size:14px;color:var(--text);line-height:1.8}
 .rpt-match-body p{margin:0 0 12px}
 .rpt-illustration{width:100%;margin-bottom:16px;border-radius:8px;overflow:hidden}
+.rpt-interview{margin:0 20px 16px;padding:18px 20px;background:rgba(255,255,255,0.03);border-left:3px solid #e6a817;border-radius:0 10px 10px 0}
+.rpt-interview-header{display:flex;align-items:center;gap:8px;margin-bottom:10px}
+.rpt-interview-icon{font-size:16px}
+.rpt-interview-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:var(--text2)}
+.rpt-interview-who{font-size:15px;font-weight:700;color:var(--text);margin-bottom:14px}
+.rpt-interview-q{font-size:13px;font-weight:700;color:#e6a817;margin-bottom:4px;line-height:1.5}
+.rpt-interview-q-icon{font-weight:900;margin-right:4px}
+.rpt-interview-a{font-size:13px;color:var(--text);line-height:1.7;margin-bottom:14px;font-style:italic;padding-left:20px}
+.rpt-interview-a-icon{font-weight:900;color:var(--text2);margin-right:4px;font-style:normal}
 .rpt-stills{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:16px 0}
 .rpt-still{border-radius:8px;overflow:hidden;border:1px solid var(--border)}
 .rpt-sidebar{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:24px}
@@ -502,8 +573,14 @@ function getPlayerAwards(name, team) {
 function getPlayerChamps(name, team) {
   const champs = []
   for (const s of HISTORY.seasons) {
+    // Legacy trophy format
     if (s.guyKilneTrophy && s.guyKilneTrophy.team === team) {
       champs.push({season:s.number, lifted:s.guyKilneTrophy.captain===name})
+    }
+    // New champion format (from playoffs)
+    else if (s.champion === team) {
+      const liftedCap = s.playoffs && s.playoffs.final && s.playoffs.final.captain === name
+      champs.push({season:s.number, lifted:liftedCap})
     }
   }
   return champs
@@ -514,6 +591,130 @@ function getCoachAwards(team) {
     if (s.awards && s.awards.coachOfYear && s.awards.coachOfYear.team === team) awards.push({season:s.number})
   }
   return awards
+}
+
+// -------------------------------------------------------------------------
+// New Season Modal
+// -------------------------------------------------------------------------
+function showNewSeasonModal(onConfirm) {
+  const newSeasonNum = HISTORY.currentSeason + 1
+  const allTeams = LEAGUE.teams.map(t => ({
+    name: t.name,
+    color: t.colors ? t.colors.primary : '#888',
+    ovr: t.players && t.players.length ? Math.round(t.players.reduce((s,p) => s + parseInt(p.rating||0,10), 0) / t.players.length) : '-'
+  }))
+
+  // Track manually added new teams: { name, primary, secondary }
+  const newTeams = []
+
+  // Pre-select teams that played in the current season (from schedule)
+  const prevTeams = new Set()
+  if (typeof SCHEDULE !== 'undefined' && SCHEDULE.matchdays) {
+    SCHEDULE.matchdays.forEach(md => md.matches.forEach(m => { prevTeams.add(m.home); prevTeams.add(m.away) }))
+  }
+  const selected = new Set(prevTeams.size ? prevTeams : allTeams.map(t => t.name))
+
+  const overlay = h('div','nsm-overlay')
+  const panel = h('div','nsm-panel')
+
+  function totalSelected() { return selected.size + newTeams.length }
+
+  function render() {
+    const total = totalSelected()
+    const even = total % 2 === 0
+    panel.innerHTML = '<div class="nsm-title">\\u26BD Start Season ' + newSeasonNum + '</div>' +
+      '<div class="nsm-sub">Choose which teams will participate in Season ' + newSeasonNum + '. Removed teams stay in the database and can return in future seasons.</div>' +
+      '<div class="nsm-section">' +
+        '<h4>Number of Teams</h4>' +
+        '<div class="nsm-count"><input type="number" id="nsm-team-count" min="4" value="' + total + '" readonly> ' +
+        '<span>' + total + ' teams (' + selected.size + ' existing' + (newTeams.length ? ' + ' + newTeams.length + ' new' : '') + ')' + (!even ? ' <span style="color:#f87171">(must be even)</span>' : '') + '</span></div>' +
+      '</div>' +
+      '<div class="nsm-section">' +
+        '<h4>Select Participating Teams</h4>' +
+        '<div class="nsm-info">Click to toggle. Unselected teams sit out this season but remain in the database.</div>' +
+        '<div class="nsm-team-list" id="nsm-teams"></div>' +
+      '</div>' +
+      '<div class="nsm-section">' +
+        '<h4>Add New Team</h4>' +
+        '<div class="nsm-add-form">' +
+          '<input type="text" id="nsm-new-name" placeholder="Team name">' +
+          '<label>Major <input type="color" id="nsm-new-primary" value="#3b82f6"></label>' +
+          '<label>Minor <input type="color" id="nsm-new-secondary" value="#ffffff"></label>' +
+          '<button class="nsm-add-btn" id="nsm-add-btn">+ Add</button>' +
+        '</div>' +
+      '</div>' +
+      '<div class="nsm-footer">' +
+        '<button class="nsm-btn-cancel" id="nsm-cancel">Cancel</button>' +
+        '<button class="nsm-btn-start" id="nsm-start"' + (!even || total < 4 ? ' disabled' : '') + '>Start Season ' + newSeasonNum + '</button>' +
+      '</div>'
+
+    const list = panel.querySelector('#nsm-teams')
+
+    // Existing teams
+    allTeams.forEach(t => {
+      const row = h('div','nsm-team-row' + (selected.has(t.name) ? ' selected' : ''))
+      row.innerHTML = '<div class="nsm-check">' + (selected.has(t.name) ? '\\u2713' : '') + '</div>' +
+        '<div class="nsm-team-dot" style="background:' + t.color + '"></div>' +
+        '<div class="nsm-team-name">' + t.name + '</div>' +
+        '<div class="nsm-team-ovr">' + t.ovr + ' OVR</div>'
+      row.onclick = () => {
+        if (selected.has(t.name)) selected.delete(t.name)
+        else selected.add(t.name)
+        render()
+      }
+      list.appendChild(row)
+    })
+
+    // New teams (always selected, with remove button)
+    newTeams.forEach((nt, idx) => {
+      const row = h('div','nsm-team-row selected')
+      row.innerHTML = '<div class="nsm-check">\\u2713</div>' +
+        '<div class="nsm-team-dot" style="background:' + nt.primary + '"></div>' +
+        '<div class="nsm-team-name">' + nt.name + '<span class="nsm-new-badge">NEW</span></div>' +
+        '<span class="nsm-remove-new" data-idx="' + idx + '">\\u2715 Remove</span>'
+      row.querySelector('.nsm-remove-new').onclick = (e) => {
+        e.stopPropagation()
+        newTeams.splice(idx, 1)
+        render()
+      }
+      list.appendChild(row)
+    })
+
+    // Add button handler
+    panel.querySelector('#nsm-add-btn').onclick = () => {
+      const nameInput = panel.querySelector('#nsm-new-name')
+      const name = nameInput.value.trim()
+      if (!name) { nameInput.focus(); return }
+      const allNames = allTeams.map(t => t.name.toLowerCase()).concat(newTeams.map(t => t.name.toLowerCase()))
+      if (allNames.includes(name.toLowerCase())) { alert('A team with that name already exists.'); return }
+      const primary = panel.querySelector('#nsm-new-primary').value
+      const secondary = panel.querySelector('#nsm-new-secondary').value
+      newTeams.push({ name, primary, secondary })
+      render()
+    }
+    // Allow Enter key in name input
+    panel.querySelector('#nsm-new-name').addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') panel.querySelector('#nsm-add-btn').click()
+    })
+
+    panel.querySelector('#nsm-cancel').onclick = () => overlay.remove()
+    const startBtn = panel.querySelector('#nsm-start')
+    if (!startBtn.disabled) {
+      startBtn.onclick = () => {
+        startBtn.disabled = true
+        startBtn.textContent = 'Creating season...'
+        onConfirm(Array.from(selected), newTeams)
+        // overlay will be removed by caller after success
+      }
+    }
+  }
+
+  render()
+  overlay.appendChild(panel)
+  document.body.appendChild(overlay)
+  overlay.onclick = (e) => { if (e.target === overlay) overlay.remove() }
+
+  return overlay
 }
 
 // -------------------------------------------------------------------------
@@ -550,15 +751,32 @@ function getRoute() {
 }
 window.addEventListener('hashchange', render)
 
+let openingDismissed = false
+
 function render() {
   const route = getRoute()
   const parts = route.split('/')
+  const nav = $('#nav')
   const main = $('#main')
   main.innerHTML = ''
 
   const base = parts[0] || ''
 
-  if (base === '') { renderNav(''); renderHome(main) }
+  // Show opening screen on first load (empty route, not yet dismissed)
+  if (base === '' && !openingDismissed) {
+    nav.style.display = 'none'
+    main.style.maxWidth = 'none'
+    main.style.padding = '0'
+    renderOpeningScreen(main)
+    return
+  }
+
+  // Normal app mode
+  nav.style.display = ''
+  main.style.maxWidth = ''
+  main.style.padding = ''
+
+  if (base === '' || base === 'home') { openingDismissed = true; renderNav(''); renderHome(main) }
   else if (base === 'edit-season') { renderNav(''); renderSeasonEditor(main, parts[1]) }
   else if (base === 'preferences') { renderNav(''); renderPreferences(main) }
   else if (base === 'skill-shop') { renderNav(''); renderSkillShop(main) }
@@ -566,6 +784,75 @@ function render() {
   else if (base === 'statistics') { renderNav('statistics'); renderStatistics(main, parts.slice(1)) }
   else if (base === 'results') { renderNav('results'); renderResults(main, parts.slice(1)) }
   else { renderNav(''); main.innerHTML = '<div class="empty-state">Page not found</div>' }
+}
+
+function renderOpeningScreen(main) {
+  const wrap = h('div','os-wrap')
+  wrap.innerHTML = '<div class="os-bg"></div>'
+
+  const card = h('div','os-card')
+  const seasonCount = HISTORY.seasons.filter(s => s.champion).length
+  const currentS = HISTORY.currentSeason
+
+  card.innerHTML =
+    '<div class="os-logo"><span>' + CONFIG.league.shortName + '</span></div>' +
+    '<div class="os-subtitle">' + CONFIG.league.name + '</div>' +
+    '<button class="os-btn os-btn-primary" id="os-continue">Continue League</button>' +
+    '<div class="os-season-info">Season ' + currentS + ' \\u2022 ' + LEAGUE.teams.length + ' teams \\u2022 ' + seasonCount + ' completed season' + (seasonCount !== 1 ? 's' : '') + '</div>' +
+    '<div class="os-divider"></div>' +
+    '<button class="os-btn os-btn-secondary" id="os-new">Start New League</button>'
+
+  wrap.appendChild(card)
+  main.appendChild(wrap)
+
+  // Continue button
+  card.querySelector('#os-continue').onclick = () => {
+    openingDismissed = true
+    go('home')
+  }
+
+  // New league button — reveals setup form
+  card.querySelector('#os-new').onclick = () => {
+    const bottom = card.querySelector('#os-new-form')
+    if (bottom) { bottom.remove(); return }
+
+    const form = document.createElement('div')
+    form.id = 'os-new-form'
+    form.className = 'os-new-section'
+    form.innerHTML =
+      '<div class="os-divider"></div>' +
+      '<h4>New League Setup</h4>' +
+      '<div class="os-input-row">' +
+        '<label>Starting season number:</label>' +
+        '<input type="number" id="os-season-num" min="1" max="999" value="1">' +
+      '</div>' +
+      '<div style="font-size:12px;color:var(--text2);margin-bottom:16px">This will reset all season history. Team rosters and league settings will be preserved.</div>' +
+      '<button class="os-btn os-btn-primary" id="os-create" style="background:var(--accent)">Create New League</button>' +
+      '<div class="os-back" id="os-back-btn">\\u2190 Back</div>'
+
+    card.appendChild(form)
+
+    form.querySelector('#os-back-btn').onclick = () => form.remove()
+
+    form.querySelector('#os-create').onclick = async () => {
+      const seasonNum = parseInt(form.querySelector('#os-season-num').value, 10)
+      if (!seasonNum || seasonNum < 1) { alert('Enter a valid season number.'); return }
+      if (!confirm('Start a brand new league from Season ' + seasonNum + '? All existing season history will be cleared.')) return
+      const btn = form.querySelector('#os-create')
+      btn.disabled = true
+      btn.textContent = 'Creating...'
+      try {
+        const resp = await fetch('/api/new-league', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ startingSeason: seasonNum })
+        })
+        const data = await resp.json()
+        if (data.success) { window.location.reload() }
+        else { alert('Error: ' + (data.error || 'Unknown')); btn.disabled = false; btn.textContent = 'Create New League' }
+      } catch (e) { alert('Error: ' + e.message); btn.disabled = false; btn.textContent = 'Create New League' }
+    }
+  }
 }
 
 // -------------------------------------------------------------------------
@@ -609,15 +896,15 @@ function renderHome(main) {
   // Start New Season card
   const newCard = h('div','card new-season-card')
   newCard.innerHTML = '<div style="font-size:32px;margin-bottom:8px">\\u{1F195}</div><div class="card-name" style="font-size:20px">Start Season '+(HISTORY.currentSeason+1)+'</div><div class="card-detail" style="margin-top:6px">Create a new season from current rosters</div>'
-  newCard.onclick = async () => {
-    if (!confirm('Start Season '+(HISTORY.currentSeason+1)+'? This will create a new schedule.')) return
-    newCard.innerHTML = '<div class="loading">Creating season...</div>'
-    try {
-      const resp = await fetch('/api/start-new-season', { method: 'POST' })
-      const data = await resp.json()
-      if (data.success) { go('edit-season/'+data.season); setTimeout(() => window.location.reload(), 200) }
-      else { alert('Error: '+(data.error||'Unknown')) }
-    } catch(e) { alert('Error: '+e.message) }
+  newCard.onclick = () => {
+    const overlay = showNewSeasonModal(async (teams, newTeams) => {
+      try {
+        const resp = await fetch('/api/start-new-season', { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify({ teams, newTeams }) })
+        const data = await resp.json()
+        if (data.success) { overlay.remove(); go('edit-season/'+data.season); setTimeout(() => window.location.reload(), 200) }
+        else { alert('Error: '+(data.error||'Unknown')); overlay.remove() }
+      } catch(e) { alert('Error: '+e.message); overlay.remove() }
+    })
   }
   grid.appendChild(newCard)
 
@@ -1069,7 +1356,10 @@ function renderPlayerCard(main, name) {
   main.appendChild(h('div','section','<div class="section-title">Championships</div>'+champsHtml))
 
   // Awards
-  const awardsHtml = awards.length>0 ? awards.map(a=>'<span class="badge" style="background:'+a.color+'">S'+a.season+' '+a.label+'</span>').join('') : '<span style="color:var(--text2);font-size:13px">No individual awards yet</span>'
+  let awardsHtml = ''
+  if (isIntl) awardsHtml += '<span class="badge" style="background:#6b7280">\\u2605 International</span>'
+  awardsHtml += awards.map(a=>'<span class="badge" style="background:'+a.color+'">S'+a.season+' '+a.label+'</span>').join('')
+  if (!awardsHtml) awardsHtml = '<span style="color:var(--text2);font-size:13px">No individual awards yet</span>'
   main.appendChild(h('div','section','<div class="section-title">Awards</div>'+awardsHtml))
 
   // Career stats
@@ -1532,6 +1822,22 @@ function renderMatchdayReport(main, data, mdNum) {
     const paragraphs = (mr.body || '').split('\\n').filter(p => p.trim())
     body.innerHTML = paragraphs.map(p => '<p>' + p + '</p>').join('')
     matchEl.appendChild(body)
+
+    // Post-match interview
+    if (mr.interview) {
+      const iv = mr.interview
+      const ivDiv = h('div','rpt-interview')
+      ivDiv.innerHTML = '<div class="rpt-interview-header">' +
+        '<span class="rpt-interview-icon">\\u{1F3A4}</span>' +
+        '<span class="rpt-interview-label">POST-MATCH INTERVIEW</span>' +
+        '</div>' +
+        '<div class="rpt-interview-who">' + iv.interviewee + ' <span style="color:var(--text2);font-size:12px">(' + iv.role + ', ' + iv.team + ')</span></div>' +
+        iv.questions.map(qa =>
+          '<div class="rpt-interview-q"><span class="rpt-interview-q-icon">Q:</span> ' + qa.q + '</div>' +
+          '<div class="rpt-interview-a"><span class="rpt-interview-a-icon">A:</span> ' + qa.a + '</div>'
+        ).join('')
+      matchEl.appendChild(ivDiv)
+    }
 
     // Still photographs
     if (stills[i] && stills[i].length) {
@@ -2021,26 +2327,15 @@ async function renderEndOfSeason(main, schedule) {
   const newBtn = h('button','se-btn success','Start Season ' + (HISTORY.currentSeason + 1))
   newBtn.style.fontSize = '16px'
   newBtn.style.padding = '12px 32px'
-  newBtn.onclick = async () => {
-    if (!confirm('Start Season ' + (HISTORY.currentSeason + 1) + '? This will create a new schedule from current rosters.')) return
-    newBtn.disabled = true
-    newBtn.textContent = 'Creating season...'
-    try {
-      const resp = await fetch('/api/start-new-season', { method: 'POST' })
-      const data = await resp.json()
-      if (data.success) {
-        go('edit-season/' + data.season)
-        setTimeout(() => window.location.reload(), 200)
-      } else {
-        alert('Error: ' + (data.error || 'Unknown'))
-        newBtn.disabled = false
-        newBtn.textContent = 'Start Season ' + (HISTORY.currentSeason + 1)
-      }
-    } catch(e) {
-      alert('Error: ' + e.message)
-      newBtn.disabled = false
-      newBtn.textContent = 'Start Season ' + (HISTORY.currentSeason + 1)
-    }
+  newBtn.onclick = () => {
+    const overlay = showNewSeasonModal(async (teams, newTeams) => {
+      try {
+        const resp = await fetch('/api/start-new-season', { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify({ teams, newTeams }) })
+        const data = await resp.json()
+        if (data.success) { overlay.remove(); go('edit-season/' + data.season); setTimeout(() => window.location.reload(), 200) }
+        else { alert('Error: ' + (data.error || 'Unknown')); overlay.remove() }
+      } catch(e) { alert('Error: ' + e.message); overlay.remove() }
+    })
   }
   newSeasonPanel.appendChild(newBtn)
   main.appendChild(newSeasonPanel)
