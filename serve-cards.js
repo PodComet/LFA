@@ -1,9 +1,27 @@
+const dns = require('dns')
+dns.setDefaultResultOrder('ipv4first')  // Force IPv4 — IPv6 connections to Anthropic API fail on this network
+
 const http = require('http')
 const fs = require('fs')
 const path = require('path')
 const { execSync } = require('child_process')
 const { developPlayer, playerPotential } = require('./player-development')
 const CONFIG = JSON.parse(fs.readFileSync(path.join(__dirname, 'data', 'config.json'), 'utf8'))
+
+// Load .env file for API keys
+try {
+  const envFile = fs.readFileSync(path.join(__dirname, '.env'), 'utf8')
+  envFile.split('\n').forEach(line => {
+    const m = line.match(/^\s*([^#=]+?)\s*=\s*(.+?)\s*$/)
+    if (m && !process.env[m[1]]) process.env[m[1]] = m[2]
+  })
+} catch (e) { /* no .env file */ }
+
+// Anthropic AI for match reports
+let Anthropic = null
+try {
+  Anthropic = require('@anthropic-ai/sdk').default || require('@anthropic-ai/sdk')
+} catch (e) { /* SDK not installed — AI reports unavailable */ }
 
 const PORT = 3456
 const siteDir = path.join(__dirname, 'site')
@@ -769,6 +787,181 @@ function generateMatchStill(match, homeTeam, awayTeam, momentType) {
 }
 
 // ---------------------------------------------------------------------------
+// AI-powered matchday report generator (Anthropic Claude)
+// ---------------------------------------------------------------------------
+async function generateAIReport(matches, standings, topScorers, league, mdNum, seasonNum) {
+  if (!Anthropic) throw new Error('Anthropic SDK not available')
+
+  const apiKey = process.env.ANTHROPIC_API_KEY
+  if (!apiKey) throw new Error('ANTHROPIC_API_KEY not set')
+
+  const client = new Anthropic({ apiKey })
+
+  // Build match data summaries for the prompt
+  const matchSummaries = matches.map(m => {
+    const s = m.score || [0, 0]
+    const homeTeam = league.teams.find(t => t.name === m.home)
+    const awayTeam = league.teams.find(t => t.name === m.away)
+    const homeCoach = homeTeam && homeTeam.coach ? homeTeam.coach.name + ' (' + homeTeam.coach.style + ')' : 'unknown'
+    const awayCoach = awayTeam && awayTeam.coach ? awayTeam.coach.name + ' (' + awayTeam.coach.style + ')' : 'unknown'
+    const homeVenue = homeTeam && homeTeam.stadium ? homeTeam.stadium : 'home ground'
+
+    // Goal events
+    let goalDetail = ''
+    if (m.goalEvents) {
+      const allGoals = [
+        ...(m.goalEvents.home || []).map(g => ({ ...g, team: m.home })),
+        ...(m.goalEvents.away || []).map(g => ({ ...g, team: m.away }))
+      ]
+      goalDetail = allGoals.filter(g => !g.missed).map(g =>
+        g.scorer + ' (' + g.team + ')' + (g.assister ? ' assisted by ' + g.assister : '') + (g.penalty ? ' [penalty]' : '')
+      ).join('; ')
+      const missed = allGoals.filter(g => g.missed)
+      if (missed.length) goalDetail += ' | Missed penalties: ' + missed.map(g => g.scorer + ' (' + g.team + ')').join(', ')
+    }
+
+    // Top rated players
+    let playerHighlights = ''
+    if (m.playerStats) {
+      const all = [...(m.playerStats.home || []), ...(m.playerStats.away || [])]
+      const sorted = all.sort((a, b) => (b.grade || 0) - (a.grade || 0)).slice(0, 4)
+      playerHighlights = sorted.map(p => p.name + ' (grade ' + (p.grade || 0).toFixed(1) + ', ' + (p.goals || 0) + 'g ' + (p.assists || 0) + 'a' + (p.saves ? ' ' + p.saves + ' saves' : '') + ')').join('; ')
+    }
+
+    return {
+      home: m.home, away: m.away, score: s, venue: homeVenue,
+      homeCoach, awayCoach,
+      homeRating: homeTeam ? homeTeam.rating : '?',
+      awayRating: awayTeam ? awayTeam.rating : '?',
+      goals: goalDetail,
+      playerHighlights
+    }
+  })
+
+  const standingsStr = standings.slice(0, 10).map((s, i) =>
+    (i + 1) + '. ' + s.team + ' - P' + s.played + ' W' + s.won + ' D' + s.drawn + ' L' + s.lost + ' GF' + s.gf + ' GA' + s.ga + ' Pts' + s.points
+  ).join('\n')
+
+  const topScorersStr = topScorers.slice(0, 5).map(p => p.name + ' (' + p.team + ') - ' + p.goals + ' goals').join(', ')
+
+  // Find MOTM
+  let motm = { name: 'Unknown', team: 'Unknown', grade: 0, goals: 0, assists: 0, saves: 0 }
+  matches.forEach(m => {
+    if (!m.playerStats) return
+    const all = [...(m.playerStats.home || []), ...(m.playerStats.away || [])]
+    all.forEach(p => {
+      const score = (p.grade || 0) * 2 + (p.goals || 0) * 3 + (p.assists || 0) * 2 + (p.saves || 0) * 0.5
+      const best = motm.grade * 2 + motm.goals * 3 + motm.assists * 2 + motm.saves * 0.5
+      if (score > best) {
+        motm = { name: p.name, team: m.playerStats.home.find(x => x.name === p.name) ? m.home : m.away, grade: p.grade || 0, goals: p.goals || 0, assists: p.assists || 0, saves: p.saves || 0 }
+      }
+    })
+  })
+
+  // Pick interview subject for each match
+  const interviewInfo = matches.map(m => {
+    const s = m.score || [0, 0]
+    const winner = s[0] > s[1] ? m.home : s[1] > s[0] ? m.away : m.home
+    const winnerTeam = league.teams.find(t => t.name === winner)
+    const coach = winnerTeam && winnerTeam.coach ? winnerTeam.coach.name : 'the manager'
+    let bestPlayer = null
+    if (m.playerStats) {
+      const side = winner === m.home ? 'home' : 'away'
+      const stats = m.playerStats[side] || []
+      if (stats.length) bestPlayer = [...stats].sort((a, b) => (b.grade || 0) - (a.grade || 0))[0]
+    }
+    const isCoach = !bestPlayer || Math.random() < 0.25
+    return {
+      match: m.home + ' vs ' + m.away,
+      interviewee: isCoach ? coach : bestPlayer.name,
+      role: isCoach ? 'coach' : 'player',
+      team: winner
+    }
+  })
+
+  const prompt = `You are a football journalist writing a matchday report for the ${CONFIG.league.name} (${CONFIG.league.shortName}), a fictional 6v6 football league in the nation of Labornis. This is a race-to-5 scoring system (first to 5 goals wins, extended play at 4-4, draw at 5-5).
+
+Write a complete Matchday ${mdNum} report for Season ${seasonNum}.
+
+MATCH DATA:
+${matchSummaries.map(m => `- ${m.home} ${m.score[0]}-${m.score[1]} ${m.away} at ${m.venue}
+  Home coach: ${m.homeCoach} (team rating: ${m.homeRating}) | Away coach: ${m.awayCoach} (team rating: ${m.awayRating})
+  Goals: ${m.goals || 'none'}
+  Key players: ${m.playerHighlights || 'none'}`).join('\n')}
+
+CURRENT STANDINGS:
+${standingsStr}
+
+TOP SCORERS: ${topScorersStr || 'none yet'}
+
+MAN OF THE MATCHDAY: ${motm.name} (${motm.team}) - grade ${motm.grade.toFixed(1)}, ${motm.goals}g ${motm.assists}a${motm.saves ? ' ' + motm.saves + ' saves' : ''}
+
+POST-MATCH INTERVIEWS (write 2 questions + answers for each):
+${interviewInfo.map(iv => `- ${iv.match}: Interview ${iv.interviewee} (${iv.role}, ${iv.team})`).join('\n')}
+
+RESPOND IN THIS EXACT JSON FORMAT (no markdown, no code fences, just raw JSON):
+{
+  "headline": "Catchy newspaper headline for the matchday",
+  "subheadline": "One-line subtitle",
+  "lede": "Opening paragraph (3-4 sentences) setting the scene for the entire matchday",
+  "matchReports": [
+    {
+      "home": "Team A",
+      "away": "Team B",
+      "score": [5, 3],
+      "venue": "Stadium Name",
+      "title": "Newspaper-style match headline",
+      "body": "3 paragraphs separated by \\n\\n. First paragraph: match narrative. Second: key goals and individual performances. Third: tactical analysis and coaching, table position context.",
+      "interview": {
+        "interviewee": "Person Name",
+        "role": "coach or player",
+        "team": "Their Team",
+        "questions": [
+          {"q": "Reporter question 1?", "a": "Detailed answer in first person, showing personality, 2-3 sentences."},
+          {"q": "Reporter question 2?", "a": "Detailed answer in first person, 2-3 sentences."}
+        ]
+      }
+    }
+  ],
+  "manOfMatchday": {
+    "name": "${motm.name}",
+    "team": "${motm.team}",
+    "reason": "2-sentence explanation of why they earned the award"
+  },
+  "byTheNumbers": [
+    "Stat line 1 — with number and context",
+    "Stat line 2",
+    "Stat line 3",
+    "Stat line 4"
+  ],
+  "lookAhead": "Closing paragraph looking ahead to next matchday, title race implications, 3-4 sentences"
+}
+
+IMPORTANT RULES:
+- Match reports must be in the SAME ORDER as the match data above
+- Use the actual player names, team names, venues, scores, and goal scorers from the data
+- Write like a passionate football columnist — vivid, dramatic, opinionated
+- Each interview answer should feel authentic and personal, reflecting the result
+- Reference the standings and title race where relevant
+- Keep each match body to exactly 3 short paragraphs (2-3 sentences each) separated by \\n\\n
+- Each interview answer should be 1-2 sentences max
+- The "byTheNumbers" should have exactly 4 items
+- Keep the lede and lookAhead to 2-3 sentences each
+- Be CONCISE — quality over quantity. The entire JSON must fit within 6000 tokens`
+
+  const response = await client.messages.create({
+    model: 'claude-haiku-4-5-20251001',
+    max_tokens: 8000,
+    messages: [{ role: 'user', content: prompt }]
+  })
+
+  const text = response.content[0].text.trim()
+  // Parse JSON — handle potential markdown fences
+  const jsonStr = text.replace(/^```json?\s*/i, '').replace(/\s*```$/i, '')
+  return JSON.parse(jsonStr)
+}
+
+// ---------------------------------------------------------------------------
 // Local matchday report generator (football columnist engine)
 // ---------------------------------------------------------------------------
 function generateLocalReport(matches, standings, topScorers, league, mdNum, seasonNum) {
@@ -870,11 +1063,12 @@ function generateLocalReport(matches, standings, topScorers, league, mdNum, seas
 
     // Body paragraphs
     let para1 = ''
+    const homeVenue = homeTeam && homeTeam.stadium ? homeTeam.stadium : 'the home ground'
     if (isDraw) {
-      para1 = m.home + ' ' + pick(drawPhrases) + ' ' + m.away + ' in a ' + s[0] + '-' + s[1] + ' draw at home. '
+      para1 = m.home + ' ' + pick(drawPhrases) + ' ' + m.away + ' in a ' + s[0] + '-' + s[1] + ' draw at ' + homeVenue + '. '
       if (isHighScoring) para1 += pick(highScoringPhrases).charAt(0).toUpperCase() + pick(highScoringPhrases).slice(1) + '. '
     } else {
-      para1 = winner + ' ' + pick(winPhrases) + ' ' + loser + ' with a convincing ' + s[0] + '-' + s[1] + ' ' + (winner === m.home ? 'home' : 'away') + ' victory. '
+      para1 = winner + ' ' + pick(winPhrases) + ' ' + loser + ' with a convincing ' + s[0] + '-' + s[1] + ' ' + (winner === m.home ? 'home' : 'away') + ' victory at ' + homeVenue + '. '
       if (goalDiff >= 3) para1 += 'It was men against boys at times, as ' + loser + ' simply had no answer. '
       if (isShutout) para1 += 'The defense ' + pick(shutoutPhrases) + ', leaving ' + loser + '\'s forwards with nothing to show for their efforts. '
     }
@@ -1175,6 +1369,7 @@ function generateLocalReport(matches, standings, topScorers, league, mdNum, seas
 
     return {
       home: m.home, away: m.away, score: s,
+      venue: homeVenue,
       title,
       body: para1 + '\n\n' + para2 + '\n\n' + para3,
       interview
@@ -1364,6 +1559,7 @@ function simulateMatchWithEngine(homeTeam, awayTeam) {
   const home = league.teams.find(t => t.name === homeTeam)
   const away = league.teams.find(t => t.name === awayTeam)
   if (!home || !away) return null
+  if (!home.players.length || !away.players.length) return null
 
   // Race-to-5 simulation: alternate scoring chances until a team reaches 5
   // At 4-4 extended play: first to 6 wins, or 5-5 draw
@@ -2377,6 +2573,20 @@ http.createServer(async (req, res) => {
   }
 
   // --- Transfer player between teams ---
+  // --- Update stadium name ---
+  if (pathname === '/api/update-stadium' && req.method === 'POST') {
+    const body = await parseBody(req)
+    const { teamName, stadium } = body
+    if (!teamName || !stadium) return jsonRes(res, { error: 'Missing teamName or stadium' }, 400)
+    const league = readJSON('league.json')
+    const team = league.teams.find(t => t.name === teamName)
+    if (!team) return jsonRes(res, { error: 'Team not found' }, 404)
+    team.stadium = stadium
+    writeJSON('league.json', league)
+    try { execSync('node build-site.js', { cwd: __dirname, timeout: 10000 }) } catch (e) { /* ignore */ }
+    return jsonRes(res, { success: true, team: teamName, stadium })
+  }
+
   if (pathname === '/api/transfer-player' && req.method === 'POST') {
     const body = await parseBody(req)
     const { playerName, fromTeam, toTeam } = body
@@ -2490,6 +2700,8 @@ http.createServer(async (req, res) => {
   const reportMatch = pathname.match(/^\/api\/generate-report\/(\d+)$/)
   if (reportMatch && req.method === 'POST') {
     const mdNum = parseInt(reportMatch[1], 10)
+    const body = await parseBody(req)
+    const engine = body.engine || 'local'  // 'local' or 'ai'
     const history = readJSON('history.json')
     const schedule = readJSON('schedule.json')
     const league = readJSON('league.json')
@@ -2504,7 +2716,20 @@ http.createServer(async (req, res) => {
     const allPlayerStats = currentSeason ? currentSeason.playerSeasonStats || [] : []
     const topScorers = [...allPlayerStats].sort((a, b) => (b.goals || 0) - (a.goals || 0)).slice(0, 5)
 
-    const report = generateLocalReport(completedMatches, standings, topScorers, league, mdNum, schedule.season)
+    let report
+    let reportEngine = 'local'
+    if (engine === 'ai') {
+      try {
+        report = await generateAIReport(completedMatches, standings, topScorers, league, mdNum, schedule.season)
+        reportEngine = 'ai'
+      } catch (e) {
+        console.error('AI report failed, falling back to local:', e.message)
+        report = generateLocalReport(completedMatches, standings, topScorers, league, mdNum, schedule.season)
+        reportEngine = 'local (AI fallback: ' + e.message + ')'
+      }
+    } else {
+      report = generateLocalReport(completedMatches, standings, topScorers, league, mdNum, schedule.season)
+    }
 
     report.illustrations = completedMatches.map(m => {
       const homeTeam = league.teams.find(t => t.name === m.home)
@@ -2525,7 +2750,7 @@ http.createServer(async (req, res) => {
       return [generateMatchStill(m, homeTeam, awayTeam, t1), generateMatchStill(m, homeTeam, awayTeam, t2)]
     })
 
-    return jsonRes(res, { success: true, report, season: schedule.season, matchday: mdNum })
+    return jsonRes(res, { success: true, report, engine: reportEngine, season: schedule.season, matchday: mdNum })
   }
 
   // --- Trade player away (retire / abroad / non-LFA) ---

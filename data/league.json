@@ -278,12 +278,14 @@
         }
       ],
       "coach": {
-        "name": "Jorn",
-        "rating": "87",
-        "style": "defensive"
+        "name": "Goliason",
+        "rating": "60",
+        "style": "possession",
+        "age": 50
       },
       "captain": "Rivaldo",
-      "abbreviation": "CG"
+      "abbreviation": "CG",
+      "stadium": "Concinia Park"
     },
     {
       "name": "Puzi Rell",
@@ -595,7 +597,8 @@
         "style": "possession"
       },
       "captain": "Sócrates",
-      "abbreviation": "PR"
+      "abbreviation": "PR",
+      "stadium": "Puzi Dome"
     },
     {
       "name": "O Girr",
@@ -607,20 +610,309 @@
         "home": "Royal blue body with white sleeves",
         "away": "White body with blue sash"
       },
-      "rating": "NaN",
-      "players": [],
-      "coach": {
-        "name": "",
-        "rating": "50",
-        "style": "balanced",
-        "career": {
-          "matches": 9,
-          "points": 10
+      "rating": "65",
+      "players": [
+        {
+          "name": "Jolm",
+          "position": "GK",
+          "rating": "64",
+          "starter": true,
+          "captain": true,
+          "skill": {
+            "passing": "45",
+            "shooting": "26",
+            "tackling": "43",
+            "saving": "67",
+            "agility": "60",
+            "strength": "50",
+            "penalty_taking": "20",
+            "jumping": "62",
+            "speed": "40",
+            "marking": "29",
+            "head_game": "54",
+            "set_piece_taking": "25"
+          },
+          "currentPOS": [
+            200,
+            0
+          ],
+          "fitness": 100,
+          "height": 188,
+          "injured": false,
+          "age": 28
         },
-        "age": 57
+        {
+          "name": "Geteb",
+          "position": "CB",
+          "rating": "67",
+          "starter": true,
+          "captain": false,
+          "skill": {
+            "passing": "56",
+            "shooting": "40",
+            "tackling": "73",
+            "saving": "18",
+            "agility": "58",
+            "strength": "66",
+            "penalty_taking": "38",
+            "jumping": "70",
+            "speed": "52",
+            "marking": "74",
+            "head_game": "70",
+            "set_piece_taking": "34"
+          },
+          "currentPOS": [
+            200,
+            0
+          ],
+          "fitness": 100,
+          "height": 180,
+          "injured": false,
+          "age": 32
+        },
+        {
+          "name": "Mayfert",
+          "position": "CM",
+          "rating": "76",
+          "starter": true,
+          "captain": false,
+          "skill": {
+            "passing": "82",
+            "shooting": "72",
+            "tackling": "65",
+            "saving": "25",
+            "agility": "70",
+            "strength": "62",
+            "penalty_taking": "70",
+            "jumping": "59",
+            "speed": "67",
+            "marking": "65",
+            "head_game": "68",
+            "set_piece_taking": "73"
+          },
+          "currentPOS": [
+            200,
+            0
+          ],
+          "fitness": 100,
+          "height": 194,
+          "injured": false,
+          "age": 26
+        },
+        {
+          "name": "Barkor",
+          "position": "CM",
+          "rating": "56",
+          "starter": true,
+          "captain": false,
+          "skill": {
+            "passing": "63",
+            "shooting": "50",
+            "tackling": "49",
+            "saving": "2",
+            "agility": "53",
+            "strength": "48",
+            "penalty_taking": "44",
+            "jumping": "38",
+            "speed": "49",
+            "marking": "40",
+            "head_game": "47",
+            "set_piece_taking": "47"
+          },
+          "currentPOS": [
+            200,
+            0
+          ],
+          "fitness": 100,
+          "height": 186,
+          "injured": false,
+          "age": 36
+        },
+        {
+          "name": "Tesh",
+          "position": "ST",
+          "rating": "66",
+          "starter": true,
+          "captain": false,
+          "skill": {
+            "passing": "57",
+            "shooting": "70",
+            "tackling": "35",
+            "saving": "18",
+            "agility": "72",
+            "strength": "58",
+            "penalty_taking": "62",
+            "jumping": "62",
+            "speed": "73",
+            "marking": "30",
+            "head_game": "63",
+            "set_piece_taking": "54"
+          },
+          "currentPOS": [
+            200,
+            0
+          ],
+          "fitness": 100,
+          "height": 176,
+          "injured": false,
+          "age": 32
+        },
+        {
+          "name": "Case",
+          "position": "ST",
+          "rating": "61",
+          "starter": true,
+          "captain": false,
+          "skill": {
+            "passing": "50",
+            "shooting": "69",
+            "tackling": "29",
+            "saving": "6",
+            "agility": "59",
+            "strength": "59",
+            "penalty_taking": "59",
+            "jumping": "54",
+            "speed": "58",
+            "marking": "23",
+            "head_game": "55",
+            "set_piece_taking": "53"
+          },
+          "currentPOS": [
+            200,
+            0
+          ],
+          "fitness": 100,
+          "height": 187,
+          "injured": false,
+          "age": 36
+        },
+        {
+          "name": "Bersot",
+          "position": "GK",
+          "rating": "57",
+          "starter": false,
+          "captain": false,
+          "skill": {
+            "passing": "44",
+            "shooting": "20",
+            "tackling": "35",
+            "saving": "62",
+            "agility": "40",
+            "strength": "46",
+            "penalty_taking": "16",
+            "jumping": "52",
+            "speed": "27",
+            "marking": "24",
+            "head_game": "54",
+            "set_piece_taking": "25"
+          },
+          "currentPOS": [
+            200,
+            0
+          ],
+          "fitness": 100,
+          "height": 185,
+          "injured": false,
+          "age": 40
+        },
+        {
+          "name": "Crown",
+          "position": "CB",
+          "rating": "48",
+          "starter": false,
+          "captain": false,
+          "skill": {
+            "passing": "35",
+            "shooting": "30",
+            "tackling": "53",
+            "saving": "1",
+            "agility": "29",
+            "strength": "57",
+            "penalty_taking": "19",
+            "jumping": "43",
+            "speed": "21",
+            "marking": "60",
+            "head_game": "54",
+            "set_piece_taking": "21"
+          },
+          "currentPOS": [
+            200,
+            0
+          ],
+          "fitness": 100,
+          "height": 183,
+          "injured": false,
+          "age": 40
+        },
+        {
+          "name": "Belsak",
+          "position": "ST",
+          "rating": "50",
+          "starter": false,
+          "captain": false,
+          "skill": {
+            "passing": "38",
+            "shooting": "56",
+            "tackling": "21",
+            "saving": "3",
+            "agility": "50",
+            "strength": "43",
+            "penalty_taking": "51",
+            "jumping": "42",
+            "speed": "47",
+            "marking": "16",
+            "head_game": "51",
+            "set_piece_taking": "45"
+          },
+          "currentPOS": [
+            200,
+            0
+          ],
+          "fitness": 100,
+          "height": 187,
+          "injured": false,
+          "age": 40
+        },
+        {
+          "name": "Deloro",
+          "position": "CM",
+          "rating": "55",
+          "starter": false,
+          "skill": {
+            "passing": "58",
+            "shooting": "52",
+            "tackling": "54",
+            "saving": "35",
+            "agility": "56",
+            "strength": "53",
+            "penalty_taking": "45",
+            "jumping": "52",
+            "speed": "57",
+            "marking": "55",
+            "head_game": "50",
+            "set_piece_taking": "43"
+          },
+          "currentPOS": [
+            200,
+            0
+          ],
+          "fitness": 100,
+          "height": 178,
+          "injured": false,
+          "age": 22,
+          "captain": false,
+          "international": false
+        }
+      ],
+      "coach": {
+        "name": "Ferrini",
+        "rating": "65",
+        "style": "balanced",
+        "age": 52
       },
       "captain": "Amaral",
-      "abbreviation": "OG"
+      "abbreviation": "OG",
+      "stadium": "Girr Arena"
     },
     {
       "name": "Kiel Torn",
@@ -807,122 +1099,6 @@
           "height": 179,
           "injured": false,
           "age": 32
-        },
-        {
-          "name": "Jolm",
-          "position": "GK",
-          "rating": "64",
-          "starter": false,
-          "captain": false,
-          "skill": {
-            "passing": "45",
-            "shooting": "26",
-            "tackling": "43",
-            "saving": "67",
-            "agility": "60",
-            "strength": "50",
-            "penalty_taking": "20",
-            "jumping": "62",
-            "speed": "40",
-            "marking": "29",
-            "head_game": "54",
-            "set_piece_taking": "25"
-          },
-          "currentPOS": [
-            200,
-            0
-          ],
-          "fitness": 100,
-          "height": 188,
-          "injured": false,
-          "age": 28
-        },
-        {
-          "name": "Geteb",
-          "position": "CB",
-          "rating": "67",
-          "starter": false,
-          "captain": false,
-          "skill": {
-            "passing": "56",
-            "shooting": "40",
-            "tackling": "73",
-            "saving": "18",
-            "agility": "58",
-            "strength": "66",
-            "penalty_taking": "38",
-            "jumping": "70",
-            "speed": "52",
-            "marking": "74",
-            "head_game": "70",
-            "set_piece_taking": "34"
-          },
-          "currentPOS": [
-            200,
-            0
-          ],
-          "fitness": 100,
-          "height": 180,
-          "injured": false,
-          "age": 32
-        },
-        {
-          "name": "Mayfert",
-          "position": "CM",
-          "rating": "76",
-          "starter": false,
-          "captain": false,
-          "skill": {
-            "passing": "82",
-            "shooting": "72",
-            "tackling": "65",
-            "saving": "25",
-            "agility": "70",
-            "strength": "62",
-            "penalty_taking": "70",
-            "jumping": "59",
-            "speed": "67",
-            "marking": "65",
-            "head_game": "68",
-            "set_piece_taking": "73"
-          },
-          "currentPOS": [
-            200,
-            0
-          ],
-          "fitness": 100,
-          "height": 194,
-          "injured": false,
-          "age": 26
-        },
-        {
-          "name": "Tesh",
-          "position": "ST",
-          "rating": "66",
-          "starter": false,
-          "captain": false,
-          "skill": {
-            "passing": "57",
-            "shooting": "70",
-            "tackling": "35",
-            "saving": "18",
-            "agility": "72",
-            "strength": "58",
-            "penalty_taking": "62",
-            "jumping": "62",
-            "speed": "73",
-            "marking": "30",
-            "head_game": "63",
-            "set_piece_taking": "54"
-          },
-          "currentPOS": [
-            200,
-            0
-          ],
-          "fitness": 100,
-          "height": 176,
-          "injured": false,
-          "age": 32
         }
       ],
       "coach": {
@@ -931,7 +1107,8 @@
         "style": "balanced"
       },
       "captain": "Hulk",
-      "abbreviation": "KT"
+      "abbreviation": "KT",
+      "stadium": "Kiel Stadium"
     },
     {
       "name": "O Torn",
@@ -1244,7 +1421,8 @@
         "style": "attacking"
       },
       "captain": "Coutinho",
-      "abbreviation": "OT"
+      "abbreviation": "OT",
+      "stadium": "Torn Grounds"
     },
     {
       "name": "A C Π Labornis City",
@@ -1556,7 +1734,8 @@
         "style": "defensive"
       },
       "captain": "Ricardinho",
-      "abbreviation": "ALC"
+      "abbreviation": "ALC",
+      "stadium": "The Parthenon"
     },
     {
       "name": "O Labornis City",
@@ -1871,7 +2050,8 @@
         "style": "counter-attack"
       },
       "captain": "Careca",
-      "abbreviation": "OLC"
+      "abbreviation": "OLC",
+      "stadium": "Labornis Central"
     },
     {
       "name": "Red Digg",
@@ -2183,7 +2363,8 @@
         "style": "balanced"
       },
       "captain": "Betinho",
-      "abbreviation": "RD"
+      "abbreviation": "RD",
+      "stadium": "Digg Field"
     },
     {
       "name": "A C Π Rell",
@@ -2208,7 +2389,8 @@
         "age": 43
       },
       "captain": "Nenê",
-      "abbreviation": "AR"
+      "abbreviation": "AR",
+      "stadium": "Rell Coliseum"
     },
     {
       "name": "Verayet Olympus",
@@ -2233,7 +2415,8 @@
         "age": 55
       },
       "captain": "Obina",
-      "abbreviation": "VO"
+      "abbreviation": "VO",
+      "stadium": "Mount Olympus Arena"
     },
     {
       "name": "A C Π Qued",
@@ -2258,7 +2441,8 @@
         "age": 48
       },
       "captain": "Beto",
-      "abbreviation": "AQ"
+      "abbreviation": "AQ",
+      "stadium": "Qued Fortress"
     },
     {
       "name": "L. B. Rann",
@@ -2270,7 +2454,7 @@
         "home": "Kelly green body with white sleeves",
         "away": "White body with green collar and trim"
       },
-      "rating": "77",
+      "rating": "80",
       "players": [
         {
           "name": "Reso",
@@ -2417,151 +2601,6 @@
           "injured": false,
           "age": 29,
           "international": false
-        },
-        {
-          "name": "Case",
-          "position": "ST",
-          "rating": "61",
-          "starter": true,
-          "captain": false,
-          "skill": {
-            "passing": "50",
-            "shooting": "69",
-            "tackling": "29",
-            "saving": "6",
-            "agility": "59",
-            "strength": "59",
-            "penalty_taking": "59",
-            "jumping": "54",
-            "speed": "58",
-            "marking": "23",
-            "head_game": "55",
-            "set_piece_taking": "53"
-          },
-          "currentPOS": [
-            200,
-            0
-          ],
-          "fitness": 100,
-          "height": 187,
-          "injured": false,
-          "age": 36
-        },
-        {
-          "name": "Bersot",
-          "position": "GK",
-          "rating": "57",
-          "starter": false,
-          "captain": false,
-          "skill": {
-            "passing": "44",
-            "shooting": "20",
-            "tackling": "35",
-            "saving": "62",
-            "agility": "40",
-            "strength": "46",
-            "penalty_taking": "16",
-            "jumping": "52",
-            "speed": "27",
-            "marking": "24",
-            "head_game": "54",
-            "set_piece_taking": "25"
-          },
-          "currentPOS": [
-            200,
-            0
-          ],
-          "fitness": 100,
-          "height": 185,
-          "injured": false,
-          "age": 40
-        },
-        {
-          "name": "Crown",
-          "position": "CB",
-          "rating": "48",
-          "starter": false,
-          "captain": false,
-          "skill": {
-            "passing": "35",
-            "shooting": "30",
-            "tackling": "53",
-            "saving": "1",
-            "agility": "29",
-            "strength": "57",
-            "penalty_taking": "19",
-            "jumping": "43",
-            "speed": "21",
-            "marking": "60",
-            "head_game": "54",
-            "set_piece_taking": "21"
-          },
-          "currentPOS": [
-            200,
-            0
-          ],
-          "fitness": 100,
-          "height": 183,
-          "injured": false,
-          "age": 40
-        },
-        {
-          "name": "Barkor",
-          "position": "CM",
-          "rating": "56",
-          "starter": false,
-          "captain": false,
-          "skill": {
-            "passing": "63",
-            "shooting": "50",
-            "tackling": "49",
-            "saving": "2",
-            "agility": "53",
-            "strength": "48",
-            "penalty_taking": "44",
-            "jumping": "38",
-            "speed": "49",
-            "marking": "40",
-            "head_game": "47",
-            "set_piece_taking": "47"
-          },
-          "currentPOS": [
-            200,
-            0
-          ],
-          "fitness": 100,
-          "height": 186,
-          "injured": false,
-          "age": 36
-        },
-        {
-          "name": "Belsak",
-          "position": "ST",
-          "rating": "50",
-          "starter": false,
-          "captain": false,
-          "skill": {
-            "passing": "38",
-            "shooting": "56",
-            "tackling": "21",
-            "saving": "3",
-            "agility": "50",
-            "strength": "43",
-            "penalty_taking": "51",
-            "jumping": "42",
-            "speed": "47",
-            "marking": "16",
-            "head_game": "51",
-            "set_piece_taking": "45"
-          },
-          "currentPOS": [
-            200,
-            0
-          ],
-          "fitness": 100,
-          "height": 187,
-          "injured": false,
-          "age": 40
         }
       ],
       "coach": {
@@ -2570,7 +2609,8 @@
         "style": "balanced"
       },
       "captain": "Muriel",
-      "abbreviation": "LBR"
+      "abbreviation": "LBR",
+      "stadium": "Rann Valley Stadium"
     },
     {
       "name": "O Rell",
@@ -2911,7 +2951,8 @@
           "captain": false,
           "international": false
         }
-      ]
+      ],
+      "stadium": "Rell Park"
     },
     {
       "name": "Puzi Rann",
@@ -3222,7 +3263,8 @@
           "injured": false,
           "age": 36
         }
-      ]
+      ],
+      "stadium": "Puzi Rann Oval"
     },
     {
       "name": "Kvarianus Bogues",
@@ -3533,7 +3575,8 @@
           "age": 33,
           "captain": false
         }
-      ]
+      ],
+      "stadium": "The Kvarianus"
     }
   ],
   "hallOfFame": {
