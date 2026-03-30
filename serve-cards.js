@@ -30,6 +30,115 @@ const dataDir = path.join(__dirname, 'data')
 function readJSON(file) { return JSON.parse(fs.readFileSync(path.join(dataDir, file), 'utf8')) }
 function writeJSON(file, data) { fs.writeFileSync(path.join(dataDir, file), JSON.stringify(data, null, 2)) }
 
+// Reusable helper: recalculate a team's overall rating from its first 6 players (starters)
+function recalcTeamRating(team) {
+  const sr = team.players.slice(0, 6).map(p => parseInt(p.rating, 10))
+  if (sr.length > 0) team.rating = String(Math.round(sr.reduce((a, b) => a + b, 0) / sr.length))
+}
+
+// Reusable helper: build standings table from schedule matchdays
+function buildStandingsFromSchedule(schedule) {
+  const schedTeams = new Set()
+  for (const md of schedule.matchdays) { for (const m of md.matches) { schedTeams.add(m.home); schedTeams.add(m.away) } }
+  const tbl = {}
+  for (const name of schedTeams) tbl[name] = { team: name, p: 0, w: 0, d: 0, l: 0, gf: 0, ga: 0, pts: 0 }
+  for (const md of schedule.matchdays) {
+    for (const m of md.matches) {
+      if (m.status !== 'completed') continue
+      const hh = tbl[m.home], aa = tbl[m.away]
+      if (!hh || !aa) continue
+      hh.p++; aa.p++
+      hh.gf += m.score[0]; hh.ga += m.score[1]
+      aa.gf += m.score[1]; aa.ga += m.score[0]
+      if (m.score[0] > m.score[1]) { hh.w++; hh.pts += 3; aa.l++ }
+      else if (m.score[1] > m.score[0]) { aa.w++; aa.pts += 3; hh.l++ }
+      else { hh.d++; aa.d++; hh.pts++; aa.pts++ }
+    }
+  }
+  return Object.values(tbl).sort((a, b) => b.pts - a.pts || (b.gf - b.ga) - (a.gf - a.ga) || b.gf - a.gf)
+}
+
+// Reusable helper: generate round-robin schedule with balanced home/away
+function generateRoundRobin(teams, topHalf) {
+  const n = teams.length
+  const rounds = n - 1
+  const half = n / 2
+  const roster = [...teams]
+  const fixed = roster.shift()
+  const homeCount = {}
+  teams.forEach(t => homeCount[t] = 0)
+  const maxHome = Math.ceil((n - 1) / 2)
+  const minHome = Math.floor((n - 1) / 2)
+  const targetHome = {}
+  teams.forEach(t => targetHome[t] = (topHalf && topHalf.has(t)) ? maxHome : (topHalf ? minHome : maxHome))
+
+  const allPairings = []
+  for (let r = 0; r < rounds; r++) {
+    for (let i = 0; i < half; i++) {
+      const a = i === 0 ? fixed : roster[i - 1]
+      const b = roster[roster.length - i - 1]
+      allPairings.push({ a, b, md: r })
+    }
+    roster.push(roster.shift())
+  }
+
+  const matchdays = Array.from({ length: rounds }, (_, i) => ({ number: i + 1, matches: [] }))
+  for (const pair of allPairings) {
+    let home, away
+    const aHome = homeCount[pair.a], bHome = homeCount[pair.b]
+    const aTarget = targetHome[pair.a], bTarget = targetHome[pair.b]
+    if (aHome < aTarget && bHome >= bTarget) { home = pair.a; away = pair.b }
+    else if (bHome < bTarget && aHome >= aTarget) { home = pair.b; away = pair.a }
+    else if (aHome <= bHome) { home = pair.a; away = pair.b }
+    else { home = pair.b; away = pair.a }
+    homeCount[home]++
+    matchdays[pair.md].matches.push({ home, away, status: 'pending', score: null, method: null, playerStats: null, playerGrades: null, goalEvents: null })
+  }
+  return matchdays
+}
+
+// Reusable helper: find Man of the Matchday across completed matches
+function findMOTM(matches) {
+  let motm = { name: 'Unknown', team: 'Unknown', grade: 0, goals: 0, assists: 0, saves: 0 }
+  matches.forEach(m => {
+    if (!m.playerStats) return
+    const all = [...(m.playerStats.home || []), ...(m.playerStats.away || [])]
+    all.forEach(p => {
+      const score = (p.grade || 0) * 2 + (p.goals || 0) * 3 + (p.assists || 0) * 2 + (p.saves || 0) * 0.5
+      const best = motm.grade * 2 + motm.goals * 3 + motm.assists * 2 + motm.saves * 0.5
+      if (score > best) {
+        motm = { name: p.name, team: m.playerStats.home.find(x => x.name === p.name) ? m.home : m.away, grade: p.grade || 0, goals: p.goals || 0, assists: p.assists || 0, saves: p.saves || 0 }
+      }
+    })
+  })
+  return motm
+}
+
+// Debounced site rebuild — avoids redundant rebuilds during rapid API calls
+let _rebuildTimer = null
+function rebuildSite() {
+  if (_rebuildTimer) clearTimeout(_rebuildTimer)
+  _rebuildTimer = setTimeout(() => {
+    try { execSync('node build-site.js', { cwd: __dirname, timeout: 10000 }) } catch (e) { /* ignore */ }
+    _rebuildTimer = null
+  }, 300)
+}
+// Immediate rebuild (for endpoints where the user expects instant feedback)
+function rebuildSiteNow() {
+  if (_rebuildTimer) { clearTimeout(_rebuildTimer); _rebuildTimer = null }
+  try { execSync('node build-site.js', { cwd: __dirname, timeout: 10000 }) } catch (e) { /* ignore */ }
+}
+
+// Cache Anthropic client at module level (API key doesn't change at runtime)
+let _anthropicClient = null
+function getAnthropicClient() {
+  if (!Anthropic) throw new Error('Anthropic SDK not available')
+  const apiKey = process.env.ANTHROPIC_API_KEY
+  if (!apiKey) throw new Error('ANTHROPIC_API_KEY not set')
+  if (!_anthropicClient) _anthropicClient = new Anthropic({ apiKey })
+  return _anthropicClient
+}
+
 // ---------------------------------------------------------------------------
 // Animated SVG match illustration generator
 // ---------------------------------------------------------------------------
@@ -790,12 +899,7 @@ function generateMatchStill(match, homeTeam, awayTeam, momentType) {
 // AI-powered matchday report generator (Anthropic Claude)
 // ---------------------------------------------------------------------------
 async function generateAIReport(matches, standings, topScorers, league, mdNum, seasonNum) {
-  if (!Anthropic) throw new Error('Anthropic SDK not available')
-
-  const apiKey = process.env.ANTHROPIC_API_KEY
-  if (!apiKey) throw new Error('ANTHROPIC_API_KEY not set')
-
-  const client = new Anthropic({ apiKey })
+  const client = getAnthropicClient()
 
   // Build match data summaries for the prompt
   const matchSummaries = matches.map(m => {
@@ -844,19 +948,7 @@ async function generateAIReport(matches, standings, topScorers, league, mdNum, s
 
   const topScorersStr = topScorers.slice(0, 5).map(p => p.name + ' (' + p.team + ') - ' + p.goals + ' goals').join(', ')
 
-  // Find MOTM
-  let motm = { name: 'Unknown', team: 'Unknown', grade: 0, goals: 0, assists: 0, saves: 0 }
-  matches.forEach(m => {
-    if (!m.playerStats) return
-    const all = [...(m.playerStats.home || []), ...(m.playerStats.away || [])]
-    all.forEach(p => {
-      const score = (p.grade || 0) * 2 + (p.goals || 0) * 3 + (p.assists || 0) * 2 + (p.saves || 0) * 0.5
-      const best = motm.grade * 2 + motm.goals * 3 + motm.assists * 2 + motm.saves * 0.5
-      if (score > best) {
-        motm = { name: p.name, team: m.playerStats.home.find(x => x.name === p.name) ? m.home : m.away, grade: p.grade || 0, goals: p.goals || 0, assists: p.assists || 0, saves: p.saves || 0 }
-      }
-    })
-  })
+  const motm = findMOTM(matches)
 
   // Pick interview subject for each match
   const interviewInfo = matches.map(m => {
@@ -977,19 +1069,7 @@ function generateLocalReport(matches, standings, topScorers, league, mdNum, seas
   const second = standings[1] || {}
   const bottom = standings[standings.length - 1] || {}
 
-  // Find best performer across all matches
-  let motm = { name: 'Unknown', team: 'Unknown', grade: 0, goals: 0, assists: 0, saves: 0 }
-  matches.forEach(m => {
-    if (!m.playerStats) return
-    const all = [...(m.playerStats.home || []), ...(m.playerStats.away || [])]
-    all.forEach(p => {
-      const score = (p.grade || 0) * 2 + (p.goals || 0) * 3 + (p.assists || 0) * 2 + (p.saves || 0) * 0.5
-      const best = motm.grade * 2 + motm.goals * 3 + motm.assists * 2 + motm.saves * 0.5
-      if (score > best) {
-        motm = { name: p.name, team: m.playerStats.home.includes(p) ? m.home : m.away, grade: p.grade || 0, goals: p.goals || 0, assists: p.assists || 0, saves: p.saves || 0 }
-      }
-    })
-  })
+  const motm = findMOTM(matches)
 
   // Headline templates
   const headlineTemplates = [
@@ -1554,8 +1634,8 @@ function genPlayerStats(team, goalEvents, goalsFor, goalsAgainst) {
   return stats
 }
 
-function simulateMatchWithEngine(homeTeam, awayTeam) {
-  const league = readJSON('league.json')
+function simulateMatchWithEngine(homeTeam, awayTeam, leagueData) {
+  const league = leagueData || readJSON('league.json')
   const home = league.teams.find(t => t.name === homeTeam)
   const away = league.teams.find(t => t.name === awayTeam)
   if (!home || !away) return null
@@ -1823,25 +1903,8 @@ http.createServer(async (req, res) => {
     // Check all regular season matches are completed
     const allPlayed = schedule.matchdays.every(md => md.matches.every(m => m.status === 'completed'))
     if (!allPlayed) return jsonRes(res, { error: 'Regular season not complete' }, 400)
-    // Build standings
-    const schedTeams = new Set()
-    for (const md of schedule.matchdays) { for (const m of md.matches) { schedTeams.add(m.home); schedTeams.add(m.away) } }
-    const table = {}
-    for (const name of schedTeams) table[name] = { team: name, p: 0, w: 0, d: 0, l: 0, gf: 0, ga: 0, pts: 0 }
-    for (const md of schedule.matchdays) {
-      for (const m of md.matches) {
-        if (m.status !== 'completed') continue
-        const hh = table[m.home], aa = table[m.away]
-        if (!hh || !aa) continue
-        hh.p++; aa.p++
-        hh.gf += m.score[0]; hh.ga += m.score[1]
-        aa.gf += m.score[1]; aa.ga += m.score[0]
-        if (m.score[0] > m.score[1]) { hh.w++; hh.pts += 3; aa.l++ }
-        else if (m.score[1] > m.score[0]) { aa.w++; aa.pts += 3; hh.l++ }
-        else { hh.d++; aa.d++; hh.pts++; aa.pts++ }
-      }
-    }
-    const sorted = Object.values(table).sort((a, b) => b.pts - a.pts || (b.gf - b.ga) - (a.gf - a.ga) || b.gf - a.gf)
+    // Build standings using shared helper
+    const sorted = buildStandingsFromSchedule(schedule)
     const top8 = sorted.slice(0, 8)
     // QF bracket: 1v8, 2v7, 3v6, 4v5 (best of 3)
     const qfPairs = [[0,7],[1,6],[2,5],[3,4]]
@@ -2021,21 +2084,8 @@ http.createServer(async (req, res) => {
       return pl && parseInt(pl.age, 10) <= 21 && p.matches >= 3
     }).sort((a, b) => avgGrade(b) - avgGrade(a))
     const young = youngCands[0] || null
-    // Coach of the Year: team with best win% in regular season
-    const schedTeams = new Set()
-    for (const md of schedule.matchdays) { for (const m of md.matches) { schedTeams.add(m.home); schedTeams.add(m.away) } }
-    const tbl = {}
-    for (const name of schedTeams) tbl[name] = { team: name, w: 0, d: 0, l: 0, p: 0 }
-    for (const md of schedule.matchdays) {
-      for (const m of md.matches) {
-        if (m.status !== 'completed') continue
-        const hh = tbl[m.home], aa = tbl[m.away]
-        if (!hh || !aa) continue
-        hh.p++; aa.p++
-        if (m.score[0] > m.score[1]) { hh.w++; aa.l++ } else if (m.score[1] > m.score[0]) { aa.w++; hh.l++ } else { hh.d++; aa.d++ }
-      }
-    }
-    const coachRank = Object.values(tbl).sort((a, b) => ((b.w + b.d * 0.5) / b.p) - ((a.w + a.d * 0.5) / a.p))
+    // Coach of the Year: team with best win% in regular season (reuse standings helper)
+    const coachRank = buildStandingsFromSchedule(schedule).sort((a, b) => ((b.w + b.d * 0.5) / b.p) - ((a.w + a.d * 0.5) / a.p))
     const bestTeam = coachRank[0]
     const coachTeam = bestTeam ? league.teams.find(t => t.name === bestTeam.team) : null
     const coach = coachTeam ? coachTeam.coach : null
@@ -2080,9 +2130,7 @@ http.createServer(async (req, res) => {
         results.push(result)
         player.age += 1
       }
-      // Recalculate team rating from starters
-      const starterRatings = team.players.slice(0, 6).map(p => parseInt(p.rating, 10))
-      team.rating = String(Math.round(starterRatings.reduce((a, b) => a + b, 0) / starterRatings.length))
+      recalcTeamRating(team)
     }
 
     writeJSON('league.json', league)
@@ -2286,17 +2334,11 @@ http.createServer(async (req, res) => {
         }
       }
 
-      // Recalculate team rating from starters
-      const starterRatings = existing.players.slice(0, 6).map(p => parseInt(p.rating, 10))
-      if (starterRatings.length > 0) {
-        existing.rating = String(Math.round(starterRatings.reduce((a, b) => a + b, 0) / starterRatings.length))
-      }
+      recalcTeamRating(existing)
     }
 
     writeJSON('league.json', league)
-
-    // Rebuild the site
-    try { execSync('node build-site.js', { cwd: __dirname, timeout: 10000 }) } catch (e) { /* ignore */ }
+    rebuildSiteNow()
 
     return jsonRes(res, { success: true, teams: league.teams })
   }
@@ -2329,46 +2371,14 @@ http.createServer(async (req, res) => {
     }
     writeJSON('history.json', newHistory)
 
-    // Generate fresh schedule with all teams
+    // Generate fresh schedule with all teams using shared helper
     const teams = league.teams.map(t => t.name)
-    const n = teams.length
-    const rounds = n - 1
-    const half = n / 2
-    const roster = [...teams]
-    const fixed = roster.shift()
-    const homeCount = {}
-    teams.forEach(t => homeCount[t] = 0)
-    const targetHome = {}
-    const maxHome = Math.ceil((n - 1) / 2)
-    teams.forEach(t => targetHome[t] = maxHome)
-
-    const allPairings = []
-    for (let r = 0; r < rounds; r++) {
-      for (let i = 0; i < half; i++) {
-        const a = i === 0 ? fixed : roster[i - 1]
-        const b = roster[roster.length - i - 1]
-        allPairings.push({ a, b, md: r })
-      }
-      roster.push(roster.shift())
-    }
-
-    const matchdays = Array.from({ length: rounds }, (_, i) => ({ number: i + 1, matches: [] }))
-    for (const pair of allPairings) {
-      let home, away
-      const aHome = homeCount[pair.a], bHome = homeCount[pair.b]
-      const aTarget = targetHome[pair.a], bTarget = targetHome[pair.b]
-      if (aHome < aTarget && bHome >= bTarget) { home = pair.a; away = pair.b }
-      else if (bHome < bTarget && aHome >= aTarget) { home = pair.b; away = pair.a }
-      else if (aHome <= bHome) { home = pair.a; away = pair.b }
-      else { home = pair.b; away = pair.a }
-      homeCount[home]++
-      matchdays[pair.md].matches.push({ home, away, status: 'pending', score: null, method: null, playerStats: null, playerGrades: null, goalEvents: null })
-    }
+    const matchdays = generateRoundRobin(teams, null)
 
     writeJSON('schedule.json', { season: startingSeason, matchdays })
 
-    // Rebuild site
-    try { execSync('node build-site.js', { cwd: __dirname, timeout: 10000 }) } catch (e) { /* ignore */ }
+    // Rebuild site (immediate — page reload expected)
+    rebuildSiteNow()
 
     return jsonRes(res, { success: true, season: startingSeason })
   }
@@ -2457,9 +2467,7 @@ http.createServer(async (req, res) => {
         // Clear the international boost (one-time use)
         p.international = false
       }
-      // Recalculate team rating
-      const starters = t.players.filter(p => p.starter)
-      if (starters.length) t.rating = String(Math.round(starters.reduce((a, p) => a + parseInt(p.rating, 10), 0) / starters.length))
+      recalcTeamRating(t)
       // Age up players
       for (const p of t.players) { if (p.age) p.age++ }
     }
@@ -2516,16 +2524,7 @@ http.createServer(async (req, res) => {
     history.currentSeason = newSeasonNum
     writeJSON('history.json', history)
 
-    // Generate single round-robin schedule with balanced home/away
-    const n = teams.length
-    const rounds = n - 1
-    const half = n / 2
-    const roster = [...teams]
-    const fixed = roster.shift()
-    const homeCount = {}
-    teams.forEach(t => homeCount[t] = 0)
-
-    // Determine top-half finishers from previous season for home advantage
+    // Generate schedule using shared helper, with top-half home advantage
     const prevSeason = history.seasons.find(s => s.number === newSeasonNum - 1)
     const topHalf = new Set()
     if (prevSeason && prevSeason.standings && prevSeason.standings.length) {
@@ -2533,41 +2532,12 @@ http.createServer(async (req, res) => {
       const topCount = Math.ceil(sorted.length / 2)
       sorted.slice(0, topCount).forEach(s => topHalf.add(s.team))
     }
-
-    const allPairings = []
-    for (let r = 0; r < rounds; r++) {
-      const md = { number: r + 1, matches: [] }
-      for (let i = 0; i < half; i++) {
-        const a = i === 0 ? fixed : roster[i - 1]
-        const b = roster[roster.length - i - 1]
-        allPairings.push({ a, b, md: r })
-      }
-      roster.push(roster.shift())
-    }
-
-    // Greedy home/away assignment with top-half bonus
-    const targetHome = {}
-    const maxHome = Math.ceil((n - 1) / 2)
-    const minHome = Math.floor((n - 1) / 2)
-    teams.forEach(t => targetHome[t] = topHalf.has(t) ? maxHome : minHome)
-
-    const matchdays = Array.from({ length: rounds }, (_, i) => ({ number: i + 1, matches: [] }))
-    for (const pair of allPairings) {
-      let home, away
-      const aHome = homeCount[pair.a], bHome = homeCount[pair.b]
-      const aTarget = targetHome[pair.a], bTarget = targetHome[pair.b]
-      if (aHome < aTarget && bHome >= bTarget) { home = pair.a; away = pair.b }
-      else if (bHome < bTarget && aHome >= aTarget) { home = pair.b; away = pair.a }
-      else if (aHome <= bHome) { home = pair.a; away = pair.b }
-      else { home = pair.b; away = pair.a }
-      homeCount[home]++
-      matchdays[pair.md].matches.push({ home, away, status: 'pending', score: null, method: null, playerStats: null, playerGrades: null, goalEvents: null })
-    }
+    const matchdays = generateRoundRobin(teams, topHalf)
 
     writeJSON('schedule.json', { season: newSeasonNum, matchdays })
 
-    // Rebuild site
-    try { execSync('node build-site.js', { cwd: __dirname, timeout: 10000 }) } catch (e) { /* ignore */ }
+    // Rebuild site (immediate — page reload expected)
+    rebuildSiteNow()
 
     return jsonRes(res, { success: true, season: newSeasonNum })
   }
@@ -2583,7 +2553,7 @@ http.createServer(async (req, res) => {
     if (!team) return jsonRes(res, { error: 'Team not found' }, 404)
     team.stadium = stadium
     writeJSON('league.json', league)
-    try { execSync('node build-site.js', { cwd: __dirname, timeout: 10000 }) } catch (e) { /* ignore */ }
+    rebuildSite()
     return jsonRes(res, { success: true, team: teamName, stadium })
   }
 
@@ -2604,13 +2574,10 @@ http.createServer(async (req, res) => {
     dst.players.push(player)
 
     // Recalculate ratings
-    for (const t of [src, dst]) {
-      const sr = t.players.slice(0, 6).map(p => parseInt(p.rating, 10))
-      if (sr.length > 0) t.rating = String(Math.round(sr.reduce((a, b) => a + b, 0) / sr.length))
-    }
+    for (const t of [src, dst]) recalcTeamRating(t)
 
     writeJSON('league.json', league)
-    try { execSync('node build-site.js', { cwd: __dirname, timeout: 10000 }) } catch (e) { /* ignore */ }
+    rebuildSite()
 
     return jsonRes(res, { success: true, player: playerName, from: fromTeam, to: toTeam })
   }
@@ -2634,7 +2601,7 @@ http.createServer(async (req, res) => {
     const config = readJSON('config.json')
     config.league.teamCount = prefs.defaultTeamCount
     writeJSON('config.json', config)
-    try { execSync('node build-site.js', { cwd: __dirname, timeout: 10000 }) } catch (e) { /* ignore */ }
+    rebuildSite()
     return jsonRes(res, { success: true, prefs })
   }
 
@@ -2668,13 +2635,11 @@ http.createServer(async (req, res) => {
       // Recalculate player rating as average of all skills
       const vals = Object.values(player.skill).map(Number)
       player.rating = String(Math.round(vals.reduce((a, b) => a + b, 0) / vals.length))
-      // Recalculate team rating
-      const starters = team.players.filter(p => p.starter)
-      team.rating = String(Math.round(starters.reduce((a, p) => a + parseInt(p.rating, 10), 0) / starters.length))
+      recalcTeamRating(team)
     }
     if (international !== undefined) player.international = !!international
     writeJSON('league.json', league)
-    try { execSync('node build-site.js', { cwd: __dirname, timeout: 10000 }) } catch (e) { /* ignore */ }
+    rebuildSite()
     return jsonRes(res, { success: true, player: playerName, rating: player.rating, international: !!player.international })
   }
 
@@ -2692,7 +2657,7 @@ http.createServer(async (req, res) => {
       player.international = !!u.international
     }
     writeJSON('league.json', league)
-    try { execSync('node build-site.js', { cwd: __dirname, timeout: 10000 }) } catch (e) { /* ignore */ }
+    rebuildSite()
     return jsonRes(res, { success: true })
   }
 
@@ -2802,12 +2767,10 @@ http.createServer(async (req, res) => {
     if (!league.hallOfFame) league.hallOfFame = { players: [], coaches: [] }
     league.hallOfFame.players.push(entry)
 
-    // Recalculate team rating
-    const sr = src.players.slice(0, 6).map(p => parseInt(p.rating, 10))
-    if (sr.length > 0) src.rating = String(Math.round(sr.reduce((a, b) => a + b, 0) / sr.length))
+    recalcTeamRating(src)
 
     writeJSON('league.json', league)
-    try { execSync('node build-site.js', { cwd: __dirname, timeout: 10000 }) } catch (e) { /* ignore */ }
+    rebuildSite()
     return jsonRes(res, { success: true, player: entry })
   }
 
@@ -2856,12 +2819,10 @@ http.createServer(async (req, res) => {
 
     team.players.push(newPlayer)
 
-    // Recalculate team rating
-    const sr = team.players.slice(0, 6).map(p => parseInt(p.rating, 10))
-    if (sr.length > 0) team.rating = String(Math.round(sr.reduce((a, b) => a + b, 0) / sr.length))
+    recalcTeamRating(team)
 
     writeJSON('league.json', league)
-    try { execSync('node build-site.js', { cwd: __dirname, timeout: 10000 }) } catch (e) { /* ignore */ }
+    rebuildSite()
     return jsonRes(res, { success: true, player: newPlayer })
   }
 
@@ -2907,7 +2868,7 @@ http.createServer(async (req, res) => {
     team.coach = null
 
     writeJSON('league.json', league)
-    try { execSync('node build-site.js', { cwd: __dirname, timeout: 10000 }) } catch (e) { /* ignore */ }
+    rebuildSite()
     return jsonRes(res, { success: true, coach: entry })
   }
 
@@ -2926,7 +2887,7 @@ http.createServer(async (req, res) => {
     team.coach = { name, rating: String(Math.min(99, Math.max(40, r))), style: s, age: 45 + Math.floor(Math.random() * 15) }
 
     writeJSON('league.json', league)
-    try { execSync('node build-site.js', { cwd: __dirname, timeout: 10000 }) } catch (e) { /* ignore */ }
+    rebuildSite()
     return jsonRes(res, { success: true, coach: team.coach })
   }
 
@@ -2961,12 +2922,10 @@ http.createServer(async (req, res) => {
     }
     team.players.push(player)
 
-    // Recalculate team rating
-    const sr = team.players.slice(0, 6).map(p => parseInt(p.rating, 10))
-    if (sr.length > 0) team.rating = String(Math.round(sr.reduce((a, b) => a + b, 0) / sr.length))
+    recalcTeamRating(team)
 
     writeJSON('league.json', league)
-    try { execSync('node build-site.js', { cwd: __dirname, timeout: 10000 }) } catch (e) { /* ignore */ }
+    rebuildSite()
     return jsonRes(res, { success: true, player })
   }
 
@@ -2988,7 +2947,7 @@ http.createServer(async (req, res) => {
     team.coach = { name: entry.name, rating: entry.rating, style: entry.style, age: entry.age || 50 }
 
     writeJSON('league.json', league)
-    try { execSync('node build-site.js', { cwd: __dirname, timeout: 10000 }) } catch (e) { /* ignore */ }
+    rebuildSite()
     return jsonRes(res, { success: true, coach: team.coach })
   }
 
