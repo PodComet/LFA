@@ -14,7 +14,8 @@ if (!fs.existsSync(siteDir)) fs.mkdirSync(siteDir, { recursive: true })
 // Embed data as JS
 const config = JSON.parse(fs.readFileSync(path.join(__dirname, 'data', 'config.json'), 'utf8'))
 const prefs = JSON.parse(fs.readFileSync(path.join(__dirname, 'data', 'preferences.json'), 'utf8'))
-const dataJS = `const LEAGUE=${JSON.stringify(league)};const HISTORY=${JSON.stringify(history)};const CONFIG=${JSON.stringify(config)};const PREFS=${JSON.stringify(prefs)};`
+const hallOfFame = league.hallOfFame || { players: [], coaches: [] }
+const dataJS = `const LEAGUE=${JSON.stringify(league)};const HISTORY=${JSON.stringify(history)};const CONFIG=${JSON.stringify(config)};const PREFS=${JSON.stringify(prefs)};const HOF=${JSON.stringify(hallOfFame)};`
 
 const html = `<!DOCTYPE html>
 <html lang="en">
@@ -113,6 +114,8 @@ a{color:var(--accent);text-decoration:none}a:hover{text-decoration:underline}
 .profile-team{font-size:15px;color:var(--text2);margin-bottom:8px}
 .profile-meta{display:flex;gap:16px;flex-wrap:wrap;font-size:13px;color:var(--text2)}
 .profile-meta b{color:var(--text);font-weight:600}
+.profile-trophies{font-size:20px;letter-spacing:2px;margin:2px 0 4px;line-height:1.2}
+.team-card-trophies{font-size:14px;letter-spacing:1px;vertical-align:middle;margin-left:4px}
 .rating-circle{width:64px;height:64px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:26px;font-weight:800;color:#fff;flex-shrink:0;z-index:1}
 .r-high{background:linear-gradient(135deg,#059669,#10b981)}.r-mid{background:linear-gradient(135deg,#d97706,#f59e0b)}.r-low{background:linear-gradient(135deg,#dc2626,#ef4444)}
 .captain-badge{display:inline-block;padding:2px 8px;border-radius:4px;font-size:11px;font-weight:700;color:var(--gold);background:rgba(251,191,36,.12);border:1px solid rgba(251,191,36,.25);margin-left:8px;vertical-align:middle}
@@ -317,6 +320,53 @@ table.stats .totals td{font-weight:700;color:var(--white);border-top:2px solid r
 .se-transfer-modal{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.6);display:flex;align-items:center;justify-content:center;z-index:100}
 .se-transfer-box{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:24px;min-width:340px;max-width:460px}
 .se-transfer-box h3{color:var(--white);margin-bottom:16px;font-size:16px}
+.se-transfer-box .se-trade-options{display:flex;flex-direction:column;gap:8px;margin-bottom:16px}
+.se-trade-opt{display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:8px;cursor:pointer;border:1px solid var(--border);transition:all .15s;font-size:13px;color:var(--text)}
+.se-trade-opt:hover{border-color:var(--accent);background:rgba(59,130,246,.08)}
+.se-trade-opt.selected{border-color:var(--accent);background:rgba(59,130,246,.12);color:var(--white)}
+.se-trade-opt .trade-icon{font-size:18px;flex-shrink:0;width:28px;text-align:center}
+.se-trade-opt .trade-lbl{font-weight:600}
+.se-trade-opt .trade-desc{font-size:11px;color:var(--text2)}
+.se-add-player-form{display:grid;grid-template-columns:1fr 80px 70px 70px;gap:8px;align-items:end;margin-top:12px;padding:12px;background:rgba(255,255,255,.03);border:1px dashed var(--border);border-radius:8px}
+.se-add-player-form label{font-size:10px;color:var(--text2);text-transform:uppercase;display:block;margin-bottom:3px}
+.se-coach-actions{display:flex;gap:8px;margin-top:8px;flex-wrap:wrap}
+.se-coach-actions button{font-size:11px;padding:4px 12px;border-radius:6px;cursor:pointer;border:1px solid var(--border);font-family:inherit;transition:all .15s}
+.se-coach-actions .trade-away{background:transparent;color:#f87171;border-color:#f8717140}
+.se-coach-actions .trade-away:hover{background:rgba(248,113,113,.1);border-color:#f87171}
+.se-coach-actions .new-coach{background:transparent;color:var(--green);border-color:rgba(74,222,128,.4)}
+.se-coach-actions .new-coach:hover{background:rgba(74,222,128,.1);border-color:var(--green)}
+
+/* Hall of Fame */
+.hof-container{max-width:900px;margin:0 auto}
+.hof-tabs{display:flex;gap:4px;margin-bottom:20px}
+.hof-tab{padding:8px 20px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;border:1px solid var(--border);background:transparent;color:var(--text2);font-family:inherit;transition:all .15s}
+.hof-tab:hover{border-color:var(--accent);color:var(--white)}
+.hof-tab.active{background:var(--accent);border-color:var(--accent);color:#fff}
+.hof-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:20px;margin-bottom:12px;display:flex;gap:16px;align-items:flex-start;transition:border-color .15s}
+.hof-card:hover{border-color:var(--accent)}
+.hof-avatar{width:48px;height:48px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:14px;color:#fff;flex-shrink:0}
+.hof-info{flex:1;min-width:0}
+.hof-name{font-size:16px;font-weight:700;color:var(--white);margin-bottom:2px}
+.hof-meta{font-size:12px;color:var(--text2);margin-bottom:8px}
+.hof-status{display:inline-block;font-size:10px;font-weight:700;padding:2px 8px;border-radius:4px;text-transform:uppercase;letter-spacing:.5px}
+.hof-status.retired{background:rgba(248,113,113,.15);color:#f87171}
+.hof-status.abroad{background:rgba(59,130,246,.15);color:#60a5fa}
+.hof-status.non-lfa{background:rgba(251,191,36,.15);color:#fbbf24}
+.hof-achievements{display:flex;flex-wrap:wrap;gap:4px;margin-top:6px}
+.hof-achv{font-size:10px;padding:2px 8px;border-radius:4px;font-weight:600;background:rgba(255,255,255,.06);color:var(--text2)}
+.hof-achv.gold{background:rgba(251,191,36,.15);color:var(--gold)}
+.hof-rating{font-size:22px;font-weight:800;padding:4px 12px;border-radius:8px;color:#fff;flex-shrink:0}
+.hof-recall-btn{font-size:11px;padding:4px 12px;border-radius:6px;cursor:pointer;border:1px solid rgba(74,222,128,.4);background:transparent;color:var(--green);font-family:inherit;margin-top:6px;transition:all .15s}
+.hof-recall-btn:hover{background:rgba(74,222,128,.1);border-color:var(--green)}
+.hof-career-stat{display:flex;align-items:center;gap:8px;margin:6px 0;padding:6px 10px;background:rgba(255,255,255,.03);border-radius:8px;border:1px solid rgba(255,255,255,.06)}
+.hof-career-label{font-size:11px;color:var(--text2);font-weight:600;text-transform:uppercase;letter-spacing:.3px}
+.hof-career-value{font-size:16px;font-weight:800;padding:2px 8px;border-radius:6px}
+.hof-career-detail{font-size:10px;color:var(--text2);margin-left:auto}
+.hof-pct-elite{background:rgba(74,222,128,.15);color:#4ade80}
+.hof-pct-good{background:rgba(59,130,246,.15);color:#60a5fa}
+.hof-pct-avg{background:rgba(251,191,36,.15);color:#fbbf24}
+.hof-pct-low{background:rgba(248,113,113,.15);color:#f87171}
+.hof-empty{text-align:center;padding:48px 20px;color:var(--text2);font-size:14px}
 .se-select{background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:6px 10px;color:var(--white);font-size:13px;font-family:inherit;width:100%}
 .new-season-card{background:linear-gradient(135deg,var(--accent)15,var(--green)15);border:2px dashed var(--accent);border-radius:14px;padding:24px;text-align:center;cursor:pointer;transition:border-color .15s,transform .15s}
 .new-season-card:hover{border-color:var(--green);transform:translateY(-2px)}
@@ -780,6 +830,7 @@ function render() {
   else if (base === 'edit-season') { renderNav(''); renderSeasonEditor(main, parts[1]) }
   else if (base === 'preferences') { renderNav(''); renderPreferences(main) }
   else if (base === 'skill-shop') { renderNav(''); renderSkillShop(main) }
+  else if (base === 'hall-of-fame') { renderNav(''); renderHallOfFame(main) }
   else if (base === 'season') { renderNav('season'); renderCurrentSeason(main, parts.slice(1)) }
   else if (base === 'statistics') { renderNav('statistics'); renderStatistics(main, parts.slice(1)) }
   else if (base === 'results') { renderNav('results'); renderResults(main, parts.slice(1)) }
@@ -892,6 +943,13 @@ function renderHome(main) {
   shopCard.innerHTML = '<div class="card-body" style="padding:24px"><div style="font-size:32px;margin-bottom:8px">\\u2B50</div><div class="card-name" style="font-size:20px">Skill Shop</div><div class="card-detail" style="margin-top:6px">Edit player skills and manage Internationals</div></div>'
   shopCard.onclick = () => go('skill-shop')
   grid.appendChild(shopCard)
+
+  // Hall of Fame card
+  const hofCard = h('div','card')
+  const hofCount = (typeof HOF !== 'undefined' ? HOF.players.length + HOF.coaches.length : 0)
+  hofCard.innerHTML = '<div class="card-body" style="padding:24px"><div style="font-size:32px;margin-bottom:8px">\\u{1F3C6}</div><div class="card-name" style="font-size:20px">Hall of Fame</div><div class="card-detail" style="margin-top:6px">Retired legends, players abroad'+(hofCount ? ' \\u2022 '+hofCount+' entries' : '')+'</div></div>'
+  hofCard.onclick = () => go('hall-of-fame')
+  grid.appendChild(hofCard)
 
   // Start New Season card
   const newCard = h('div','card new-season-card')
@@ -1086,7 +1144,7 @@ function renderSkillShop(main) {
           html += '<div class="ss-skill-item"><div class="ss-skill-lbl">'+lbl+'</div><input type="number" class="ss-skill-input" min="1" max="99" value="'+sk[k]+'" data-player="'+p.name+'" data-team="'+p.team+'" data-skill="'+k+'" onchange="window._ssSkillChange(this)"></div>'
         })
         html += '</div>'
-        html += '<div class="ss-intl-row"><label><input type="checkbox" '+(p.international?'checked':'')+' onchange="window._ssIntlChange(\\''+p.name.replace(/'/g,"\\\\'")+'\\',\\''+p.team.replace(/'/g,"\\\\'")+'\\',this.checked)"> Designate as <b>International</b> <span class="intl-badge">\\u2605</span> (boost next season skill change)</label></div>'
+        html += '<div class="ss-intl-row" onclick="event.stopPropagation()"><label><input type="checkbox" '+(p.international?'checked':'')+' onchange="window._ssIntlChange(\\''+p.name.replace(/'/g,"\\\\'")+'\\',\\''+p.team.replace(/'/g,"\\\\'")+'\\',this.checked)"> Designate as <b>International</b> <span class="intl-badge">\\u2605</span> (boost next season skill change)</label></div>'
         html += '<div class="ss-save-row"><button class="ss-save-btn" onclick="event.stopPropagation();window._ssSavePlayer(\\''+p.name.replace(/'/g,"\\\\'")+'\\',\\''+p.team.replace(/'/g,"\\\\'")+'\\')">Save Changes</button></div>'
       }
       html += '</div>'
@@ -1384,8 +1442,10 @@ function renderCoachesList(main) {
   LEAGUE.teams.forEach((t,i) => {
     if (!t.coach) return
     const c = teamColor(t)
+    const coachT = HISTORY.seasons.filter(s=>s.champion===t.name).length
+    const coachMiniTr = coachT > 0 ? ' <span class="team-card-trophies">'+'\\u{1F3C6}'.repeat(Math.min(coachT,5))+(coachT>5?' +'+( coachT-5):'')+'</span>' : ''
     const card = h('div','card')
-    card.innerHTML = '<div class="card-header-bar" style="border-bottom:2px solid '+c+'30">'+miniAv(t.coach.name,c)+'<div><div class="card-name">'+t.coach.name+'</div><div class="card-detail">'+t.name+' \\u2022 '+t.coach.style+' \\u2022 Rtg '+t.coach.rating+'</div></div></div>'
+    card.innerHTML = '<div class="card-header-bar" style="border-bottom:2px solid '+c+'30">'+miniAv(t.coach.name,c)+'<div><div class="card-name">'+t.coach.name+coachMiniTr+'</div><div class="card-detail">'+t.name+' \\u2022 '+t.coach.style+' \\u2022 Rtg '+t.coach.rating+'</div></div></div>'
     card.onclick = () => go('statistics/coaches/'+i)
     grid.appendChild(card)
   })
@@ -1402,7 +1462,9 @@ function renderCoachCard(main, idx) {
 
   const header = h('div','profile-header')
   header.style.background = 'linear-gradient(135deg,'+c1+'15,'+c2+'15)'
-  header.innerHTML = '<div class="profile-avatar" style="background:linear-gradient(135deg,#2d2d2d,#444)">'+coach.name.split(' ').map(n=>n[0]).join('').slice(0,2).toUpperCase()+'</div><div class="profile-info"><div class="profile-name">'+coach.name+'</div><div class="profile-team">'+team.name+' \\u2014 Head Coach</div><div class="profile-meta"><div>Age: <b>'+(coach.age||'-')+'</b></div><div>Style: <b>'+coach.style+'</b></div></div></div><div class="rating-circle '+rCls(coach.rating)+'">'+coach.rating+'</div>'
+  const coachTitles = HISTORY.seasons.filter(s=>s.champion===team.name).length
+  const coachTrophyIcons = coachTitles > 0 ? '<div class="profile-trophies">'+'\\u{1F3C6}'.repeat(coachTitles)+'</div>' : ''
+  header.innerHTML = '<div class="profile-avatar" style="background:linear-gradient(135deg,#2d2d2d,#444)">'+coach.name.split(' ').map(n=>n[0]).join('').slice(0,2).toUpperCase()+'</div><div class="profile-info"><div class="profile-name">'+coach.name+'</div><div class="profile-team">'+team.name+' \\u2014 Head Coach</div>'+coachTrophyIcons+'<div class="profile-meta"><div>Age: <b>'+(coach.age||'-')+'</b></div><div>Style: <b>'+coach.style+'</b></div></div></div><div class="rating-circle '+rCls(coach.rating)+'">'+coach.rating+'</div>'
   main.appendChild(header)
 
   // Career record
@@ -1445,7 +1507,8 @@ function renderTeamsList(main) {
     const card = h('div','team-card')
     // Count titles
     const titles = HISTORY.seasons.filter(s=>s.champion===t.name).length
-    card.innerHTML = '<div class="team-card-header" style="background:linear-gradient(135deg,'+c1+'cc,'+c2+'cc)">'+teamCrest(t,56)+'<div><div class="team-card-name">'+t.name+'</div><div class="team-card-rating">Rating: '+t.rating+(titles?' \\u2022 '+titles+' title'+(titles>1?'s':''):'')+'</div></div></div><div class="team-card-body" style="background:linear-gradient(135deg,'+c1+'15,'+c2+'10)"><div class="team-mini-stat"><div class="tv">'+t.players.length+'</div><div class="tl">Players</div></div><div class="team-mini-stat"><div class="tv">'+(t.coach?t.coach.name:'-')+'</div><div class="tl">Coach</div></div></div>'
+    const miniTrophies = titles > 0 ? ' <span class="team-card-trophies">'+'\\u{1F3C6}'.repeat(Math.min(titles,5))+(titles>5?' +'+( titles-5):'')+'</span>' : ''
+    card.innerHTML = '<div class="team-card-header" style="background:linear-gradient(135deg,'+c1+'cc,'+c2+'cc)">'+teamCrest(t,56)+'<div><div class="team-card-name">'+t.name+miniTrophies+'</div><div class="team-card-rating">Rating: '+t.rating+(titles?' \\u2022 '+titles+' title'+(titles>1?'s':''):'')+'</div></div></div><div class="team-card-body" style="background:linear-gradient(135deg,'+c1+'15,'+c2+'10)"><div class="team-mini-stat"><div class="tv">'+t.players.length+'</div><div class="tl">Players</div></div><div class="team-mini-stat"><div class="tv">'+(t.coach?t.coach.name:'-')+'</div><div class="tl">Coach</div></div></div>'
     card.onclick = () => go('statistics/teams/'+encodeURIComponent(t.name))
     grid.appendChild(card)
   }
@@ -1464,7 +1527,8 @@ function renderTeamCard(main, name) {
   header.style.background = 'linear-gradient(135deg,'+c1+'25,'+c2+'20)'
   const titles = HISTORY.seasons.filter(s=>s.champion===name).length
   const captain = team.players.find(p => p.captain)
-  header.innerHTML = '<div style="flex-shrink:0;display:flex;gap:12px;align-items:center">'+teamCrest(team,72)+teamJersey(team,64)+'</div><div class="profile-info"><div class="profile-name" style="color:#fff">'+name+'</div><div class="profile-team">'+(team.coach?'Coach: '+team.coach.name+' ('+team.coach.style+')':'No coach')+'</div><div class="profile-meta"><div>Rating: <b>'+team.rating+'</b></div><div>Titles: <b>'+titles+'</b></div><div>Captain: <b>'+(captain?captain.name:'-')+'</b></div></div></div><div class="rating-circle '+rCls(team.rating)+'">'+team.rating+'</div>'
+  const teamTrophyIcons = titles > 0 ? '<div class="profile-trophies">'+'\\u{1F3C6}'.repeat(titles)+'</div>' : ''
+  header.innerHTML = '<div style="flex-shrink:0;display:flex;gap:12px;align-items:center">'+teamCrest(team,72)+teamJersey(team,64)+'</div><div class="profile-info"><div class="profile-name" style="color:#fff">'+name+'</div><div class="profile-team">'+(team.coach?'Coach: '+team.coach.name+' ('+team.coach.style+')':'No coach')+'</div>'+teamTrophyIcons+'<div class="profile-meta"><div>Rating: <b>'+team.rating+'</b></div><div>Titles: <b>'+titles+'</b></div><div>Captain: <b>'+(captain?captain.name:'-')+'</b></div></div></div><div class="rating-circle '+rCls(team.rating)+'">'+team.rating+'</div>'
   main.appendChild(header)
 
   // Roster
@@ -2732,7 +2796,11 @@ async function renderSeasonEditor(main, seasonNum) {
       '<div class="se-row"><span class="se-label">Rating</span><input class="se-input sm" type="number" min="40" max="99" value="' + coach.rating + '" data-ti="' + ti + '" data-field="coachRating" onchange="seUpdate(this)">' +
       '<span class="se-label">Style</span><select class="se-select" style="width:160px" data-ti="' + ti + '" data-field="coachStyle" onchange="seUpdate(this)">' +
       ['attacking','defensive','balanced','possession','counter-attack'].map(s => '<option value="' + s + '"' + (coach.style === s ? ' selected' : '') + '>' + s + '</option>').join('') +
-      '</select></div></div>'
+      '</select></div>' +
+      '<div class="se-coach-actions">' +
+        (team.coach ? '<button class="trade-away" onclick="seTradeCoach(' + ti + ')">\\u21C4 Trade Away Coach</button>' : '') +
+        '<button class="new-coach" onclick="seNewCoach(' + ti + ')">\\u{1F4CB} ' + (team.coach ? 'Replace' : 'Hire') + ' Coach</button>' +
+      '</div></div>'
 
     // Players section
     let playersHTML = '<div class="se-section"><div class="se-section-title">Players (' + team.players.length + ')</div>'
@@ -2753,6 +2821,7 @@ async function renderSeasonEditor(main, seasonNum) {
         '<button class="se-btn danger small" title="Transfer" onclick="seTransfer(' + ti + ',' + pi + ')">\\u21C4</button>' +
         '</div>'
     }
+    playersHTML += '<div style="margin-top:10px"><button class="se-btn" style="background:transparent;color:var(--green);border:1px dashed rgba(74,222,128,.4);width:100%;padding:8px;font-size:12px;font-weight:600;border-radius:8px;cursor:pointer" onclick="seAddPlayer(' + ti + ')">\\u{1F464} + Add New Player</button></div>'
     playersHTML += '</div>'
     body.innerHTML += playersHTML
 
@@ -2850,37 +2919,360 @@ function seTransfer(ti, pi) {
   const team = state.teams[ti]
   const player = team.players[pi]
 
-  // Build transfer modal
   const modal = h('div','se-transfer-modal')
   let optHTML = ''
   for (let i = 0; i < state.teams.length; i++) {
     if (i === ti) continue
     optHTML += '<option value="' + i + '">' + state.teams[i].name + '</option>'
   }
-  modal.innerHTML = '<div class="se-transfer-box"><h3>Transfer ' + escAttr(player.name) + '</h3>' +
-    '<div style="margin-bottom:12px;font-size:13px;color:var(--text2)">From: ' + escAttr(team.name) + '</div>' +
-    '<div style="margin-bottom:12px"><label style="font-size:12px;color:var(--text2);display:block;margin-bottom:4px">Transfer to:</label><select class="se-select" id="se-transfer-target">' + optHTML + '</select></div>' +
-    '<div style="display:flex;gap:8px;justify-content:flex-end"><button class="se-btn primary" id="se-transfer-confirm">Transfer</button><button class="se-btn" style="background:var(--card2);color:var(--text)" id="se-transfer-cancel">Cancel</button></div></div>'
+
+  let selectedMode = 'team' // default mode
+
+  modal.innerHTML = '<div class="se-transfer-box"><h3>\\u21C4 Transfer ' + escAttr(player.name) + '</h3>' +
+    '<div style="margin-bottom:12px;font-size:13px;color:var(--text2)">From: ' + escAttr(team.name) + ' \\u2022 ' + player.position + ' \\u2022 Rtg ' + player.rating + '</div>' +
+    '<div class="se-trade-options">' +
+      '<div class="se-trade-opt selected" data-mode="team"><div class="trade-icon">\\u21C4</div><div><div class="trade-lbl">Transfer to LFA Team</div><div class="trade-desc">Move to another team in the league</div></div></div>' +
+      '<div class="se-trade-opt" data-mode="retired"><div class="trade-icon">\\u{1F534}</div><div><div class="trade-lbl">Retire</div><div class="trade-desc">Player retires \\u2014 added to Hall of Fame</div></div></div>' +
+      '<div class="se-trade-opt" data-mode="abroad"><div class="trade-icon">\\u{1F30D}</div><div><div class="trade-lbl">Playing Abroad</div><div class="trade-desc">Player leaves but continues developing \\u2014 can be recalled later</div></div></div>' +
+      '<div class="se-trade-opt" data-mode="non-lfa"><div class="trade-icon">\\u{1F7E1}</div><div><div class="trade-lbl">Non-LFA Team</div><div class="trade-desc">Transferred to a team outside the LFA</div></div></div>' +
+    '</div>' +
+    '<div id="se-transfer-details"><label style="font-size:12px;color:var(--text2);display:block;margin-bottom:4px">Transfer to:</label><select class="se-select" id="se-transfer-target">' + optHTML + '</select></div>' +
+    '<div style="display:flex;gap:8px;justify-content:flex-end;margin-top:16px"><button class="se-btn primary" id="se-transfer-confirm">Confirm</button><button class="se-btn" style="background:var(--card2);color:var(--text)" id="se-transfer-cancel">Cancel</button></div></div>'
 
   document.body.appendChild(modal)
 
+  // Mode selection
+  modal.querySelectorAll('.se-trade-opt').forEach(opt => {
+    opt.onclick = () => {
+      modal.querySelectorAll('.se-trade-opt').forEach(o => o.classList.remove('selected'))
+      opt.classList.add('selected')
+      selectedMode = opt.dataset.mode
+      const details = document.getElementById('se-transfer-details')
+      if (selectedMode === 'team') {
+        details.innerHTML = '<label style="font-size:12px;color:var(--text2);display:block;margin-bottom:4px">Transfer to:</label><select class="se-select" id="se-transfer-target">' + optHTML + '</select>'
+      } else {
+        const labels = { retired: 'Player will be added to the Hall of Fame as retired.', abroad: 'Player will continue aging and developing. Can be recalled to any LFA team later.', 'non-lfa': 'Player moves to a team outside the LFA and is added to the Hall of Fame.' }
+        details.innerHTML = '<div style="font-size:12px;color:var(--text2);padding:10px;background:rgba(255,255,255,.03);border-radius:8px">' + labels[selectedMode] + '</div>'
+      }
+    }
+  })
+
   document.getElementById('se-transfer-cancel').onclick = () => modal.remove()
   document.getElementById('se-transfer-confirm').onclick = async () => {
-    const targetIdx = parseInt(document.getElementById('se-transfer-target').value, 10)
     try {
-      const resp = await fetch('/api/transfer-player', {
+      if (selectedMode === 'team') {
+        const targetIdx = parseInt(document.getElementById('se-transfer-target').value, 10)
+        const resp = await fetch('/api/transfer-player', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ playerName: player.name, fromTeam: team._originalName, toTeam: state.teams[targetIdx]._originalName })
+        })
+        const data = await resp.json()
+        if (data.success) { modal.remove(); go('edit-season/' + window._seSeasonNum) }
+        else alert('Error: ' + (data.error || 'Unknown'))
+      } else {
+        const resp = await fetch('/api/trade-player-away', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ playerName: player.name, fromTeam: team._originalName, status: selectedMode })
+        })
+        const data = await resp.json()
+        if (data.success) { modal.remove(); go('edit-season/' + window._seSeasonNum) }
+        else alert('Error: ' + (data.error || 'Unknown'))
+      }
+    } catch(e) { alert('Error: ' + e.message) }
+  }
+}
+
+// Trade coach away
+function seTradeCoach(ti) {
+  const state = window._seState
+  if (!state) return
+  const team = state.teams[ti]
+  if (!team.coach) { alert('This team has no coach.'); return }
+
+  const modal = h('div','se-transfer-modal')
+  let selectedMode = 'retired'
+
+  modal.innerHTML = '<div class="se-transfer-box"><h3>\\u21C4 Trade Coach ' + escAttr(team.coach.name) + '</h3>' +
+    '<div style="margin-bottom:12px;font-size:13px;color:var(--text2)">From: ' + escAttr(team.name) + ' \\u2022 ' + team.coach.style + ' \\u2022 Rtg ' + team.coach.rating + '</div>' +
+    '<div class="se-trade-options">' +
+      '<div class="se-trade-opt selected" data-mode="retired"><div class="trade-icon">\\u{1F534}</div><div><div class="trade-lbl">Retire</div><div class="trade-desc">Coach retires \\u2014 added to Hall of Fame</div></div></div>' +
+      '<div class="se-trade-opt" data-mode="abroad"><div class="trade-icon">\\u{1F30D}</div><div><div class="trade-lbl">Coaching Abroad</div><div class="trade-desc">Coach leaves but can be recalled later</div></div></div>' +
+      '<div class="se-trade-opt" data-mode="non-lfa"><div class="trade-icon">\\u{1F7E1}</div><div><div class="trade-lbl">Non-LFA</div><div class="trade-desc">Moved to a team outside the LFA</div></div></div>' +
+    '</div>' +
+    '<div id="se-coach-trade-info" style="font-size:12px;color:var(--text2);padding:10px;background:rgba(255,255,255,.03);border-radius:8px">Coach will be added to the Hall of Fame as retired.</div>' +
+    '<div style="display:flex;gap:8px;justify-content:flex-end;margin-top:16px"><button class="se-btn primary" id="se-coach-trade-confirm">Confirm</button><button class="se-btn" style="background:var(--card2);color:var(--text)" id="se-coach-trade-cancel">Cancel</button></div></div>'
+
+  document.body.appendChild(modal)
+
+  modal.querySelectorAll('.se-trade-opt').forEach(opt => {
+    opt.onclick = () => {
+      modal.querySelectorAll('.se-trade-opt').forEach(o => o.classList.remove('selected'))
+      opt.classList.add('selected')
+      selectedMode = opt.dataset.mode
+      const labels = { retired: 'Coach will be added to the Hall of Fame as retired.', abroad: 'Coach will continue aging. Can be recalled to any LFA team later.', 'non-lfa': 'Coach moves outside the LFA and is added to the Hall of Fame.' }
+      document.getElementById('se-coach-trade-info').textContent = labels[selectedMode]
+    }
+  })
+
+  document.getElementById('se-coach-trade-cancel').onclick = () => modal.remove()
+  document.getElementById('se-coach-trade-confirm').onclick = async () => {
+    try {
+      const resp = await fetch('/api/trade-coach-away', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ playerName: player.name, fromTeam: team._originalName, toTeam: state.teams[targetIdx]._originalName })
+        body: JSON.stringify({ teamName: team._originalName, status: selectedMode })
       })
       const data = await resp.json()
-      if (data.success) {
-        modal.remove()
-        // Refresh editor
-        go('edit-season/' + window._seSeasonNum)
-      } else {
-        alert('Error: ' + (data.error || 'Unknown'))
+      if (data.success) { modal.remove(); go('edit-season/' + window._seSeasonNum) }
+      else alert('Error: ' + (data.error || 'Unknown'))
+    } catch(e) { alert('Error: ' + e.message) }
+  }
+}
+
+// Add new coach to team
+function seNewCoach(ti) {
+  const state = window._seState
+  if (!state) return
+  const team = state.teams[ti]
+
+  const modal = h('div','se-transfer-modal')
+  modal.innerHTML = '<div class="se-transfer-box"><h3>\\u{1F4CB} New Coach for ' + escAttr(team.name) + '</h3>' +
+    '<div style="display:flex;flex-direction:column;gap:10px;margin-bottom:16px">' +
+      '<div><label style="font-size:12px;color:var(--text2);display:block;margin-bottom:3px">Name</label><input class="se-input lg" id="se-new-coach-name" placeholder="Coach name"></div>' +
+      '<div style="display:flex;gap:10px"><div style="flex:1"><label style="font-size:12px;color:var(--text2);display:block;margin-bottom:3px">Rating</label><input class="se-input sm" type="number" min="40" max="99" value="65" id="se-new-coach-rating"></div>' +
+      '<div style="flex:1"><label style="font-size:12px;color:var(--text2);display:block;margin-bottom:3px">Style</label><select class="se-select" id="se-new-coach-style"><option>balanced</option><option>attacking</option><option>defensive</option><option>possession</option><option>counter-attack</option></select></div></div>' +
+    '</div>' +
+    '<div style="display:flex;gap:8px;justify-content:flex-end"><button class="se-btn primary" id="se-new-coach-confirm">Hire Coach</button><button class="se-btn" style="background:var(--card2);color:var(--text)" id="se-new-coach-cancel">Cancel</button></div></div>'
+
+  document.body.appendChild(modal)
+
+  document.getElementById('se-new-coach-cancel').onclick = () => modal.remove()
+  document.getElementById('se-new-coach-confirm').onclick = async () => {
+    const name = document.getElementById('se-new-coach-name').value.trim()
+    if (!name) { document.getElementById('se-new-coach-name').focus(); return }
+    const rating = document.getElementById('se-new-coach-rating').value
+    const style = document.getElementById('se-new-coach-style').value
+    try {
+      const resp = await fetch('/api/replace-coach', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ teamName: team._originalName, name, rating, style })
+      })
+      const data = await resp.json()
+      if (data.success) { modal.remove(); go('edit-season/' + window._seSeasonNum) }
+      else alert('Error: ' + (data.error || 'Unknown'))
+    } catch(e) { alert('Error: ' + e.message) }
+  }
+}
+
+// Add new player to team
+function seAddPlayer(ti) {
+  const state = window._seState
+  if (!state) return
+  const team = state.teams[ti]
+
+  const modal = h('div','se-transfer-modal')
+  modal.innerHTML = '<div class="se-transfer-box"><h3>\\u{1F464} Add Player to ' + escAttr(team.name) + '</h3>' +
+    '<div style="display:flex;flex-direction:column;gap:10px;margin-bottom:16px">' +
+      '<div><label style="font-size:12px;color:var(--text2);display:block;margin-bottom:3px">Name</label><input class="se-input lg" id="se-new-player-name" placeholder="Player name"></div>' +
+      '<div style="display:flex;gap:10px">' +
+        '<div style="flex:1"><label style="font-size:12px;color:var(--text2);display:block;margin-bottom:3px">Position</label><select class="se-select" id="se-new-player-pos"><option>GK</option><option>CB</option><option>CM</option><option selected>ST</option></select></div>' +
+        '<div style="flex:1"><label style="font-size:12px;color:var(--text2);display:block;margin-bottom:3px">Rating</label><input class="se-input sm" type="number" min="40" max="99" value="60" id="se-new-player-rating"></div>' +
+        '<div style="flex:1"><label style="font-size:12px;color:var(--text2);display:block;margin-bottom:3px">Age</label><input class="se-input sm" type="number" min="16" max="45" value="22" id="se-new-player-age"></div>' +
+      '</div>' +
+    '</div>' +
+    '<div style="font-size:11px;color:var(--text2);margin-bottom:12px">Skills will be randomly generated. You can fine-tune them in the Skill Shop.</div>' +
+    '<div style="display:flex;gap:8px;justify-content:flex-end"><button class="se-btn primary" id="se-new-player-confirm">Add Player</button><button class="se-btn" style="background:var(--card2);color:var(--text)" id="se-new-player-cancel">Cancel</button></div></div>'
+
+  document.body.appendChild(modal)
+
+  document.getElementById('se-new-player-cancel').onclick = () => modal.remove()
+  document.getElementById('se-new-player-confirm').onclick = async () => {
+    const name = document.getElementById('se-new-player-name').value.trim()
+    if (!name) { document.getElementById('se-new-player-name').focus(); return }
+    const position = document.getElementById('se-new-player-pos').value
+    const rating = document.getElementById('se-new-player-rating').value
+    const age = document.getElementById('se-new-player-age').value
+    try {
+      const resp = await fetch('/api/add-player', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ teamName: team._originalName, name, position, rating, age })
+      })
+      const data = await resp.json()
+      if (data.success) { modal.remove(); go('edit-season/' + window._seSeasonNum) }
+      else alert('Error: ' + (data.error || 'Unknown'))
+    } catch(e) { alert('Error: ' + e.message) }
+  }
+}
+
+// -------------------------------------------------------------------------
+// Hall of Fame
+// -------------------------------------------------------------------------
+function renderHallOfFame(main) {
+  main.innerHTML = '<div class="breadcrumb"><span onclick="go(\\u0027\\u0027)">Home</span> / Hall of Fame</div><div class="page-title">\\u{1F3C6} Hall of Fame</div><div class="page-sub">Retired legends, players abroad, and departed coaches</div>'
+
+  const container = h('div','hof-container')
+
+  // Tabs
+  const tabs = h('div','hof-tabs')
+  tabs.innerHTML = '<button class="hof-tab active" data-tab="players">Players ('+HOF.players.length+')</button><button class="hof-tab" data-tab="coaches">Coaches ('+HOF.coaches.length+')</button>'
+  container.appendChild(tabs)
+
+  const content = h('div','hof-content')
+  container.appendChild(content)
+
+  function renderTab(tab) {
+    tabs.querySelectorAll('.hof-tab').forEach(t => t.classList.toggle('active', t.dataset.tab === tab))
+    content.innerHTML = ''
+
+    if (tab === 'players') {
+      if (HOF.players.length === 0) { content.innerHTML = '<div class="hof-empty">No players in the Hall of Fame yet.<br>Trade players to retirement, abroad, or non-LFA from the Season Editor.</div>'; return }
+
+      // Group by status
+      const groups = { retired: [], abroad: [], 'non-lfa': [] }
+      HOF.players.forEach(p => { if (groups[p.status]) groups[p.status].push(p) })
+
+      for (const [status, players] of Object.entries(groups)) {
+        if (players.length === 0) continue
+        const statusLabel = status === 'retired' ? '\\u{1F534} Retired' : status === 'abroad' ? '\\u{1F30D} Playing Abroad' : '\\u{1F7E1} Non-LFA'
+        content.appendChild(h('div','section-title', statusLabel + ' (' + players.length + ')'))
+
+        for (const p of players) {
+          const card = h('div','hof-card')
+          const initials = p.name.split(' ').map(n=>n[0]).join('').slice(0,2).toUpperCase()
+          const achvHtml = (p.achievements || []).map(a => {
+            const isGold = a.type === 'champion' || a.type === 'mvp'
+            const labels = { champion: '\\u{1F3C6} Champion', mvp: '\\u2B50 MVP', fichichi: '\\u26BD Top Scorer', assistKing: '\\u{1F3AF} Assist King', goalkeeperOfSeason: '\\u{1F9E4} GK of Season', fieldPlayerOfYear: '\\u{1F3C5} Field Player', lfaPromise: '\\u{1F31F} LFA Promise' }
+            return '<span class="hof-achv'+(isGold?' gold':'')+'">S'+a.season+' '+(labels[a.type]||a.type)+'</span>'
+          }).join('')
+          const recallBtn = p.status === 'abroad' ? '<button class="hof-recall-btn" onclick="hofRecallPlayer(\\u0027'+p.name.replace(/'/g,"\\\\'")+'\\u0027)">\\u21A9 Recall to LFA</button>' : ''
+
+          // Compute career match rating from history
+          let careerRatings = []
+          let careerApps = 0
+          for (const s of HISTORY.seasons) {
+            if (!s.playerSeasonStats) continue
+            const ps = s.playerSeasonStats.find(x => x.name === p.name)
+            if (ps && ps.rating) { careerRatings.push(parseFloat(ps.rating)); careerApps += (ps.appearances || 0) }
+          }
+          const careerAvg = careerRatings.length > 0 ? (careerRatings.reduce((a,b)=>a+b,0)/careerRatings.length).toFixed(1) : null
+          const careerStatHtml = careerAvg ? '<div class="hof-career-stat"><span class="hof-career-label">Career Avg Rating</span><span class="hof-career-value '+rCls(Math.round(parseFloat(careerAvg)))+'">'+careerAvg+'</span><span class="hof-career-detail">'+careerRatings.length+' season'+(careerRatings.length!==1?'s':'')+' \\u2022 '+careerApps+' app'+(careerApps!==1?'s':'')+'</span></div>' : ''
+
+          card.innerHTML = '<div class="hof-avatar" style="background:linear-gradient(135deg,#2d2d2d,#444)">'+initials+'</div>' +
+            '<div class="hof-info"><div class="hof-name">'+p.name+'</div>' +
+            '<div class="hof-meta">'+p.position+' \\u2022 '+p.lastTeam+' \\u2022 Age '+(p.age||'?')+' \\u2022 Left S'+p.seasonLeft+' <span class="hof-status '+p.status+'">'+(status==='retired'?'Retired':status==='abroad'?'Abroad':'Non-LFA')+'</span></div>' +
+            careerStatHtml +
+            '<div class="hof-achievements">'+achvHtml+'</div>'+recallBtn+'</div>' +
+            '<div class="hof-rating '+rCls(parseInt(p.rating,10))+'">'+p.rating+'</div>'
+          content.appendChild(card)
+        }
       }
+    } else {
+      if (HOF.coaches.length === 0) { content.innerHTML = '<div class="hof-empty">No coaches in the Hall of Fame yet.<br>Trade coaches to retirement, abroad, or non-LFA from the Season Editor.</div>'; return }
+
+      const groups = { retired: [], abroad: [], 'non-lfa': [] }
+      HOF.coaches.forEach(c => { if (groups[c.status]) groups[c.status].push(c) })
+
+      for (const [status, coaches] of Object.entries(groups)) {
+        if (coaches.length === 0) continue
+        const statusLabel = status === 'retired' ? '\\u{1F534} Retired' : status === 'abroad' ? '\\u{1F30D} Coaching Abroad' : '\\u{1F7E1} Non-LFA'
+        content.appendChild(h('div','section-title', statusLabel + ' (' + coaches.length + ')'))
+
+        for (const c of coaches) {
+          const card = h('div','hof-card')
+          const initials = c.name.split(' ').map(n=>n[0]).join('').slice(0,2).toUpperCase()
+          const achvHtml = (c.achievements || []).map(a => {
+            const isGold = a.type === 'champion' || a.type === 'coachOfYear'
+            const labels = { champion: '\\u{1F3C6} Champion', coachOfYear: '\\u2B50 Coach of Year' }
+            return '<span class="hof-achv'+(isGold?' gold':'')+'">S'+a.season+' '+(labels[a.type]||a.type)+'</span>'
+          }).join('')
+          const recallBtn = c.status === 'abroad' ? '<button class="hof-recall-btn" onclick="hofRecallCoach(\\u0027'+c.name.replace(/'/g,"\\\\'")+'\\u0027)">\\u21A9 Recall to LFA</button>' : ''
+
+          // Compute career success percentage from history
+          let totalPts = 0, totalPossible = 0, totalW = 0, totalD = 0, totalL = 0, seasonsCoached = 0
+          for (const s of HISTORY.seasons) {
+            if (!s.coachSeasonStats) continue
+            const cs = s.coachSeasonStats.find(x => x.coach === c.name)
+            if (cs) {
+              totalPts += (cs.points || 0)
+              totalPossible += (cs.played || 0) * 3
+              totalW += (cs.won || 0); totalD += (cs.drawn || 0); totalL += (cs.lost || 0)
+              seasonsCoached++
+            }
+          }
+          const successPct = totalPossible > 0 ? ((totalPts / totalPossible) * 100).toFixed(1) : null
+          const pctClass = successPct ? (parseFloat(successPct) >= 60 ? 'elite' : parseFloat(successPct) >= 45 ? 'good' : parseFloat(successPct) >= 30 ? 'avg' : 'low') : ''
+          const careerStatHtml = successPct ? '<div class="hof-career-stat"><span class="hof-career-label">Career Success Rate</span><span class="hof-career-value hof-pct-'+pctClass+'">'+successPct+'%</span><span class="hof-career-detail">'+seasonsCoached+' season'+(seasonsCoached!==1?'s':'')+' \\u2022 '+totalW+'W '+totalD+'D '+totalL+'L \\u2022 '+totalPts+'/'+totalPossible+' pts</span></div>' : ''
+
+          card.innerHTML = '<div class="hof-avatar" style="background:linear-gradient(135deg,#1a3a5c,#2d5a8e)">'+initials+'</div>' +
+            '<div class="hof-info"><div class="hof-name">'+c.name+'</div>' +
+            '<div class="hof-meta">'+c.style+' \\u2022 '+c.lastTeam+' \\u2022 Left S'+c.seasonLeft+' <span class="hof-status '+c.status+'">'+(status==='retired'?'Retired':status==='abroad'?'Abroad':'Non-LFA')+'</span></div>' +
+            careerStatHtml +
+            '<div class="hof-achievements">'+achvHtml+'</div>'+recallBtn+'</div>' +
+            '<div class="hof-rating '+rCls(parseInt(c.rating,10))+'">'+c.rating+'</div>'
+          content.appendChild(card)
+        }
+      }
+    }
+  }
+
+  tabs.onclick = (e) => {
+    if (e.target.dataset.tab) renderTab(e.target.dataset.tab)
+  }
+  renderTab('players')
+  main.appendChild(container)
+}
+
+// Recall player from abroad
+async function hofRecallPlayer(playerName) {
+  // Show team picker
+  const modal = h('div','se-transfer-modal')
+  let optHTML = ''
+  for (let i = 0; i < LEAGUE.teams.length; i++) {
+    optHTML += '<option value="' + LEAGUE.teams[i].name + '">' + LEAGUE.teams[i].name + '</option>'
+  }
+  modal.innerHTML = '<div class="se-transfer-box"><h3>\\u21A9 Recall ' + playerName + '</h3>' +
+    '<div style="margin-bottom:12px;font-size:13px;color:var(--text2)">Choose which team to recall this player to:</div>' +
+    '<div style="margin-bottom:12px"><select class="se-select" id="hof-recall-target">' + optHTML + '</select></div>' +
+    '<div style="display:flex;gap:8px;justify-content:flex-end"><button class="se-btn primary" id="hof-recall-confirm">Recall</button><button class="se-btn" style="background:var(--card2);color:var(--text)" id="hof-recall-cancel">Cancel</button></div></div>'
+  document.body.appendChild(modal)
+
+  document.getElementById('hof-recall-cancel').onclick = () => modal.remove()
+  document.getElementById('hof-recall-confirm').onclick = async () => {
+    const toTeam = document.getElementById('hof-recall-target').value
+    try {
+      const resp = await fetch('/api/recall-player', { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify({ playerName, toTeam }) })
+      const data = await resp.json()
+      if (data.success) { modal.remove(); window.location.reload() }
+      else alert('Error: ' + (data.error || 'Unknown'))
+    } catch(e) { alert('Error: ' + e.message) }
+  }
+}
+
+// Recall coach from abroad
+async function hofRecallCoach(coachName) {
+  const modal = h('div','se-transfer-modal')
+  let optHTML = ''
+  for (let i = 0; i < LEAGUE.teams.length; i++) {
+    optHTML += '<option value="' + LEAGUE.teams[i].name + '">' + LEAGUE.teams[i].name + '</option>'
+  }
+  modal.innerHTML = '<div class="se-transfer-box"><h3>\\u21A9 Recall Coach ' + coachName + '</h3>' +
+    '<div style="margin-bottom:12px;font-size:13px;color:var(--text2)">Choose which team to assign this coach to:</div>' +
+    '<div style="margin-bottom:12px"><select class="se-select" id="hof-recall-target">' + optHTML + '</select></div>' +
+    '<div style="display:flex;gap:8px;justify-content:flex-end"><button class="se-btn primary" id="hof-recall-confirm">Recall</button><button class="se-btn" style="background:var(--card2);color:var(--text)" id="hof-recall-cancel">Cancel</button></div></div>'
+  document.body.appendChild(modal)
+
+  document.getElementById('hof-recall-cancel').onclick = () => modal.remove()
+  document.getElementById('hof-recall-confirm').onclick = async () => {
+    const toTeam = document.getElementById('hof-recall-target').value
+    try {
+      const resp = await fetch('/api/recall-coach', { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify({ coachName, toTeam }) })
+      const data = await resp.json()
+      if (data.success) { modal.remove(); window.location.reload() }
+      else alert('Error: ' + (data.error || 'Unknown'))
     } catch(e) { alert('Error: ' + e.message) }
   }
 }

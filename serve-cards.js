@@ -383,76 +383,163 @@ function generateMatchStill(match, homeTeam, awayTeam, momentType) {
   const skins = ['#f4c7a0', '#d4a373', '#8d5524', '#c68642', '#e0ac69', '#6b3f22']
   const rSkin = () => skins[Math.floor(Math.random() * skins.length)]
 
+  // Helper: goal posts + net (perspective, viewed from side)
+  function goalPost(x, gy, facing) {
+    // facing: 'right' = goal mouth faces right (away goal), 'left' = faces left (home goal)
+    const postH = 72  // post height
+    const crossW = facing === 'right' ? 55 : -55  // crossbar width
+    const netD = facing === 'right' ? 30 : -30  // net depth
+    const topY = gy - postH
+    const pc = '#ddd'  // post color
+
+    // Net mesh (subtle diagonal lines)
+    let net = ''
+    const meshSpacing = 6
+    const netStartX = x + crossW
+    const netEndX = x + crossW + netD
+    for (let ny = topY; ny <= gy; ny += meshSpacing) {
+      net += `<line x1="${x + crossW}" y1="${ny}" x2="${netEndX}" y2="${ny + 4}" stroke="rgba(255,255,255,0.06)" stroke-width="0.5"/>`
+    }
+    for (let nx = 0; nx <= Math.abs(netD); nx += meshSpacing) {
+      const nxp = facing === 'right' ? x + crossW + nx : x + crossW - nx
+      net += `<line x1="${nxp}" y1="${topY}" x2="${nxp}" y2="${gy}" stroke="rgba(255,255,255,0.05)" stroke-width="0.5"/>`
+    }
+    // Net back vertical
+    net += `<line x1="${netEndX}" y1="${topY}" x2="${netEndX}" y2="${gy}" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>`
+    // Net roof
+    net += `<line x1="${x + crossW}" y1="${topY}" x2="${netEndX}" y2="${topY + 3}" stroke="rgba(255,255,255,0.06)" stroke-width="0.5"/>`
+
+    // Posts and crossbar (white with subtle shadow)
+    const posts = `
+      <line x1="${x}" y1="${topY}" x2="${x}" y2="${gy}" stroke="${pc}" stroke-width="3" stroke-linecap="round"/>
+      <line x1="${x + crossW}" y1="${topY}" x2="${x + crossW}" y2="${gy}" stroke="${pc}" stroke-width="2.5" stroke-linecap="round"/>
+      <line x1="${x}" y1="${topY}" x2="${x + crossW}" y2="${topY}" stroke="${pc}" stroke-width="3" stroke-linecap="round"/>
+      <line x1="${x + 1}" y1="${topY + 1}" x2="${x + crossW + 1}" y2="${topY + 1}" stroke="rgba(0,0,0,0.2)" stroke-width="1"/>
+    `
+    return `<g>${net}${posts}</g>`
+  }
+
+  // Helper: detailed ball with pentagon pattern
+  function ball(cx, cy, r) {
+    r = r || 6
+    return `<circle cx="${cx}" cy="${cy}" r="${r}" fill="white" stroke="#bbb" stroke-width="0.5"/>
+      <path d="M${cx} ${cy - r * 0.55} l${r * 0.35} ${r * 0.25} l${r * 0.12} ${r * 0.4} l-${r * 0.35} ${r * 0.18} l-${r * 0.35} -${r * 0.18} l${r * 0.12} -${r * 0.4}z" fill="#222" opacity="0.2"/>
+      <circle cx="${cx}" cy="${cy}" r="${r}" fill="rgba(255,255,200,0.12)"/>
+      <circle cx="${cx - r * 0.25}" cy="${cy - r * 0.3}" r="${r * 0.2}" fill="rgba(255,255,255,0.3)"/>`
+  }
+
+  // Helper: referee figure (black kit, smaller)
+  function referee(x, gy, h) {
+    return person(x, gy, h, '#111', '#111', rSkin(), 'running')
+  }
+
+  // Helper: player name label (floating above figure)
+  function nameLabel(x, gy, h, text) {
+    if (!text) return ''
+    const labelY = gy - h - 10
+    return `<rect x="${x - 30}" y="${labelY - 8}" width="60" height="12" rx="3" fill="rgba(0,0,0,0.55)"/>
+      <text x="${x}" y="${labelY}" text-anchor="middle" font-size="7" font-weight="700" font-family="system-ui" fill="white" letter-spacing="0.3">${text.length > 12 ? text.slice(0, 11) + '.' : text}</text>`
+  }
+
+  // Helper: corner flag
+  function cornerFlag(x, gy) {
+    return `<line x1="${x}" y1="${gy}" x2="${x}" y2="${gy - 20}" stroke="#ddd" stroke-width="1.2" stroke-linecap="round"/>
+      <polygon points="${x},${gy - 20} ${x + 7},${gy - 17} ${x},${gy - 14}" fill="#f44" opacity="0.7"/>`
+  }
+
   // Pick a random goal scorer name for captions
   const allGoals = [...homeGoals, ...awayGoals]
   const randomScorer = allGoals.length ? allGoals[Math.floor(Math.random() * allGoals.length)] : null
+  const scorerName = randomScorer ? randomScorer.scorer : null
 
-  let figures = '', ballSvg = '', caption = '', extraElements = ''
+  let figures = '', ballSvg = '', caption = '', extraElements = '', sceneElements = ''
 
   if (type === 'shot') {
-    caption = (randomScorer ? randomScorer.scorer : 'Striker') + ' unleashes a powerful shot'
+    const sn = scorerName || 'Striker'
+    caption = sn + ' unleashes a powerful shot'
+    // Goal in background on the right
+    sceneElements += goalPost(520, groundY, 'right')
     figures += person(200, groundY, 100, hc, hc2, rSkin(), 'kicking')
+    figures += nameLabel(200, groundY, 100, sn)
     figures += person(440, groundY - 15, 58, ac, ac2, rSkin(), 'diving')   // GK diving
     figures += person(330, groundY - 5, 72, ac, ac2, rSkin(), 'running')   // defender
     figures += person(120, groundY + 8, 50, hc, hc2, rSkin(), 'running')   // support
-    figures += person(500, groundY - 8, 42, ac, ac2, rSkin(), 'standing')  // far defender
-    ballSvg = `<circle cx="270" cy="${groundY - 20}" r="6" fill="white" stroke="#ccc" stroke-width="0.5"/>
-               <circle cx="270" cy="${groundY - 20}" r="6" fill="rgba(255,255,200,0.15)"/>`
+    figures += referee(500, groundY + 6, 38)  // ref in background
+    ballSvg = ball(270, groundY - 20, 6)
     // Motion blur trail
-    extraElements = `<ellipse cx="248" cy="${groundY - 18}" rx="18" ry="3" fill="rgba(255,255,255,0.1)"/>
-                     <ellipse cx="238" cy="${groundY - 17}" rx="10" ry="2" fill="rgba(255,255,255,0.06)"/>`
+    extraElements = `<ellipse cx="248" cy="${groundY - 18}" rx="22" ry="3.5" fill="rgba(255,255,255,0.12)"/>
+                     <ellipse cx="235" cy="${groundY - 17}" rx="12" ry="2" fill="rgba(255,255,255,0.07)"/>
+                     <ellipse cx="225" cy="${groundY - 16}" rx="6" ry="1.5" fill="rgba(255,255,255,0.04)"/>`
   } else if (type === 'celebration') {
-    const scorer = randomScorer ? randomScorer.scorer : 'Goal scorer'
+    const scorer = scorerName || 'Goal scorer'
     const cTeam = winner === 'home' || !winner ? hc : ac
     const cTeam2 = winner === 'home' || !winner ? hc2 : ac2
     caption = scorer + ' celebrates with teammates!'
+    // Goal visible in background
+    sceneElements += goalPost(540, groundY + 3, 'right')
     figures += person(280, groundY, 105, cTeam, cTeam2, rSkin(), 'celebrating')
+    figures += nameLabel(280, groundY, 105, scorer)
     figures += person(170, groundY + 5, 78, cTeam, cTeam2, rSkin(), 'running')
-    figures += person(410, groundY + 3, 72, cTeam, cTeam2, rSkin(), 'running')
+    figures += person(410, groundY + 3, 72, cTeam, cTeam2, rSkin(), 'celebrating')
     figures += person(80, groundY + 10, 48, cTeam, cTeam2, rSkin(), 'celebrating')
-    figures += person(520, groundY - 8, 44, ac, ac2, rSkin(), 'standing')
-    ballSvg = `<circle cx="545" cy="${groundY}" r="5" fill="white" stroke="#aaa" stroke-width="0.5"/>`
+    figures += person(520, groundY - 8, 40, ac, ac2, rSkin(), 'standing')  // dejected opponent
+    ballSvg = ball(555, groundY - 2, 5)  // ball in net
   } else if (type === 'tackle') {
     caption = 'Crunching challenge in the midfield'
+    sceneElements += cornerFlag(575, groundY - 5)  // corner flag in distance
     figures += person(240, groundY, 95, hc, hc2, rSkin(), 'running')
     figures += person(300, groundY, 90, ac, ac2, rSkin(), 'sliding')
     figures += person(140, groundY + 8, 52, hc, hc2, rSkin(), 'running')
     figures += person(450, groundY + 5, 48, ac, ac2, rSkin(), 'standing')
-    figures += person(500, groundY - 5, 40, hc, hc2, rSkin(), 'standing')
-    ballSvg = `<circle cx="270" cy="${groundY - 8}" r="6" fill="white" stroke="#ccc" stroke-width="0.5"/>`
-    // Grass spray particles
-    extraElements = Array.from({ length: 14 }, () => {
-      const gx = 280 + Math.random() * 50 - 10, gy2 = groundY - Math.random() * 25
-      const sz = 0.8 + Math.random() * 1.5
-      return `<circle cx="${gx}" cy="${gy2}" r="${sz}" fill="#4a8" opacity="${0.2 + Math.random() * 0.4}"/>`
-    }).join('') + Array.from({ length: 6 }, () => {
-      const dx = 285 + Math.random() * 40, dy2 = groundY - 2 - Math.random() * 10
-      return `<rect x="${dx}" y="${dy2}" width="${1 + Math.random() * 3}" height="1" fill="#5b5" opacity="0.3" transform="rotate(${Math.random() * 360} ${dx} ${dy2})"/>`
+    figures += referee(480, groundY + 2, 42)  // ref watching
+    ballSvg = ball(270, groundY - 8, 6)
+    // Grass spray particles and dirt
+    extraElements = Array.from({ length: 18 }, () => {
+      const gx = 275 + Math.random() * 60 - 15, gy2 = groundY - Math.random() * 30
+      const sz = 0.8 + Math.random() * 1.8
+      return `<circle cx="${gx}" cy="${gy2}" r="${sz}" fill="${Math.random() > 0.4 ? '#4a8' : '#6b5'}" opacity="${0.15 + Math.random() * 0.4}"/>`
+    }).join('') + Array.from({ length: 8 }, () => {
+      const dx = 280 + Math.random() * 50, dy2 = groundY - 2 - Math.random() * 12
+      return `<rect x="${dx}" y="${dy2}" width="${1 + Math.random() * 3}" height="1" fill="${Math.random() > 0.5 ? '#5b5' : '#a87'}" opacity="0.3" transform="rotate(${Math.random() * 360} ${dx} ${dy2})"/>`
     }).join('')
   } else if (type === 'save') {
-    caption = 'Spectacular diving save keeps the score level'
-    figures += person(290, groundY, 95, ac, ac2, rSkin(), 'diving')
+    caption = 'Spectacular diving save denies ' + (scorerName || 'the striker')
+    // Goal behind the goalkeeper
+    sceneElements += goalPost(340, groundY, 'right')
+    figures += person(290, groundY, 95, ac, ac2, rSkin(), 'diving')   // GK diving
+    figures += nameLabel(290, groundY, 95, awayTeam && awayTeam.players ? awayTeam.players[0].name : 'GK')
     figures += person(160, groundY + 5, 80, hc, hc2, rSkin(), 'kicking')
     figures += person(80, groundY + 10, 48, hc, hc2, rSkin(), 'running')
-    figures += person(450, groundY + 5, 44, ac, ac2, rSkin(), 'standing')
-    ballSvg = `<circle cx="230" cy="${groundY - 48}" r="6" fill="white" stroke="#ccc" stroke-width="0.5"/>
-               <circle cx="230" cy="${groundY - 48}" r="6" fill="rgba(255,255,200,0.15)"/>`
-    extraElements = `<ellipse cx="237" cy="${groundY - 46}" rx="10" ry="3" fill="rgba(255,255,0,0.12)"/>`
+    figures += person(450, groundY + 5, 40, ac, ac2, rSkin(), 'standing')
+    ballSvg = ball(230, groundY - 48, 6)
+    // Ball trail + flash
+    extraElements = `<ellipse cx="240" cy="${groundY - 46}" rx="14" ry="3.5" fill="rgba(255,255,100,0.1)"/>
+                     <ellipse cx="210" cy="${groundY - 40}" rx="8" ry="2" fill="rgba(255,255,255,0.06)"/>`
   } else if (type === 'header') {
-    caption = 'Rising highest to meet the cross'
+    const sn = scorerName || 'The attacker'
+    caption = sn + ' rises highest to meet the cross'
+    sceneElements += goalPost(530, groundY + 2, 'right')  // goal in distance
     figures += person(270, groundY, 100, hc, hc2, rSkin(), 'heading')
+    figures += nameLabel(270, groundY, 100, sn)
     figures += person(310, groundY, 92, ac, ac2, rSkin(), 'heading')
     figures += person(160, groundY + 8, 52, hc, hc2, rSkin(), 'standing')
-    figures += person(450, groundY + 5, 48, ac, ac2, rSkin(), 'running')
-    ballSvg = `<circle cx="285" cy="${groundY - 100}" r="6" fill="white" stroke="#ccc" stroke-width="0.5"/>`
+    figures += person(450, groundY + 5, 44, ac, ac2, rSkin(), 'running')
+    figures += referee(110, groundY + 10, 36)
+    ballSvg = ball(285, groundY - 100, 6)
   } else { // dribble
-    caption = 'Skillful run past the defender'
+    const sn = scorerName || 'The midfielder'
+    caption = sn + ' weaves past the defender'
+    sceneElements += cornerFlag(18, groundY - 3)  // corner flag near camera
     figures += person(240, groundY, 98, hc, hc2, rSkin(), 'running')
+    figures += nameLabel(240, groundY, 98, sn)
     figures += person(320, groundY + 2, 82, ac, ac2, rSkin(), 'running')
     figures += person(130, groundY + 8, 50, hc, hc2, rSkin(), 'running')
-    figures += person(460, groundY + 5, 45, ac, ac2, rSkin(), 'standing')
-    figures += person(400, groundY - 3, 55, ac, ac2, rSkin(), 'running')
-    ballSvg = `<circle cx="258" cy="${groundY - 5}" r="6" fill="white" stroke="#ccc" stroke-width="0.5"/>`
+    figures += person(460, groundY + 5, 42, ac, ac2, rSkin(), 'standing')
+    figures += person(400, groundY - 3, 50, ac, ac2, rSkin(), 'running')
+    ballSvg = ball(258, groundY - 5, 6)
+    // Subtle speed lines near dribbler
+    extraElements = `<line x1="210" y1="${groundY - 20}" x2="195" y2="${groundY - 18}" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+                     <line x1="212" y1="${groundY - 10}" x2="198" y2="${groundY - 9}" stroke="rgba(255,255,255,0.06)" stroke-width="0.8"/>`
   }
 
   // ── Rich stadium crowd (multiple tiers, varied density) ──
@@ -628,6 +715,19 @@ function generateMatchStill(match, homeTeam, awayTeam, momentType) {
   }).join('')}
   <!-- Pitch line markings -->
   <line x1="0" y1="${horizon + 3}" x2="600" y2="${horizon + 3}" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+  <!-- Touchline (sideline) -->
+  <line x1="0" y1="${groundY + 20}" x2="600" y2="${groundY + 20}" stroke="rgba(255,255,255,0.045)" stroke-width="0.8"/>
+  <!-- Halfway line (perspective) -->
+  <line x1="300" y1="${horizon + 3}" x2="300" y2="${groundY + 20}" stroke="rgba(255,255,255,0.04)" stroke-width="0.7"/>
+  <!-- Center circle (perspective: ellipse) -->
+  <ellipse cx="300" cy="${horizon + (groundY + 20 - horizon) * 0.5}" rx="40" ry="${(groundY + 20 - horizon) * 0.18}" fill="none" stroke="rgba(255,255,255,0.035)" stroke-width="0.7"/>
+  <!-- Left penalty box (perspective trapezoid) -->
+  <polygon points="0,${horizon + 8} 95,${horizon + 10} 80,${groundY + 14} 0,${groundY + 16}" fill="none" stroke="rgba(255,255,255,0.035)" stroke-width="0.6"/>
+  <!-- Right penalty box (perspective trapezoid) -->
+  <polygon points="600,${horizon + 8} 505,${horizon + 10} 520,${groundY + 14} 600,${groundY + 16}" fill="none" stroke="rgba(255,255,255,0.035)" stroke-width="0.6"/>
+
+  <!-- Scene elements (goal posts, corner flags, etc.) -->
+  ${sceneElements}
 
   <!-- Atmospheric haze at pitch-crowd boundary -->
   ${hazeLayers}
@@ -2167,6 +2267,20 @@ http.createServer(async (req, res) => {
       // Age up players
       for (const p of t.players) { if (p.age) p.age++ }
     }
+
+    // Age and develop players/coaches abroad
+    if (league.hallOfFame) {
+      for (const p of league.hallOfFame.players) {
+        if (p.status === 'abroad' && p.age) {
+          developPlayer(p, p.age)
+          p.age++
+        }
+      }
+      for (const c of league.hallOfFame.coaches) {
+        if (c.status === 'abroad' && c.age) c.age++
+      }
+    }
+
     writeJSON('league.json', league)
 
     // Determine team count for this season (check expansions/contractions)
@@ -2403,7 +2517,7 @@ http.createServer(async (req, res) => {
       const homeTeam = league.teams.find(t => t.name === m.home)
       const awayTeam = league.teams.find(t => t.name === m.away)
       m._season = schedule.season; m._md = mdNum
-      const types = ['celebration', 'action', 'save', 'kickoff']
+      const types = ['shot', 'celebration', 'tackle', 'save', 'header', 'dribble']
       // Pick 2 different moment types
       const t1 = types[Math.floor(Math.random() * types.length)]
       let t2 = types[Math.floor(Math.random() * types.length)]
@@ -2412,6 +2526,253 @@ http.createServer(async (req, res) => {
     })
 
     return jsonRes(res, { success: true, report, season: schedule.season, matchday: mdNum })
+  }
+
+  // --- Trade player away (retire / abroad / non-LFA) ---
+  if (pathname === '/api/trade-player-away' && req.method === 'POST') {
+    const body = await parseBody(req)
+    const { playerName, fromTeam, status } = body  // status: 'retired', 'abroad', 'non-lfa'
+    if (!playerName || !fromTeam || !status) return jsonRes(res, { error: 'Missing playerName, fromTeam, or status' }, 400)
+    if (!['retired', 'abroad', 'non-lfa'].includes(status)) return jsonRes(res, { error: 'Invalid status' }, 400)
+
+    const league = readJSON('league.json')
+    const history = readJSON('history.json')
+    const src = league.teams.find(t => t.name === fromTeam)
+    if (!src) return jsonRes(res, { error: 'Team not found' }, 404)
+    const pIdx = src.players.findIndex(p => p.name === playerName)
+    if (pIdx === -1) return jsonRes(res, { error: 'Player not found on team' }, 404)
+
+    const player = src.players.splice(pIdx, 1)[0]
+
+    // Gather achievements from history
+    const achievements = []
+    for (const s of history.seasons) {
+      if (s.champion) {
+        const teamSnap = (s.teams || []).find(t => t.name === fromTeam)
+        const inRoster = teamSnap && teamSnap.players && teamSnap.players.find(p => p.name === playerName)
+        if (inRoster && s.champion === fromTeam) achievements.push({ type: 'champion', season: s.number })
+      }
+      if (s.awards) {
+        for (const [key, award] of Object.entries(s.awards)) {
+          if (award && award.name === playerName) achievements.push({ type: key, season: s.number })
+        }
+      }
+    }
+
+    // Build hall of fame entry
+    const entry = {
+      name: player.name,
+      position: player.position,
+      lastTeam: fromTeam,
+      rating: player.rating,
+      age: player.age || null,
+      skill: player.skill || {},
+      height: player.height || null,
+      international: player.international || false,
+      status,
+      seasonLeft: history.currentSeason,
+      achievements
+    }
+
+    if (!league.hallOfFame) league.hallOfFame = { players: [], coaches: [] }
+    league.hallOfFame.players.push(entry)
+
+    // Recalculate team rating
+    const sr = src.players.slice(0, 6).map(p => parseInt(p.rating, 10))
+    if (sr.length > 0) src.rating = String(Math.round(sr.reduce((a, b) => a + b, 0) / sr.length))
+
+    writeJSON('league.json', league)
+    try { execSync('node build-site.js', { cwd: __dirname, timeout: 10000 }) } catch (e) { /* ignore */ }
+    return jsonRes(res, { success: true, player: entry })
+  }
+
+  // --- Add new player to team ---
+  if (pathname === '/api/add-player' && req.method === 'POST') {
+    const body = await parseBody(req)
+    const { teamName, name, position, age, rating } = body
+    if (!teamName || !name || !position) return jsonRes(res, { error: 'Missing teamName, name, or position' }, 400)
+
+    const league = readJSON('league.json')
+    const team = league.teams.find(t => t.name === teamName)
+    if (!team) return jsonRes(res, { error: 'Team not found' }, 404)
+
+    // Check for duplicate name on the team
+    if (team.players.find(p => p.name === name)) return jsonRes(res, { error: 'Player with that name already on team' }, 400)
+
+    const r = parseInt(rating, 10) || 60
+    const a = parseInt(age, 10) || 22
+    const newPlayer = {
+      name,
+      position,
+      rating: String(Math.min(99, Math.max(40, r))),
+      starter: team.players.length < 6,
+      skill: {
+        passing: String(50 + Math.floor(Math.random() * 20)),
+        shooting: String(50 + Math.floor(Math.random() * 20)),
+        tackling: String(50 + Math.floor(Math.random() * 20)),
+        saving: position === 'GK' ? String(60 + Math.floor(Math.random() * 20)) : String(30 + Math.floor(Math.random() * 20)),
+        agility: String(50 + Math.floor(Math.random() * 20)),
+        strength: String(50 + Math.floor(Math.random() * 20)),
+        penalty_taking: String(40 + Math.floor(Math.random() * 20)),
+        jumping: String(50 + Math.floor(Math.random() * 20)),
+        speed: String(50 + Math.floor(Math.random() * 20)),
+        marking: String(50 + Math.floor(Math.random() * 20)),
+        head_game: String(50 + Math.floor(Math.random() * 20)),
+        set_piece_taking: String(40 + Math.floor(Math.random() * 20))
+      },
+      currentPOS: [200, 0],
+      fitness: 100,
+      height: 170 + Math.floor(Math.random() * 25),
+      injured: false,
+      age: a,
+      captain: false,
+      international: false
+    }
+
+    team.players.push(newPlayer)
+
+    // Recalculate team rating
+    const sr = team.players.slice(0, 6).map(p => parseInt(p.rating, 10))
+    if (sr.length > 0) team.rating = String(Math.round(sr.reduce((a, b) => a + b, 0) / sr.length))
+
+    writeJSON('league.json', league)
+    try { execSync('node build-site.js', { cwd: __dirname, timeout: 10000 }) } catch (e) { /* ignore */ }
+    return jsonRes(res, { success: true, player: newPlayer })
+  }
+
+  // --- Trade coach away (retire / abroad / non-LFA) ---
+  if (pathname === '/api/trade-coach-away' && req.method === 'POST') {
+    const body = await parseBody(req)
+    const { teamName, status } = body  // status: 'retired', 'abroad', 'non-lfa'
+    if (!teamName || !status) return jsonRes(res, { error: 'Missing teamName or status' }, 400)
+    if (!['retired', 'abroad', 'non-lfa'].includes(status)) return jsonRes(res, { error: 'Invalid status' }, 400)
+
+    const league = readJSON('league.json')
+    const history = readJSON('history.json')
+    const team = league.teams.find(t => t.name === teamName)
+    if (!team) return jsonRes(res, { error: 'Team not found' }, 404)
+    if (!team.coach) return jsonRes(res, { error: 'Team has no coach' }, 400)
+
+    const coach = team.coach
+
+    // Gather coach achievements
+    const achievements = []
+    for (const s of history.seasons) {
+      if (s.champion === teamName) achievements.push({ type: 'champion', season: s.number })
+      if (s.awards && s.awards.coachOfYear && s.awards.coachOfYear.team === teamName) {
+        achievements.push({ type: 'coachOfYear', season: s.number })
+      }
+    }
+
+    const entry = {
+      name: coach.name,
+      lastTeam: teamName,
+      rating: coach.rating,
+      style: coach.style,
+      age: coach.age || null,
+      status,
+      seasonLeft: history.currentSeason,
+      achievements
+    }
+
+    if (!league.hallOfFame) league.hallOfFame = { players: [], coaches: [] }
+    league.hallOfFame.coaches.push(entry)
+
+    // Remove coach from team
+    team.coach = null
+
+    writeJSON('league.json', league)
+    try { execSync('node build-site.js', { cwd: __dirname, timeout: 10000 }) } catch (e) { /* ignore */ }
+    return jsonRes(res, { success: true, coach: entry })
+  }
+
+  // --- Replace coach (set new coach for a team) ---
+  if (pathname === '/api/replace-coach' && req.method === 'POST') {
+    const body = await parseBody(req)
+    const { teamName, name, rating, style } = body
+    if (!teamName || !name) return jsonRes(res, { error: 'Missing teamName or name' }, 400)
+
+    const league = readJSON('league.json')
+    const team = league.teams.find(t => t.name === teamName)
+    if (!team) return jsonRes(res, { error: 'Team not found' }, 404)
+
+    const r = parseInt(rating, 10) || 60
+    const s = ['attacking', 'defensive', 'balanced', 'possession', 'counter-attack'].includes(style) ? style : 'balanced'
+    team.coach = { name, rating: String(Math.min(99, Math.max(40, r))), style: s, age: 45 + Math.floor(Math.random() * 15) }
+
+    writeJSON('league.json', league)
+    try { execSync('node build-site.js', { cwd: __dirname, timeout: 10000 }) } catch (e) { /* ignore */ }
+    return jsonRes(res, { success: true, coach: team.coach })
+  }
+
+  // --- Recall player from abroad ---
+  if (pathname === '/api/recall-player' && req.method === 'POST') {
+    const body = await parseBody(req)
+    const { playerName, toTeam } = body
+    if (!playerName || !toTeam) return jsonRes(res, { error: 'Missing playerName or toTeam' }, 400)
+
+    const league = readJSON('league.json')
+    if (!league.hallOfFame) return jsonRes(res, { error: 'No hall of fame data' }, 404)
+    const pIdx = league.hallOfFame.players.findIndex(p => p.name === playerName && p.status === 'abroad')
+    if (pIdx === -1) return jsonRes(res, { error: 'Player not found abroad' }, 404)
+
+    const team = league.teams.find(t => t.name === toTeam)
+    if (!team) return jsonRes(res, { error: 'Team not found' }, 404)
+
+    const entry = league.hallOfFame.players.splice(pIdx, 1)[0]
+    const player = {
+      name: entry.name,
+      position: entry.position,
+      rating: entry.rating,
+      starter: team.players.length < 6,
+      skill: entry.skill || {},
+      currentPOS: [200, 0],
+      fitness: 100,
+      height: entry.height || 180,
+      injured: false,
+      age: entry.age || 25,
+      captain: false,
+      international: entry.international || false
+    }
+    team.players.push(player)
+
+    // Recalculate team rating
+    const sr = team.players.slice(0, 6).map(p => parseInt(p.rating, 10))
+    if (sr.length > 0) team.rating = String(Math.round(sr.reduce((a, b) => a + b, 0) / sr.length))
+
+    writeJSON('league.json', league)
+    try { execSync('node build-site.js', { cwd: __dirname, timeout: 10000 }) } catch (e) { /* ignore */ }
+    return jsonRes(res, { success: true, player })
+  }
+
+  // --- Recall coach from abroad ---
+  if (pathname === '/api/recall-coach' && req.method === 'POST') {
+    const body = await parseBody(req)
+    const { coachName, toTeam } = body
+    if (!coachName || !toTeam) return jsonRes(res, { error: 'Missing coachName or toTeam' }, 400)
+
+    const league = readJSON('league.json')
+    if (!league.hallOfFame) return jsonRes(res, { error: 'No hall of fame data' }, 404)
+    const cIdx = league.hallOfFame.coaches.findIndex(c => c.name === coachName && c.status === 'abroad')
+    if (cIdx === -1) return jsonRes(res, { error: 'Coach not found abroad' }, 404)
+
+    const team = league.teams.find(t => t.name === toTeam)
+    if (!team) return jsonRes(res, { error: 'Team not found' }, 404)
+
+    const entry = league.hallOfFame.coaches.splice(cIdx, 1)[0]
+    team.coach = { name: entry.name, rating: entry.rating, style: entry.style, age: entry.age || 50 }
+
+    writeJSON('league.json', league)
+    try { execSync('node build-site.js', { cwd: __dirname, timeout: 10000 }) } catch (e) { /* ignore */ }
+    return jsonRes(res, { success: true, coach: team.coach })
+  }
+
+  // --- Hall of Fame data ---
+  if (pathname === '/api/hall-of-fame' && req.method === 'GET') {
+    const league = readJSON('league.json')
+    const history = readJSON('history.json')
+    const hof = league.hallOfFame || { players: [], coaches: [] }
+    return jsonRes(res, { success: true, ...hof })
   }
 
   // --- Static files ---
