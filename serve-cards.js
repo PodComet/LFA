@@ -1056,7 +1056,7 @@ IMPORTANT RULES:
 // ---------------------------------------------------------------------------
 // Local matchday report generator (football columnist engine)
 // ---------------------------------------------------------------------------
-function generateLocalReport(matches, standings, topScorers, league, mdNum, seasonNum) {
+function generateLocalReport(matches, standings, topScorers, league, mdNum, seasonNum, history, schedule) {
   const pick = arr => arr[Math.floor(Math.random() * arr.length)]
   const totalGoals = matches.reduce((s, m) => s + (m.score ? m.score[0] + m.score[1] : 0), 0)
   const avgGoals = (totalGoals / matches.length).toFixed(1)
@@ -1071,43 +1071,219 @@ function generateLocalReport(matches, standings, topScorers, league, mdNum, seas
 
   const motm = findMOTM(matches)
 
-  // Headline templates
+  // ------------------------------------------------------------------
+  // League-history & standings context helpers
+  // ------------------------------------------------------------------
+  const hist = history && history.seasons ? history.seasons : []
+  const pastSeasons = hist.filter(s => s.number < seasonNum)
+
+  // Head-to-head record across ALL past seasons (and current up to this matchday)
+  function h2h(teamA, teamB) {
+    let wA = 0, wB = 0, d = 0, gfA = 0, gfB = 0, meetings = 0
+    let lastMeeting = null
+    for (const s of hist) {
+      const results = s.matchResults || []
+      for (const r of results) {
+        const involvesBoth = (r.home === teamA && r.away === teamB) || (r.home === teamB && r.away === teamA)
+        if (!involvesBoth || !r.score) continue
+        meetings++
+        const aIsHome = r.home === teamA
+        const aScore = aIsHome ? r.score[0] : r.score[1]
+        const bScore = aIsHome ? r.score[1] : r.score[0]
+        gfA += aScore; gfB += bScore
+        if (aScore > bScore) wA++
+        else if (bScore > aScore) wB++
+        else d++
+        lastMeeting = { season: s.number, score: [aScore, bScore] }
+      }
+    }
+    return { wA, wB, d, gfA, gfB, meetings, lastMeeting }
+  }
+
+  // Form: last N matches (W/D/L) for a team, across previous matchdays in this season
+  function form(teamName, n) {
+    if (!schedule || !schedule.matchdays) return []
+    const out = []
+    for (let i = mdNum - 1; i >= 1 && out.length < n; i--) {
+      const md = schedule.matchdays.find(x => x.number === i)
+      if (!md) continue
+      for (const mm of md.matches) {
+        if (mm.status !== 'completed') continue
+        if (mm.home !== teamName && mm.away !== teamName) continue
+        const isHome = mm.home === teamName
+        const myG = isHome ? mm.score[0] : mm.score[1]
+        const oppG = isHome ? mm.score[1] : mm.score[0]
+        out.push(myG > oppG ? 'W' : myG === oppG ? 'D' : 'L')
+        break
+      }
+    }
+    return out
+  }
+
+  // Current streak (consecutive W, L, or D) going into this matchday
+  function streak(teamName) {
+    const f = form(teamName, 12)
+    if (!f.length) return { type: null, count: 0 }
+    const type = f[0]
+    let count = 0
+    for (const r of f) { if (r === type) count++; else break }
+    return { type, count }
+  }
+
+  // Past championships for a team
+  function titlesFor(teamName) {
+    const won = []
+    for (const s of pastSeasons) {
+      if (s.champion === teamName) won.push(s.number)
+      else if (s.guyKilneTrophy && s.guyKilneTrophy.team === teamName) won.push(s.number)
+    }
+    return won
+  }
+
+  // Derby detection: teams are considered rivals if they have met >= 4 times OR
+  // faced each other in a past playoff final/semi.
+  function isDerby(teamA, teamB) {
+    const rec = h2h(teamA, teamB)
+    if (rec.meetings >= 4) return { derby: true, reason: 'long-standing', meetings: rec.meetings }
+    for (const s of pastSeasons) {
+      if (!s.playoffs) continue
+      const f = s.playoffs.final
+      if (f && ((f.team1 === teamA && f.team2 === teamB) || (f.team1 === teamB && f.team2 === teamA))) {
+        return { derby: true, reason: 'final-rematch', finalSeason: s.number }
+      }
+      const sfs = s.playoffs.semiFinals || []
+      for (const sf of sfs) {
+        if ((sf.team1 === teamA && sf.team2 === teamB) || (sf.team1 === teamB && sf.team2 === teamA)) {
+          return { derby: true, reason: 'semi-rematch', semiSeason: s.number }
+        }
+      }
+    }
+    return { derby: false }
+  }
+
+  // Standings context for a position
+  function standingsContext(pos, total) {
+    if (!pos || !total) return { label: 'mid-table', spin: '' }
+    const half = Math.ceil(total / 2)
+    if (pos === 1) return { label: 'league leaders', spin: 'top of the pile' }
+    if (pos <= 3) return { label: 'title contenders', spin: 'right in the thick of the title race' }
+    if (pos <= 4) return { label: 'top-four chasers', spin: 'eyeing a home draw in the quarter-finals' }
+    if (pos <= 8) return { label: 'playoff chasers', spin: 'scrapping for a playoff berth' }
+    if (pos <= half) return { label: 'mid-table', spin: 'still searching for their identity' }
+    if (pos >= total - 1) return { label: 'bottom-dwellers', spin: 'staring at the wrong end of the table' }
+    return { label: 'lower-half', spin: 'hovering in the lower half' }
+  }
+
+  // Previous champion of the league
+  const lastChampSeason = pastSeasons.length ? pastSeasons[pastSeasons.length - 1] : null
+  const reigningChamp = lastChampSeason ? (lastChampSeason.champion || (lastChampSeason.guyKilneTrophy && lastChampSeason.guyKilneTrophy.team)) : null
+  // Most-decorated team ever
+  const titleCounts = {}
+  for (const s of pastSeasons) {
+    const c = s.champion || (s.guyKilneTrophy && s.guyKilneTrophy.team)
+    if (c) titleCounts[c] = (titleCounts[c] || 0) + 1
+  }
+  const mostDecorated = Object.entries(titleCounts).sort((a, b) => b[1] - a[1])[0]
+
+  // Detect any derby match across the fixtures
+  const derbyMatch = matches.map(m => ({ m, info: isDerby(m.home, m.away) })).find(x => x.info.derby)
+  // Champion-chasing context
+  const champChaserMatch = matches.find(m => reigningChamp && (m.home === reigningChamp || m.away === reigningChamp))
+
+  // Headline templates — now context-aware
   const headlineTemplates = [
+    () => derbyMatch ? 'Rivalry Renewed: ' + derbyMatch.m.home + ' vs ' + derbyMatch.m.away + ' Lights Up Matchday ' + mdNum : null,
     () => totalGoals >= matches.length * 4 ? 'Goals Galore on a Sensational Matchday ' + mdNum : null,
     () => draws.length >= Math.ceil(matches.length / 2) ? 'Stalemate Saturday: Draws Dominate Matchday ' + mdNum : null,
     () => bigWin.diff >= 4 ? bigWin.match.score[0] > bigWin.match.score[1] ? bigWin.match.home + ' Run Riot in Matchday ' + mdNum + ' Masterclass' : bigWin.match.away + ' Demolish ' + bigWin.match.home + ' in Stunning Away Day' : null,
     () => leader.points - (second.points || 0) >= 4 ? leader.team + ' Tighten Grip at the Summit' : null,
+    () => reigningChamp && standings[0] && standings[0].team !== reigningChamp ? 'The Champions Wobble: ' + reigningChamp + ' Chase ' + (standings[0].team || 'the Pace') : null,
     () => 'Drama, Goals, and Heartbreak: Matchday ' + mdNum + ' Has It All',
     () => 'Matchday ' + mdNum + ' Delivers the Goods in Season ' + seasonNum,
     () => 'A Matchday to Remember as the ' + CONFIG.league.shortName + ' Title Race Heats Up',
     () => 'Thunder and Lightning: ' + CONFIG.league.shortName + ' Matchday ' + mdNum + ' Leaves Its Mark'
   ]
-  const headline = headlineTemplates.map(f => f()).filter(Boolean)[0] || pick(headlineTemplates.slice(4)).call()
+  const headline = headlineTemplates.map(f => f()).filter(Boolean)[0] || pick(headlineTemplates.slice(-4)).call()
 
   const subTemplates = [
     totalGoals + ' goals across ' + matches.length + ' matches \u2014 just another day in the ' + CONFIG.league.shortName,
     'From the sublime to the ridiculous, Season ' + seasonNum + ' continues to deliver',
     leader.team + ' lead the way as the battle rages on all fronts',
-    'The beautiful game at its finest \u2014 and most chaotic'
-  ]
+    'The beautiful game at its finest \u2014 and most chaotic',
+    reigningChamp ? 'Reigning champions ' + reigningChamp + ' under the spotlight once again' : null,
+    mostDecorated ? 'Can anyone stop ' + mostDecorated[0] + '\u2019s ' + mostDecorated[1] + '-title dynasty?' : null,
+    derbyMatch ? 'Old rivalries reignited under the floodlights' : null,
+    (leader.points - (second.points || 0)) === 0 && standings.length >= 2 ? 'Nothing to separate the top two as the race tightens' : null
+  ].filter(Boolean)
 
-  // Lede templates
+  // Championship/history framing line (used in lede)
+  let historyLine = ''
+  if (pastSeasons.length === 0) {
+    historyLine = 'Still just the inaugural run \u2014 every result is writing fresh history for the ' + CONFIG.league.shortName + '.'
+  } else if (reigningChamp) {
+    historyLine = 'With ' + reigningChamp + ' wearing the crown from Season ' + (seasonNum - 1) + ', every rival has a target on their back.'
+    if (mostDecorated && mostDecorated[1] >= 2) historyLine += ' And ' + mostDecorated[0] + ', winners of ' + mostDecorated[1] + ' titles, loom large over the record books.'
+  }
+
+  // Lede templates \u2014 now with history context
   const ledeTemplates = [
-    'Matchday ' + mdNum + ' of the ' + CONFIG.league.name + ' served up a feast of football that will live long in the memory. With ' + totalGoals + ' goals shared across ' + matches.length + ' fixtures, the ' + CONFIG.league.shortName + ' once again proved why it is the most unpredictable league in all of Labornis.',
-    'If you blinked during Matchday ' + mdNum + ', you missed something. The ' + CONFIG.league.shortName + ' faithful were treated to ' + totalGoals + ' goals, dramatic comebacks, and the kind of football that reminds us why we fell in love with this beautiful game in the first place.',
-    'Another week, another round of chaos in the ' + CONFIG.league.name + '. Matchday ' + mdNum + ' had everything \u2014 ' + totalGoals + ' goals, ' + draws.length + ' draw' + (draws.length !== 1 ? 's' : '') + ', and enough talking points to fill a press conference marathon.',
-    'The ' + CONFIG.league.shortName + ' never disappoints, and Matchday ' + mdNum + ' was no exception. ' + totalGoals + ' goals flew in across ' + matches.length + ' matches as the title race and the battle at the bottom both took dramatic turns.'
+    'Matchday ' + mdNum + ' of the ' + CONFIG.league.name + ' served up a feast of football that will live long in the memory. With ' + totalGoals + ' goals shared across ' + matches.length + ' fixtures, the ' + CONFIG.league.shortName + ' once again proved why it is the most unpredictable league in all of Labornis. ' + historyLine,
+    'If you blinked during Matchday ' + mdNum + ', you missed something. The ' + CONFIG.league.shortName + ' faithful were treated to ' + totalGoals + ' goals, dramatic comebacks, and the kind of football that reminds us why we fell in love with this beautiful game. ' + historyLine,
+    'Another week, another round of chaos in the ' + CONFIG.league.name + '. Matchday ' + mdNum + ' had everything \u2014 ' + totalGoals + ' goals, ' + draws.length + ' draw' + (draws.length !== 1 ? 's' : '') + ', and enough talking points to fill a press conference marathon. ' + historyLine,
+    'The ' + CONFIG.league.shortName + ' never disappoints, and Matchday ' + mdNum + ' was no exception. ' + totalGoals + ' goals flew in across ' + matches.length + ' matches as ' + (leader.team ? leader.team + ' and the chasing pack traded blows' : 'the title race took fresh twists') + ', with the title race and the battle at the bottom both taking dramatic turns. ' + historyLine
   ]
 
-  // Match report generation
-  const goalVerbs = ['fired home', 'slotted past the keeper', 'thundered in', 'curled beautifully into the net', 'poked home from close range', 'headed in powerfully', 'smashed into the top corner', 'calmly converted', 'rifled in', 'drilled low and hard into the corner']
-  const assistVerbs = ['set up by a delightful ball from', 'after brilliant work from', 'following a pinpoint delivery from', 'teed up expertly by', 'courtesy of a sublime pass from']
-  const winPhrases = ['proved too strong for', 'dismantled', 'edged past', 'overcame', 'got the better of', 'dispatched', 'saw off the challenge of']
-  const drawPhrases = ['shared the spoils with', 'battled to a draw against', 'couldn\'t be separated from', 'played out an entertaining draw with']
-  const coachPraise = ['will be delighted with the tactical setup', 'got his game plan spot on', 'deserves credit for the team\'s organization', 'masterminded a brilliant performance']
-  const coachCrit = ['will have questions to answer after the display', 'must find solutions quickly', 'saw his tactics come unstuck', 'will be scratching his head']
-  const shutoutPhrases = ['kept a clean sheet', 'marshalled the defense superbly', 'was a fortress at the back']
-  const highScoringPhrases = ['what a game this was', 'the neutral\'s dream fixture', 'end-to-end stuff that had everyone on the edge of their seats', 'pure box-office entertainment']
+  // Match report generation \u2014 expanded vocabulary
+  const goalVerbs = [
+    'fired home', 'slotted past the keeper', 'thundered in', 'curled beautifully into the net',
+    'poked home from close range', 'headed in powerfully', 'smashed into the top corner',
+    'calmly converted', 'rifled in', 'drilled low and hard into the corner',
+    'arrowed a shot into the bottom corner', 'lashed a volley into the roof of the net',
+    'stabbed home at the near post', 'chipped the onrushing keeper', 'tucked away with aplomb',
+    'bundled in from a scramble', 'curled a free-kick over the wall', 'ghosted in to finish at the back post',
+    'pinged one in off the underside of the bar', 'side-footed a sumptuous finish',
+    'produced a moment of pure class to score', 'dinked it coolly into the corner',
+    'hammered a shot through a crowd of bodies', 'arrowed home from distance',
+    'buried a sweet half-volley', 'prodded it past the stranded keeper'
+  ]
+  const assistVerbs = [
+    'set up by a delightful ball from', 'after brilliant work from', 'following a pinpoint delivery from',
+    'teed up expertly by', 'courtesy of a sublime pass from', 'picked out unmarked by',
+    'threaded through by a defence-splitting pass from', 'from a raking crossfield ball by',
+    'following a selfless lay-off from', 'latching onto a perfectly weighted through-ball from',
+    'after a silky piece of skill from', 'from a pinpoint corner delivered by'
+  ]
+  const winPhrases = [
+    'proved too strong for', 'dismantled', 'edged past', 'overcame', 'got the better of',
+    'dispatched', 'saw off the challenge of', 'outclassed', 'outfoxed', 'tore apart',
+    'put to the sword', 'outmaneuvered', 'out-thought and out-fought', 'comfortably saw off'
+  ]
+  const drawPhrases = [
+    'shared the spoils with', 'battled to a draw against', 'couldn\'t be separated from',
+    'played out an entertaining draw with', 'slugged out a stalemate with',
+    'traded blows but could not break', 'settled for a point apiece against'
+  ]
+  const coachPraise = [
+    'will be delighted with the tactical setup', 'got his game plan spot on',
+    'deserves credit for the team\'s organization', 'masterminded a brilliant performance',
+    'pressed every right button from the touchline', 'read the game beautifully from the sideline',
+    'looked every inch a manager in complete control'
+  ]
+  const coachCrit = [
+    'will have questions to answer after the display', 'must find solutions quickly',
+    'saw his tactics come unstuck', 'will be scratching his head',
+    'was out-thought by his opposite number today', 'watched his game plan unravel in real time',
+    'cut a frustrated figure on the touchline'
+  ]
+  const shutoutPhrases = [
+    'kept a clean sheet', 'marshalled the defense superbly', 'was a fortress at the back',
+    'stood firm like a wall', 'refused to yield an inch', 'held every line to perfection'
+  ]
+  const highScoringPhrases = [
+    'what a game this was', 'the neutral\'s dream fixture',
+    'end-to-end stuff that had everyone on the edge of their seats', 'pure box-office entertainment',
+    'football the way it was meant to be played', 'a goalfest for the ages'
+  ]
   const positionLabels = (pos) => {
     if (pos <= 1) return 'league leaders'
     if (pos <= 3) return 'title contenders'
@@ -1134,12 +1310,27 @@ function generateLocalReport(matches, standings, topScorers, league, mdNum, seas
     const isHighScoring = s[0] + s[1] >= 8
     const isShutout = !isDraw && (s[0] === 0 || s[1] === 0)
 
-    // Title
+    // Match-level context
+    const h2hRec = h2h(m.home, m.away)
+    const derbyInfo = isDerby(m.home, m.away)
+    const homeForm = form(m.home, 5)
+    const awayForm = form(m.away, 5)
+    const homeStreak = streak(m.home)
+    const awayStreak = streak(m.away)
+    const homeTitles = titlesFor(m.home)
+    const awayTitles = titlesFor(m.away)
+    const homeCtx = standingsContext(homePos, standings.length)
+    const awayCtx = standingsContext(awayPos, standings.length)
+    const isReigningChampMatch = reigningChamp && (m.home === reigningChamp || m.away === reigningChamp)
+
+    // Title \u2014 now derby-aware
     let title
-    if (isDraw) title = m.home + ' ' + s[0] + '-' + s[1] + ' ' + m.away + ': ' + pick(['Honors Even', 'Points Shared', 'Neither Side Can Find the Winner', 'A Fair Result in the End'])
-    else if (goalDiff >= 4) title = winner + ' ' + pick(['Thrash', 'Demolish', 'Run Riot Against']) + ' ' + loser
-    else if (isShutout) title = winner + ' ' + pick(['Shut Out', 'Blank', 'Keep Clean Sheet Against']) + ' ' + loser
-    else title = winner + ' ' + pick(['Edge', 'See Off', 'Overcome', 'Defeat']) + ' ' + loser + ' in ' + pick(['Thriller', 'Contest', 'Battle', 'Encounter'])
+    if (derbyInfo.derby && !isDraw) title = pick(['Derby Day Glory for ', 'Bragging Rights to ', 'Rivalry Settled as ']) + winner + ' Over ' + loser
+    else if (derbyInfo.derby) title = 'Derby Day Deadlock: ' + m.home + ' ' + s[0] + '-' + s[1] + ' ' + m.away
+    else if (isDraw) title = m.home + ' ' + s[0] + '-' + s[1] + ' ' + m.away + ': ' + pick(['Honors Even', 'Points Shared', 'Neither Side Can Find the Winner', 'A Fair Result in the End'])
+    else if (goalDiff >= 4) title = winner + ' ' + pick(['Thrash', 'Demolish', 'Run Riot Against', 'Humble', 'Dismantle']) + ' ' + loser
+    else if (isShutout) title = winner + ' ' + pick(['Shut Out', 'Blank', 'Keep Clean Sheet Against', 'Nullify']) + ' ' + loser
+    else title = winner + ' ' + pick(['Edge', 'See Off', 'Overcome', 'Defeat', 'Outlast']) + ' ' + loser + ' in ' + pick(['Thriller', 'Contest', 'Battle', 'Encounter', 'Dogfight'])
 
     // Body paragraphs
     let para1 = ''
@@ -1153,38 +1344,158 @@ function generateLocalReport(matches, standings, topScorers, league, mdNum, seas
       if (isShutout) para1 += 'The defense ' + pick(shutoutPhrases) + ', leaving ' + loser + '\'s forwards with nothing to show for their efforts. '
     }
 
-    // Goal descriptions
+    // Rivalry / history context line appended to para1 when present
+    if (derbyInfo.derby) {
+      if (derbyInfo.reason === 'final-rematch') {
+        para1 += 'This one carried extra weight \u2014 a rematch of the Season ' + derbyInfo.finalSeason + ' final. '
+      } else if (derbyInfo.reason === 'semi-rematch') {
+        para1 += 'Old sparks flew again: these two squared off in the Season ' + derbyInfo.semiSeason + ' semi-final, and nobody in either dugout had forgotten. '
+      } else if (h2hRec.meetings >= 4) {
+        const lead = h2hRec.wA > h2hRec.wB ? m.home : h2hRec.wB > h2hRec.wA ? m.away : null
+        para1 += pick(['A well-worn rivalry', 'A familiar grudge match', 'Another chapter in a storied rivalry']) + ' \u2014 ' + h2hRec.meetings + ' all-time meetings' + (lead ? ', with ' + lead + ' holding the edge' : ', honours even on aggregate') + '. '
+      }
+    }
+    if (isReigningChampMatch && !derbyInfo.derby) {
+      const champSide = m.home === reigningChamp ? 'home' : 'away'
+      para1 += 'Reigning champions ' + reigningChamp + ' were in town' + (champSide === 'home' ? ', the crown resting on home shoulders' : ', trying to defend their crown on the road') + '. '
+    }
+
+    // Goal descriptions \u2014 position/age-aware
     let para2 = ''
     const scorers = {}
-    allGoals.forEach(g => { scorers[g.scorer] = (scorers[g.scorer] || 0) + 1 })
+    allGoals.forEach(g => { if (!g.missed) scorers[g.scorer] = (scorers[g.scorer] || 0) + 1 })
     const multiScorers = Object.entries(scorers).filter(([_, c]) => c >= 2)
+
+    // Helper: look up a player's full record from league data
+    const findPlayer = (playerName, teamName) => {
+      const t = league.teams.find(tt => tt.name === teamName)
+      if (!t) return null
+      return t.players.find(p => p.name === playerName) || null
+    }
+    // Helper: position descriptor
+    const posDescriptor = (pl) => {
+      if (!pl || !pl.position) return ''
+      const p = pl.position
+      if (p === 'ST') return pick(['striker', 'forward', 'frontman', 'number nine'])
+      if (p === 'CM') return pick(['midfielder', 'playmaker', 'engine-room man', 'central midfielder'])
+      if (p === 'DF' || p === 'CB' || p === 'LB' || p === 'RB') return pick(['defender', 'centre-back', 'rock at the back'])
+      if (p === 'GK') return pick(['goalkeeper', 'shot-stopper'])
+      if (p === 'LW' || p === 'RW') return pick(['winger', 'wide man', 'flanker'])
+      return 'player'
+    }
+    // Helper: age-flavor prefix (veteran/young)
+    const ageFlavor = (pl) => {
+      if (!pl || !pl.age) return ''
+      const age = parseInt(pl.age, 10)
+      if (age >= 34) return pick(['the evergreen ', 'the ever-reliable veteran ', 'ageless veteran ', 'the grizzled ', ''])
+      if (age <= 20) return pick(['teenage sensation ', 'the precocious ', 'young prodigy ', 'rising star ', ''])
+      if (age <= 23) return pick(['young ', 'up-and-coming ', ''])
+      return ''
+    }
+    // Helper: rating-flavor
+    const ratingFlavor = (pl) => {
+      if (!pl || !pl.rating) return ''
+      const r = parseInt(pl.rating, 10)
+      if (r >= 85) return pick(['the world-class ', 'star man ', 'talisman ', ''])
+      if (r >= 78) return pick(['dependable ', 'classy ', ''])
+      return ''
+    }
 
     if (multiScorers.length) {
       const [name, count] = multiScorers[0]
       const team = allGoals.find(g => g.scorer === name).team
-      para2 += name + ' was the star of the show with ' + count + ' goals for ' + team + ', '
-      para2 += count >= 3 ? 'completing a stunning hat-trick that ' + pick(['will make the highlight reels', 'brought the crowd to their feet', 'was simply unstoppable']) + '. ' : pick(['a brace that proved decisive', 'two goals that swung the contest']) + '. '
+      const pl = findPlayer(name, team)
+      const flavour = (ageFlavor(pl) || ratingFlavor(pl))
+      const pos = posDescriptor(pl)
+      para2 += flavour + name + (pos ? ', ' + team + '\'s ' + pos + ',' : '') + ' was the star of the show with ' + count + ' goals for ' + team + ', '
+      if (count >= 3) para2 += 'completing a ' + pick(['stunning', 'memorable', 'audacious', 'career-defining']) + ' hat-trick that ' + pick(['will make the highlight reels', 'brought the crowd to their feet', 'was simply unstoppable', 'the ' + CONFIG.league.shortName + ' will be talking about for weeks']) + '. '
+      else para2 += pick(['a brace that proved decisive', 'two goals that swung the contest', 'a matchwinning double', 'two moments of quality that separated the sides']) + '. '
     }
 
-    const keyGoals = allGoals.slice(0, 3)
+    const keyGoals = allGoals.filter(g => !g.missed).slice(0, 3)
     keyGoals.forEach((g, i) => {
       if (multiScorers.some(([n]) => n === g.scorer) && i > 0) return
-      para2 += g.scorer + ' ' + pick(goalVerbs)
-      if (g.assister) para2 += ', ' + pick(assistVerbs) + ' ' + g.assister
-      para2 += '. '
+      const pl = findPlayer(g.scorer, g.team)
+      const pos = posDescriptor(pl)
+      const scorerLabel = g.scorer + (pos && i === 0 ? ' (' + pos + ')' : '')
+      if (g.penalty) {
+        para2 += scorerLabel + ' ' + pick(['slotted home from the spot', 'coolly dispatched the penalty', 'buried the spot-kick with no fuss', 'sent the keeper the wrong way from twelve yards']) + '. '
+      } else {
+        para2 += scorerLabel + ' ' + pick(goalVerbs)
+        if (g.assister) {
+          const aPl = findPlayer(g.assister, g.team)
+          const aPos = aPl && aPl.position === 'CM' ? pick([' (the midfield maestro)', '']) : ''
+          para2 += ', ' + pick(assistVerbs) + ' ' + g.assister + aPos
+        }
+        para2 += '. '
+      }
     })
+    // Missed penalty note
+    const missedPens = allGoals.filter(g => g.missed)
+    if (missedPens.length) {
+      const mp = missedPens[0]
+      para2 += mp.scorer + ' will want to forget the missed penalty \u2014 a moment that could have changed everything. '
+    }
 
     // Tactical/coaching paragraph
     let para3 = ''
     if (winner) {
       const winCoach = winner === m.home ? homeCoach : awayCoach
       const loseCoach = winner === m.home ? awayCoach : homeCoach
-      para3 += winCoach + ' ' + pick(coachPraise) + ', while ' + loseCoach + ' ' + pick(coachCrit) + '. '
+      const winStyle = winner === m.home ? (homeTeam && homeTeam.coach ? homeTeam.coach.style : null) : (awayTeam && awayTeam.coach ? awayTeam.coach.style : null)
+      para3 += winCoach + ' ' + pick(coachPraise)
+      if (winStyle) para3 += ', his ' + winStyle + ' approach carving open the opposition'
+      para3 += ', while ' + loseCoach + ' ' + pick(coachCrit) + '. '
     } else {
       para3 += homeCoach + ' and ' + awayCoach + ' will both feel a draw was a fair outcome. '
     }
     para3 += 'This result leaves ' + m.home + ' ' + pick(['sitting', 'positioned', 'placed']) + ' ' + ordinal(homePos) + ' in the table'
-    para3 += ' while ' + m.away + ' ' + pick(['occupy', 'find themselves in', 'sit in']) + ' ' + ordinal(awayPos) + ' place.'
+    if (homeCtx.label) para3 += ' (' + homeCtx.label + ', ' + homeCtx.spin + ')'
+    para3 += ' while ' + m.away + ' ' + pick(['occupy', 'find themselves in', 'sit in']) + ' ' + ordinal(awayPos) + ' place'
+    if (awayCtx.label) para3 += ' (' + awayCtx.label + ')'
+    para3 += '. '
+
+    // Fourth paragraph: form, streaks, title race, history bookends
+    let para4 = ''
+    // Form lines
+    const formLine = (team, f, streakObj) => {
+      if (!f.length) return ''
+      const str = f.join('-')
+      let line = team + ' arrived on the back of ' + str
+      if (streakObj.count >= 3) {
+        line += ' (a ' + streakObj.count + '-match ' + (streakObj.type === 'W' ? 'winning streak' : streakObj.type === 'L' ? 'losing run' : 'unbeaten-but-winless spell') + ')'
+      }
+      return line
+    }
+    const hFL = formLine(m.home, homeForm, homeStreak)
+    const aFL = formLine(m.away, awayForm, awayStreak)
+    if (hFL && aFL) para4 += hFL + '; ' + aFL + '. '
+    else if (hFL) para4 += hFL + '. '
+    else if (aFL) para4 += aFL + '. '
+
+    // Head-to-head history note (only if there are past meetings and not already mentioned as derby)
+    if (h2hRec.meetings > 0 && h2hRec.meetings < 4 && !derbyInfo.derby) {
+      para4 += 'In ' + h2hRec.meetings + ' prior meeting' + (h2hRec.meetings > 1 ? 's' : '')
+      if (h2hRec.wA === h2hRec.wB) para4 += ', the ledger was level before this fixture'
+      else {
+        const lead = h2hRec.wA > h2hRec.wB ? m.home : m.away
+        const lW = Math.max(h2hRec.wA, h2hRec.wB)
+        const sW = Math.min(h2hRec.wA, h2hRec.wB)
+        para4 += ', ' + lead + ' led ' + lW + '-' + sW + (h2hRec.d ? '-' + h2hRec.d : '')
+      }
+      para4 += '. '
+    }
+    // Title-race / relegation stakes
+    if (winner && winner === m.home && homePos <= 3) para4 += 'The win keeps ' + winner + ' ' + homeCtx.spin + '. '
+    else if (winner && winner === m.away && awayPos <= 3) para4 += 'The away win keeps ' + winner + ' ' + awayCtx.spin + '. '
+    else if (winner && winner === m.away && homePos >= standings.length - 1) para4 += 'For ' + loser + ', the defeat deepens the gloom at the foot of the table. '
+    else if (winner && winner === m.home && awayPos >= standings.length - 1) para4 += 'For ' + loser + ', the result piles further pressure on a season teetering on the brink. '
+    // Past champions bookend
+    if (homeTitles.length >= 2) para4 += m.home + ' (winners in ' + homeTitles.slice(-3).join(', ') + ') know what this stage demands. '
+    else if (awayTitles.length >= 2) para4 += m.away + ' (champions in ' + awayTitles.slice(-3).join(', ') + ') have worn this crown before. '
+    else if (winner && titlesFor(winner).length === 0 && pastSeasons.length >= 2) {
+      para4 += pick([winner + ' are still chasing a first piece of silverware.', 'A result like this is exactly the kind of evidence ' + winner + ' can point to as proof the trophy drought could end this year.', ''])
+    }
 
     // --- Post-match interview ---
     const interviewTeamName = winner || m.home
@@ -1206,6 +1517,24 @@ function generateLocalReport(matches, standings, topScorers, league, mdNum, seas
     const oppPos = standings.findIndex(st => st.team === opponentName) + 1
     const isUnderdog = teamPos > oppPos + 2
     const beatLeader = oppPos === 1 && winner === interviewTeamName
+    // Contextual flags for enriched interview
+    const ivIsDerby = derbyInfo.derby
+    const ivDerbyReason = derbyInfo.reason
+    const ivIsReigningChampTeam = reigningChamp && interviewTeamName === reigningChamp
+    const ivFacingReigningChamp = reigningChamp && opponentName === reigningChamp
+    const ivTeamTitles = titlesFor(interviewTeamName)
+    const ivOppTitles = titlesFor(opponentName)
+    const ivTeamForm = interviewTeamName === m.home ? homeForm : awayForm
+    const ivTeamStreak = interviewTeamName === m.home ? homeStreak : awayStreak
+    const ivOnStreak = ivTeamStreak && ivTeamStreak.count >= 3
+    const ivHotWinStreak = ivOnStreak && ivTeamStreak.type === 'W'
+    const ivBadLoseStreak = ivOnStreak && ivTeamStreak.type === 'L'
+    const ivH2hMeetings = h2hRec.meetings
+    const ivH2hLead = h2hRec.wA > h2hRec.wB ? m.home : h2hRec.wB > h2hRec.wA ? m.away : null
+    const ivTeamTitleCount = ivTeamTitles.length
+    const ivOppTitleCount = ivOppTitles.length
+    const ivTitleRace = teamPos <= 3
+    const ivRelegationFight = teamPos >= standings.length - 1
 
     // Question pool (contextual)
     const scoreDiff = teamGoals - oppGoals
@@ -1304,9 +1633,55 @@ function generateLocalReport(matches, standings, topScorers, league, mdNum, seas
       'What message did you give the players before they walked out of the tunnel?'
     ].filter(Boolean) : []
 
-    const allQs = [...generalQs, ...winQs, ...lossQs, ...drawQs, ...goalQs, ...assistQs, ...saveQs, ...coachQs]
+    // --- Rivalry/derby questions ---
+    const rivalryQs = ivIsDerby ? [
+      'A rivalry match against ' + opponentName + ' \u2014 how much extra does that mean to you and the fans?',
+      ivDerbyReason === 'final-rematch' ? 'This was a rematch of the Season ' + derbyInfo.finalSeason + ' final. Did memories of that day play on anyone\'s mind?' : null,
+      ivDerbyReason === 'semi-rematch' ? 'You last met ' + opponentName + ' in the Season ' + derbyInfo.semiSeason + ' semi-final. How much of that result lingered with the group?' : null,
+      ivDerbyReason === 'long-standing' ? 'This fixture has a real edge to it now. What does it feel like walking out against ' + opponentName + '?' : null,
+      ivH2hMeetings >= 4 ? 'In ' + ivH2hMeetings + ' meetings with ' + opponentName + ', these matches always seem to carry weight. What makes this fixture so intense?' : null,
+      ivH2hLead && ivH2hLead !== interviewTeamName ? 'Historically ' + opponentName + ' have had your number in this fixture. Did that change the preparation?' : null,
+      ivH2hLead === interviewTeamName ? 'You\'ve traditionally had the upper hand over ' + opponentName + '. Is there a psychological edge in these meetings?' : null,
+      'When the supporters talk about rivalry fixtures, what do results like this mean to them?',
+      'Bragging rights for the next few weeks \u2014 how sweet is that ' + (winner === interviewTeamName ? 'victory' : 'kind of occasion') + ' in a match like this?'
+    ].filter(Boolean) : []
+
+    // --- History/legacy questions ---
+    const historyQs = [
+      ivIsReigningChampTeam ? 'As reigning champions, every team comes at you with extra motivation. How do you deal with that pressure week in, week out?' : null,
+      ivFacingReigningChamp ? 'You just played the reigning champions. What does a result like this tell you about your own level?' : null,
+      ivTeamTitleCount >= 2 ? interviewTeamName + ' have lifted the trophy ' + ivTeamTitleCount + ' times. How does this current squad measure up to those title-winning sides?' : null,
+      ivTeamTitleCount === 0 && pastSeasons.length >= 2 ? interviewTeamName + ' are still chasing that first piece of silverware. How close does this squad feel to ending the drought?' : null,
+      ivOppTitleCount >= 2 ? 'You just faced a side with ' + ivOppTitleCount + ' ' + CONFIG.league.shortName + ' titles in the trophy cabinet. What did you learn from going toe-to-toe with ' + opponentName + '?' : null,
+      mostDecorated && mostDecorated[0] === interviewTeamName ? 'You wear the badge of the league\'s most decorated club. Does that history inspire you or weigh on you?' : null,
+      pastSeasons.length >= 3 ? 'Looking back across ' + pastSeasons.length + ' seasons of ' + CONFIG.league.shortName + ' football, where does a night like this rank?' : null,
+      seasonNum >= 3 ? 'The ' + CONFIG.league.shortName + ' is a few seasons old now. How has the league evolved since you joined?' : null
+    ].filter(Boolean)
+
+    // --- Form/streak questions ---
+    const formQs = [
+      ivHotWinStreak ? ivTeamStreak.count + ' wins in a row now. What\'s clicking for this team right now?' : null,
+      ivHotWinStreak && winner === interviewTeamName ? 'Another win, another ' + ivTeamStreak.count + '-match unbeaten run extended. Is there a danger of complacency?' : null,
+      ivBadLoseStreak ? 'That\'s ' + ivTeamStreak.count + ' losses in a row. How does the group stop the bleeding?' : null,
+      ivBadLoseStreak && winner !== interviewTeamName ? ivTeamStreak.count + ' straight defeats \u2014 what needs to change to turn this around?' : null,
+      ivTeamForm && ivTeamForm.length >= 5 ? 'Looking at your last five results \u2014 ' + ivTeamForm.join('-') + ' \u2014 are you happy with where the team is trending?' : null,
+      ivTeamForm && ivTeamForm.filter(r => r === 'W').length >= 4 ? 'The recent form has been outstanding. What\'s the secret sauce?' : null,
+      ivTeamForm && ivTeamForm.filter(r => r === 'L').length >= 3 ? 'Recent results haven\'t been kind. Is the dressing room still believing?' : null
+    ].filter(Boolean)
+
+    // --- Title race / relegation questions (standings context) ---
+    const standingsQs = [
+      ivTitleRace && winner === interviewTeamName ? 'Sitting ' + ordinal(teamPos) + ' in the table after this win \u2014 is the title race officially on?' : null,
+      ivTitleRace ? 'You\'re right in the thick of the title picture. How does the squad handle that kind of pressure?' : null,
+      ivRelegationFight ? 'You find yourselves near the foot of the table. What\'s the mood in the dressing room?' : null,
+      ivRelegationFight && winner === interviewTeamName ? 'A crucial win in a relegation battle. How big were these three points?' : null,
+      beatLeader ? 'Beating the league leaders \u2014 does this make ' + interviewTeamName + ' the team to watch now?' : null,
+      standings[0] && interviewTeamName === standings[0].team ? 'Top of the table tonight. How does it feel to look down at the rest of the league?' : null
+    ].filter(Boolean)
+
+    const allQs = [...generalQs, ...winQs, ...lossQs, ...drawQs, ...goalQs, ...assistQs, ...saveQs, ...coachQs, ...rivalryQs, ...historyQs, ...formQs, ...standingsQs]
     // Pick 2 different questions, preferring contextual ones
-    const contextual = [...winQs, ...lossQs, ...drawQs, ...goalQs, ...assistQs, ...saveQs, ...coachQs]
+    const contextual = [...winQs, ...lossQs, ...drawQs, ...goalQs, ...assistQs, ...saveQs, ...coachQs, ...rivalryQs, ...historyQs, ...formQs, ...standingsQs]
     let q1, q2
     if (contextual.length >= 2) {
       q1 = pick(contextual)
@@ -1433,6 +1808,41 @@ function generateLocalReport(matches, standings, topScorers, league, mdNum, seas
       if (question.includes('intensity') && question.includes('fifteen minutes')) return o + ' ' + (isC ? 'absolutely. I told the players to set the tone from the first whistle. If you let the opponent settle, it becomes much harder.' : 'that\'s something ' + coachRef + ' drills into us. Start fast, don\'t give them time to breathe.') + ' ' + pick(workEthic) + '.'
       if (question.includes('confidence') || question.includes('build')) return o + ' massively. Results breed confidence, and ' + pick(workEthic) + '. When you\'re winning and playing well, everything feels easier. But ' + pick(futureLines) + '.'
 
+      // --- Rivalry / derby ---
+      if (question.includes('rivalry') || question.includes('bragging rights')) return o + ' these games mean everything to the fans, and when it means something to them, it means something to us. ' + pick(workEthic) + '. Occasions like this are why you play football.'
+      if (question.includes('final') && question.includes('rematch')) return o + ' of course those memories linger. Some of the lads who were there still carry that feeling. ' + (winner === team ? 'Today was a chance to write a new chapter, and we took it.' : 'We wanted to set the record straight, and we came up short. That one will sting.') + ' ' + pick(futureLines) + '.'
+      if (question.includes('semi-final') && question.includes('linger')) return o + ' playoff football leaves scars. ' + pick(humbleLines) + ', and we respected what they did to us back then. ' + (winner === team ? 'Redemption doesn\'t fully exist in this sport, but tonight felt close.' : 'We needed to show we had learned. The work continues.')
+      if (question.includes('fixture has a real edge') || question.includes('walking out against')) return o + ' the moment you see the fixtures come out, this is the one you circle. The atmosphere, the stakes, the history. ' + pick(crowdLines) + '. You can\'t replicate it.'
+      if (question.includes('meetings with') || question.includes('intense')) return o + ' we\'ve played them so often now that every encounter adds a new layer. Both sides know each other inside out \u2014 it comes down to who handles the moments better.'
+      if (question.includes('had your number') || question.includes('psychological edge')) return o + ' there\'s no such thing as a curse in football. ' + pick(workEthic) + '. You wipe the slate clean every time and focus on what you can control.'
+      if (question.includes('upper hand over')) return o + ' records are records, and we\'re proud of the history. But the opposition don\'t care about the past \u2014 they come out fighting. Every meeting you earn from scratch.'
+      if (question.includes('supporters talk about rivalry') || question.includes('results like this mean')) return o + ' the fans live and breathe these games. ' + pick(crowdLines) + '. ' + (winner === team ? 'Seeing their faces after a win like this \u2014 that\'s the reward.' : 'They deserve better and we know it. We owe them.')
+
+      // --- History / legacy ---
+      if (question.includes('reigning champions') && question.includes('pressure')) return o + ' wearing the crown means everyone raises their game against you. We embrace that. ' + pick(workEthic) + ', and the target on our back just sharpens our focus.'
+      if (question.includes('reigning champions') && question.includes('own level')) return o + ' going toe-to-toe with the champions tells you where you stand. ' + (winner === team ? 'We matched them, and in some moments, we were the better side. That\'s a statement.' : 'We got a real measuring stick today. There\'s work to do, but we weren\'t a million miles off.')
+      if (question.includes('times') && question.includes('trophy cabinet')) return o + ' you can\'t compare eras \u2014 every generation writes its own story. ' + (isC ? 'But this group is hungry, and I believe they\'re capable of their own special chapter.' : 'We respect the history, but we\'re trying to build something of our own.')
+      if (question.includes('first piece of silverware') || question.includes('trophy drought')) return o + ' the silverware is always the goal, but you can\'t skip steps. ' + pick(workEthic) + '. If we keep performing like this, one day soon, the trophy will come.'
+      if (question.includes('learned from going toe-to-toe')) return o + ' against the best teams you learn quickly what level you\'re at. ' + pick(humbleLines) + '. We take the lessons and we grow.'
+      if (question.includes('most decorated') || question.includes('inspire you or weigh')) return o + ' this badge comes with expectations, and rightly so. ' + (isC ? 'We don\'t hide from that \u2014 we use it as fuel.' : 'Every day you pull this shirt on, you feel the weight and the privilege in equal measure.')
+      if (question.includes('seasons of') && question.includes('rank')) return o + ' there have been some unforgettable nights in this league. ' + (winner === team ? 'This one goes right up there. A performance to remember.' : 'It\'s tough to process right now, but in time we\'ll see where it fits.')
+      if (question.includes('league evolved') || question.includes('seasons old')) return o + ' the standard rises every year. Teams are better coached, the players are fitter, the margins are thinner. You cannot stand still or you get left behind.'
+
+      // --- Form / streak ---
+      if ((question.includes('row') && question.includes('clicking')) || question.includes('unbeaten run extended')) return o + ' when everyone is on the same page, football becomes simpler. ' + pick(workEthic) + '. We stay humble, keep our heads down, and attack the next one the same way.'
+      if (question.includes('complacency')) return o + ' complacency is the enemy of everything we\'re building. ' + (isC ? 'I remind the lads daily \u2014 a winning run is nothing without the next result.' : coachRef + ' won\'t let us get comfortable. As soon as you think you\'ve cracked it, the league bites back.')
+      if (question.includes('losses in a row') || question.includes('stop the bleeding') || question.includes('defeats') && question.includes('change')) return o + ' we go back to basics. ' + pick(workEthic) + '. Runs like this are tests of character, and I trust this group to come through.'
+      if (question.includes('last five results') || question.includes('team is trending')) return o + ' form is a strange thing \u2014 it can flip quickly in either direction. ' + pick(workEthic) + '. We focus on performance, and results tend to follow.'
+      if (question.includes('secret sauce')) return o + ' there\'s no secret. ' + pick(tactics) + ', we work harder than anyone, and we back each other. Simple as that.'
+      if (question.includes('still believing') || question.includes('recent results haven\'t been kind')) return o + ' one hundred percent. ' + (isC ? 'I see the work they put in every day \u2014 the belief is there.' : 'The dressing room is as tight as ever. That\'s how you come through rough patches.')
+
+      // --- Title race / relegation ---
+      if (question.includes('title race officially on') || question.includes('title picture')) return o + ' you earn the right to be in the conversation. ' + pick(workEthic) + ', and we\'re in there swinging. ' + pick(futureLines) + '.'
+      if (question.includes('foot of the table') || question.includes('mood in the dressing room')) return o + ' you can\'t hide from where we are. ' + (isC ? 'But there\'s fight in this group, and I see it every day.' : 'We\'re going to scrap for every point. Nobody\'s rolling over.')
+      if (question.includes('relegation battle') || question.includes('crucial win')) return o + ' these points are worth their weight in gold. ' + pick(workEthic) + '. We celebrate tonight and then it\'s straight back to work.'
+      if (question.includes('team to watch')) return o + ' labels don\'t interest us \u2014 consistency does. ' + pick(futureLines) + '. If we keep performing, let the rest of the league worry about us.'
+      if (question.includes('top of the table') || question.includes('look down')) return o + ' it\'s a nice snapshot, but that\'s all it is \u2014 a snapshot. ' + pick(futureLines) + '. Trophies are won in May, not in the middle of the season.'
+
       // Fallback
       return o + ' ' + pick(workEthic) + '. ' + pick(humbleLines) + '. ' + pick(futureLines) + '.'
     }
@@ -1451,7 +1861,7 @@ function generateLocalReport(matches, standings, topScorers, league, mdNum, seas
       home: m.home, away: m.away, score: s,
       venue: homeVenue,
       title,
-      body: para1 + '\n\n' + para2 + '\n\n' + para3,
+      body: para1 + '\n\n' + para2 + '\n\n' + para3 + (para4 && para4.trim() ? '\n\n' + para4 : ''),
       interview
     }
   })
@@ -1471,12 +1881,41 @@ function generateLocalReport(matches, standings, topScorers, league, mdNum, seas
     draws.length + ' of ' + matches.length + ' matches ended in draws'
   ]
   if (topScorers.length) byTheNumbers.push(topScorers[0].name + ' leads the Golden Boot race with ' + (topScorers[0].goals || 0) + ' goals this season')
+  // History-flavored stats
+  if (reigningChamp) {
+    const champStanding = standings.find(st => st.team === reigningChamp)
+    if (champStanding) byTheNumbers.push('Reigning champions ' + reigningChamp + ' sit ' + ordinal(standings.findIndex(st => st.team === reigningChamp) + 1) + ' with ' + (champStanding.points || 0) + ' points')
+  }
+  if (mostDecorated && mostDecorated[1] >= 2) byTheNumbers.push(mostDecorated[0] + ' \u2014 the league\'s most decorated side with ' + mostDecorated[1] + ' titles')
+  // Biggest margin this matchday
+  let biggestMargin = null
+  for (const mm of matches) {
+    const ss = [mm.score && mm.score[0] || 0, mm.score && mm.score[1] || 0]
+    const diff = Math.abs(ss[0] - ss[1])
+    if (!biggestMargin || diff > biggestMargin.diff) biggestMargin = { diff, match: mm, score: ss }
+  }
+  if (biggestMargin && biggestMargin.diff >= 3) byTheNumbers.push('Biggest margin: ' + biggestMargin.match.home + ' ' + biggestMargin.score[0] + '-' + biggestMargin.score[1] + ' ' + biggestMargin.match.away)
+  // Leader's lead
+  if (standings.length >= 2) {
+    const gap = (standings[0].points || 0) - (standings[1].points || 0)
+    if (gap > 0) byTheNumbers.push(standings[0].team + ' lead ' + standings[1].team + ' by ' + gap + ' point' + (gap === 1 ? '' : 's') + ' at the summit')
+    else byTheNumbers.push(standings[0].team + ' and ' + standings[1].team + ' are level on points at the top')
+  }
 
   // Look ahead
+  const champHook = reigningChamp && standings[0] && standings[0].team !== reigningChamp
+    ? ' Reigning champions ' + reigningChamp + ' will be desperate to reassert themselves.'
+    : ''
+  const historyHook = mostDecorated && mostDecorated[1] >= 2 && standings[0] && standings[0].team !== mostDecorated[0]
+    ? ' Meanwhile, ' + mostDecorated[0] + ' \u2014 a name synonymous with ' + CONFIG.league.shortName + ' silverware \u2014 know this kind of run is exactly when the old guard reminds the league of their pedigree.'
+    : ''
+  const seasonStageHook = seasonNum && seasonNum >= 3 ? ' Season ' + seasonNum + ' is shaping up to be one of the most unpredictable yet.' : ''
   const lookAheadTemplates = [
-    'As the dust settles on Matchday ' + mdNum + ', ' + leader.team + ' will sleep soundly at the top with ' + (leader.points || 0) + ' points. But with ' + (standings.length ? (standings[0].played ? (league.teams.length - 1) - standings[0].played : 'many') : 'many') + ' matchdays still to play, nothing is decided. ' + bottom.team + ' know they must start picking up points soon, while the chasing pack will be sharpening their claws. The ' + CONFIG.league.shortName + ' waits for no one.',
-    'Matchday ' + mdNum + ' may be over, but its reverberations will be felt for weeks to come. ' + leader.team + ' march on at the summit, but ' + second.team + ' remain within striking distance. At the bottom, ' + bottom.team + ' face an increasingly anxious run of fixtures. One thing is certain: this ' + CONFIG.league.shortName + ' season is far from over.',
-    'The table never lies, they say \u2014 but in the ' + CONFIG.league.shortName + ', it certainly whispers. ' + leader.team + ' hold the advantage for now, but the margins are razor-thin. Every point will matter from here on out, and if Matchday ' + mdNum + ' taught us anything, it\'s that this league always has one more twist in store.'
+    'As the dust settles on Matchday ' + mdNum + ', ' + leader.team + ' will sleep soundly at the top with ' + (leader.points || 0) + ' points. But with ' + (standings.length ? (standings[0].played ? (league.teams.length - 1) - standings[0].played : 'many') : 'many') + ' matchdays still to play, nothing is decided. ' + bottom.team + ' know they must start picking up points soon, while the chasing pack will be sharpening their claws.' + champHook + ' The ' + CONFIG.league.shortName + ' waits for no one.',
+    'Matchday ' + mdNum + ' may be over, but its reverberations will be felt for weeks to come. ' + leader.team + ' march on at the summit, but ' + second.team + ' remain within striking distance. At the bottom, ' + bottom.team + ' face an increasingly anxious run of fixtures.' + historyHook + ' One thing is certain: this ' + CONFIG.league.shortName + ' season is far from over.' + seasonStageHook,
+    'The table never lies, they say \u2014 but in the ' + CONFIG.league.shortName + ', it certainly whispers. ' + leader.team + ' hold the advantage for now, but the margins are razor-thin. Every point will matter from here on out, and if Matchday ' + mdNum + ' taught us anything, it\'s that this league always has one more twist in store.' + champHook,
+    'The fixture list offers no mercy. Matchday ' + (mdNum + 1) + ' looms, and every side \u2014 from ' + leader.team + ' at the summit to ' + bottom.team + ' at the foot of the table \u2014 knows that in the ' + CONFIG.league.shortName + ', momentum is currency and complacency is fatal.' + historyHook,
+    'Talking points aplenty from Matchday ' + mdNum + ': ' + leader.team + ' setting the pace on ' + (leader.points || 0) + ' points, ' + bottom.team + ' staring at the drop, and a chasing pack led by ' + second.team + ' refusing to let this title race become a procession.' + champHook + seasonStageHook
   ]
 
   return {
@@ -2689,11 +3128,11 @@ http.createServer(async (req, res) => {
         reportEngine = 'ai'
       } catch (e) {
         console.error('AI report failed, falling back to local:', e.message)
-        report = generateLocalReport(completedMatches, standings, topScorers, league, mdNum, schedule.season)
+        report = generateLocalReport(completedMatches, standings, topScorers, league, mdNum, schedule.season, history, schedule)
         reportEngine = 'local (AI fallback: ' + e.message + ')'
       }
     } else {
-      report = generateLocalReport(completedMatches, standings, topScorers, league, mdNum, schedule.season)
+      report = generateLocalReport(completedMatches, standings, topScorers, league, mdNum, schedule.season, history, schedule)
     }
 
     report.illustrations = completedMatches.map(m => {
