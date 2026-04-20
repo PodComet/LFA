@@ -2992,6 +2992,25 @@ async function renderSeasonEditor(main, seasonNum) {
 
 function escAttr(s) { return String(s).replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;') }
 
+// POST JSON to an API, surfacing a readable error if the server responds with
+// non-JSON (e.g. the static-file "Not found" plaintext when an endpoint is
+// missing because the Node process hasn't been restarted to pick up new code).
+async function seApiPost(url, body) {
+  const resp = await fetch(url, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(body)
+  })
+  const text = await resp.text()
+  let data
+  try { data = JSON.parse(text) }
+  catch (e) {
+    if (resp.status === 404) throw new Error('Endpoint ' + url + ' not found (HTTP 404). The server may need to be restarted to pick up new code.')
+    throw new Error('Unexpected response from ' + url + ' (HTTP ' + resp.status + '): ' + text.slice(0, 200))
+  }
+  return data
+}
+
 function seUpdate(el) {
   const state = window._seState
   if (!state) return
@@ -3135,12 +3154,7 @@ function seTransfer(ti, pi) {
     try {
       if (selectedMode === 'team') {
         const targetIdx = parseInt(document.getElementById('se-transfer-target').value, 10)
-        const resp = await fetch('/api/transfer-player', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ playerName: player.name, fromTeam: team._originalName, toTeam: state.teams[targetIdx]._originalName })
-        })
-        const data = await resp.json()
+        const data = await seApiPost('/api/transfer-player', { playerName: player.name, fromTeam: team._originalName, toTeam: state.teams[targetIdx]._originalName })
         if (data.success) { modal.remove(); go('edit-season/' + window._seSeasonNum) }
         else alert('Error: ' + (data.error || 'Unknown'))
       } else if (selectedMode === 'non-lfa') {
@@ -3152,21 +3166,11 @@ function seTransfer(ti, pi) {
           toName = (inp && inp.value || '').trim()
           if (!toName) { alert('Please enter a name for the new non-LFA team.'); if (inp) inp.focus(); return }
         }
-        const resp = await fetch('/api/trade-player-away', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ playerName: player.name, fromTeam: team._originalName, status: 'non-lfa', toNonLfaTeam: toName })
-        })
-        const data = await resp.json()
+        const data = await seApiPost('/api/trade-player-away', { playerName: player.name, fromTeam: team._originalName, status: 'non-lfa', toNonLfaTeam: toName })
         if (data.success) { modal.remove(); go('edit-season/' + window._seSeasonNum) }
         else alert('Error: ' + (data.error || 'Unknown'))
       } else {
-        const resp = await fetch('/api/trade-player-away', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ playerName: player.name, fromTeam: team._originalName, status: selectedMode })
-        })
-        const data = await resp.json()
+        const data = await seApiPost('/api/trade-player-away', { playerName: player.name, fromTeam: team._originalName, status: selectedMode })
         if (data.success) { modal.remove(); go('edit-season/' + window._seSeasonNum) }
         else alert('Error: ' + (data.error || 'Unknown'))
       }
@@ -3229,21 +3233,11 @@ function seTradeCoach(ti) {
         const sel = document.getElementById('se-coach-transfer-target')
         if (!sel || sel.value === '') { alert('No eligible destination team. Every other team already has a coach.'); return }
         const targetIdx = parseInt(sel.value, 10)
-        const resp = await fetch('/api/transfer-coach', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ fromTeam: team._originalName, toTeam: state.teams[targetIdx]._originalName })
-        })
-        const data = await resp.json()
+        const data = await seApiPost('/api/transfer-coach', { fromTeam: team._originalName, toTeam: state.teams[targetIdx]._originalName })
         if (data.success) { modal.remove(); go('edit-season/' + window._seSeasonNum) }
         else alert('Error: ' + (data.error || 'Unknown'))
       } else {
-        const resp = await fetch('/api/trade-coach-away', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ teamName: team._originalName, status: selectedMode })
-        })
-        const data = await resp.json()
+        const data = await seApiPost('/api/trade-coach-away', { teamName: team._originalName, status: selectedMode })
         if (data.success) { modal.remove(); go('edit-season/' + window._seSeasonNum) }
         else alert('Error: ' + (data.error || 'Unknown'))
       }
