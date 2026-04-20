@@ -2950,6 +2950,32 @@ async function renderSeasonEditor(main, seasonNum) {
     container.appendChild(panel)
   }
 
+  // --- Non-LFA Teams section ---
+  if (editorState.nonLfaTeams && editorState.nonLfaTeams.length) {
+    const nlWrap = h('div','se-nonlfa-wrap')
+    nlWrap.style.cssText = 'margin-top:24px;padding:16px;background:rgba(245,158,11,.06);border:1px solid rgba(245,158,11,.25);border-radius:10px'
+    let html = '<div style="display:flex;align-items:center;gap:8px;margin-bottom:12px"><span style="font-size:18px">\\u{1F7E1}</span><h3 style="margin:0;color:var(--gold);font-size:15px">Non-LFA Teams</h3><span style="color:var(--text2);font-size:12px">Players who left the LFA but remain on a tracked roster. May join the LFA in future seasons.</span></div>'
+    for (const nlt of editorState.nonLfaTeams) {
+      const players = Array.isArray(nlt.players) ? nlt.players : []
+      html += '<div style="background:var(--card2);border-radius:8px;padding:10px 12px;margin-bottom:8px">'
+      html += '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px"><div style="font-weight:600">' + escAttr(nlt.name) + '</div>'
+      html += '<div style="font-size:11px;color:var(--text2)">' + players.length + ' player' + (players.length===1?'':'s') + (nlt.createdSeason ? ' \\u2022 since S' + nlt.createdSeason : '') + '</div></div>'
+      if (players.length) {
+        html += '<div style="display:flex;flex-wrap:wrap;gap:6px">'
+        for (const p of players) {
+          const prev = p.previousLfaTeam ? ' (ex-' + escAttr(p.previousLfaTeam) + ')' : ''
+          html += '<span style="font-size:12px;padding:3px 8px;background:rgba(255,255,255,.05);border-radius:6px"><b>' + escAttr(p.name) + '</b> \\u00B7 ' + escAttr(p.position || '?') + ' \\u00B7 ' + escAttr(String(p.rating || '?')) + prev + '</span>'
+        }
+        html += '</div>'
+      } else {
+        html += '<div style="font-size:12px;color:var(--text2);font-style:italic">No players.</div>'
+      }
+      html += '</div>'
+    }
+    nlWrap.innerHTML = html
+    container.appendChild(nlWrap)
+  }
+
   // Actions bar
   const actions = h('div','se-actions')
   actions.innerHTML = '<button class="se-btn primary" onclick="seSave()">Save All Changes</button><button class="se-btn success" onclick="go(\\'\\')">Back to Home</button>'
