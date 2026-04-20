@@ -397,28 +397,198 @@ function generateMatchStill(match, homeTeam, awayTeam, momentType) {
   const horizon = 95         // lower horizon = more sky/stadium visible
   const pitchH = 300 - horizon
 
+  // ── Diverse appearance palettes ─────────────────────────────────────
+  // Broad realistic skin-tone spectrum (pale → deep)
+  const skins = [
+    '#f6d9bd', '#ecc6a4', '#e4b088', '#d9a377', '#cc9064',
+    '#b97b4e', '#a4683d', '#8a5230', '#6e3e22', '#553018',
+    '#3d2210', '#f4c7a0', '#d4a373', '#c68642', '#8d5524'
+  ]
+  // Hair colors: black/brown spectrum plus blondes, reds, greys
+  const hairColors = [
+    '#0a0605', '#14090a', '#1a0e05', '#2b1b0f', '#3d2410',
+    '#4a2d17', '#6b3e1a', '#8b5a2b', '#a67342', '#c79b52',
+    '#d4a574', '#e8c67a', '#f0d89c', '#9c3424', '#b84040',
+    '#4a4a4a', '#6c6c6c', '#9a9a9a', '#d4d4d4'
+  ]
+  // Hairstyles (bald is weighted 2x by appearing twice)
+  const hairStyles = ['buzz', 'short', 'fade', 'medium', 'long', 'ponytail', 'curly', 'afro', 'bald', 'bald', 'bun', 'locks']
+  // Build multipliers (thickness of body and limbs)
+  const builds = [0.82, 0.88, 0.94, 1.0, 1.0, 1.06, 1.12, 1.2]
+  // Face-shape subtle variants
+  const faceShapes = ['oval', 'oval', 'round', 'square', 'long']
+
+  // Roll a full appearance (per figure, per scene)
+  function rAppearance() {
+    return {
+      skin: skins[Math.floor(Math.random() * skins.length)],
+      hair: hairColors[Math.floor(Math.random() * hairColors.length)],
+      style: hairStyles[Math.floor(Math.random() * hairStyles.length)],
+      build: builds[Math.floor(Math.random() * builds.length)],
+      beard: Math.random() < 0.22,
+      stubble: Math.random() < 0.18,
+      face: faceShapes[Math.floor(Math.random() * faceShapes.length)],
+      heightMod: 0.91 + Math.random() * 0.18,  // ±9% height variance
+      eyeColor: ['#2a1808', '#3d2410', '#5b3a1a', '#2a5a8a', '#3a7050', '#555'][Math.floor(Math.random() * 6)]
+    }
+  }
+
+  // Render a head with facial features + hair + optional beard/stubble
+  // cx/cy = head center, r = head radius, app = appearance object, tilt = optional rotation
+  function renderHead(cx, cy, r, app, tilt) {
+    const skin = app.skin
+    const hair = app.hair
+    const style = app.style || 'short'
+    const face = app.face || 'oval'
+    const eye = app.eyeColor || '#2a1808'
+
+    // Face geometry varies with shape
+    let rx = r, ry = r
+    if (face === 'long') { ry = r * 1.12; rx = r * 0.92 }
+    else if (face === 'round') { rx = r * 1.05; ry = r * 0.98 }
+    else if (face === 'square') { rx = r * 1.0; ry = r * 1.02 }
+
+    let svg = ''
+    const wrap = s => tilt ? `<g transform="rotate(${tilt} ${cx} ${cy})">${s}</g>` : s
+
+    // Head base
+    svg += `<ellipse cx="${cx}" cy="${cy}" rx="${rx}" ry="${ry}" fill="${skin}"/>`
+    // Subtle side shading (light from top-left)
+    svg += `<ellipse cx="${cx + rx * 0.35}" cy="${cy + ry * 0.1}" rx="${rx * 0.55}" ry="${ry * 0.75}" fill="rgba(0,0,0,0.12)"/>`
+    svg += `<ellipse cx="${cx - rx * 0.35}" cy="${cy - ry * 0.35}" rx="${rx * 0.4}" ry="${ry * 0.3}" fill="rgba(255,255,255,0.08)"/>`
+    // Neck shading at bottom
+    svg += `<ellipse cx="${cx}" cy="${cy + ry * 0.95}" rx="${rx * 0.55}" ry="${ry * 0.18}" fill="rgba(0,0,0,0.18)"/>`
+
+    // Eyebrows (small darker hair strokes)
+    if (r >= 4.5) {
+      svg += `<rect x="${cx - rx * 0.6}" y="${cy - ry * 0.05}" width="${rx * 0.35}" height="${Math.max(1, r * 0.1)}" fill="${hair}" rx="0.5" opacity="0.9"/>`
+      svg += `<rect x="${cx + rx * 0.25}" y="${cy - ry * 0.05}" width="${rx * 0.35}" height="${Math.max(1, r * 0.1)}" fill="${hair}" rx="0.5" opacity="0.9"/>`
+    }
+
+    // Eyes (only if head big enough to draw)
+    if (r >= 4) {
+      svg += `<circle cx="${cx - rx * 0.38}" cy="${cy + ry * 0.08}" r="${Math.max(0.7, r * 0.11)}" fill="${eye}"/>`
+      svg += `<circle cx="${cx + rx * 0.38}" cy="${cy + ry * 0.08}" r="${Math.max(0.7, r * 0.11)}" fill="${eye}"/>`
+      // Eye highlights (tiny white dot)
+      if (r >= 5) {
+        svg += `<circle cx="${cx - rx * 0.38 + 0.6}" cy="${cy + ry * 0.08 - 0.4}" r="${r * 0.04}" fill="rgba(255,255,255,0.8)"/>`
+        svg += `<circle cx="${cx + rx * 0.38 + 0.6}" cy="${cy + ry * 0.08 - 0.4}" r="${r * 0.04}" fill="rgba(255,255,255,0.8)"/>`
+      }
+    }
+
+    // Nose hint
+    if (r >= 5) {
+      svg += `<path d="M${cx - rx * 0.08} ${cy + ry * 0.2} Q${cx} ${cy + ry * 0.45} ${cx + rx * 0.08} ${cy + ry * 0.35}" stroke="rgba(0,0,0,0.25)" stroke-width="${r * 0.06}" fill="none" stroke-linecap="round"/>`
+    }
+
+    // Mouth
+    if (r >= 4.5) {
+      svg += `<path d="M${cx - rx * 0.22} ${cy + ry * 0.55} Q${cx} ${cy + ry * 0.62} ${cx + rx * 0.22} ${cy + ry * 0.55}" stroke="rgba(70,25,25,0.55)" stroke-width="${Math.max(0.6, r * 0.07)}" fill="none" stroke-linecap="round"/>`
+    }
+
+    // Ears (small, subtle)
+    if (r >= 5 && style !== 'long' && style !== 'bun' && style !== 'curly' && style !== 'afro') {
+      svg += `<ellipse cx="${cx - rx * 1.0}" cy="${cy + ry * 0.15}" rx="${rx * 0.12}" ry="${ry * 0.22}" fill="${skin}"/>`
+      svg += `<ellipse cx="${cx + rx * 1.0}" cy="${cy + ry * 0.15}" rx="${rx * 0.12}" ry="${ry * 0.22}" fill="${skin}"/>`
+      svg += `<ellipse cx="${cx - rx * 1.0}" cy="${cy + ry * 0.2}" rx="${rx * 0.06}" ry="${ry * 0.1}" fill="rgba(0,0,0,0.2)"/>`
+      svg += `<ellipse cx="${cx + rx * 1.0}" cy="${cy + ry * 0.2}" rx="${rx * 0.06}" ry="${ry * 0.1}" fill="rgba(0,0,0,0.2)"/>`
+    }
+
+    // Stubble / beard
+    if (app.beard) {
+      svg += `<path d="M ${cx - rx * 0.78} ${cy + ry * 0.3} Q ${cx - rx * 0.55} ${cy + ry * 1.05} ${cx} ${cy + ry * 1.1} Q ${cx + rx * 0.55} ${cy + ry * 1.05} ${cx + rx * 0.78} ${cy + ry * 0.3} Q ${cx + rx * 0.45} ${cy + ry * 0.55} ${cx} ${cy + ry * 0.6} Q ${cx - rx * 0.45} ${cy + ry * 0.55} ${cx - rx * 0.78} ${cy + ry * 0.3} Z" fill="${hair}" opacity="0.88"/>`
+      // Moustache
+      svg += `<path d="M ${cx - rx * 0.3} ${cy + ry * 0.48} Q ${cx} ${cy + ry * 0.55} ${cx + rx * 0.3} ${cy + ry * 0.48}" stroke="${hair}" stroke-width="${Math.max(1, r * 0.14)}" fill="none" stroke-linecap="round" opacity="0.9"/>`
+    } else if (app.stubble && r >= 4.5) {
+      svg += `<ellipse cx="${cx}" cy="${cy + ry * 0.65}" rx="${rx * 0.7}" ry="${ry * 0.28}" fill="${hair}" opacity="0.22"/>`
+    }
+
+    // Hair — style-dependent
+    if (style === 'bald') {
+      // No hair — slight scalp highlight
+      svg += `<ellipse cx="${cx}" cy="${cy - ry * 0.45}" rx="${rx * 0.45}" ry="${ry * 0.15}" fill="rgba(255,255,255,0.12)"/>`
+    } else if (style === 'buzz') {
+      svg += `<path d="M ${cx - rx * 0.95} ${cy - ry * 0.1} Q ${cx} ${cy - ry * 1.0} ${cx + rx * 0.95} ${cy - ry * 0.1} L ${cx + rx * 0.85} ${cy - ry * 0.25} Q ${cx} ${cy - ry * 0.55} ${cx - rx * 0.85} ${cy - ry * 0.25} Z" fill="${hair}" opacity="0.82"/>`
+    } else if (style === 'fade') {
+      svg += `<path d="M ${cx - rx * 0.95} ${cy - ry * 0.15} Q ${cx} ${cy - ry * 1.1} ${cx + rx * 0.95} ${cy - ry * 0.15} L ${cx + rx * 0.9} ${cy - ry * 0.3} Q ${cx} ${cy - ry * 0.6} ${cx - rx * 0.9} ${cy - ry * 0.3} Z" fill="${hair}"/>`
+      // Tapered sides (fade)
+      svg += `<path d="M ${cx - rx * 0.95} ${cy - ry * 0.15} L ${cx - rx * 0.85} ${cy + ry * 0.15}" stroke="${hair}" stroke-width="${r * 0.2}" opacity="0.3"/>`
+      svg += `<path d="M ${cx + rx * 0.95} ${cy - ry * 0.15} L ${cx + rx * 0.85} ${cy + ry * 0.15}" stroke="${hair}" stroke-width="${r * 0.2}" opacity="0.3"/>`
+    } else if (style === 'short') {
+      svg += `<path d="M ${cx - rx * 1.02} ${cy - ry * 0.05} Q ${cx} ${cy - ry * 1.15} ${cx + rx * 1.02} ${cy - ry * 0.05} L ${cx + rx * 0.88} ${cy - ry * 0.35} Q ${cx} ${cy - ry * 0.55} ${cx - rx * 0.88} ${cy - ry * 0.35} Z" fill="${hair}"/>`
+    } else if (style === 'medium') {
+      svg += `<path d="M ${cx - rx * 1.1} ${cy + ry * 0.15} Q ${cx - rx * 1.2} ${cy - ry * 0.8} ${cx} ${cy - ry * 1.15} Q ${cx + rx * 1.2} ${cy - ry * 0.8} ${cx + rx * 1.1} ${cy + ry * 0.15} L ${cx + rx * 0.85} ${cy - ry * 0.15} Q ${cx} ${cy - ry * 0.4} ${cx - rx * 0.85} ${cy - ry * 0.15} Z" fill="${hair}"/>`
+    } else if (style === 'long') {
+      svg += `<path d="M ${cx - rx * 1.15} ${cy - ry * 0.3} Q ${cx - rx * 1.3} ${cy + ry * 0.9} ${cx - rx * 0.8} ${cy + ry * 1.1} L ${cx - rx * 0.55} ${cy - ry * 0.2} L ${cx + rx * 0.55} ${cy - ry * 0.2} L ${cx + rx * 0.8} ${cy + ry * 1.1} Q ${cx + rx * 1.3} ${cy + ry * 0.9} ${cx + rx * 1.15} ${cy - ry * 0.3} Q ${cx} ${cy - ry * 1.2} ${cx - rx * 1.15} ${cy - ry * 0.3} Z" fill="${hair}"/>`
+    } else if (style === 'ponytail') {
+      svg += `<path d="M ${cx - rx * 1.0} ${cy - ry * 0.1} Q ${cx} ${cy - ry * 1.1} ${cx + rx * 1.0} ${cy - ry * 0.1} L ${cx + rx * 0.88} ${cy - ry * 0.35} Q ${cx} ${cy - ry * 0.55} ${cx - rx * 0.88} ${cy - ry * 0.35} Z" fill="${hair}"/>`
+      // Ponytail hanging at back-right
+      svg += `<ellipse cx="${cx + rx * 0.95}" cy="${cy + ry * 0.35}" rx="${rx * 0.28}" ry="${ry * 0.55}" fill="${hair}"/>`
+    } else if (style === 'bun') {
+      svg += `<path d="M ${cx - rx * 1.0} ${cy - ry * 0.1} Q ${cx} ${cy - ry * 1.0} ${cx + rx * 1.0} ${cy - ry * 0.1} L ${cx + rx * 0.88} ${cy - ry * 0.3} Q ${cx} ${cy - ry * 0.5} ${cx - rx * 0.88} ${cy - ry * 0.3} Z" fill="${hair}"/>`
+      // Bun on top
+      svg += `<circle cx="${cx}" cy="${cy - ry * 1.25}" r="${rx * 0.45}" fill="${hair}"/>`
+      svg += `<circle cx="${cx - rx * 0.12}" cy="${cy - ry * 1.35}" r="${rx * 0.08}" fill="rgba(255,255,255,0.15)"/>`
+    } else if (style === 'curly') {
+      // Cluster of circles for textured hair
+      svg += `<circle cx="${cx}" cy="${cy - ry * 0.65}" r="${rx * 0.7}" fill="${hair}"/>`
+      svg += `<circle cx="${cx - rx * 0.7}" cy="${cy - ry * 0.35}" r="${rx * 0.35}" fill="${hair}"/>`
+      svg += `<circle cx="${cx + rx * 0.7}" cy="${cy - ry * 0.35}" r="${rx * 0.35}" fill="${hair}"/>`
+      svg += `<circle cx="${cx - rx * 0.4}" cy="${cy - ry * 0.85}" r="${rx * 0.3}" fill="${hair}"/>`
+      svg += `<circle cx="${cx + rx * 0.4}" cy="${cy - ry * 0.85}" r="${rx * 0.3}" fill="${hair}"/>`
+    } else if (style === 'afro') {
+      svg += `<circle cx="${cx}" cy="${cy - ry * 0.45}" r="${rx * 1.15}" fill="${hair}"/>`
+      svg += `<circle cx="${cx - rx * 0.75}" cy="${cy - ry * 0.15}" r="${rx * 0.55}" fill="${hair}"/>`
+      svg += `<circle cx="${cx + rx * 0.75}" cy="${cy - ry * 0.15}" r="${rx * 0.55}" fill="${hair}"/>`
+      svg += `<circle cx="${cx}" cy="${cy - ry * 1.1}" r="${rx * 0.65}" fill="${hair}"/>`
+      // Subtle texture highlights
+      svg += `<circle cx="${cx - rx * 0.3}" cy="${cy - ry * 0.8}" r="${rx * 0.18}" fill="rgba(255,255,255,0.06)"/>`
+    } else if (style === 'locks') {
+      // Dreadlocks / braids
+      svg += `<path d="M ${cx - rx * 1.0} ${cy - ry * 0.1} Q ${cx} ${cy - ry * 1.1} ${cx + rx * 1.0} ${cy - ry * 0.1} L ${cx + rx * 0.88} ${cy - ry * 0.35} Q ${cx} ${cy - ry * 0.55} ${cx - rx * 0.88} ${cy - ry * 0.35} Z" fill="${hair}"/>`
+      // Individual locks hanging
+      for (let li = -2; li <= 2; li++) {
+        const lx = cx + li * rx * 0.4
+        svg += `<rect x="${lx - rx * 0.12}" y="${cy - ry * 0.3}" width="${rx * 0.24}" height="${ry * 1.3}" rx="${rx * 0.12}" fill="${hair}" opacity="0.9"/>`
+      }
+    }
+
+    return wrap(svg)
+  }
+
+  // Shadow helper (softer, elongated by depth)
+  function groundShadow(cx, cy, h, depth) {
+    // depth 0..1 — 0 = far, 1 = near. Shadows stretch more near the camera.
+    const rx = h * (0.26 + depth * 0.06)
+    const ry = h * (0.045 + depth * 0.015)
+    const op = 0.28 + depth * 0.12
+    return `<ellipse cx="${cx}" cy="${cy + 2}" rx="${rx}" ry="${ry}" fill="rgba(0,0,0,${op.toFixed(2)})"/>`
+  }
+
   // Helper: draw a human figure — cinematic proportions with shadows and detail
-  function person(x, gy, h, jersey, shorts, skin, pose) {
-    const headR = h * 0.09
-    const torsoH = h * 0.33
-    const legH = h * 0.38
+  function person(x, gy, h, jersey, shorts, app, pose) {
+    // Apply per-player height variance (diversity)
+    h = h * (app && app.heightMod ? app.heightMod : 1)
+    const build = app && app.build ? app.build : 1.0
+    const headR = h * 0.085
+    const torsoH = h * 0.34
+    const legH = h * 0.40
     const armH = h * 0.28
     const headY = gy - h + headR
     const shoulderY = headY + headR * 2 + 1
     const hipY = shoulderY + torsoH
     const footY = gy
-    const w = h * 0.2
+    const w = h * 0.2 * build  // shoulder width scales with build
     const sw = w * 0.65  // stroke width for limbs
 
     let arms = '', legs = '', torso = '', head = '', shadow = ''
 
-    // Ground shadow (ellipse at feet)
-    shadow = `<ellipse cx="${x}" cy="${footY + 2}" rx="${h * 0.28}" ry="${h * 0.05}" fill="rgba(0,0,0,0.35)"/>`
+    // Ground shadow — depth proxy: figures with larger h (closer) get denser shadows
+    const depth = Math.min(1, h / 110)
+    shadow = groundShadow(x, footY, h, depth)
 
-    // Head with better shading
-    head = `<circle cx="${x}" cy="${headY}" r="${headR}" fill="${skin}"/>`
-    head += `<circle cx="${x}" cy="${headY}" r="${headR}" fill="rgba(0,0,0,0.1)"/>`
-    head += `<ellipse cx="${x}" cy="${headY - headR * 0.25}" rx="${headR * 0.85}" ry="${headR * 0.45}" fill="#1a0e05"/>`
+    // Head with full facial detail + hair (default upright pose)
+    head = renderHead(x, headY, headR, app)
 
     // Torso — jersey with collar detail and highlight
     torso = `<rect x="${x - w}" y="${shoulderY}" width="${w * 2}" height="${torsoH}" rx="3" fill="${jersey}"/>`
@@ -434,6 +604,7 @@ function generateMatchStill(match, homeTeam, awayTeam, momentType) {
     const sockTop = hipY + legH * 0.55
     const sockBot = footY - headR * 0.5
 
+    const skin = app.skin  // for limb fills
     if (pose === 'running') {
       legs = `<line x1="${x - 3}" y1="${hipY}" x2="${x - w - 5}" y2="${footY}" stroke="${shorts}" stroke-width="${sw}" stroke-linecap="round"/>
               <line x1="${x - w - 5}" y1="${sockTop}" x2="${x - w - 5}" y2="${sockBot}" stroke="${jersey}" stroke-width="${sw + 1}" stroke-linecap="round" opacity="0.7"/>
@@ -459,9 +630,9 @@ function generateMatchStill(match, homeTeam, awayTeam, momentType) {
               <line x1="${x + w}" y1="${shoulderY + 2}" x2="${x + w + 12}" y2="${shoulderY - armH * 0.8}" stroke="${skin}" stroke-width="${w * 0.45}" stroke-linecap="round"/>`
     } else if (pose === 'diving') {
       const dy = gy - h * 0.38
-      shadow = `<ellipse cx="${x}" cy="${gy + 2}" rx="${h * 0.4}" ry="${h * 0.04}" fill="rgba(0,0,0,0.3)"/>`
-      head = `<circle cx="${x - h * 0.38}" cy="${dy - 2}" r="${headR}" fill="${skin}"/>`
-      head += `<ellipse cx="${x - h * 0.38}" cy="${dy - headR * 0.7}" rx="${headR * 0.8}" ry="${headR * 0.4}" fill="#1a0e05"/>`
+      shadow = `<ellipse cx="${x}" cy="${gy + 2}" rx="${h * 0.42}" ry="${h * 0.045}" fill="rgba(0,0,0,${(0.28 + depth * 0.1).toFixed(2)})"/>`
+      // Diving head (offset left, tilted)
+      head = renderHead(x - h * 0.38, dy - 2, headR, app, -20)
       torso = `<rect x="${x - h * 0.28}" y="${dy}" width="${torsoH + 8}" height="${w * 2}" rx="3" fill="${jersey}"/>`
       torso += `<rect x="${x - h * 0.28}" y="${dy}" width="${torsoH + 8}" height="${w * 2}" rx="3" fill="rgba(255,255,255,0.06)"/>`
       legs = `<line x1="${x + torsoH * 0.35}" y1="${dy + w}" x2="${x + torsoH * 0.35 + legH}" y2="${dy + w + 8}" stroke="${shorts}" stroke-width="${sw}" stroke-linecap="round"/>
@@ -476,8 +647,7 @@ function generateMatchStill(match, homeTeam, awayTeam, momentType) {
               <line x1="${x + 4}" y1="${hipY - jumpH}" x2="${x + 8}" y2="${footY - jumpH * 0.2}" stroke="${shorts}" stroke-width="${sw}" stroke-linecap="round"/>
               <ellipse cx="${x - 10}" cy="${footY - jumpH * 0.4}" rx="${headR * 0.7}" ry="${headR * 0.4}" fill="#111"/>
               <ellipse cx="${x + 8}" cy="${footY - jumpH * 0.2}" rx="${headR * 0.7}" ry="${headR * 0.4}" fill="#111"/>`
-      head = `<circle cx="${x}" cy="${headY - jumpH}" r="${headR}" fill="${skin}"/>`
-      head += `<ellipse cx="${x}" cy="${headY - jumpH - headR * 0.25}" rx="${headR * 0.85}" ry="${headR * 0.45}" fill="#1a0e05"/>`
+      head = renderHead(x, headY - jumpH, headR, app, -5)
       torso = `<rect x="${x - w}" y="${shoulderY - jumpH}" width="${w * 2}" height="${torsoH}" rx="3" fill="${jersey}"/>`
       arms = `<line x1="${x - w}" y1="${shoulderY - jumpH + 3}" x2="${x - w - 10}" y2="${shoulderY - jumpH + armH * 0.5}" stroke="${skin}" stroke-width="${w * 0.45}" stroke-linecap="round"/>
               <line x1="${x + w}" y1="${shoulderY - jumpH + 3}" x2="${x + w + 10}" y2="${shoulderY - jumpH + armH * 0.5}" stroke="${skin}" stroke-width="${w * 0.45}" stroke-linecap="round"/>`
@@ -485,8 +655,7 @@ function generateMatchStill(match, homeTeam, awayTeam, momentType) {
       // Sliding tackle: body low and horizontal
       const sy = gy - h * 0.18
       shadow = `<ellipse cx="${x + h * 0.15}" cy="${gy + 2}" rx="${h * 0.45}" ry="${h * 0.04}" fill="rgba(0,0,0,0.3)"/>`
-      head = `<circle cx="${x - h * 0.2}" cy="${sy - headR}" r="${headR}" fill="${skin}"/>`
-      head += `<ellipse cx="${x - h * 0.2}" cy="${sy - headR - headR * 0.2}" rx="${headR * 0.8}" ry="${headR * 0.4}" fill="#1a0e05"/>`
+      head = renderHead(x - h * 0.2, sy - headR, headR, app, -15)
       torso = `<rect x="${x - h * 0.15}" y="${sy}" width="${torsoH}" height="${w * 1.8}" rx="3" fill="${jersey}" transform="rotate(-15 ${x} ${sy})"/>`
       legs = `<line x1="${x + torsoH * 0.2}" y1="${sy + w}" x2="${x + torsoH * 0.2 + legH + 5}" y2="${sy + w + 2}" stroke="${shorts}" stroke-width="${sw}" stroke-linecap="round"/>
               <line x1="${x + torsoH * 0.2}" y1="${sy + w * 0.5}" x2="${x + torsoH * 0.2 + legH}" y2="${sy - 4}" stroke="${shorts}" stroke-width="${sw}" stroke-linecap="round"/>
@@ -506,9 +675,6 @@ function generateMatchStill(match, homeTeam, awayTeam, momentType) {
 
     return `<g>${shadow}${legs}${torso}${arms}${head}</g>`
   }
-
-  const skins = ['#f4c7a0', '#d4a373', '#8d5524', '#c68642', '#e0ac69', '#6b3f22']
-  const rSkin = () => skins[Math.floor(Math.random() * skins.length)]
 
   // Helper: goal posts + net (perspective, viewed from side)
   function goalPost(x, gy, facing) {
@@ -557,7 +723,7 @@ function generateMatchStill(match, homeTeam, awayTeam, momentType) {
 
   // Helper: referee figure (black kit, smaller)
   function referee(x, gy, h) {
-    return person(x, gy, h, '#111', '#111', rSkin(), 'running')
+    return person(x, gy, h, '#111', '#111', rAppearance(), 'running')
   }
 
   // Helper: player name label (floating above figure)
@@ -586,11 +752,11 @@ function generateMatchStill(match, homeTeam, awayTeam, momentType) {
     caption = sn + ' unleashes a powerful shot'
     // Goal in background on the right
     sceneElements += goalPost(520, groundY, 'right')
-    figures += person(200, groundY, 100, hc, hc2, rSkin(), 'kicking')
+    figures += person(200, groundY, 100, hc, hc2, rAppearance(), 'kicking')
     figures += nameLabel(200, groundY, 100, sn)
-    figures += person(440, groundY - 15, 58, ac, ac2, rSkin(), 'diving')   // GK diving
-    figures += person(330, groundY - 5, 72, ac, ac2, rSkin(), 'running')   // defender
-    figures += person(120, groundY + 8, 50, hc, hc2, rSkin(), 'running')   // support
+    figures += person(440, groundY - 15, 58, ac, ac2, rAppearance(), 'diving')   // GK diving
+    figures += person(330, groundY - 5, 72, ac, ac2, rAppearance(), 'running')   // defender
+    figures += person(120, groundY + 8, 50, hc, hc2, rAppearance(), 'running')   // support
     figures += referee(500, groundY + 6, 38)  // ref in background
     ballSvg = ball(270, groundY - 20, 6)
     // Motion blur trail
@@ -604,20 +770,20 @@ function generateMatchStill(match, homeTeam, awayTeam, momentType) {
     caption = scorer + ' celebrates with teammates!'
     // Goal visible in background
     sceneElements += goalPost(540, groundY + 3, 'right')
-    figures += person(280, groundY, 105, cTeam, cTeam2, rSkin(), 'celebrating')
+    figures += person(280, groundY, 105, cTeam, cTeam2, rAppearance(), 'celebrating')
     figures += nameLabel(280, groundY, 105, scorer)
-    figures += person(170, groundY + 5, 78, cTeam, cTeam2, rSkin(), 'running')
-    figures += person(410, groundY + 3, 72, cTeam, cTeam2, rSkin(), 'celebrating')
-    figures += person(80, groundY + 10, 48, cTeam, cTeam2, rSkin(), 'celebrating')
-    figures += person(520, groundY - 8, 40, ac, ac2, rSkin(), 'standing')  // dejected opponent
+    figures += person(170, groundY + 5, 78, cTeam, cTeam2, rAppearance(), 'running')
+    figures += person(410, groundY + 3, 72, cTeam, cTeam2, rAppearance(), 'celebrating')
+    figures += person(80, groundY + 10, 48, cTeam, cTeam2, rAppearance(), 'celebrating')
+    figures += person(520, groundY - 8, 40, ac, ac2, rAppearance(), 'standing')  // dejected opponent
     ballSvg = ball(555, groundY - 2, 5)  // ball in net
   } else if (type === 'tackle') {
     caption = 'Crunching challenge in the midfield'
     sceneElements += cornerFlag(575, groundY - 5)  // corner flag in distance
-    figures += person(240, groundY, 95, hc, hc2, rSkin(), 'running')
-    figures += person(300, groundY, 90, ac, ac2, rSkin(), 'sliding')
-    figures += person(140, groundY + 8, 52, hc, hc2, rSkin(), 'running')
-    figures += person(450, groundY + 5, 48, ac, ac2, rSkin(), 'standing')
+    figures += person(240, groundY, 95, hc, hc2, rAppearance(), 'running')
+    figures += person(300, groundY, 90, ac, ac2, rAppearance(), 'sliding')
+    figures += person(140, groundY + 8, 52, hc, hc2, rAppearance(), 'running')
+    figures += person(450, groundY + 5, 48, ac, ac2, rAppearance(), 'standing')
     figures += referee(480, groundY + 2, 42)  // ref watching
     ballSvg = ball(270, groundY - 8, 6)
     // Grass spray particles and dirt
@@ -633,11 +799,11 @@ function generateMatchStill(match, homeTeam, awayTeam, momentType) {
     caption = 'Spectacular diving save denies ' + (scorerName || 'the striker')
     // Goal behind the goalkeeper
     sceneElements += goalPost(340, groundY, 'right')
-    figures += person(290, groundY, 95, ac, ac2, rSkin(), 'diving')   // GK diving
+    figures += person(290, groundY, 95, ac, ac2, rAppearance(), 'diving')   // GK diving
     figures += nameLabel(290, groundY, 95, awayTeam && awayTeam.players ? awayTeam.players[0].name : 'GK')
-    figures += person(160, groundY + 5, 80, hc, hc2, rSkin(), 'kicking')
-    figures += person(80, groundY + 10, 48, hc, hc2, rSkin(), 'running')
-    figures += person(450, groundY + 5, 40, ac, ac2, rSkin(), 'standing')
+    figures += person(160, groundY + 5, 80, hc, hc2, rAppearance(), 'kicking')
+    figures += person(80, groundY + 10, 48, hc, hc2, rAppearance(), 'running')
+    figures += person(450, groundY + 5, 40, ac, ac2, rAppearance(), 'standing')
     ballSvg = ball(230, groundY - 48, 6)
     // Ball trail + flash
     extraElements = `<ellipse cx="240" cy="${groundY - 46}" rx="14" ry="3.5" fill="rgba(255,255,100,0.1)"/>
@@ -646,23 +812,23 @@ function generateMatchStill(match, homeTeam, awayTeam, momentType) {
     const sn = scorerName || 'The attacker'
     caption = sn + ' rises highest to meet the cross'
     sceneElements += goalPost(530, groundY + 2, 'right')  // goal in distance
-    figures += person(270, groundY, 100, hc, hc2, rSkin(), 'heading')
+    figures += person(270, groundY, 100, hc, hc2, rAppearance(), 'heading')
     figures += nameLabel(270, groundY, 100, sn)
-    figures += person(310, groundY, 92, ac, ac2, rSkin(), 'heading')
-    figures += person(160, groundY + 8, 52, hc, hc2, rSkin(), 'standing')
-    figures += person(450, groundY + 5, 44, ac, ac2, rSkin(), 'running')
+    figures += person(310, groundY, 92, ac, ac2, rAppearance(), 'heading')
+    figures += person(160, groundY + 8, 52, hc, hc2, rAppearance(), 'standing')
+    figures += person(450, groundY + 5, 44, ac, ac2, rAppearance(), 'running')
     figures += referee(110, groundY + 10, 36)
     ballSvg = ball(285, groundY - 100, 6)
   } else { // dribble
     const sn = scorerName || 'The midfielder'
     caption = sn + ' weaves past the defender'
     sceneElements += cornerFlag(18, groundY - 3)  // corner flag near camera
-    figures += person(240, groundY, 98, hc, hc2, rSkin(), 'running')
+    figures += person(240, groundY, 98, hc, hc2, rAppearance(), 'running')
     figures += nameLabel(240, groundY, 98, sn)
-    figures += person(320, groundY + 2, 82, ac, ac2, rSkin(), 'running')
-    figures += person(130, groundY + 8, 50, hc, hc2, rSkin(), 'running')
-    figures += person(460, groundY + 5, 42, ac, ac2, rSkin(), 'standing')
-    figures += person(400, groundY - 3, 50, ac, ac2, rSkin(), 'running')
+    figures += person(320, groundY + 2, 82, ac, ac2, rAppearance(), 'running')
+    figures += person(130, groundY + 8, 50, hc, hc2, rAppearance(), 'running')
+    figures += person(460, groundY + 5, 42, ac, ac2, rAppearance(), 'standing')
+    figures += person(400, groundY - 3, 50, ac, ac2, rAppearance(), 'running')
     ballSvg = ball(258, groundY - 5, 6)
     // Subtle speed lines near dribbler
     extraElements = `<line x1="210" y1="${groundY - 20}" x2="195" y2="${groundY - 18}" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
