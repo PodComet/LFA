@@ -42,8 +42,21 @@ function gaussianRandom(mean, stdDev) {
   return z * stdDev + mean
 }
 
-// Base skill change per season at a given age
-function baseAgeDelta(age) {
+// Base skill change per season at a given age.
+// Goalkeepers follow a distinct arc: development continues into their early
+// thirties, plateau begins at 34, and subsequent decline is slower than outfield.
+function baseAgeDelta(age, position) {
+  if (position === 'GK') {
+    if (age <= 20) return 2.5   // slightly slower early (GK is experience-heavy)
+    if (age <= 23) return 2.0
+    if (age <= 26) return 1.5
+    if (age <= 30) return 1.0   // still improving through late twenties
+    if (age <= 33) return 0.5   // modest gains into early thirties
+    if (age === 34) return 0.0  // plateau begins at 34
+    if (age <= 37) return -0.5  // gentle decline
+    if (age <= 40) return -1.0
+    return -2.0                  // still slower than the outfield -3.5
+  }
   if (age <= 20) return 3.0
   if (age <= 23) return 2.0
   if (age <= 26) return 1.0
@@ -82,7 +95,7 @@ function playerPotential(player) {
 function developPlayer(player, age) {
   if (age === undefined) age = player.age
   const pot = playerPotential(player)
-  const base = baseAgeDelta(age)
+  const base = baseAgeDelta(age, player.position)
   const changes = {}
   let totalDelta = 0
 
@@ -137,13 +150,13 @@ function getSkillsAtAge(player, targetAge) {
 
     if (targetAge < currentAge) {
       for (let a = targetAge; a < currentAge; a++) {
-        const d = baseAgeDelta(a)
+        const d = baseAgeDelta(a, player.position)
         const potFactor = d >= 0 ? pot : (0.5 + pot * 0.5)
         adjustment -= d * (d >= 0 ? profile.dev : profile.dec) * potFactor
       }
     } else if (targetAge > currentAge) {
       for (let a = currentAge; a < targetAge; a++) {
-        const d = baseAgeDelta(a)
+        const d = baseAgeDelta(a, player.position)
         const potFactor = d >= 0 ? pot : (0.5 + pot * 0.5)
         adjustment += d * (d >= 0 ? profile.dev : profile.dec) * potFactor
       }
