@@ -1,5 +1,5 @@
 {
-  "currentSeason": 14,
+  "currentSeason": 15,
   "seasons": [
     {
       "number": 14,
@@ -2524,6 +2524,228 @@
       "matchResults": [],
       "playerSeasonStats": [],
       "coachSeasonStats": [],
+      "awards": null
+    },
+    {
+      "number": 15,
+      "champion": null,
+      "guyKilneTrophy": null,
+      "standings": [
+        {
+          "team": "Concinia Girr",
+          "played": 0,
+          "won": 0,
+          "drawn": 0,
+          "lost": 0,
+          "gf": 0,
+          "ga": 0,
+          "points": 0
+        },
+        {
+          "team": "Puzi Rell",
+          "played": 0,
+          "won": 0,
+          "drawn": 0,
+          "lost": 0,
+          "gf": 0,
+          "ga": 0,
+          "points": 0
+        },
+        {
+          "team": "O Girr",
+          "played": 0,
+          "won": 0,
+          "drawn": 0,
+          "lost": 0,
+          "gf": 0,
+          "ga": 0,
+          "points": 0
+        },
+        {
+          "team": "O Torn",
+          "played": 0,
+          "won": 0,
+          "drawn": 0,
+          "lost": 0,
+          "gf": 0,
+          "ga": 0,
+          "points": 0
+        },
+        {
+          "team": "A C Π Labornis City",
+          "played": 0,
+          "won": 0,
+          "drawn": 0,
+          "lost": 0,
+          "gf": 0,
+          "ga": 0,
+          "points": 0
+        },
+        {
+          "team": "O Labornis City",
+          "played": 0,
+          "won": 0,
+          "drawn": 0,
+          "lost": 0,
+          "gf": 0,
+          "ga": 0,
+          "points": 0
+        },
+        {
+          "team": "Red Digg",
+          "played": 0,
+          "won": 0,
+          "drawn": 0,
+          "lost": 0,
+          "gf": 0,
+          "ga": 0,
+          "points": 0
+        },
+        {
+          "team": "O Rell",
+          "played": 0,
+          "won": 0,
+          "drawn": 0,
+          "lost": 0,
+          "gf": 0,
+          "ga": 0,
+          "points": 0
+        },
+        {
+          "team": "Puzi Rann",
+          "played": 0,
+          "won": 0,
+          "drawn": 0,
+          "lost": 0,
+          "gf": 0,
+          "ga": 0,
+          "points": 0
+        },
+        {
+          "team": "Kvarianus Bogues",
+          "played": 0,
+          "won": 0,
+          "drawn": 0,
+          "lost": 0,
+          "gf": 0,
+          "ga": 0,
+          "points": 0
+        }
+      ],
+      "matchResults": [],
+      "playerSeasonStats": [],
+      "coachSeasonStats": [
+        {
+          "team": "Concinia Girr",
+          "coach": "Jorn",
+          "style": "defensive",
+          "rating": "87",
+          "played": 0,
+          "won": 0,
+          "drawn": 0,
+          "lost": 0,
+          "points": 0
+        },
+        {
+          "team": "Puzi Rell",
+          "coach": "Baud",
+          "style": "possession",
+          "rating": "83",
+          "played": 0,
+          "won": 0,
+          "drawn": 0,
+          "lost": 0,
+          "points": 0
+        },
+        {
+          "team": "O Girr",
+          "coach": "",
+          "style": "balanced",
+          "rating": "50",
+          "played": 0,
+          "won": 0,
+          "drawn": 0,
+          "lost": 0,
+          "points": 0
+        },
+        {
+          "team": "O Torn",
+          "coach": "Banner",
+          "style": "attacking",
+          "rating": "91",
+          "played": 0,
+          "won": 0,
+          "drawn": 0,
+          "lost": 0,
+          "points": 0
+        },
+        {
+          "team": "A C Π Labornis City",
+          "coach": "Don",
+          "style": "defensive",
+          "rating": "91",
+          "played": 0,
+          "won": 0,
+          "drawn": 0,
+          "lost": 0,
+          "points": 0
+        },
+        {
+          "team": "O Labornis City",
+          "coach": "Philipe",
+          "style": "counter-attack",
+          "rating": "98",
+          "played": 0,
+          "won": 0,
+          "drawn": 0,
+          "lost": 0,
+          "points": 0
+        },
+        {
+          "team": "Red Digg",
+          "coach": "Bloshk",
+          "style": "balanced",
+          "rating": "66",
+          "played": 0,
+          "won": 0,
+          "drawn": 0,
+          "lost": 0,
+          "points": 0
+        },
+        {
+          "team": "O Rell",
+          "coach": "Rod",
+          "style": "possession",
+          "rating": "80",
+          "played": 0,
+          "won": 0,
+          "drawn": 0,
+          "lost": 0,
+          "points": 0
+        },
+        {
+          "team": "Puzi Rann",
+          "coach": "Nojiur",
+          "style": "counter-attack",
+          "rating": "88",
+          "played": 0,
+          "won": 0,
+          "drawn": 0,
+          "lost": 0,
+          "points": 0
+        },
+        {
+          "team": "Kvarianus Bogues",
+          "coach": "Lindgren",
+          "style": "counter-attack",
+          "rating": "78",
+          "played": 0,
+          "won": 0,
+          "drawn": 0,
+          "lost": 0,
+          "points": 0
+        }
+      ],
       "awards": null
     }
   ]
