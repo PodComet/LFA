@@ -2894,7 +2894,12 @@ http.createServer(async (req, res) => {
     const season = history.seasons.find(s => s.number === seasonNum)
     if (!season) return jsonRes(res, { error: 'Season not found' }, 404)
     // Return league teams data for the requested season
-    return jsonRes(res, { season: seasonNum, teams: league.teams, currentSeason: history.currentSeason })
+    return jsonRes(res, {
+      season: seasonNum,
+      teams: league.teams,
+      nonLfaTeams: Array.isArray(league.nonLfaTeams) ? league.nonLfaTeams : [],
+      currentSeason: history.currentSeason
+    })
   }
 
   // --- Season Editor: save changes ---
@@ -3337,6 +3342,40 @@ http.createServer(async (req, res) => {
     const pIdx = src.players.findIndex(p => p.name === playerName)
     if (pIdx === -1) return jsonRes(res, { error: 'Player not found on team' }, 404)
 
+    // --- Non-LFA: move to a non-LFA team roster, NOT to Hall of Fame ---
+    if (status === 'non-lfa') {
+      const rawName = typeof body.toNonLfaTeam === 'string' ? body.toNonLfaTeam.trim() : ''
+      if (!rawName) return jsonRes(res, { error: 'Missing toNonLfaTeam: provide an existing non-LFA team name or a new one' }, 400)
+      // Reject collision with LFA team names
+      if (league.teams.find(t => t.name.toLowerCase() === rawName.toLowerCase())) {
+        return jsonRes(res, { error: 'A team in the LFA already has that name' }, 400)
+      }
+      const player = src.players.splice(pIdx, 1)[0]
+
+      if (!Array.isArray(league.nonLfaTeams)) league.nonLfaTeams = []
+      let nlt = league.nonLfaTeams.find(t => t.name.toLowerCase() === rawName.toLowerCase())
+      let created = false
+      if (!nlt) {
+        nlt = { name: rawName, createdSeason: history.currentSeason, players: [] }
+        league.nonLfaTeams.push(nlt)
+        created = true
+      }
+      if (!Array.isArray(nlt.players)) nlt.players = []
+
+      // Stamp move metadata onto the player (non-destructive to player fields)
+      const moved = Object.assign({}, player, {
+        previousLfaTeam: fromTeam,
+        leftLfaSeason: history.currentSeason
+      })
+      nlt.players.push(moved)
+
+      recalcTeamRating(src)
+      writeJSON('league.json', league)
+      rebuildSite()
+      return jsonRes(res, { success: true, player: moved, nonLfaTeam: { name: nlt.name, created, roster: nlt.players.length } })
+    }
+
+    // --- Retired / abroad: Hall of Fame path ---
     const player = src.players.splice(pIdx, 1)[0]
 
     // Gather achievements from history

@@ -2864,12 +2864,13 @@ async function renderSeasonEditor(main, seasonNum) {
   seasonNum = parseInt(seasonNum, 10) || HISTORY.currentSeason
   main.innerHTML = '<div class="loading">Loading season data...</div>'
 
-  let teams
+  let teams, nonLfaTeams
   try {
     const resp = await fetch('/api/season-editor/' + seasonNum)
     const data = await resp.json()
     if (data.error) { main.innerHTML = '<div class="empty-state">' + data.error + '</div>'; return }
     teams = data.teams
+    nonLfaTeams = Array.isArray(data.nonLfaTeams) ? data.nonLfaTeams : []
   } catch(e) { main.innerHTML = '<div class="empty-state">Failed to load: ' + e.message + '</div>'; return }
 
   main.innerHTML = ''
@@ -2879,7 +2880,7 @@ async function renderSeasonEditor(main, seasonNum) {
 
   const container = h('div','se-container')
   const statusEl = h('div','se-status')
-  const editorState = { teams: JSON.parse(JSON.stringify(teams)) }
+  const editorState = { teams: JSON.parse(JSON.stringify(teams)), nonLfaTeams: JSON.parse(JSON.stringify(nonLfaTeams || [])) }
 
   for (let ti = 0; ti < editorState.teams.length; ti++) {
     const team = editorState.teams[ti]
@@ -3054,12 +3055,36 @@ function seTransfer(ti, pi) {
       '<div class="se-trade-opt selected" data-mode="team"><div class="trade-icon">\\u21C4</div><div><div class="trade-lbl">Transfer to LFA Team</div><div class="trade-desc">Move to another team in the league</div></div></div>' +
       '<div class="se-trade-opt" data-mode="retired"><div class="trade-icon">\\u{1F534}</div><div><div class="trade-lbl">Retire</div><div class="trade-desc">Player retires \\u2014 added to Hall of Fame</div></div></div>' +
       '<div class="se-trade-opt" data-mode="abroad"><div class="trade-icon">\\u{1F30D}</div><div><div class="trade-lbl">Playing Abroad</div><div class="trade-desc">Player leaves but continues developing \\u2014 can be recalled later</div></div></div>' +
-      '<div class="se-trade-opt" data-mode="non-lfa"><div class="trade-icon">\\u{1F7E1}</div><div><div class="trade-lbl">Non-LFA Team</div><div class="trade-desc">Transferred to a team outside the LFA</div></div></div>' +
+      '<div class="se-trade-opt" data-mode="non-lfa"><div class="trade-icon">\\u{1F7E1}</div><div><div class="trade-lbl">Non-LFA Team</div><div class="trade-desc">Move to a team outside the LFA \\u2014 may join the league later</div></div></div>' +
     '</div>' +
     '<div id="se-transfer-details"><label style="font-size:12px;color:var(--text2);display:block;margin-bottom:4px">Transfer to:</label><select class="se-select" id="se-transfer-target">' + optHTML + '</select></div>' +
     '<div style="display:flex;gap:8px;justify-content:flex-end;margin-top:16px"><button class="se-btn primary" id="se-transfer-confirm">Confirm</button><button class="se-btn" style="background:var(--card2);color:var(--text)" id="se-transfer-cancel">Cancel</button></div></div>'
 
   document.body.appendChild(modal)
+
+  // Helper: render non-LFA picker (existing teams + create-new option)
+  function renderNonLfaPicker(details) {
+    const nlList = (state.nonLfaTeams || [])
+    let nlOpts = ''
+    for (const nlt of nlList) {
+      const count = (nlt.players && nlt.players.length) ? ' (' + nlt.players.length + ')' : ''
+      nlOpts += '<option value="' + escAttr(nlt.name) + '">' + escAttr(nlt.name) + count + '</option>'
+    }
+    nlOpts += '<option value="__NEW__">+ Create new non-LFA team\\u2026</option>'
+    details.innerHTML =
+      '<label style="font-size:12px;color:var(--text2);display:block;margin-bottom:4px">Non-LFA team:</label>' +
+      '<select class="se-select" id="se-nonlfa-target">' + nlOpts + '</select>' +
+      '<div id="se-nonlfa-new-wrap" style="display:none;margin-top:8px">' +
+        '<label style="font-size:12px;color:var(--text2);display:block;margin-bottom:4px">New team name:</label>' +
+        '<input class="se-input lg" id="se-nonlfa-new" placeholder="e.g., FC Outsider" maxlength="60">' +
+      '</div>' +
+      '<div style="font-size:12px;color:var(--text2);padding:10px;background:rgba(255,255,255,.03);border-radius:8px;margin-top:10px">Player moves to a non-LFA team and is placed on its roster. Not added to the Hall of Fame. A non-LFA team can later be promoted into the LFA.</div>'
+    const sel = document.getElementById('se-nonlfa-target')
+    const wrap = document.getElementById('se-nonlfa-new-wrap')
+    function sync() { wrap.style.display = (sel.value === '__NEW__') ? '' : 'none' }
+    sel.onchange = sync
+    if (!nlList.length) { sel.value = '__NEW__'; sync() }
+  }
 
   // Mode selection
   modal.querySelectorAll('.se-trade-opt').forEach(opt => {
@@ -3070,8 +3095,10 @@ function seTransfer(ti, pi) {
       const details = document.getElementById('se-transfer-details')
       if (selectedMode === 'team') {
         details.innerHTML = '<label style="font-size:12px;color:var(--text2);display:block;margin-bottom:4px">Transfer to:</label><select class="se-select" id="se-transfer-target">' + optHTML + '</select>'
+      } else if (selectedMode === 'non-lfa') {
+        renderNonLfaPicker(details)
       } else {
-        const labels = { retired: 'Player will be added to the Hall of Fame as retired.', abroad: 'Player will continue aging and developing. Can be recalled to any LFA team later.', 'non-lfa': 'Player moves to a team outside the LFA and is added to the Hall of Fame.' }
+        const labels = { retired: 'Player will be added to the Hall of Fame as retired.', abroad: 'Player will continue aging and developing. Can be recalled to any LFA team later.' }
         details.innerHTML = '<div style="font-size:12px;color:var(--text2);padding:10px;background:rgba(255,255,255,.03);border-radius:8px">' + labels[selectedMode] + '</div>'
       }
     }
@@ -3086,6 +3113,23 @@ function seTransfer(ti, pi) {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ playerName: player.name, fromTeam: team._originalName, toTeam: state.teams[targetIdx]._originalName })
+        })
+        const data = await resp.json()
+        if (data.success) { modal.remove(); go('edit-season/' + window._seSeasonNum) }
+        else alert('Error: ' + (data.error || 'Unknown'))
+      } else if (selectedMode === 'non-lfa') {
+        const sel = document.getElementById('se-nonlfa-target')
+        if (!sel) { alert('Please choose or create a non-LFA team.'); return }
+        let toName = sel.value
+        if (toName === '__NEW__') {
+          const inp = document.getElementById('se-nonlfa-new')
+          toName = (inp && inp.value || '').trim()
+          if (!toName) { alert('Please enter a name for the new non-LFA team.'); if (inp) inp.focus(); return }
+        }
+        const resp = await fetch('/api/trade-player-away', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ playerName: player.name, fromTeam: team._originalName, status: 'non-lfa', toNonLfaTeam: toName })
         })
         const data = await resp.json()
         if (data.success) { modal.remove(); go('edit-season/' + window._seSeasonNum) }
