@@ -3181,17 +3181,28 @@ function seTradeCoach(ti) {
   const team = state.teams[ti]
   if (!team.coach) { alert('This team has no coach.'); return }
 
+  // Build options for transfer-to-LFA-team (other teams, noting those that already have a coach)
+  let teamOptHTML = ''
+  for (let i = 0; i < state.teams.length; i++) {
+    if (i === ti) continue
+    const t = state.teams[i]
+    const hasCoach = !!t.coach
+    const suffix = hasCoach ? ' \\u2014 has coach (' + escAttr(t.coach.name) + ')' : ''
+    teamOptHTML += '<option value="' + i + '"' + (hasCoach ? ' disabled' : '') + '>' + escAttr(t.name) + suffix + '</option>'
+  }
+
   const modal = h('div','se-transfer-modal')
-  let selectedMode = 'retired'
+  let selectedMode = 'team'
 
   modal.innerHTML = '<div class="se-transfer-box"><h3>\\u21C4 Trade Coach ' + escAttr(team.coach.name) + '</h3>' +
     '<div style="margin-bottom:12px;font-size:13px;color:var(--text2)">From: ' + escAttr(team.name) + ' \\u2022 ' + team.coach.style + ' \\u2022 Rtg ' + team.coach.rating + '</div>' +
     '<div class="se-trade-options">' +
-      '<div class="se-trade-opt selected" data-mode="retired"><div class="trade-icon">\\u{1F534}</div><div><div class="trade-lbl">Retire</div><div class="trade-desc">Coach retires \\u2014 added to Hall of Fame</div></div></div>' +
+      '<div class="se-trade-opt selected" data-mode="team"><div class="trade-icon">\\u21C4</div><div><div class="trade-lbl">Transfer to LFA Team</div><div class="trade-desc">Move to another team in the league</div></div></div>' +
+      '<div class="se-trade-opt" data-mode="retired"><div class="trade-icon">\\u{1F534}</div><div><div class="trade-lbl">Retire</div><div class="trade-desc">Coach retires \\u2014 added to Hall of Fame</div></div></div>' +
       '<div class="se-trade-opt" data-mode="abroad"><div class="trade-icon">\\u{1F30D}</div><div><div class="trade-lbl">Coaching Abroad</div><div class="trade-desc">Coach leaves but can be recalled later</div></div></div>' +
       '<div class="se-trade-opt" data-mode="non-lfa"><div class="trade-icon">\\u{1F7E1}</div><div><div class="trade-lbl">Non-LFA</div><div class="trade-desc">Moved to a team outside the LFA</div></div></div>' +
     '</div>' +
-    '<div id="se-coach-trade-info" style="font-size:12px;color:var(--text2);padding:10px;background:rgba(255,255,255,.03);border-radius:8px">Coach will be added to the Hall of Fame as retired.</div>' +
+    '<div id="se-coach-trade-details"><label style="font-size:12px;color:var(--text2);display:block;margin-bottom:4px">Transfer to:</label><select class="se-select" id="se-coach-transfer-target">' + teamOptHTML + '</select><div style="font-size:11px;color:var(--text2);margin-top:6px">Teams that already have a coach are disabled. Trade away the existing coach first to free the seat.</div></div>' +
     '<div style="display:flex;gap:8px;justify-content:flex-end;margin-top:16px"><button class="se-btn primary" id="se-coach-trade-confirm">Confirm</button><button class="se-btn" style="background:var(--card2);color:var(--text)" id="se-coach-trade-cancel">Cancel</button></div></div>'
 
   document.body.appendChild(modal)
@@ -3201,22 +3212,41 @@ function seTradeCoach(ti) {
       modal.querySelectorAll('.se-trade-opt').forEach(o => o.classList.remove('selected'))
       opt.classList.add('selected')
       selectedMode = opt.dataset.mode
-      const labels = { retired: 'Coach will be added to the Hall of Fame as retired.', abroad: 'Coach will continue aging. Can be recalled to any LFA team later.', 'non-lfa': 'Coach moves outside the LFA and is added to the Hall of Fame.' }
-      document.getElementById('se-coach-trade-info').textContent = labels[selectedMode]
+      const details = document.getElementById('se-coach-trade-details')
+      if (selectedMode === 'team') {
+        details.innerHTML = '<label style="font-size:12px;color:var(--text2);display:block;margin-bottom:4px">Transfer to:</label><select class="se-select" id="se-coach-transfer-target">' + teamOptHTML + '</select><div style="font-size:11px;color:var(--text2);margin-top:6px">Teams that already have a coach are disabled. Trade away the existing coach first to free the seat.</div>'
+      } else {
+        const labels = { retired: 'Coach will be added to the Hall of Fame as retired.', abroad: 'Coach will continue aging. Can be recalled to any LFA team later.', 'non-lfa': 'Coach moves outside the LFA and is added to the Hall of Fame.' }
+        details.innerHTML = '<div style="font-size:12px;color:var(--text2);padding:10px;background:rgba(255,255,255,.03);border-radius:8px">' + labels[selectedMode] + '</div>'
+      }
     }
   })
 
   document.getElementById('se-coach-trade-cancel').onclick = () => modal.remove()
   document.getElementById('se-coach-trade-confirm').onclick = async () => {
     try {
-      const resp = await fetch('/api/trade-coach-away', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ teamName: team._originalName, status: selectedMode })
-      })
-      const data = await resp.json()
-      if (data.success) { modal.remove(); go('edit-season/' + window._seSeasonNum) }
-      else alert('Error: ' + (data.error || 'Unknown'))
+      if (selectedMode === 'team') {
+        const sel = document.getElementById('se-coach-transfer-target')
+        if (!sel || sel.value === '') { alert('No eligible destination team. Every other team already has a coach.'); return }
+        const targetIdx = parseInt(sel.value, 10)
+        const resp = await fetch('/api/transfer-coach', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ fromTeam: team._originalName, toTeam: state.teams[targetIdx]._originalName })
+        })
+        const data = await resp.json()
+        if (data.success) { modal.remove(); go('edit-season/' + window._seSeasonNum) }
+        else alert('Error: ' + (data.error || 'Unknown'))
+      } else {
+        const resp = await fetch('/api/trade-coach-away', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ teamName: team._originalName, status: selectedMode })
+        })
+        const data = await resp.json()
+        if (data.success) { modal.remove(); go('edit-season/' + window._seSeasonNum) }
+        else alert('Error: ' + (data.error || 'Unknown'))
+      }
     } catch(e) { alert('Error: ' + e.message) }
   }
 }

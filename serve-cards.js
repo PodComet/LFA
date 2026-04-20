@@ -3470,6 +3470,29 @@ http.createServer(async (req, res) => {
     return jsonRes(res, { success: true, player: newPlayer })
   }
 
+  // --- Transfer coach between LFA teams ---
+  if (pathname === '/api/transfer-coach' && req.method === 'POST') {
+    const body = await parseBody(req)
+    const { fromTeam, toTeam } = body
+    if (!fromTeam || !toTeam) return jsonRes(res, { error: 'Missing fromTeam or toTeam' }, 400)
+    if (fromTeam === toTeam) return jsonRes(res, { error: 'Source and destination teams are the same' }, 400)
+
+    const league = readJSON('league.json')
+    const src = league.teams.find(t => t.name === fromTeam)
+    const dst = league.teams.find(t => t.name === toTeam)
+    if (!src) return jsonRes(res, { error: 'Source team not found' }, 404)
+    if (!dst) return jsonRes(res, { error: 'Destination team not found' }, 404)
+    if (!src.coach) return jsonRes(res, { error: 'Source team has no coach' }, 400)
+    if (dst.coach) return jsonRes(res, { error: 'Destination team already has a coach. Trade them away first.' }, 400)
+
+    dst.coach = src.coach
+    src.coach = null
+
+    writeJSON('league.json', league)
+    rebuildSite()
+    return jsonRes(res, { success: true, coach: dst.coach.name, from: fromTeam, to: toTeam })
+  }
+
   // --- Trade coach away (retire / abroad / non-LFA) ---
   if (pathname === '/api/trade-coach-away' && req.method === 'POST') {
     const body = await parseBody(req)
